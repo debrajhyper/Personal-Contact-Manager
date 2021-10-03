@@ -15,7 +15,6 @@ const PrivateBase = () => {
         <div className="private_base">
             <PublicNavbar slidebar={show} handleSlidebar={handleSlidebar}/>
             <SlideBar slidebar={show}/>
-            <h1>hi</h1>
         </div>
     )
 }
