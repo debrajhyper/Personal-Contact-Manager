@@ -1,0 +1,37 @@
+$mobile : 576px;    //Mobile devices -> 320px - 480px
+$tablet : 992px;    //iPads, Tablets -> 768px - 992px
+$laptop : 1024px;   //small screen -> 992px - 1024px
+$laptop-l : 1600px;   //laptops, Desktops -> 1200px - 1600px
+$tv : 1824px;   //Extra large screens, TV -> 1824px - 
+
+
+html {
+    font-size: 75%;
+}
+
+
+@media screen and (max-width: $mobile) {
+    html {
+        font-size: 55%!important;
+    }
+    .signup_image img.reg_left {
+        display: none;
+    }
+}
+
+
+
+@media screen and (max-width: $tablet) {
+    html {
+        font-size: 60%;
+    }
+}
+
+
+
+
+@media screen and (min-width: $tv) {
+    html {
+        font-size: 90%;
+    }
+}

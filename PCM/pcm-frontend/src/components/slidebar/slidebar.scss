@@ -1,0 +1,164 @@
+@import '../../sass//variables.scss';
+
+.content-wrapper {
+	position: relative;
+	.sidebar {
+		height: 100%;
+		width: 4%;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-start;
+		padding-top: 5em;
+		background: $base;
+		font-size: 1.2rem;
+		font-weight: 600;
+		letter-spacing: 1px;
+		transition: all 0.2s ease-in-out;
+		.nav {
+			margin-top: 1em;
+			position: relative;
+			.nav-link {
+				position: relative;
+				display: block;
+				height: 3em;
+				width: 100%;
+				padding: .6em 1em;
+				margin: 0 0 .5em;
+				text-decoration: none;
+				color: $white-light;
+				overflow: hidden;
+				svg {
+					text-align: center;
+					transition: all 0.1s ease-in-out;
+				}
+				span {
+					margin-left: 15px;
+					white-space: nowrap;
+					width: 0;
+					display: none;
+					opacity: 0;
+					overflow: hidden;
+				}
+
+				&:hover {
+					background: hsla(0,0%,100%,.3);
+					color: $white;
+				}
+			}
+			.nav-link.active {
+				color: $white;
+			}
+		}
+
+		footer {
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+			background: $base-dark;
+			color: $white-light;
+			width: 100%;
+			padding: 15px;
+			img {
+				position: relative;
+				right: 0;
+				height: 2.5em;
+				margin-right: 10px;
+				visibility: hidden;
+				opacity: 0;
+				transition: all 0.2s ease-in-out;
+			}
+			.user-details {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				color: $white-light;
+				font-size: 1.2rem;
+				font-weight: 600;
+				cursor: pointer;
+				span {
+					margin: 0 10px;
+					visibility: hidden;
+					opacity: 0;
+					transition: visibility, opacity 0.2s ease-in-out;
+				}
+				svg {
+					transition: visibility, opacity 0.2s ease-in-out;
+				}
+				&:hover {
+					color: $white;
+				}
+			}
+		}
+
+		&:hover {
+			width: 13%;
+			transition: all 0.2s ease-in-out;
+			.nav-link {
+				svg {
+					height: 24px;
+					width: 24px;
+				}
+				span {
+					position: absolute;
+					display: inline-block;
+					width: 100%;
+					height: 100%;
+					opacity: 1;
+					transition: opacity 0.2s ease-in;
+				}
+			}
+			footer {
+				img {
+					visibility: visible;
+					opacity: 1;
+				}
+				span {
+					visibility: visible;
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+
+	.sidebar.show {
+		width: 13%;
+		transition: all 0.2s ease-in-out;
+		.nav-link {
+			span {
+				position: absolute;
+				display: inline-block;
+				width: 100%;
+				opacity: 1;
+				transition: opacity 0.2s ease-in;
+			}
+		}
+		footer {
+			img {
+				visibility: visible;
+				opacity: 1;
+			}
+			span {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+	}
+}
+
+
+.sidebar-intersect {
+    position: absolute;
+    background: url("/img/pcm_sidebar_intersect.svg") left top no-repeat;
+    background-size: cover;
+    background-color: transparent;
+    width: 50px;
+    height: 50px;
+    left: 92%;
+    top: -3.76%;
+    z-index: 0;
+}

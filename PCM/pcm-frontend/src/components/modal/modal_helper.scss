@@ -1,0 +1,31 @@
+@import '../../sass/variables.scss';
+
+.modal-dialog{
+    .modal-content {
+        position: relative;
+        font-size: 1.3rem;
+        .modal-header {
+            position: absolute;
+            right: 0;
+            border-bottom: 0;
+        }
+        .modal-body {
+            padding-bottom: 3em;
+            img {
+                width: 40%;
+            }
+            .modal-title {
+                padding: 0 0 .4em 0;
+                font-size: 2.2rem;
+            }
+        }
+    }
+}
+
+#modal-success {
+    color: $model-success;
+}
+
+#modal-error {
+    color: $model-error;
+}

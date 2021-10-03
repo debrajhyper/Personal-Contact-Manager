@@ -1,0 +1,151 @@
+@import '../../sass/variables.scss';
+
+
+
+.form-input {
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 1.8em 0;
+
+    .field {
+        position: relative;
+        top: 0;
+        left: 0;
+        color: $input;
+        font-size: 18px;
+        input {
+            position: relative;
+            width: 100%;
+            display: block;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            border-bottom: 1.5px solid $input;
+            box-sizing: border-box;
+            padding: .1em .2em;
+            font-size: 16px;
+            line-height: 0;
+            z-index: 1;
+            cursor: text;
+        }
+        input:focus {
+            border-bottom: 2px solid $base;
+            outline: 0;
+            box-shadow: none !important;
+        }
+        input.hasError {
+            border-bottom: 2px solid $input-error;
+        }
+        input.noError {
+            border-bottom: 2px solid $input-ok;
+        }
+        label {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            transform: translateY(-100%);
+            transition: .25s ease;
+        }
+        input:focus+.form-label,
+        input:not(:placeholder-shown)+.form-label,
+        input:valid+.form-label {
+            top: 0%;
+            font-size: 12px;
+            color: $base;
+        }
+    }
+
+    .error_form {
+        position: absolute;
+        left: 0;
+        color: $input-error;
+        font-weight: 400;
+        font-size: 12px;
+        transition: all .8s;
+    }
+}
+
+
+.form-input-textarea {
+    padding: .8em 0;
+    font-size: 14px;
+    textarea.form-control {
+        font-size: 16px;
+    }
+}
+
+
+.form-input-agreement {
+    position: relative;
+    font-size: 13px;
+    padding: 10px 0;
+    .form-input-line {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        input[type=checkbox] {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        input[type=checkbox]:focus {
+            box-shadow: 0 0 0 0.25rem transparent;
+        }
+        input[type=checkbox]:checked {
+            background-color: $base;
+            border-color: $base;
+        }
+    }
+    #agreement_error_message {
+        position: absolute;
+        left: 0;
+        padding-left: 20px;
+        margin: 0;
+        color: $input-error;
+        font-weight: 400;
+        font-size: 12px;
+        transition: all .8s;
+    }
+}
+
+
+.action_button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 2em;
+    .btn {
+        display: inline-block;
+        background: $base;
+        color: $white;
+        width: auto;
+        margin-right: 30px;
+        padding: .5em 1em;
+        border: 2px solid $base;
+        border-radius: 5px;
+        outline: none;
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        cursor: pointer;
+        &:focus {
+            box-shadow: 0 0 0 0.25rem transparent;
+        }
+        &:hover {
+            background: $base-dark;
+            border: 2px solid $base-dark;
+            color: $white;
+        }
+    }
+    .btn.form_reset {
+        background: transparent;
+        color: $base;
+        border: 2px solid $base;
+        &:hover {
+            background: $base-dark;
+            color: $white;
+            border: 2px solid $base-dark;
+        }
+    }
+}

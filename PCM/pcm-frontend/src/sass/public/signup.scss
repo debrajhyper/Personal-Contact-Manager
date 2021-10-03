@@ -1,0 +1,83 @@
+@import '../variables.scss';
+@import '../responsive.scss';
+
+section.signup {
+    padding: 3% 20%;
+    .form-container {
+        background: $white;
+        margin: auto;
+        box-shadow: 0 15px 16.83px .17px rgba(0, 0, 0, .05);
+        border-radius: 10px;
+    
+        .signup-content {
+            padding: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+            .signup-form{
+                overflow: hidden;
+                .container {
+                    padding: 0;
+                    img.header_img {
+                        width: 5em;
+                        max-width: 100%;
+                        height: auto;
+                        margin-right: .5em;
+                    }
+                    h2.form-title {
+                        height: fit-content;
+                        margin: 0;
+                        font-weight: 700;
+                        color: $text;
+                        font-size: 2.7rem;
+                    }
+                }
+
+                .alert-user-already-exists {
+                    margin-top: 15px;
+                    padding: 6px;
+                    font-size: 15px;
+                    text-align: center;
+                }
+
+                form.register-form {
+                    padding: 1em .5em 0;
+                }
+            }
+    
+            .signup_image {
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                img.reg_left {
+                    width: 60%;
+                    max-width: 100%;
+                    height: auto;
+
+                    @media screen and (max-width: $mobile) {
+                        display: none;
+                    }
+                }
+                .signup-image-link {
+                    margin-top: 20px;
+                    font-size: 1.4rem;
+                    color: $text;
+                }
+            }
+    
+        }
+        
+    }
+    @media  screen and (max-width: $laptop) {
+        padding: 5% 15%;
+    }
+    @media  screen and (max-width: $tablet) {
+        padding: 5% 8%;
+    }
+    @media  screen and (max-width: $mobile) {
+        padding: 5% 5%;
+    }
+}
