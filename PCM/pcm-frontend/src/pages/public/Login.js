@@ -16,6 +16,8 @@ import { Container, Row, Col, Form, Alert } from 'react-bootstrap'
 import LoginServices from '../../services/LoginServices';
 import AuthServices from '../../services/AuthServices';
 
+const validate = loginValidate;
+
 const Login = () => {
     const [alert, setAlert] = useState("")
 
@@ -24,7 +26,7 @@ const Login = () => {
             username: "",
             password: ""
         },
-        loginValidate,
+        validate,
         onSubmit: values => {
             //console.log(values);
             setAlert("");

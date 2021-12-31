@@ -18,6 +18,7 @@ const FormEmail = (props) => {
                         onBlur={props.functionBlur} 
                         className={props.hasTouched && props.hasError ? 'hasError' : (props.email !== "" ? 'noError' : '')}
                         placeholder=" "
+                        validate={props.validate}
                     required/>
                     <Form.Label><FaAt className="me-2"/>Your Email</Form.Label>
                 </div>

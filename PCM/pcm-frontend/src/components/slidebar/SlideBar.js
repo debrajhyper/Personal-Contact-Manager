@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { Nav } from 'react-bootstrap'
 import profileImage from "../../img/default.png";
@@ -6,9 +6,7 @@ import profileImage from "../../img/default.png";
 import './slidebar.scss'
 
 import { FaUserCircle, FaAddressBook, FaIdBadge, FaAddressCard, FaUserCog, FaSignOutAlt } from "react-icons/fa";
-import { Image, div } from 'react-bootstrap';
-
-import AuthServices from '../../services/AuthServices';
+import { Image } from 'react-bootstrap';
 
     const icoMin = 24;
     const icoMax= 28;
@@ -31,7 +29,7 @@ const SlideBar = (props) => {
                     <Image src={profileImage} alt="profile_img"/>
                     <Link to={"/logout"} className="user-details">
                         <span>Logout</span>
-                        <FaSignOutAlt size={28} title="Logout"/>
+                        <FaSignOutAlt size={24} title="Logout"/>
                     </Link>
                 </footer>
             </div>

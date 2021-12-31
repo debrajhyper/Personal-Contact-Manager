@@ -17,7 +17,7 @@ const FormAgrement = (props) => {
                         style={{display:"inline-block"}}
                         aria-label="option 1"
                     required/>
-                    <Form.Label className="label-agree-term m-0">I agree all statements in <Link to="/terms_conditions" className="term-service text-decoration-underline">Terms and Conditions.</Link></Form.Label>
+                    <Form.Label className="label-agree-term m-0">I agree all statements in <Link to="/terms-conditions" className="term-service text-decoration-underline">Terms and Conditions.</Link></Form.Label>
                 </div>
                 {props.hasTouched && props.hasError && 
                     <Form.Text className="e_msg error_form" id="agreement_error_message">

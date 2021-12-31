@@ -1,6 +1,6 @@
 export const signupValidate = values => {
     const errors = {};
-    let email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
     if (!values.name) {
         errors.name = "Please Provide Your Name";
@@ -34,7 +34,7 @@ export const signupValidate = values => {
 
 export const loginValidate = values => {
     const errors = {};
-    let email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
     if (!values.username) {
         errors.username = "Please Provide your Email Address";

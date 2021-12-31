@@ -22,11 +22,11 @@ class LoginServices {
     // isLogged in : user is logged in or not
     isLoggedIn() {
         let tokenStr = localStorage.getItem('token');
-
-        if(tokenStr !== undefined || tokenStr !== '' || tokenStr !== null) {
-            return true;
-        } else {
+        
+        if(tokenStr === undefined || tokenStr === '' || tokenStr === null) {
             return false;
+        } else {
+            return true;
         }
     }
 

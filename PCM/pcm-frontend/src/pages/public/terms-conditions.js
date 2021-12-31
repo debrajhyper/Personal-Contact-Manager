@@ -2,7 +2,7 @@ import React from "react";
 
 import "../../sass/public/terms_conditions.scss";
 
-const terms_conditions = () => {
+const termsConditions = () => {
     return (
     <div className="term_cond public_pages">
         <div data-custom-class="body">
@@ -6209,4 +6209,4 @@ const terms_conditions = () => {
     );
 };
 
-export default terms_conditions;
+export default termsConditions;

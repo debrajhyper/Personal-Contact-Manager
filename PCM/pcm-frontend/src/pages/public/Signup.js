@@ -21,6 +21,8 @@ import { Container, Image, Form, Row, Col, Alert } from 'react-bootstrap'
 import RegisterServices from '../../services/RegisterServices';
 
 
+const validate = signupValidate;
+
 const Signup = () => {
     const [message, setMessage] = useState({
         msg: "",
@@ -38,9 +40,9 @@ const Signup = () => {
             about: "",
             agreement: false
         },
-        signupValidate,
+        validate,
         onSubmit: values => {
-            //console.log(values)
+            // console.log(values)
             setMessage({
                 msg: "",
                 msgContent: "",
