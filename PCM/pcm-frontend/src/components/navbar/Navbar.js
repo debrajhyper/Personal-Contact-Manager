@@ -10,7 +10,7 @@ import { FaAddressCard, FaSignInAlt, FaUserPlus } from "react-icons/fa";
 import { Navbar, Container, Nav, Image } from 'react-bootstrap';
 
 import LoginServices from "../../services/LoginServices";
-import AuthServices from '../../services/AuthServices';
+// import AuthServices from '../../services/AuthServices';
 
 
 const PublicNavbar = ({ slidebar, handleSlidebar }) => {
