@@ -1,22 +1,17 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 
-import guest_signup_register from '../../img/guest_signup_register.png'
-import guest_signup_register_left from '../../img/guest_signup_register_left.png'
-import FormName from '../../components/form-fields/FormName'
-import FormEmail from '../../components/form-fields/FormEmail'
-import FormPassword from '../../components/form-fields/FormPassword'
-import FormTextarea from '../../components/form-fields/FormTextarea'
-import FormAgrement from '../../components/form-fields/FormAgrement'
-import SignupButtons from '../../components/Buttons/SignupButtons'
-import { signupValidate } from '../../components/form-fields/validationMsg'
-import ModalHelper from '../../components/modal/ModalHelper'
+import guest_signup_register from '../../img/guest_signup_register.png';
+import guest_signup_register_left from '../../img/guest_signup_register_left.png';
+
+import { FormName, FormEmail, FormPassword, FormTextarea, FormAgrement, SignupButtons, ModalHelper } from '../../components';
+import { signupValidate } from '../../components/form-fields/validationMsg';
 
 import '../../sass/public/signup.scss';
 import '../../components/form-fields/form_fields.scss';
 
-import { Container, Image, Form, Row, Col, Alert } from 'react-bootstrap'
+import { Container, Image, Form, Row, Col, Alert } from 'react-bootstrap';
 
 import RegisterServices from '../../services/RegisterServices';
 

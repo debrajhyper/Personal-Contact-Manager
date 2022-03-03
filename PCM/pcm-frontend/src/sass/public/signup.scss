@@ -2,7 +2,7 @@
 @import '../responsive.scss';
 
 section.signup {
-    padding: 3% 20%;
+    padding: 2.5% 23%;
     .form-container {
         background: $white;
         margin: auto;
@@ -72,12 +72,12 @@ section.signup {
         
     }
     @media  screen and (max-width: $laptop) {
-        padding: 5% 15%;
+        padding: 5% 15% 15%;
     }
     @media  screen and (max-width: $tablet) {
-        padding: 5% 8%;
+        padding: 5% 8% 10%;
     }
     @media  screen and (max-width: $mobile) {
-        padding: 5% 5%;
+        padding: 5% 5% 20%;
     }
 }

@@ -6074,7 +6074,7 @@ const termsConditions = () => {
                         </strong>
                     </span>
                     </div>
-                    <div
+                    {/* <div
                     className="MsoNormal"
                     data-custom-class="body_text"
                     style={{ lineHeight: "1.5" }}
@@ -6088,7 +6088,7 @@ const termsConditions = () => {
                         </span>
                         </strong>
                     </span>
-                    </div>
+                    </div> */}
                     <div
                     className="MsoNormal"
                     data-custom-class="body_text"
@@ -6097,7 +6097,7 @@ const termsConditions = () => {
                     <span style={{ color: "rgb(89, 89, 89)" }}>
                         <strong>
                         <span style={{ fontSize: "15px" }}>
-                            <bdt className="question">kandi</bdt>
+                            <bdt className="question">kolkata</bdt>
                             <bdt className="block-component" />,{" "}
                             <bdt className="question">West Bengal</bdt>
                         </span>
@@ -6113,7 +6113,7 @@ const termsConditions = () => {
                         </span>
                         </strong>
                     </span>{" "}
-                    <span style={{ color: "rgb(89, 89, 89)" }}>
+                    {/* <span style={{ color: "rgb(89, 89, 89)" }}>
                         <strong>
                         <span style={{ fontSize: "15px" }}>
                             <bdt className="question">742137</bdt>
@@ -6122,7 +6122,7 @@ const termsConditions = () => {
                             <bdt className="block-component" />
                         </span>
                         </strong>
-                    </span>
+                    </span> */}
                     </div>
                     <div
                     className="MsoNormal"

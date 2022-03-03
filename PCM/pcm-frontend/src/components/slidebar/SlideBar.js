@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Nav } from 'react-bootstrap'
 import profileImage from "../../img/default.png";
 
@@ -11,19 +11,19 @@ import { Image } from 'react-bootstrap';
     const icoMin = 24;
     const icoMax= 28;
 
-const SlideBar = (props) => {
+const SlideBar = ({ slidebar }) => {
 
-    const icoSize = (props.slidebar ? icoMin : icoMax);
+    const icoSize = (slidebar ? icoMin : icoMax);
 
     return (
         <div className="content-wrapper">
-            <div className={`sidebar ${props.slidebar ? "show" : "" }`}>
+            <div className={`sidebar ${slidebar ? "show" : "" }`}>
                 <Nav>
-                    <Nav.Link as={Link} to={"/user/index"} className="active"><FaUserCircle size={icoSize}/><span>Dashboard</span></Nav.Link>
-                    <Nav.Link as={Link} to={"/user/view_contacts/0"}><FaAddressBook size={icoSize}/><span>View Contacts</span></Nav.Link>
-                    <Nav.Link as={Link} to={"/user/add_contact"}><FaIdBadge size={icoSize}/><span>Add Contact</span></Nav.Link>
-                    <Nav.Link as={Link} to={"/user/profile"}><FaAddressCard size={icoSize}/><span>Profile</span></Nav.Link>
-                    <Nav.Link as={Link} to={"/user/settings"}><FaUserCog size={icoSize}/><span>Settings</span></Nav.Link>
+                    <Nav.Link as={NavLink} to={"/user/dashboard"}><FaUserCircle size={icoSize}/><span>Dashboard</span></Nav.Link>
+                    <Nav.Link as={NavLink} to={"/user/view_contacts"}><FaAddressBook size={icoSize}/><span>View Contacts</span></Nav.Link>
+                    <Nav.Link as={NavLink} to={"/user/add_contact"}><FaIdBadge size={icoSize}/><span>Add Contact</span></Nav.Link>
+                    <Nav.Link as={NavLink} to={"/user/profile"}><FaAddressCard size={icoSize}/><span>Profile</span></Nav.Link>
+                    <Nav.Link as={NavLink} to={"/user/settings"}><FaUserCog size={icoSize}/><span>Settings</span></Nav.Link>
                 </Nav>
                 <footer>
                     <Image src={profileImage} alt="profile_img"/>

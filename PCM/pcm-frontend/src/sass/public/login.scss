@@ -62,12 +62,12 @@ section.login {
         
     }
     @media  screen and (max-width: $laptop) {
-        padding: 5% 15%;
+        padding: 5% 30% 15%;
     }
     @media  screen and (max-width: $tablet) {
-        padding: 5% 8%;
+        padding: 5% 25% 10%;
     }
     @media  screen and (max-width: $mobile) {
-        padding: 5% 5%;
+        padding: 5% 5% 20%;
     }
 }

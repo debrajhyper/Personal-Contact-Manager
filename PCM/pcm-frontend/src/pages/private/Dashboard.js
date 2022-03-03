@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 const Dashboard = () => {
     return (
-        <div>
-            
+        <div className=''>
+            hi
         </div>
     )
 }

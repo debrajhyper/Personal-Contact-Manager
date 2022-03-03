@@ -11,7 +11,7 @@ const App = () => {
         <div>
             <ToastContainer/>
             
-            { LoginServices.isLoggedIn() ? <PrivateBase /> : <Base /> }
+            { true || LoginServices.isLoggedIn() ? <PrivateBase /> : <Base /> }
         </div>
     )
 }

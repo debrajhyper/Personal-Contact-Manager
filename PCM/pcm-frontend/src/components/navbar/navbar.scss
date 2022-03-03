@@ -1,5 +1,5 @@
 @import '../../sass/variables.scss';
-@import '../../sass//responsive.scss';
+@import '../../sass/responsive.scss';
 
 .bg-navbar {
 	background: $base;
@@ -9,6 +9,7 @@
 	color: $white-light;
 	padding-top: .3rem;
 	padding-bottom: .3rem;
+	// max-height: 54.6px;
 
 	.container-fluid {
 
@@ -21,19 +22,30 @@
 				letter-spacing: 1px;
 				font-size: 1.9rem;
 				padding: 0;
-				transition: all 0.2s ease-in-out;
+				transition: all .2s ease-in-out;
 				
 				@media screen and (max-width: $mobile) {
+					font-size: 1.8rem;
 					letter-spacing: .2px;
+					margin-right: .1px;
 				}
 			}
 			.slidebar_ico {
-				margin-left: 5px;
+				// margin-left: 5px;
+				margin-left: .0em;
 				cursor: pointer;
 				transition: all 0.2s ease-in-out;
+				@media screen and (max-width: $mobile) {
+					margin-left: 1.5em;
+				}
 			}
 			.slidebar_ico.PCM {
-				margin-left: 90px;
+				// margin-left: 90px;
+				margin-left: 6em;
+
+				@media screen and (max-width: $mobile) {
+					margin-left: 7.5em;
+				}
 			}
 
 			@media screen and (max-width: $tablet) {
@@ -51,16 +63,31 @@
 						display: flex;
 						align-items: center;
 						justify-content: center;
+						padding: .4em 1em;
 						img {
-							height: 2.5em;
-							margin-right: 10px;
+							height: 3.5em;
+							margin-right: 8px;
 						}
-						span {
-							letter-spacing: 2px;
-							font-weight: 600;
-							font-size: 1.5rem;
-							cursor: pointer;
+						.details {
+							text-transform: capitalize;
+							display: inline-block;
+
+							span {
+								letter-spacing: 0px;
+								font-weight: 600;
+								font-size: 1.5rem;
+								cursor: pointer;
+							}
+							p {
+								margin: 0;
+								text-transform: lowercase;
+							}
+
+							@media screen and (max-width: $mobile) {
+								display: none;
+							}
 						}
+						
 					}
 				}
 
@@ -120,6 +147,10 @@
 						flex-direction: column;
 						justify-content: center;
 						align-items: center;
+
+						@media screen and (max-width: $mobile) {
+							padding: 1em .6em;
+						}
 					}
 					.nav-link:after {
 						content: '';
@@ -160,20 +191,26 @@
 			}
 		}
 		
+		.not-collapse {
+			flex-basis: 0%;
+		}
 	} 
 }
 
 .user-navbar {
-	@media screen and (max-width: $tablet) {
-		margin: .5em .2em 0;
-	}
+	// @media screen and (max-width: $tablet) {
+	// 	margin: .5em .2em 0;
+	// }
 	.navbar-toggler{
 		display: none;
 		visibility: hidden;
 		opacity: 0;
 	}
 	.navbar-header{
-		width: 100%;
+		// width: 100%;
 		margin-right: 0;
+	}
+	.auth-nav .nav-link {
+		padding: 0;
 	}
 }

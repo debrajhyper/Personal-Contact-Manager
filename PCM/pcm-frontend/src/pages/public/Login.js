@@ -1,17 +1,14 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 
-
-import FormEmail from '../../components/form-fields/FormEmail';
-import FormPassword from '../../components/form-fields/FormPassword';
-import SignupButtons from '../../components/Buttons/SignupButtons';
+import { FormEmail, FormPassword, SignupButtons } from '../../components';
 import { loginValidate } from '../../components/form-fields/validationMsg';
 
 import '../../sass/public/login.scss';
 import '../../components/form-fields/form_fields.scss';
 
-import { Container, Row, Col, Form, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
 import LoginServices from '../../services/LoginServices';
 import AuthServices from '../../services/AuthServices';

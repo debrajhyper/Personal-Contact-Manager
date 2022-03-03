@@ -13,27 +13,34 @@ import LoginServices from "../../services/LoginServices";
 import AuthServices from '../../services/AuthServices';
 
 
-const PublicNavbar = (props) => {
+const PublicNavbar = ({ slidebar, handleSlidebar }) => {
 
-    const authLogin = (LoginServices.isLoggedIn());
-    const authslideBar = (props.slidebar ? "PCM" : "");
+    const authLogin = (true || LoginServices.isLoggedIn());
+    const authSlideBar = (slidebar ? "PCM" : "");
 
 
     const authNav = () => {
         if(authLogin) {
-            return <div className="auth-nav">
-                <Nav.Link as={Link} to={"/profile"}>
+            return (
+            <div className="auth-nav">
+                <Nav.Link as={Link} to={"/user"}>
                     <Image src={ profileImage } alt="profile_img"/>
-                    <span>{AuthServices.getUser().name}</span>
+                    <div className='details'>
+                        <span>Debraj karmakar</span>
+                        <p>debrajkarmakar010@gmail.com</p>
+                    </div>
                 </Nav.Link>
             </div>
+            );
         } else {
-            return <div className="public-nav">
+            return (
+            <div className="public-nav">
                 <Nav.Link as={NavLink} to={"/"}><BsFillHouseFill className="ico" size={18}/><span>Home</span></Nav.Link>
                 <Nav.Link as={NavLink} to={"/about"}><FaAddressCard className="ico" size={18}/><span>About</span></Nav.Link>
                 <Nav.Link as={NavLink} to={"/login"}><FaSignInAlt className="ico" size={18}/><span>Login</span></Nav.Link>
                 <Nav.Link as={NavLink} to={"/signup"}><FaUserPlus className="ico" size={18}/><span>Signup</span></Nav.Link>
             </div>
+            )
         }
     }
     
@@ -42,18 +49,20 @@ const PublicNavbar = (props) => {
         <>
             <Navbar collapseOnSelect expand="lg" id="navbar" className={`bg-navbar pe-md-4 p-0 ${authLogin ? "ps-md-2 user-navbar" : "ps-md-4"}`} variant="dark" fixed="top">
                 <Container fluid>
-                    <Navbar.Brand className="navbar-header d-flex justify-content-start align-items-center">
+                    <Navbar.Brand className="navbar-header d-inline-flex justify-content-start align-items-center">
                         <img alt="logo" src={favicon} className="d-inline-block align-top me-1"/>{' '}
                         { authLogin 
-                            ?  ( <>
-                                    <Link to="/dashboard" className="navbar-brand">{authslideBar}</Link>
-                                    <BsFillPersonLinesFill className={`slidebar_ico ${authslideBar}`} size={25} onClick={props.handleSlidebar}/>
-                                </>)
+                            ?  ( 
+                                <>
+                                    <Link to="/user/dashboard" className="navbar-brand pcm">{authSlideBar}</Link>
+                                    <BsFillPersonLinesFill className={`slidebar_ico ${authSlideBar}`} size={25} onClick={handleSlidebar}/>
+                                </>
+                                )
                             : <Link to="/" className="navbar-brand">Personal Contact Manager</Link>
                         }
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-                    <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+                    <Navbar.Collapse id="responsive-navbar-nav" className={`justify-content-end ${authLogin ? "not-collapse d-inline-flex" : null}`}>
                         <Nav className={`text-uppercase d-flex ${authLogin ? "justify-content-end" : ""}`}>
                             { authNav() }
                         </Nav>
