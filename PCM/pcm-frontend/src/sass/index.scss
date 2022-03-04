@@ -2,21 +2,28 @@
 @import './responsive.scss';
 
 html {
-	position: relative;
+  position: relative;
 }
 
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
-	top: 0;
-	left: 0;
-	background-color: $body!important;
-	font-family: 'Poppins';
+  top: 0;
+  left: 0;
+  background-color: $body !important;
+  font-family: 'Poppins';
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 code {
@@ -25,7 +32,7 @@ code {
 }
 
 .b {
-	border: 1px solid $red;
+  border: 1px solid $red;
 }
 
 a {
@@ -43,30 +50,62 @@ a.underline:hover {
   margin-top: 54px;
 }
 
+.private_base {
+  background: $base;
+}
 
 .private_pages {
-  margin-top: 4.7em;
+  margin-top: 4.5em;
   transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+  border-radius: 10px 0 0 0;
+  background: $body;
+  @media screen and (max-width: $tablet) {
+    border-radius: 0;
+    border: none;
+  }
 }
 
 .private_pages .content {
   padding: 2em;
+
+  @media screen and (max-width: $mobile-s) {
+    padding: 2em 1em;
+  }
 }
 
 .slideBar_open .private_pages {
-  margin-left: 17em;
+  margin-left: 16.8em;
 
   @media screen and (max-width: $tablet) {
     margin-left: 0em;
-    background-color: rgba(0, 0, 0, 0.6);
     transition: background-color .1s;
   }
 }
 
 .slideBar_close .private_pages {
-  margin-left: 5em;
+  margin-left: 4.8em;
 
   @media screen and (max-width: $tablet) {
     margin-left: 0em;
+  }
+}
+
+.slidebar-overlay {
+  @media screen and (max-width: $tablet) {
+    display: none;
+  position: fixed;
+  left: 0;
+  top: 4em;
+  z-index: 8;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.slidebar-overlay.open {
+  @media screen and (max-width: $tablet) {
+    display: block;
   }
 }

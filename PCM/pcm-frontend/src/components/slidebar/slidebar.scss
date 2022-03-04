@@ -3,9 +3,10 @@
 
 .content-wrapper {
 	position: relative;
+	z-index: 10;
+
 	.sidebar {
 		height: 100%;
-		// width: 4%;
 		width: 4em;
 		position: fixed;
 		bottom: 0;
@@ -26,11 +27,9 @@
 			position: relative;
 			.nav-link {
 				position: relative;
-				// display: block;
 				display: flex;
 				align-items: center;
 				justify-content: flex-start;
-				// height: 3em;
 				width: 100%;
 				padding: .6em 1em;
 				margin: 0 0 .5em;
@@ -107,7 +106,6 @@
 		}
 
 		&:hover {
-			// width: 13%;
 			width: 14em;
 			transition: all 0.2s ease-in-out;
 			.nav-link {
@@ -134,54 +132,22 @@
 					opacity: 1;
 				}
 			}
-
-			// @media screen and (max-width: $laptop) {
-			// 	width: 20%;
-			// }
-	
-			// @media screen and (max-width: $tablet) {
-			// 	width: 21%;
-			// }
-	
-			// @media screen and (max-width: $mobile) {
-			// 	width: 35%;
-			// }
-	
-			// @media screen and (max-width: $mobile-s) {
-			// 	width: 48%;
-			// }
 		}
 
-		// @media screen and (max-width: $laptop) {
-		// 	width: 6%;
-		// }
-
 		@media screen and (max-width: $tablet) {
-			// width: 7%;
-			// width: 0em;
 			margin-left: -14em;
 			transition: all 0.2s ease-in-out;
 		}
-
-		// @media screen and (max-width: $mobile) {
-		// 	width: 12%;
-		// }
-
-		// @media screen and (max-width: $mobile-s) {
-		// 	width: 15%;
-		// }
 	}
 
 
 	.sidebar.show {
-		// width: 13%;
 		display: flex;
 		width: 14em;
 		margin-left: 0;
 		transition: all 0.2s ease-in-out;
 		.nav-link {
 			span {
-				// transform: translate(0px, 5px);
 				position: absolute;
 				display: inline-block;
 				width: auto;
@@ -199,22 +165,6 @@
 				opacity: 1;
 			}
 		}
-
-		// @media screen and (max-width: $laptop) {
-		// 	width: 20%;
-		// }
-
-		// @media screen and (max-width: $tablet) {
-		// 	width: 21%;
-		// }
-
-		// @media screen and (max-width: $mobile) {
-		// 	width: 35%;
-		// }
-
-		// @media screen and (max-width: $mobile-s) {
-		// 	width: 48%;
-		// }
 	}
 
 	@media screen and (max-width: $tablet) {

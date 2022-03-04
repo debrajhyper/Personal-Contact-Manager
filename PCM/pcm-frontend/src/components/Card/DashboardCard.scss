@@ -1,0 +1,39 @@
+@import '../../sass/variables.scss';
+
+.card {
+    background: $white;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 15px 16.83px .17px rgba(0, 0, 0, .05);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .card-img {
+        height: 5em;
+        width: auto;
+        object-fit: cover;
+        margin-right: .5em;
+    }
+
+    .card-body {
+        color: $base;
+        padding: .2em;
+        text-align: end;
+        
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .card-subtitle {
+            color: $text;
+            font-size: 1.2rem;
+            font-weight: 600;
+            word-break: break-word;
+        }
+    }
+}

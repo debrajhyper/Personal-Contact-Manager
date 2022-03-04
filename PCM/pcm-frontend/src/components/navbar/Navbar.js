@@ -23,7 +23,7 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
         if(authLogin) {
             return (
             <div className="auth-nav">
-                <Nav.Link as={Link} to={"/user"}>
+                <Nav.Link as={Link} to={"/user/profile"}>
                     <Image src={ profileImage } alt="profile_img"/>
                     <div className='details'>
                         <span>Debraj karmakar</span>
