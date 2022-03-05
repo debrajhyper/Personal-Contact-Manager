@@ -1,0 +1,39 @@
+@import '../.././sass/variables.scss';
+
+.glass-border {
+    position: relative;
+    display: inline-block;
+    .profile_pic {
+        height: 12em;
+        width: 100%;
+        max-width: 12em;
+        object-fit: cover;
+        border: 5px solid $white;
+        border-radius: 50%;
+        background-color: $white;
+    }
+
+    .active-overlay {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: .5em;
+        background-color: $active;
+        color: $active;
+        border: 6px solid $body;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+
+.glass-border.on {
+    // background: rgba(224, 151, 151, 0.18);
+    border: 10px solid rgba(255, 255, 255, 0.18);
+    box-sizing: border-box;
+    border-radius: 50%;
+}
+
+.glass-border.off {
+    border: none;
+    border-radius: 0%;
+}

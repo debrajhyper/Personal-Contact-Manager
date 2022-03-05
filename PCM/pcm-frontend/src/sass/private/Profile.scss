@@ -1,0 +1,63 @@
+@import '../responsive.scss';
+@import '../variables.scss';
+
+.profile.container-fluid {
+    .header {
+        .text {
+            font-weight: 700;
+            color: $text;
+            font-size: 3.5rem;
+        }
+    }
+    .container-details {
+        padding: 1em 10em;
+
+        .text-area {
+            // padding: 2em 10em;
+            order: 5;
+            @media screen and (max-width: $tablet) {
+                order: 6;
+            }
+        }
+
+        @media screen and (max-width: $laptop) {
+            padding: 0em;
+        }
+        @media screen and (max-width: $tablet) {
+            padding: 0em;
+        }
+        @media screen and (max-width: $mobile) {
+            padding: 2em 5em;
+        }
+        @media screen and (max-width: $mobile-s) {
+            padding: 2em;
+        }
+    }
+
+    .btn {
+        outline: none;
+        border: 0;
+        display: inline-block;
+        background: $base;
+        color: $white;
+        width: auto;
+        border: 2px solid $base;
+        border-radius: 5px;
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        cursor: pointer;
+        &:focus {
+            box-shadow: 0 0 0 0.25rem transparent;
+        }
+        &:hover {
+            background: $base-dark;
+            border: 2px solid $base-dark;
+            color: $white;
+        }
+    }
+
+    @media screen and (max-width: $mobile) {
+        padding: 0;
+    }
+}

@@ -46,23 +46,23 @@ const CardDetails = [
 const Dashboard = () => {
     return (
         <div className='dashboard'>
-            <div class='background'>
-                <Image fluid={true} src={pcmDashboard} class="background-img" alt="dashboard" />
+            <div className='background'>
+                <Image fluid={true} src={pcmDashboard} className="background-img" alt="dashboard" />
 			</div>
 
             <div className='container'>
-                <div class="header">
-                    <h4 class="text">Welcome <span>Debraj</span></h4>
+                <div className="header">
+                    <h4 className="text">Welcome <span>Debraj</span></h4>
                 </div>
 
-                <div class="container-fluid m-0 row position-relative d-flex justify-content-end">
-                    <div class="container-left col-xl-6 col-lg-10 col-md-9 col-12">
-                        <div class="row d-flex flex-column justify-content-end align-items-end">
+                <div className="container-fluid m-0 row position-relative d-flex justify-content-end">
+                    <div className="container-left col-xl-6 col-lg-10 col-md-9 col-12">
+                        <div className="row d-flex flex-column justify-content-end align-items-end">
                             {
                                 CardDetails.map((card, index) => {
                                     const { space, image, icon, title, subtitle } = card;
                                     return (
-                                        <div class={`col-md-${space} col-${space+2} p-3`}>
+                                        <div key={title} className={`col-md-${space} col-${space+2} p-3`}>
                                             <DashboardCard key={index} image={image} icon={icon} title={title} subtitle={subtitle} />
                                         </div>
                                     )

@@ -95,7 +95,7 @@ const Signup = () => {
                                 <FormAgrement agreement={formik.values.agreement} functionChange={formik.handleChange} hasTouched={formik.touched.agreement} hasError={formik.errors.agreement}/>
                                 <Form.Group className="action_button">
                                     <SignupButtons type="submit" name="signup" id="Signup" cName="form_submit" value="Register"/>
-                                    <SignupButtons type="reset" name="reset" id="reset" cName="form_reset" value="Reset" function={formik.resetForm}/>
+                                    <SignupButtons type="reset" name="reset" id="reset" cName="form_reset" value="Reset" action={formik.resetForm}/>
                                 </Form.Group>
                             </Form>
 

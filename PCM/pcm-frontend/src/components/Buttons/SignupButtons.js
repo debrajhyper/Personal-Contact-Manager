@@ -2,11 +2,11 @@ import React from 'react'
 
 import { Button } from 'react-bootstrap'
 
-const SignupButtons = (props) => {
+const SignupButtons = ({ type, name, id, cName, value, action }) => {
     return (
         <>
             <div className="form-button">
-                <Button type={props.type} name={props.name} id={props.id} className={props.cName} value={props.value} onClick={props.function}>{props.value}</Button>
+                <Button type={type} name={name} id={id} className={cName} value={value} onClick={action}>{value}</Button>
             </div>
         </>
     )
