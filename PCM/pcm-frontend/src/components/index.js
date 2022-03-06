@@ -1,6 +1,6 @@
 export { default as SignupButtons } from './buttons/SignupButtons';
 
-export { default as DashboardCard } from './Card/DashboardCard';
+export { default as DashboardCard } from './card/DashboardCard';
 
 export { default as FormAgrement } from './form-fields/FormAgrement';
 export { default as FormEmail } from './form-fields/FormEmail';
