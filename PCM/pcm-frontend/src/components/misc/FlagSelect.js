@@ -52,14 +52,14 @@ export const CountryFlag = (country) => {
             return flag.CO;
         case 'CU':
             return flag.CU;
-        case 'CY':
-            return flag.CY;
+        case 'CZ':
+            return flag.CZ;
+        case 'DK':
+            return flag.DK;
         case 'EG':
             return flag.EG;
         case 'GB_EN':
             return flag.GB_EN;
-        case 'SV':
-            return flag.SV;
         case 'EE':
             return flag.EE;
         case 'ET':
@@ -70,10 +70,6 @@ export const CountryFlag = (country) => {
             return flag.FI;
         case 'FR':
             return flag.FR;
-        case 'GA':
-            return flag.GA;
-        case 'GM':
-            return flag.GM;
         case 'GE':
             return flag.GE;
         case 'DE':
@@ -82,14 +78,14 @@ export const CountryFlag = (country) => {
             return flag.GH;
         case 'GR':
             return flag.GR;
+        case 'GL':
+            return flag.GL;
         case 'GT':
             return flag.GT;
         case 'GN':
             return flag.GN;
-        case 'GW':
-            return flag.GW;
-        case 'HN':
-            return flag.HN;
+        case 'HT':
+            return flag.HT;
         case 'HK':
             return flag.HK;
         case 'HU':
@@ -110,8 +106,6 @@ export const CountryFlag = (country) => {
             return flag.IL;
         case 'IT':
             return flag.IT;
-        case 'JM':
-            return flag.JM;
         case 'JP':
             return flag.JP;
         case 'JO':
@@ -120,80 +114,42 @@ export const CountryFlag = (country) => {
             return flag.KZ;
         case 'KE':
             return flag.KE;
-        case 'KI':
-            return flag.KI;
-        case 'KP':
-            return flag.KP;
-        case 'KR':
-            return flag.KR;
-        case 'KW':
-            return flag.KW;
         case 'KG':
             return flag.KG;
-        case 'LA':
-            return flag.LA;
-        case 'LV':
-            return flag.LV;
+        case 'KR':
+            return flag.KR;
         case 'LB':
             return flag.LB;
-        case 'LS':
-            return flag.LS;
         case 'LR':
             return flag.LR;
         case 'LY':
             return flag.LY;
         case 'LT':
             return flag.LT;
-        case 'LU':
-            return flag.LU;
-        case 'MK':
-            return flag.MK;
         case 'MG':
             return flag.MG;
-        case 'MW':
-            return flag.MW;
         case 'MY':
             return flag.MY;
-        case 'MV':
-            return flag.MV;
         case 'ML':
             return flag.ML;
-        case 'MT':
-            return flag.MT;
-        case 'MH':
-            return flag.MH;
-        case 'MR':
-            return flag.MR;
-        case 'MU':
-            return flag.MU;
         case 'MX':
             return flag.MX;
-        case 'FM':
-            return flag.FM;
         case 'MD':
             return flag.MD;
         case 'MC':
             return flag.MC;
         case 'MN':
             return flag.MN;
-        case 'ME':
-            return flag.ME;
         case 'MA':
             return flag.MA;
-        case 'MZ':
-            return flag.MZ;
-        case 'NA':
-            return flag.NA;
+        case 'MM':
+            return flag.MM;
         case 'NP':
             return flag.NP;
         case 'NL':
             return flag.NL;
         case 'NZ':
             return flag.NZ;
-        case 'NI':
-            return flag.NI;
-        case 'NE':
-            return flag.NE;
         case 'NG':
             return flag.NG;
         case 'NO':
@@ -202,12 +158,8 @@ export const CountryFlag = (country) => {
             return flag.OM;
         case 'PK':
             return flag.PK;
-        case 'PW':
-            return flag.PW;
         case 'PA':
             return flag.PA;
-        case 'PG':
-            return flag.PG;
         case 'PY':
             return flag.PY;
         case 'PE':
@@ -224,54 +176,24 @@ export const CountryFlag = (country) => {
             return flag.RO;
         case 'RU':
             return flag.RU;
-        case 'RW':
-            return flag.RW;
-        case 'KN':
-            return flag.KN;
-        case 'LC':
-            return flag.LC;
-        case 'VC':
-            return flag.VC;
-        case 'WS':
-            return flag.WS;
-        case 'SM':
-            return flag.SM;
-        case 'ST':
-            return flag.ST;
         case 'SA':
             return flag.SA;
-        case 'SN':
-            return flag.SN;
         case 'RS':
             return flag.RS;
-        case 'SC':
-            return flag.SC;
-        case 'SL':
-            return flag.SL;
         case 'SG':
             return flag.SG;
         case 'SK':
             return flag.SK;
-        case 'SI':
-            return flag.SI;
-        case 'SB':
-            return flag.SB;
         case 'SO':
             return flag.SO;
         case 'ZA':
             return flag.ZA;
-        case 'SS':
-            return flag.SS;
         case 'ES':
             return flag.ES;
         case 'LK':
             return flag.LK;
         case 'SD':
             return flag.SD;
-        case 'SR':
-            return flag.SR;
-        case 'SZ':
-            return flag.SZ;
         case 'SE':
             return flag.SE;
         case 'CH':
@@ -286,16 +208,6 @@ export const CountryFlag = (country) => {
             return flag.TZ;
         case 'TH':
             return flag.TH;
-        case 'TL':
-            return flag.TL;
-        case 'TG':
-            return flag.TG;
-        case 'TO':
-            return flag.TO;
-        case 'TT':
-            return flag.TT;
-        case 'TN':
-            return flag.TN;
         case 'TR':
             return flag.TR;
         case 'TM':
@@ -310,12 +222,8 @@ export const CountryFlag = (country) => {
             return flag.GB_UK;
         case 'US':
             return flag.US;
-        case 'UY':
-            return flag.UY;
         case 'UZ':
             return flag.UZ;
-        case 'VU':
-            return flag.VU;
         case 'VE':
             return flag.VE;
         case 'VN':

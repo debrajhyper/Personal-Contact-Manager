@@ -14,6 +14,7 @@ import '../../sass/private/Profile.scss';
 
 import { IoFingerPrint, IoLocationSharp, IoCalendar, IoDisc } from 'react-icons/io5';
 import { FaAt, FaUserShield } from 'react-icons/fa';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const cardDetails = [
     {
@@ -58,7 +59,7 @@ const cardDetails = [
         subtitle: 'This is My 1st project on spring boot Web ID -  email(debrajkarmakae010) Password - Debrajkarmakar'
     },
     {
-        spaceSm: 4,
+        spaceSm: 5,
         image: ZodiacSign('SAGITTARIUS'),
         icon: <IoDisc />,
         title: 'Zodiac sign',
@@ -68,30 +69,30 @@ const cardDetails = [
 
 const Profile = () => {
     return (
-        <div className="profile container-fluid text-center">
+        <Container fluid className="profile text-center">
 
             <div className='header d-inline-block'>
                 <ProfilePic image={ myProfilePic } outline={true} active={true}/>
                 <h4 className="text pt-2">Debraj Karmakar</h4>
             </div>
 
-            <div className="container-details row gy-4 justify-content-evenly">
+            <Row className="container-details gy-4 justify-content-evenly">
                 {
                     cardDetails.map((card, index) => {
                         const { spaceSm, image, icon, title, subtitle, flag } = card;
                         return (
-                            <div key={title} className={`col-sm-${spaceSm} ${title}`}>
+                            <Col key={title} sm={spaceSm} className={title}>
                                 <DashboardCard key={index} image={image} icon={icon} title={title} subtitle={subtitle} flag={flag}/>
-                            </div>
+                            </Col>
                         );
                         
                     })
                 }
-            </div>
+            </Row>
 
             <SignupButtons name='edit_profile' id='EditProfile' cName='btn mt-sm-4 mt-2 p-3 px-5' value='Edit profile' />
 
-        </div>
+        </Container>
     )
 }
 

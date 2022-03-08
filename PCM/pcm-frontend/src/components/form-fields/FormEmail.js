@@ -5,26 +5,26 @@ import '../../sass/variables.scss';
 import { FaAt } from "react-icons/fa";
 import { Form } from 'react-bootstrap'
 
-const FormEmail = (props) => {
+const FormEmail = ({ cName, fieldName, email, functionChange, functionBlur, hasTouched, hasError, Mandatory, validate }) => {
     return (
         <>
-            <Form.Group className="form-input" controlId="Email">
+            <Form.Group className={`form-input ${cName}`} controlId="Email">
                 <div className="field">
                     <Form.Control 
-                        name={props.fieldName}
+                        name={fieldName}
                         type="email"
-                        value={props.email} 
-                        onChange={props.functionChange} 
-                        onBlur={props.functionBlur} 
-                        className={props.hasTouched && props.hasError ? 'hasError' : (props.email !== "" ? 'noError' : '')}
+                        value={email} 
+                        onChange={functionChange} 
+                        onBlur={functionBlur} 
+                        className={hasTouched && hasError ? 'hasError' : (email !== "" ? 'noError' : '')}
                         placeholder=" "
-                        validate={props.validate}
+                        validate={validate}
                     required/>
-                    <Form.Label><FaAt className="me-2"/>Your Email</Form.Label>
+                    <Form.Label><FaAt className="me-2"/>Email{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                 </div>
-                {props.hasTouched && props.hasError && 
+                {hasTouched && hasError && 
                     <Form.Text className="e_msg error_form" id="name_error_message">
-                        {props.hasError}
+                        {hasError}
                     </Form.Text>
                 }
                 

@@ -1,7 +1,12 @@
 @import '../../sass/variables.scss';
 
 
+.mandatory {
+    color: $ad;
+}
 
+
+// Base
 .form-input {
     position: relative;
     top: 0;
@@ -14,32 +19,54 @@
         left: 0;
         color: $input;
         font-size: 18px;
+
+        input[type=file],
+        input[type=file]:focus {
+            border-bottom: none;
+        }
+
+        .form-control::-webkit-file-upload-button {
+            border-inline-end-width: 0;
+            background-color: $base;
+            color: $white;
+            padding: .4em 1em;
+        }
+
+        input[type=file]:hover {
+            background-color: $base-dark;
+        }
+
         input {
             position: relative;
             width: 100%;
             display: block;
-            background: transparent;
+            background-color: transparent;
+            color: $text;
             border: none;
             border-radius: 0;
             border-bottom: 1.5px solid $input;
             box-sizing: border-box;
             padding: .1em .2em;
-            font-size: 16px;
-            line-height: 0;
+            font-size: 1.3rem;
             z-index: 1;
             cursor: text;
+            // line-height: 0;
         }
+
         input:focus {
             border-bottom: 2px solid $base;
             outline: 0;
             box-shadow: none !important;
         }
+
         input.hasError {
             border-bottom: 2px solid $input-error;
         }
+
         input.noError {
             border-bottom: 2px solid $input-ok;
         }
+
         label {
             width: 100%;
             position: absolute;
@@ -48,6 +75,7 @@
             transform: translateY(-100%);
             transition: .25s ease;
         }
+
         input:focus+.form-label,
         input:not(:placeholder-shown)+.form-label,
         input:valid+.form-label {
@@ -68,35 +96,97 @@
 }
 
 
+//  Select
+.field {
+    .arrow {
+        border-color: #999 transparent transparent;
+        border-style: solid;
+        border-width: 5px 5px 0;
+        content: " ";
+        display: block;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        width: 0;
+        height: 0;
+    }
+    .arrow.open {
+        border-color: transparent transparent $base;
+        border-width: 0 5px 5px;
+    }
+    .CountryDetails {
+        display: none;
+        background-color: $body;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 15px 16.83px .17px rgba(0, 0, 0, .05);
+        box-sizing: border-box;
+        padding: .5em .0em .5em .5em;
+        margin-top: .2em;
+        max-height: 20em;
+        overflow-y: auto;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        z-index: 5;
+        -webkit-overflow-scrolling: touch;
+    }
+    .CountryDetails.open {
+        display: block;
+    }
+    .country {
+        box-sizing: border-box;
+        color: $text;
+        cursor: pointer;
+        display: block;
+        padding: .2em .4em;
+        border-radius: 5px;
+    }
+    .country.selected,
+    .country:hover {
+        background-color: $base;
+        color: $white;
+    }
+}
+
+
+//  Text Area
 .form-input-textarea {
     padding: .8em 0;
     font-size: 14px;
+
     textarea.form-control {
         font-size: 16px;
     }
 }
 
 
+// Check Box
 .form-input-agreement {
     position: relative;
     font-size: 13px;
     padding: 10px 0;
+
     .form-input-line {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+
         input[type=checkbox] {
             display: inline-block;
             margin-right: 10px;
         }
+
         input[type=checkbox]:focus {
             box-shadow: 0 0 0 0.25rem transparent;
         }
+
         input[type=checkbox]:checked {
             background-color: $base;
             border-color: $base;
         }
     }
+
     #agreement_error_message {
         position: absolute;
         left: 0;
@@ -115,6 +205,7 @@
     justify-content: flex-start;
     align-items: center;
     margin-top: 2em;
+
     .btn {
         display: inline-block;
         background: $base;
@@ -129,19 +220,23 @@
         font-weight: 700;
         letter-spacing: 1px;
         cursor: pointer;
+
         &:focus {
             box-shadow: 0 0 0 0.25rem transparent;
         }
+
         &:hover {
             background: $base-dark;
             border: 2px solid $base-dark;
             color: $white;
         }
     }
+
     .btn.form_reset {
         background: transparent;
         color: $base;
         border: 2px solid $base;
+
         &:hover {
             background: $base-dark;
             color: $white;

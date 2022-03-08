@@ -5,11 +5,6 @@
     position: relative;
 
     .container{
-        .header .text {
-            font-weight: 700;
-            color: $text;
-            font-size: 3.5rem;
-        }
         .container-fluid {
             @media screen and (max-width: $mobile-s) {
                 padding: 0;

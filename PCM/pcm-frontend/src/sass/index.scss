@@ -46,6 +46,21 @@ a.underline:hover {
 
 //////////////////////////////////////////////////////////////////////////////////
 
+@media (min-width: 1200px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    background-color: $body;
+    opacity: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  ::-webkit-scrollbar-thumb {
+    background-color: $base;
+    border-radius: 0px;
+  }
+}
+
 .public_pages {
   margin-top: 54px;
 }

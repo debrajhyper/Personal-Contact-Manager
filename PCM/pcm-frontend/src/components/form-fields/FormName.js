@@ -1,27 +1,27 @@
 import React from 'react'
 
 import { FaUserAlt } from "react-icons/fa";
-import { Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap';
 
-const FormName = (props) => {
+const FormName = ({ name, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
     return (
         <>
-            <Form.Group className="form-input" controlId="Name">
+            <Form.Group className={`form-input ${cName}`} controlId="Name">
                 <div className="field">
                     <Form.Control 
                         name="name" 
                         type="text" 
-                        value={props.name} 
-                        onChange={props.functionChange} 
-                        onBlur={props.functionBlur} 
-                        className={props.hasTouched && props.hasError ? 'hasError' : (props.name !== "" ? 'noError' : '')}
+                        value={name} 
+                        onChange={functionChange} 
+                        onBlur={functionBlur} 
+                        className={hasTouched && hasError ? 'hasError' : (name !== "" ? 'noError' : '')}
                         placeholder=" "
                     required/>
-                    <Form.Label><FaUserAlt className="me-2"/>Your Name</Form.Label>
+                    <Form.Label><FaUserAlt className="me-2"/>Name{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                 </div>
-                {props.hasTouched && props.hasError && 
+                {hasTouched && hasError && 
                     <Form.Text className="e_msg error_form" id="name_error_message">
-                        {props.hasError}
+                        {hasError}
                     </Form.Text>
                 }
             </Form.Group>

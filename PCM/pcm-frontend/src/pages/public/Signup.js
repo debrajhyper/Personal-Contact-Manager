@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import guest_signup_register from '../../img/guest_signup_register.png';
 import guest_signup_register_left from '../../img/guest_signup_register_left.png';
 
-import { FormName, FormEmail, FormPassword, FormTextarea, FormAgrement, SignupButtons, ModalHelper } from '../../components';
+import { FormName, FormEmail, FormPassword, FormTextarea, FormAgrement, SignupButtons, ModalHelper, RequiredStatement } from '../../components';
 import { signupValidate } from '../../components/form-fields/validationMsg';
 
 import '../../sass/public/signup.scss';
@@ -88,11 +88,12 @@ const Signup = () => {
                             {alert && <Alert className="alert-user-already-exists" variant="danger">{alert}</Alert>}
 
                             <Form className="register-form" onSubmit={formik.handleSubmit} method="post" noValidate>
-                                <FormName name={formik.values.name} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.name} hasError={formik.errors.name}/>
-                                <FormEmail fieldName="email" email={formik.values.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.email} hasError={formik.errors.email}/>
-                                <FormPassword password={formik.values.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.password} hasError={formik.errors.password}/>
+                                <RequiredStatement />
+                                <FormName name={formik.values.name} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={true}/>
+                                <FormEmail fieldName="email" email={formik.values.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true}/>
+                                <FormPassword password={formik.values.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true}/>
                                 <FormTextarea about={formik.values.about} functionChange={formik.handleChange}/>
-                                <FormAgrement agreement={formik.values.agreement} functionChange={formik.handleChange} hasTouched={formik.touched.agreement} hasError={formik.errors.agreement}/>
+                                <FormAgrement agreement={formik.values.agreement} functionChange={formik.handleChange} hasTouched={formik.touched.agreement} hasError={formik.errors.agreement} Mandatory={true}/>
                                 <Form.Group className="action_button">
                                     <SignupButtons type="submit" name="signup" id="Signup" cName="form_submit" value="Register"/>
                                     <SignupButtons type="reset" name="reset" id="reset" cName="form_reset" value="Reset" action={formik.resetForm}/>

@@ -1,0 +1,17 @@
+@import '../../sass/variables.scss';
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .img {
+        margin-right: 10px;
+        width: auto;
+        height: 4.5em;
+    }
+    .text {
+        font-weight: 700;
+        color: $text;
+        font-size: 3.5rem;
+    }
+}

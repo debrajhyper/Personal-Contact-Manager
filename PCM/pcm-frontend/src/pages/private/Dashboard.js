@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DashboardCard } from '../../components';
+import { DashboardCard, Header } from '../../components';
 
 import '../../sass/private/Dashboard.scss';
 import pcmDashboard from '../../img/pcm_dashboard.svg';
@@ -9,7 +9,7 @@ import cTotalContacts from '../../img/cTotalContacts.png';
 import cEmail from '../../img/cEmail.png';
 import cRole from '../../img/cRole.png';
 
-import { Image } from 'react-bootstrap';
+import { Container, Image, Row, Col } from 'react-bootstrap';
 import { FaUserCheck, FaAddressBook, FaAt, FaUserShield } from 'react-icons/fa';
 
 const CardDetails = [
@@ -50,28 +50,26 @@ const Dashboard = () => {
                 <Image fluid={true} src={pcmDashboard} className="background-img" alt="dashboard" />
 			</div>
 
-            <div className='container'>
-                <div className="header">
-                    <h4 className="text">Welcome <span>Debraj</span></h4>
-                </div>
+            <Container>
+                <Header text={'Welcome Debraj'}/>
 
-                <div className="container-fluid m-0 row position-relative d-flex justify-content-end">
-                    <div className="container-left col-xl-6 col-lg-10 col-md-9 col-12">
-                        <div className="row d-flex flex-column justify-content-end align-items-end">
+                <Row className="container-fluid m-0 position-relative d-flex justify-content-end">
+                    <Col xl={6} lg={10} md={9}  className="container-left col-12">
+                        <Row className="d-flex flex-column justify-content-end align-items-end">
                             {
                                 CardDetails.map((card, index) => {
                                     const { space, image, icon, title, subtitle } = card;
                                     return (
-                                        <div key={title} className={`col-md-${space} col-${space+2} p-3`}>
+                                        <Col key={title} md={space} className={`col-${space+2} p-3`}>
                                             <DashboardCard key={index} image={image} icon={icon} title={title} subtitle={subtitle} />
-                                        </div>
+                                        </Col>
                                     )
                                 })
                             }
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </Row>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }
