@@ -14,8 +14,8 @@ const FormMobileNo = ({ mobileNo, cName, functionChange, functionBlur, hasTouche
                     onChange={functionChange}
                     onBlur={functionBlur}
                     className={hasTouched && hasError ? 'hasError' : (mobileNo !== "" ? 'noError' : '')}
-                    placeholder=" "
-                    required />
+                    placeholder=""
+                required />
                 <Form.Label><IoPhonePortraitOutline className="me-2" />Mobile Number{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {

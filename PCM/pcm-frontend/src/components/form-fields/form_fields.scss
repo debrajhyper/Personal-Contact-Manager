@@ -20,25 +20,10 @@
         color: $input;
         font-size: 18px;
 
-        input[type=file],
-        input[type=file]:focus {
-            border-bottom: none;
-        }
-
-        .form-control::-webkit-file-upload-button {
-            border-inline-end-width: 0;
-            background-color: $base;
-            color: $white;
-            padding: .4em 1em;
-        }
-
-        input[type=file]:hover {
-            background-color: $base-dark;
-        }
-
         input {
             position: relative;
             width: 100%;
+            height: 28px;
             display: block;
             background-color: transparent;
             color: $text;
@@ -77,7 +62,7 @@
         }
 
         input:focus+.form-label,
-        input:not(:placeholder-shown)+.form-label,
+        // input:not(:placeholder-shown)+.form-label,
         input:valid+.form-label {
             top: 0%;
             font-size: 12px;
@@ -110,10 +95,12 @@
         width: 0;
         height: 0;
     }
+
     .arrow.open {
         border-color: transparent transparent $base;
         border-width: 0 5px 5px;
     }
+
     .CountryDetails {
         display: none;
         background-color: $body;
@@ -131,9 +118,11 @@
         z-index: 5;
         -webkit-overflow-scrolling: touch;
     }
+
     .CountryDetails.open {
         display: block;
     }
+
     .country {
         box-sizing: border-box;
         color: $text;
@@ -142,10 +131,74 @@
         padding: .2em .4em;
         border-radius: 5px;
     }
+
     .country.selected,
     .country:hover {
         background-color: $base;
         color: $white;
+    }
+}
+
+
+//  Date
+.field {
+
+    input.not-focused::-webkit-datetime-edit,
+    input.not-focused::-webkit-calendar-picker-indicator {
+        display: none;
+    }
+
+    input.focused::-webkit-datetime-edit,
+    input.focused::-webkit-calendar-picker-indicator {
+        display: inline-block;
+    }
+
+    input.focused::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+    }
+}
+
+
+//  Mobile No
+.field {
+    input::-webkit-inner-spin-button {
+        display: none;
+    }
+}
+
+
+//  Profile Pic
+.field {
+    input[type=file] {
+        display: none;
+        cursor: pointer;
+    }
+
+    .img-holder {
+        position: relative;
+        display: inline-block;
+
+        label {
+            display: inline-block;
+            width: auto;
+            left: auto;
+            right: 5%;
+            top: 95%;
+            text-align: end;
+            padding: 10px 14.5px;
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        label:hover {
+            background: $base-glassMorph;
+            color: $white;
+        }
     }
 }
 

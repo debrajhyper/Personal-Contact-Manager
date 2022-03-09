@@ -14,8 +14,8 @@ const FormAddress = ({ address, cName, functionChange, functionBlur, hasTouched,
                     onChange={functionChange}
                     onBlur={functionBlur}
                     className={hasTouched && hasError ? 'hasError' : (address !== "" ? 'noError' : '')}
-                    placeholder=" "
-                    required />
+                    placeholder=""
+                required />
                 <Form.Label><IoLocationSharp className="me-2" />Address{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {

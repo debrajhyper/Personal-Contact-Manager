@@ -14,8 +14,8 @@ const FormCompany = ({ company, cName, functionChange, functionBlur, hasTouched,
                     onChange={functionChange}
                     onBlur={functionBlur}
                     className={hasTouched && hasError ? 'hasError' : (company !== "" ? 'noError' : '')}
-                    placeholder=" "
-                    required />
+                    placeholder=""
+                required />
                 <Form.Label><FaUserFriends className="me-2" />Company{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {

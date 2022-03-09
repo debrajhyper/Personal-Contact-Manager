@@ -15,8 +15,8 @@ const FormPassword = ({ cName, password, functionChange, functionBlur, hasTouche
                         onChange={functionChange} 
                         onBlur={functionBlur} 
                         className={hasTouched && hasError ? 'hasError' : (password !== "" ? 'noError' : '')} 
-                        placeholder=" "
-                    required/>
+                        placeholder=""
+                    required />
                     <Form.Label><FaLock className="me-2"/>Password{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                 </div>
                 {hasTouched && hasError && 

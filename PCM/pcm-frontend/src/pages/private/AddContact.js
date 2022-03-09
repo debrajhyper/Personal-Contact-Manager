@@ -32,7 +32,7 @@ const AddContact = () => {
                                 <FormDOB dob={''} cName="col-6 px-4" Mandatory={false}/>
                                 <FormMobileNo mobileNo={''} cName="col-6 px-4" Mandatory={true}/>
                                 <FormNickName nickName={''} cName="col-6 px-4" Mandatory={false}/>
-                                <FormProfilePic profilePic={''} cName="col-6 px-4" Mandatory={false}/>
+                                <FormProfilePic profilePic={''} cName="col-6 px-4" />
 
                                 {/* <div className="form-group form-input col-6">
                                     <input name="company" type="text" id="Company" required />

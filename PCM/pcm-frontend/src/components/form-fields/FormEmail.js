@@ -17,9 +17,9 @@ const FormEmail = ({ cName, fieldName, email, functionChange, functionBlur, hasT
                         onChange={functionChange} 
                         onBlur={functionBlur} 
                         className={hasTouched && hasError ? 'hasError' : (email !== "" ? 'noError' : '')}
-                        placeholder=" "
+                        placeholder=""
                         validate={validate}
-                    required/>
+                    required />
                     <Form.Label><FaAt className="me-2"/>Email{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                 </div>
                 {hasTouched && hasError && 

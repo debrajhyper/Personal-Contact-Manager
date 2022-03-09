@@ -15,7 +15,7 @@ const FormAgrement = ({ cName, functionChange, hasTouched, hasError, Mandatory }
                     className="agree-term-box"
                     style={{ display: "inline-block" }}
                     aria-label="option 1"
-                    required />
+                required />
                 <Form.Label className="label-agree-term m-0">I agree all statements in <Link to="/terms-conditions" className="term-service text-decoration-underline">Terms and Conditions.</Link>{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {

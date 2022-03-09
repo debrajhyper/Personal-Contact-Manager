@@ -15,8 +15,8 @@ const FormName = ({ name, cName, functionChange, functionBlur, hasTouched, hasEr
                         onChange={functionChange} 
                         onBlur={functionBlur} 
                         className={hasTouched && hasError ? 'hasError' : (name !== "" ? 'noError' : '')}
-                        placeholder=" "
-                    required/>
+                        placeholder=""
+                    required />
                     <Form.Label><FaUserAlt className="me-2"/>Name{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                 </div>
                 {hasTouched && hasError && 

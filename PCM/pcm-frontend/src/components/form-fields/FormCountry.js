@@ -59,8 +59,8 @@ const FormCountry = ({ country, defaultText, onChange, value, cName, functionCha
                         onClick={toggle}
                         onTouchEnd={toggle}
                         // placeholder={value ? value.name : defaultText}
-                        placeholder=" "
-                        required />
+                        placeholder=""
+                    required />
                     <Form.Label><FaGlobeAmericas className="me-2" />Country{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                     <div className={`arrow ${open ? 'open' : null}`} />
                 </div>
