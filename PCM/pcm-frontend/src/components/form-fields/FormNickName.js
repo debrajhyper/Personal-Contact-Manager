@@ -8,7 +8,7 @@ const FormNickName = ({ nickName, cName, functionChange, functionBlur, hasTouche
         <Form.Group className={`form-input ${cName}`} controlId="NickName">
             <div className="field">
                 <Form.Control
-                    name="name"
+                    name="nickName"
                     type="text"
                     value={nickName}
                     onChange={functionChange}

@@ -3,14 +3,21 @@
 .glass-border {
     position: relative;
     display: inline-block;
+    height: 12em;
+    width: 100%;
+    max-width: 12em;
+
     .profile_pic {
-        height: 12em;
+        display: inline;
+        margin: 0 auto;
+        // margin-left: -25%;
+        height: 100%;
         width: 100%;
-        max-width: 12em;
-        object-fit: cover;
+        background-color: $white;
         border: 5px solid $white;
         border-radius: 50%;
-        background-color: $white;
+        object-fit: cover;
+
     }
 
     .active-overlay {

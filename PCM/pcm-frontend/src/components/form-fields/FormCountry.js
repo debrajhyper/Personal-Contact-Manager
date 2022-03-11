@@ -6,7 +6,7 @@ import { FaGlobeAmericas } from 'react-icons/fa';
 import { Form, Image } from 'react-bootstrap';
 
 
-const FormCountry = ({ country, defaultText, onChange, value, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormCountry = ({ country, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
     const ref = useRef(null);
@@ -31,13 +31,13 @@ const FormCountry = ({ country, defaultText, onChange, value, cName, functionCha
 
     function displayValue() {
         if (query.length > 0) return query;
-        if (value) return value.name;
+        if (country) return country.name;
         return '';
     }
 
-    function selectOption(country) {
+    function selectOption(name, country) {
         setQuery('');
-        onChange(country);
+        functionChange(name, country);
         setOpen(false);
     }
 
@@ -52,8 +52,10 @@ const FormCountry = ({ country, defaultText, onChange, value, cName, functionCha
                         value={displayValue()}
                         onChange={e => {
                             setQuery(e.target.value)
-                            onChange(null)
+                            functionChange(e.target.name, null)
                         }}
+                        // value={country}
+                        // onChange={functionChange}
                         onBlur={functionBlur}
                         className={hasTouched && hasError ? 'hasError' : (country !== "" ? 'noError' : '')}
                         onClick={toggle}
@@ -66,25 +68,30 @@ const FormCountry = ({ country, defaultText, onChange, value, cName, functionCha
                 </div>
                 <div className={`CountryDetails ${open ? 'open' : null}`}>
                     {
-                        
-                        filter(CountryDetails).map((country, index) => {
-                            const { code, name, flag } = country;
+                        filter(CountryDetails).map((countryD, index) => {
+                            const { code, name, flag } = countryD;
                             return (
                                 <div 
-                                    className={`country ${value === country ? 'selected' : null}`}
-                                    onClick={() => selectOption(country)} 
-                                    onTouchEnd={() => selectOption(country)} 
+                                    optionname="country"
+                                    className={`country ${country === countryD ? 'selected' : null}`}
+                                    onClick={e => selectOption(e.target.getAttribute('optionname'), countryD)}
+                                    onTouchEnd={e => selectOption(e.target.getAttribute('optionname'), countryD)} 
                                     key={index} 
                                     value={code}>
                                         <Image src={flag} width={20} className="mx-3" />
                                         {name}
                                 </div>
-                                
                             )
                         })
                     }
                 </div>
             </div>
+            {
+                hasTouched && hasError &&
+                <Form.Text className="e_msg error_form" id="name_error_message">
+                    {hasError}
+                </Form.Text>
+            }
         </Form.Group>
     )
 }

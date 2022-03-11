@@ -1,14 +1,68 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
+import { useFormik } from 'formik';
+import useForm from '../../components/form-fields/useForm';
 
-import { Header, FormAddress, FormName, FormEmail, FormTextarea, RequiredStatement, FormCompany, FormCountry, FormDOB, FormMobileNo, FormNickName, FormProfilePic } from '../../components';
+import { contactValidate } from '../../components/form-fields/validationMsg';
+import { Header, FormAddress, FormName, FormEmail, FormTextarea, RequiredStatement, FormCompany, FormCountry, FormDOB, FormMobileNo, FormNickName, FormProfilePic, FormRelationship, FormTags, ModalProfilePic } from '../../components';
 
 import HeaderImg from '../../img/pcm_add_contact.png';
 
+import '../../components/form-fields/form_fields.scss';
+
 import { Container, Row, Col, Form } from 'react-bootstrap';
 
+const validate = contactValidate;
+
 const AddContact = () => {
-    const [value, setValue] = useState(null)
-    console.log(value)
+
+    const [modalProfilePicShow, setModalProfilePicShow] = useState(true);
+
+    const [countryValue, setCountryValue] = useState('');
+
+    const { values, handleChange, handleChangeSelect, handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, handleBlur, handleSubmit, uploadedFile, touched, errors } = useForm(contactValidate);
+
+
+    useEffect(() => {
+        setModalProfilePicShow(true);
+    }, [values.profilePic]);
+
+    // const formik = useFormik({
+    //     initialValues: {
+    //         name: "",
+    //         nickName: "",
+    //         title: "",
+    //         company: "",
+    //         email: "",
+    //         telephoneNo: null,
+    //         mobileNo: null,
+    //         address: "",
+    //         profilePic: "",
+    //         country: "",
+    //         dob: "",
+    //         zodiacSign: "",
+    //         relationship: "",
+    //         tags: [],
+    //         favorite: false,
+    //         socialLinks: {
+    //             facebook: "",
+    //             twitter: "",
+    //             linkedin: "",
+    //             instagram: "",
+    //             youtube: "",
+    //         },
+    //         website: "",
+    //         note: "",
+    //     },
+    //     validate,
+    //     enableReinitialize: true,
+    // })
+
+    // console.log(formik.values)
+
+
+    // const selectedTags = tags => {
+    // 	console.log(tags);
+    // };
     return (
         <Container fluid className='add-contact'>
             <Header image={HeaderImg} text={'Add Contact'} />
@@ -16,7 +70,7 @@ const AddContact = () => {
             <Row className="mx-auto b">
                 <Col md={8} className="mx-auto b">
 
-                    <Form className="contact-form" id="contact-form" action="/user/process_contact" method="post">
+                    <Form onSubmit={handleSubmit} className="contact-form" id="contact-form" action="/user/process_contact" method="post" noValidate>
                         <RequiredStatement />
                         <Form.Group className="input-field-all position-relative">
                             <Row className="m-2 b">
@@ -24,55 +78,31 @@ const AddContact = () => {
                                         <input name="name" type="text" id="Name" required />
                                         <label for="Name" className="form-label"><i className="fas fa-user me-2"></i>Name</label>
                                         <span className="e_msg error_form ms-2 ps-1" id="name_error_message"></span>
+                                        onChange={val => setCountryValue(val)}
                                     </div> */}
-                                <FormName name={''} cName="col-6 px-4" Mandatory={true}/>
-                                <FormAddress address={''} cName="col-6 px-4" Mandatory={false}/>
-                                <FormCompany company={''} cName="col-6 px-4" Mandatory={false}/>
-                                <FormCountry country={''} cName="col-6 px-4" value={value} onChange={val => setValue(val)} defaultText='select Country' Mandatory={false}/>
-                                <FormDOB dob={''} cName="col-6 px-4" Mandatory={false}/>
-                                <FormMobileNo mobileNo={''} cName="col-6 px-4" Mandatory={true}/>
-                                <FormNickName nickName={''} cName="col-6 px-4" Mandatory={false}/>
-                                <FormProfilePic profilePic={''} cName="col-6 px-4" />
+                                {/* <FormName name={formik.values.name} cName="col-6 px-4" functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={true}/> */}
+                                {/* <FormAddress address={formik.values.address} cName="col-6 px-4" functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.address} hasError={formik.errors.address} Mandatory={false}/> */}
+                                {/* <FormCompany company={formik.values.company} cName="col-6 px-4" functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.company} hasError={formik.errors.company} Mandatory={false}/> */}
+                                {/* <FormCountry country={countryValue} onChange={val => setCountryValue(val)} cName="col-6 px-4"  Mandatory={false}/> */}
+                                {/* <FormDOB dob={formik.values.dob}  cName="col-6 px-4" functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={false}/> */}
+                                {/* <FormMobileNo mobileNo={formik.values.mobileNo}  cName="col-6 px-4" functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={true}/> */}
+                                {/* <FormNickName nickName={formik.values.nickName}  cName="col-6 px-4" functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={false}/> */}
+                                {/* <FormProfilePic profilePic={formik.values.profilePic}  cName="col-6 px-4" functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.name} hasError={formik.errors.name} /> */}
+                                {/* <FormRelationship relationship={formik.values.relationship}  cName="col-6 px-4" functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={false}/> */}
+                                {/* <FormTags selectedTags={selectedTags}  tagsV={['Nodejs', 'MongoDB']} cName="col-6 px-4" Mandatory={false}/> */}
 
-                                {/* <div className="form-group form-input col-6">
-                                    <input name="company" type="text" id="Company" required />
-                                    <label for="Company" className="form-label"><i className="fas fa-user-tag me-2"></i>Company Name</label>
-                                    <span className="e_msg error_form ms-2 ps-1" id="company_error_message"></span>
-                                </div> */}
+
+                                <FormName name={values.name} cName="col-6 px-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.name} hasError={errors.name} Mandatory={true} />
+                                <FormEmail email={values.email} cName="col-6 px-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.email} hasError={errors.email} Mandatory={true} />
+                                <FormAddress address={values.address} cName="col-6 px-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.address} hasError={errors.address} Mandatory={false} />
+                                <FormCompany company={values.company} cName="col-6 px-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.company} hasError={errors.company} Mandatory={false} />
+                                <FormCountry country={values.country} cName="col-6 px-4" functionChange={(name, val) => handleChangeSelect(name, val)} functionBlur={handleBlur} hasTouched={touched.country} hasError={errors.country} Mandatory={false} />
+                                <FormDOB dob={values.dob} cName="col-6 px-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.dob} hasError={errors.dob} Mandatory={false} />
+                                <FormMobileNo mobileNo={values.mobileNo} countryCode={values.country} cName="col-6 px-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.mobileNo} hasError={errors.mobileNo} Mandatory={true} />
+                                <FormNickName nickName={values.nickName} cName="col-6 px-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.nickName} hasError={errors.nickName} Mandatory={false} />
+                                <FormProfilePic profilePic={values.profilePic} profilePicURL={values.profilePicURL} uploadedFile={uploadedFile} cName="col-6 px-4" functionChange={handleChangeFile} hasTouched={touched.profilePic} hasError={errors.profilePic} />
                             </Row>
-
-                            <div className="row m-2">
-                                <div className="form-group form-input col-6">
-                                    <input name="phone" type="number" id="Phone" required />
-                                    <label for="Phone" className="form-label"><i className="fas fa-phone-alt me-2"></i>Phone Number</label>
-                                    <span className="e_msg error_form ms-2 ps-1" id="phone_error_message"></span>
-                                </div>
-                                <div className="form-group form-input col-6">
-                                    <input name="email" type="email" id="Email" required />
-                                    <label for="Email" className="form-label"><i className="fas fa-at me-2"></i>Email Address</label>
-                                    <span className="e_msg error_form ms-2 ps-1" id="email_error_message"></span>
-                                </div>
-                            </div>
-
-                            <div className="row m-2 mb-0">
-                                <div className="form-group form-input col-6">
-                                    <input name="work" type="text" id="Work" required />
-                                    <label for="Work" className="form-label"><i className="fas fa-briefcase me-2"></i>Work Details</label>
-                                    <span className="e_msg error_form ms-2 ps-1" id="work_error_message"></span>
-                                </div>
-
-                                <div className="img-upload-form form-input col-6">
-                                    <h5 className="form-label-pic mb-1">Choose Profile Picture</h5>
-                                    <input name="profileImage" type="file" className="form-control-file" id="Profile" />
-                                    <span className="e_msg error_form ms-2 ps-1" id="profileimage_error_message"></span>
-                                </div>
-                            </div>
                         </Form.Group>
-
-
-                        <div className="row ms-3 me-3">
-                            <textarea name="description" className="form-control" id="Description" rows="10" placeholder="Enter Contact Description"></textarea>
-                        </div>
 
                         <div className="text-center mt-2">
                             <div className="form-button">
@@ -84,7 +114,15 @@ const AddContact = () => {
 
                 </Col>
             </Row>
+
+            {
+                values.profilePic && values.profilePicURL &&
+
+                <ModalProfilePic modalProfilePicShow={modalProfilePicShow} setModalProfilePicShow={setModalProfilePicShow} profilePic={values.profilePic} profilePicURL={values.profilePicURL} functionCancel={handleChangeFileCancel} functionUpload={handleChangeFileUpload} hasError={errors.profilePic} />
+            }
         </Container>
+
+
     )
 }
 

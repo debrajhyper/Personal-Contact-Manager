@@ -14,12 +14,15 @@ export { default as FormNickName } from './form-fields/FormNickName';
 export { default as FormNote } from './form-fields/FormNote';
 export { default as FormPassword } from './form-fields/FormPassword';
 export { default as FormProfilePic } from './form-fields/FormProfilePic';
+export { default as FormRelationship } from './form-fields/FormRelationship';
+export { default as FormTags } from './form-fields/FormTags';
 export { default as FormTextarea } from './form-fields/FormTextarea';
 export { default as RequiredStatement } from './form-fields/RequiredStatement';
 
 export { default as Header } from './header/Header';
 
 export { default as ModalHelper } from './modal/ModalHelper';
+export { default as ModalProfilePic } from './modal/ModalProfilePic';
 
 export { default as Navbar } from './navbar/Navbar';
 

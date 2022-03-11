@@ -19,6 +19,7 @@
         left: 0;
         color: $input;
         font-size: 18px;
+        width: 100%;
 
         input {
             position: relative;
@@ -72,7 +73,7 @@
 
     .error_form {
         position: absolute;
-        left: 0;
+        // left: 0;
         color: $input-error;
         font-weight: 400;
         font-size: 12px;
@@ -108,7 +109,7 @@
         border-radius: 5px;
         box-shadow: 0 15px 16.83px .17px rgba(0, 0, 0, .05);
         box-sizing: border-box;
-        padding: .5em .0em .5em .5em;
+        padding: .5em .5em .5em .5em;
         margin-top: .2em;
         max-height: 20em;
         overflow-y: auto;
@@ -153,6 +154,11 @@
         display: inline-block;
     }
 
+    input:valid.not-focused::-webkit-datetime-edit,
+    input:valid.not-focused::-webkit-calendar-picker-indicator {
+        display: inline-block;
+    }
+
     input.focused::-webkit-calendar-picker-indicator {
         cursor: pointer;
     }
@@ -177,6 +183,9 @@
     .img-holder {
         position: relative;
         display: inline-block;
+        height: 12em;
+        width: 100%;
+        max-width: 12em;
 
         label {
             display: inline-block;
@@ -210,6 +219,80 @@
 
     textarea.form-control {
         font-size: 16px;
+    }
+}
+
+
+.tags-input {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    min-height: 48px;
+    width: 480px;
+    padding: 0 8px;
+    border: 1px solid rgb(214, 216, 218);
+    border-radius: 6px;
+
+    &:focus-within {
+        border: 1px solid #0052cc;
+    }
+
+    input {
+        flex: 1;
+        border: none;
+        height: 46px;
+        font-size: 14px;
+        padding: 4px 0 0 0;
+
+        &:focus {
+            outline: transparent;
+        }
+    }
+}
+
+#tags {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 8px 0 0 0;
+}
+
+.tag {
+    width: auto;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    padding: 0 8px;
+    font-size: 14px;
+    list-style: none;
+    border-radius: 6px;
+    margin: 0 8px 8px 0;
+    background: #0052cc;
+
+    .tag-title {
+        margin-top: 3px;
+    }
+
+    .tag-close-icon {
+        display: block;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        text-align: center;
+        font-size: 14px;
+        margin-left: 8px;
+        color: #0052cc;
+        border-radius: 50%;
+        background: #fff;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 567px) {
+    .tags-input {
+        width: calc(100vw - 32px);
     }
 }
 
@@ -294,6 +377,17 @@
             background: $base-dark;
             color: $white;
             border: 2px solid $base-dark;
+        }
+    }
+
+    .btn.form_reset.red {
+        border: 2px solid $deactive;
+        color: $deactive;
+
+        &:hover {
+            background: $deactive;
+            color: $white;
+            border: 2px solid $deactive;
         }
     }
 }

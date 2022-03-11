@@ -3,61 +3,108 @@ import { useState } from "react";
 const useForm = validate => {
     const [values, setValues] = useState({
         name: "",
+        nickName: "",
+        title: "",
+        company: "",
         email: "",
-        password: "",
-        about: "",
-        agreement: false
+        telephoneNo: "",
+        mobileNo: "",
+        address: "",
+        profilePic: "",
+        profilePicURL: "",
+        country: "",
+        dob: "",
+        zodiacSign: "",
+        relationship: "",
+        tags: [],
+        favorite: false,
+        socialLinks: {
+            facebook: "",
+            twitter: "",
+            linkedin: "",
+            instagram: "",
+            youtube: "",
+        },
+        website: "",
+        note: "",
     });
-    const [errors, setErrors] = useState({
-        nameError: "",
-        emailError: "",
-        passwordError: ""
-    });
+
+    const [touched, setTouched] = useState({});
+    const [uploadedFile, setUploadedFile] = useState(false);
+
+    console.log('values ->', values);
+
+    const [errors, setErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
 
+    console.log('errors ->', errors);
+
     const handleChange = e => {
-        const { name, value, checked } = e.target;
+        const { name, value } = e.target;
+        
         setValues({
             ...values,
-            [name]: value,
-            agreement: checked
+            [name]: value
         });
-        //setErrors(validate(values, name));
-        const {nameMsg, emailMsg, passwordMsg} = validate(values, name)
-
-        if(!!nameMsg) {
-            setErrors({
-                ...errors,
-                nameError: nameMsg
-            })
-        }
-        else if(!!emailMsg) {
-            setErrors({
-                ...errors,
-                emailError: emailMsg
-            })
-        }
-        else if (!!passwordMsg) {
-            setErrors({
-                ...errors,
-                passwordError: passwordMsg
-            })
-        }
-        
-        console.log(values.name, values.email, values.password)
-
-        console.log(nameMsg, emailMsg, passwordMsg)
-
-        //console.log(validate(values, name))
-
-        // setErrors({
-        //     ...errors
-        // }, ()=> {
-        //     validate(values, errors, name)
-        // })
-
-        console.log(errors)
+        setErrors(validate(values));
     };
+
+    const handleChangeSelect = (name, value) => {
+        setValues({
+            ...values,
+            [name]: value
+        });
+        setErrors(validate(values));
+    }
+
+    const handleChangeFile = e => {
+        const { name, files } = e.target;
+        setValues({
+            ...values,
+            [name]: files[0],
+            profilePicURL: URL.createObjectURL(files[0])
+        });
+
+        console.log(values?.profilePic?.name?.match(/\.(jpg|jpeg|png|gif)$/))
+        // const reader = new FileReader();
+        // reader.onload = () => {
+        //     if (reader.readyState === 2) {
+        //         console.log(reader)
+        //         setValues({
+        //             ...values,
+        //             // [name]: reader.result,
+        //             profilePicURL: reader.result
+        //         });
+        //     }
+        // }
+        // reader.readAsDataURL(files[0]);
+
+        setErrors(validate(values));
+    }
+
+    const handleChangeFileCancel = () => {
+        setValues({
+            ...values,
+            profilePic: "",
+            profilePicURL: ""
+        });
+    }
+
+    const handleChangeFileUpload = () => {
+        setUploadedFile(true);
+        setErrors(validate(values));
+    }
+
+    const handleBlur = e => {
+        const { name } = e.target;
+        setTouched({
+            ...touched,
+            [name]: true
+        });
+        setErrors(validate(values));
+    }
+
+    
 
 
     const handleSubmit = e => {
@@ -69,7 +116,7 @@ const useForm = validate => {
     };
 
 
-    return {values, handleChange, handleSubmit, errors}
+    return { values, handleChange, handleChangeSelect, handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, handleBlur, handleSubmit, uploadedFile, touched, errors }
 };
 
-//export default useForm;
+export default useForm;

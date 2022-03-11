@@ -1,0 +1,83 @@
+@import '../../sass/variables.scss';
+
+.modal-dialog {
+    .modal-content {
+        position: relative;
+        font-size: 1.3rem;
+
+        .modal-header {
+            position: absolute;
+            right: 0;
+            border-bottom: 0;
+            z-index: 5;
+
+            button {
+                padding: .6em;
+                border: 1px solid $base;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: $base;
+                color: $white;
+            }
+        }
+
+        .modal-body {
+            padding-bottom: 3em;
+
+            img.modal-img {
+                width: 40%;
+            }
+
+            .modal-title {
+                padding: 0 0 .4em 0;
+                font-size: 2.2rem;
+            }
+        }
+    }
+}
+
+#modal-success {
+    color: $model-success;
+}
+
+#modal-error {
+    color: $model-error;
+}
+
+
+// Profile Pic
+.profile-pic {
+    .modal-content {
+        background: $body;
+
+        .modal-body.profilePic {
+            padding: 3em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .modal-title.error_form {
+                padding-top: 2em;
+                color: $input-error;
+                font-weight: 400;
+                font-size: 14px;
+                transition: all .8s;
+            }
+        }
+
+        .modal-footer {
+            border-top: 0;
+            padding: .7em 5em;
+
+            .form-button {
+                .btn {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

@@ -5,27 +5,26 @@ import { Form } from 'react-bootstrap';
 
 const FormName = ({ name, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
     return (
-        <>
-            <Form.Group className={`form-input ${cName}`} controlId="Name">
-                <div className="field">
-                    <Form.Control 
-                        name="name" 
-                        type="text" 
-                        value={name} 
-                        onChange={functionChange} 
-                        onBlur={functionBlur} 
-                        className={hasTouched && hasError ? 'hasError' : (name !== "" ? 'noError' : '')}
-                        placeholder=""
+        <Form.Group className={`form-input ${cName}`} controlId="Name">
+            <div className="field">
+                <Form.Control
+                    name="name"
+                    type="text"
+                    value={name}
+                    onChange={functionChange}
+                    onBlur={functionBlur}
+                    className={hasTouched && hasError ? 'hasError' : (name !== "" ? 'noError' : '')}
+                    placeholder=""
                     required />
-                    <Form.Label><FaUserAlt className="me-2"/>Name{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
-                </div>
-                {hasTouched && hasError && 
-                    <Form.Text className="e_msg error_form" id="name_error_message">
-                        {hasError}
-                    </Form.Text>
-                }
-            </Form.Group>
-        </>
+                <Form.Label><FaUserAlt className="me-2" />Name{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
+            </div>
+            {
+                hasTouched && hasError &&
+                <Form.Text className="e_msg error_form">
+                    {hasError}
+                </Form.Text>
+            }
+        </Form.Group>
     )
 }
 

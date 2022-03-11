@@ -7,7 +7,6 @@ const FormDOB = ({ dob, cName, functionChange, functionBlur, hasTouched, hasErro
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
 
-    console.log(open)
     useEffect(() => {
         ['click', 'touchend'].forEach(e => {
             document.addEventListener(e, toggle);
