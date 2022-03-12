@@ -13,9 +13,9 @@ const FormProfilePic = ({ profilePic, profilePicURL, uploadedFile, cName, functi
             <div className="field">
                 <Form.Control
                     name="profilePic"
+                    title="Profile Picture"
                     type="file"
                     accept='image/*'
-                    // value={profilePic}
                     onChange={functionChange}
                     onSelect={functionChange}
                     onBlur={functionBlur}

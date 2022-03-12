@@ -9,6 +9,7 @@ const FormCompany = ({ company, cName, functionChange, functionBlur, hasTouched,
             <div className="field">
                 <Form.Control
                     name="company"
+                    title="Company"
                     type="text"
                     value={company}
                     onChange={functionChange}

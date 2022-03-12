@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Form } from 'react-bootstrap';
 import { FaUsersCog } from 'react-icons/fa';
+import { Form } from 'react-bootstrap';
 
 const FormNickName = ({ nickName, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
     return (
@@ -9,6 +9,7 @@ const FormNickName = ({ nickName, cName, functionChange, functionBlur, hasTouche
             <div className="field">
                 <Form.Control
                     name="nickName"
+                    title="Nick Name"
                     type="text"
                     value={nickName}
                     onChange={functionChange}
@@ -16,9 +17,10 @@ const FormNickName = ({ nickName, cName, functionChange, functionBlur, hasTouche
                     className={hasTouched && hasError ? 'hasError' : (nickName !== "" ? 'noError' : '')}
                     placeholder=""
                 required />
-                <Form.Label><FaUsersCog className="me-2" />NickName{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
+                <Form.Label><FaUsersCog className="me-2" />Nick Name{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
-            {hasTouched && hasError &&
+            {
+                hasTouched && hasError &&
                 <Form.Text className="e_msg error_form" id="name_error_message">
                     {hasError}
                 </Form.Text>

@@ -18,7 +18,6 @@ const FormDOB = ({ dob, cName, functionChange, functionBlur, hasTouched, hasErro
     }, []);
 
     function toggle(e) {
-        // console.dir([e.target, ref.current]);
         setOpen(e && e.target === ref.current);
     }
 
@@ -28,6 +27,7 @@ const FormDOB = ({ dob, cName, functionChange, functionBlur, hasTouched, hasErro
                 <Form.Control
                     ref={ref}
                     name="dob"
+                    title="Birth Date"
                     type="date"
                     value={dob}
                     onChange={functionChange}

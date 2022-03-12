@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 
+import { RelationshipDetails } from '../misc/RelationshipDetails';
+
 import { FaHeart } from 'react-icons/fa';
-import { Form, Image } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
-const RelationshipDetails = ['Brother', 'Sister', 'Parent', 'Father', 'Mother', 'child', 'Son', 'Daughter', 'Grandfather', 'Grandmother', 'Aunt', 'Uncle', 'Cousin', 'Nephew', 'Niece', 'Friend', 'Spouse', 'Domestic Partner', 'Partner', 'Manager', 'Relative', 'Other'];
-
-const FormRelationship = ({ relationship, defaultText, onChange, value, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormRelationship = ({ relationship, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
     const ref = useRef(null);
@@ -25,18 +25,18 @@ const FormRelationship = ({ relationship, defaultText, onChange, value, cName, f
     }
 
     function filter(relationships) {
-        return relationships.filter(relationship => relationship.toLowerCase().indexOf(query.toLowerCase()) > -1);
+        return relationships.filter(relationship => relationship.name.toLowerCase().indexOf(query.toLowerCase()) > -1);
     }
 
     function displayValue() {
         if (query.length > 0) return query;
-        if (value) return value.name;
+        if (relationship) return relationship;
         return '';
     }
 
-    function selectOption(relationship) {
+    function selectOption(name, relationship) {
         setQuery('');
-        onChange(relationship);
+        functionChange(name, relationship);
         setOpen(false);
     }
 
@@ -47,42 +47,52 @@ const FormRelationship = ({ relationship, defaultText, onChange, value, cName, f
                     <Form.Control
                         ref={ref}
                         name="relationship"
+                        title="Relationship"
                         type="text"
                         value={displayValue()}
                         onChange={e => {
                             setQuery(e.target.value)
-                            onChange(null)
+                            functionChange(e.target.name, e.target.value)
                         }}
                         onBlur={functionBlur}
                         className={hasTouched && hasError ? 'hasError' : (relationship !== "" ? 'noError' : '')}
                         onClick={toggle}
                         onTouchEnd={toggle}
-                        // placeholder={value ? value.name : defaultText}
                         placeholder=""
-                        required />
+                    required />
                     <Form.Label><FaHeart className="me-2" />Relationship{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                     <div className={`arrow ${open ? 'open' : null}`} />
                 </div>
-                <div className={`CountryDetails ${open ? 'open' : null}`}>
+                <div className={`OptionDetails ${open ? 'open' : null}`}>
                     {
-
-                        filter(RelationshipDetails).map((relationship, index) => {
-                            return (
-                                <div
-                                    className={`country ${value === relationship ? 'selected' : null}`}
-                                    onClick={() => selectOption(relationship)}
-                                    onTouchEnd={() => selectOption(relationship)}
-                                    key={index}
-                                    value={relationship}>
-                                    {/* <Image src={flag} width={20} className="mx-3" /> */}
-                                    {relationship}
-                                </div>
-
-                            )
-                        })
+                        filter(RelationshipDetails).length > 0
+                        ?   filter(RelationshipDetails).map((relationshipD, index) => {
+                                const { id, name } = relationshipD;
+                                return (
+                                    <div
+                                        optionname="relationship"
+                                        className={`option ${relationship === name ? 'selected' : null}`}
+                                        onClick={e => selectOption(e.target.getAttribute('optionname'), name)}
+                                        onTouchEnd={e => selectOption(e.target.getAttribute('optionname'), name)}
+                                        key={id}
+                                        value={name}>
+                                            {name}
+                                    </div>
+                                );
+                            })
+                        :   <div className="option-null">
+                                <Form.Text>No Relationship Status</Form.Text> 
+                                <span>Consider Selecting Other</span>
+                            </div>
                     }
                 </div>
             </div>
+            {
+                hasTouched && hasError &&
+                <Form.Text className="e_msg error_form" id="name_error_message">
+                    {hasError}
+                </Form.Text>
+            }
         </Form.Group>
     )
 }

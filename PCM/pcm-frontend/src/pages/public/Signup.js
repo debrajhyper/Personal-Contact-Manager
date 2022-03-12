@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 
-import guest_signup_register from '../../img/guest_signup_register.png';
-import guest_signup_register_left from '../../img/guest_signup_register_left.png';
-
 import { FormName, FormEmail, FormPassword, FormTextarea, FormAgrement, SignupButtons, ModalHelper, RequiredStatement } from '../../components';
 import { signupValidate } from '../../components/form-fields/validationMsg';
+
+import guest_signup_register from '../../img/guest_signup_register.png';
+import guest_signup_register_left from '../../img/guest_signup_register_left.png';
 
 import '../../sass/public/signup.scss';
 import '../../components/form-fields/form_fields.scss';

@@ -9,6 +9,7 @@ const FormAddress = ({ address, cName, functionChange, functionBlur, hasTouched,
             <div className="field">
                 <Form.Control
                     name="address"
+                    title="Address"
                     type="text"
                     value={address}
                     onChange={functionChange}

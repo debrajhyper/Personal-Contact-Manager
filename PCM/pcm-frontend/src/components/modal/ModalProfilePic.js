@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import ProfilePic from '../profile-pic/ProfilePic';
 import SignupButton from '../buttons/SignupButtons';
 
 import './modal.scss';
 
-import { Modal, Button, Image, Form } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 const ModalProfilePic = ({ modalProfilePicShow, setModalProfilePicShow, profilePic, profilePicURL, functionCancel, functionUpload, hasError }) => {
 
@@ -34,7 +34,7 @@ const ModalProfilePic = ({ modalProfilePicShow, setModalProfilePicShow, profileP
             </Modal.Body>
             <Modal.Footer className="action_button justify-content-evenly pb-5 m-0">
                 <SignupButton type='reset' name='cancelBtn' id='CancelBtn' cName='btn form_reset red' value='Cancel' action={handleClose} />
-                <SignupButton type='submit' name='uploadBtn' id='UploadBtn' cName='btn' value='Upload' action={handleUpload} />
+                <SignupButton type='submit' name='uploadBtn' id='UploadBtn' cName='btn' value='Upload' hasError={hasError} action={handleUpload} />
             </Modal.Footer>
         </Modal>
     )

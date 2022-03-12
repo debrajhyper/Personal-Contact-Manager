@@ -1,37 +1,41 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const FormTags = ({ selectedTags, tagsV }) => {
-    const [tags, setTags] = useState(tagsV);
-    const removeTags = indexToRemove => {
-        setTags([...tags.filter((_, index) => index !== indexToRemove)]);
-    };
-    const addTags = event => {
-        if (event.target.value !== "") {
-            setTags([...tags, event.target.value]);
-            selectedTags([...tags, event.target.value]);
-            event.target.value = "";
-        }
-    };
+import { FaUserTag } from 'react-icons/fa';
+import { Form } from 'react-bootstrap';
+
+const FormTags = ({ tags, cName, functionAddTags, functionRemoveTags, hasTouched, hasError, Mandatory }) => {
     return (
-        <div className="tags-input">
+        <Form.Group className={`form-input ${cName}`} controlId="Tags">
+            <div className="field">
+                <Form.Control
+                    name="tags"
+                    title="Tags"
+                    type="text"
+                    onKeyUp={event => event.key === "Enter" ? functionAddTags(event) : null}
+                    className={hasTouched && hasError ? 'hasError' : (tags.length > 0 ? 'noError' : '')}
+                    placeholder=""
+                required />
+                <Form.Label><FaUserTag className="me-2" />Tags{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
+            </div>
             <ul id="tags">
-                {tags.map((tag, index) => (
-                    <li key={index} className="tag">
-                        <span className='tag-title'>{tag}</span>
-                        <span className='tag-close-icon'
-                            onClick={() => removeTags(index)}
-                        >
-                            x
-                        </span>
-                    </li>
-                ))}
+                {
+                    tags.map((tag, index) => (
+                        <li key={index} className="tag">
+                            <span className='tag-title'>{tag}</span>
+                            <span className='tag-close-icon' onClick={() => functionRemoveTags(index)}>
+                                x
+                            </span>
+                        </li>
+                    ))
+                }
             </ul>
-            <input
-                type="text"
-                onKeyUp={event => event.key === "Enter" ? addTags(event) : null}
-                placeholder="Press enter to add tags"
-            />
-        </div>
+            {
+                hasTouched && hasError &&
+                <Form.Text className="e_msg error_form" id="name_error_message">
+                    {hasError}
+                </Form.Text>
+            }
+        </Form.Group>
     );
 }
 

@@ -12,8 +12,8 @@ import cDob from '../../img/cDob.png';
 
 import '../../sass/private/Profile.scss';
 
-import { IoFingerPrint, IoLocationSharp, IoCalendar, IoDisc } from 'react-icons/io5';
-import { FaAt, FaUserShield } from 'react-icons/fa';
+import { IoFingerPrint, IoCalendar, IoDisc } from 'react-icons/io5';
+import { FaAt, FaUserShield, FaGlobeAmericas } from 'react-icons/fa';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const cardDetails = [
@@ -27,7 +27,7 @@ const cardDetails = [
     {
         spaceSm: 4,
         image: CountryFlag('IN'),
-        icon: <IoLocationSharp />,
+        icon: <FaGlobeAmericas />,
         title: 'Country',
         subtitle: 'India',
     },

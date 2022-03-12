@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Form, FloatingLabel } from 'react-bootstrap'
+import { Form, FloatingLabel } from 'react-bootstrap';
 
 const FormTextarea = ({ cName, about, functionChange }) => {
     return (

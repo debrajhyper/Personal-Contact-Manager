@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const useForm = validate => {
     const [values, setValues] = useState({
@@ -19,11 +19,11 @@ const useForm = validate => {
         tags: [],
         favorite: false,
         socialLinks: {
-            facebook: "",
-            twitter: "",
-            linkedin: "",
-            instagram: "",
-            youtube: "",
+            Facebook: "",
+            Twitter: "",
+            LinkedIn: "",
+            Instagram: "",
+            YouTube: "",
         },
         website: "",
         note: "",
@@ -31,22 +31,30 @@ const useForm = validate => {
 
     const [touched, setTouched] = useState({});
     const [uploadedFile, setUploadedFile] = useState(false);
-
-    console.log('values ->', values);
-
     const [errors, setErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
 
+    useEffect(() => {
+        setErrors(validate(values));
+    }, [values, validate]);
+
+
+    console.log('values ->', values);
     console.log('errors ->', errors);
+
+    const handleClick = (e) => {
+        setValues({
+            ...values,
+            favorite: !values.favorite
+        })
+    };
 
     const handleChange = e => {
         const { name, value } = e.target;
-        
         setValues({
             ...values,
             [name]: value
         });
-        setErrors(validate(values));
     };
 
     const handleChangeSelect = (name, value) => {
@@ -54,33 +62,17 @@ const useForm = validate => {
             ...values,
             [name]: value
         });
-        setErrors(validate(values));
-    }
+    };
 
     const handleChangeFile = e => {
         const { name, files } = e.target;
+        const file = files[0];
         setValues({
             ...values,
-            [name]: files[0],
-            profilePicURL: URL.createObjectURL(files[0])
+            [name]: file,
+            profilePicURL: URL.createObjectURL(file)
         });
-
-        console.log(values?.profilePic?.name?.match(/\.(jpg|jpeg|png|gif)$/))
-        // const reader = new FileReader();
-        // reader.onload = () => {
-        //     if (reader.readyState === 2) {
-        //         console.log(reader)
-        //         setValues({
-        //             ...values,
-        //             // [name]: reader.result,
-        //             profilePicURL: reader.result
-        //         });
-        //     }
-        // }
-        // reader.readAsDataURL(files[0]);
-
-        setErrors(validate(values));
-    }
+    };
 
     const handleChangeFileCancel = () => {
         setValues({
@@ -88,11 +80,46 @@ const useForm = validate => {
             profilePic: "",
             profilePicURL: ""
         });
-    }
+    };
 
     const handleChangeFileUpload = () => {
         setUploadedFile(true);
-        setErrors(validate(values));
+    };
+
+    const handleChangeRemoveTags = indexToRemove => {
+        setValues({
+            ...values,
+            tags: [...values.tags.filter((_, index) => index !== indexToRemove)]
+        });
+    };
+
+    const handleChangeAddTags = e => {
+        const { value } = e.target;
+        if (value !== '') {
+            setValues({
+                ...values,
+                tags: [...values.tags, value]
+            });
+            e.target.value = "";
+        }
+    };
+
+    const handleChangeSocial = e => {
+        const { name, value } = e.target;
+        setValues({
+            ...values,
+            socialLinks: {
+                ...values.socialLinks,
+                [name]: value
+            }
+        });
+    };
+
+    const handleChangeNote = value => {
+        setValues({
+            ...values,
+            note: value
+        });
     }
 
     const handleBlur = e => {
@@ -101,10 +128,20 @@ const useForm = validate => {
             ...touched,
             [name]: true
         });
-        setErrors(validate(values));
-    }
+    };
 
-    
+    const handleBlurSocial = e => {
+        const { name } = e.target;
+        setTouched({
+            ...touched,
+            socialLinks: {
+                ...touched.socialLinks,
+                [name]: true
+            }
+        })
+    };
+
+
 
 
     const handleSubmit = e => {
@@ -116,7 +153,7 @@ const useForm = validate => {
     };
 
 
-    return { values, handleChange, handleChangeSelect, handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, handleBlur, handleSubmit, uploadedFile, touched, errors }
+    return { values, handleClick, handleChange, handleChangeSelect, handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, handleChangeRemoveTags, handleChangeAddTags, handleChangeSocial, handleChangeNote, handleBlur, handleBlurSocial, handleSubmit, uploadedFile, touched, errors, isSubmit }
 };
 
 export default useForm;

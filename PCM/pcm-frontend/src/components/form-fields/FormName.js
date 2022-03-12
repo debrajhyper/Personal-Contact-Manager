@@ -9,13 +9,14 @@ const FormName = ({ name, cName, functionChange, functionBlur, hasTouched, hasEr
             <div className="field">
                 <Form.Control
                     name="name"
+                    title="Name"
                     type="text"
                     value={name}
                     onChange={functionChange}
                     onBlur={functionBlur}
                     className={hasTouched && hasError ? 'hasError' : (name !== "" ? 'noError' : '')}
                     placeholder=""
-                    required />
+                required />
                 <Form.Label><FaUserAlt className="me-2" />Name{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {

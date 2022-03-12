@@ -48,41 +48,44 @@ const FormCountry = ({ country, cName, functionChange, functionBlur, hasTouched,
                     <Form.Control
                         ref={ref}
                         name="country"
+                        title="Country"
                         type="text"
                         value={displayValue()}
                         onChange={e => {
                             setQuery(e.target.value)
-                            functionChange(e.target.name, null)
+                            functionChange(e.target.name, e.target.value)
                         }}
-                        // value={country}
-                        // onChange={functionChange}
                         onBlur={functionBlur}
                         className={hasTouched && hasError ? 'hasError' : (country !== "" ? 'noError' : '')}
                         onClick={toggle}
                         onTouchEnd={toggle}
-                        // placeholder={value ? value.name : defaultText}
                         placeholder=""
                     required />
                     <Form.Label><FaGlobeAmericas className="me-2" />Country{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                     <div className={`arrow ${open ? 'open' : null}`} />
                 </div>
-                <div className={`CountryDetails ${open ? 'open' : null}`}>
+                <div className={`OptionDetails ${open ? 'open' : null}`}>
                     {
-                        filter(CountryDetails).map((countryD, index) => {
-                            const { code, name, flag } = countryD;
-                            return (
-                                <div 
-                                    optionname="country"
-                                    className={`country ${country === countryD ? 'selected' : null}`}
-                                    onClick={e => selectOption(e.target.getAttribute('optionname'), countryD)}
-                                    onTouchEnd={e => selectOption(e.target.getAttribute('optionname'), countryD)} 
-                                    key={index} 
-                                    value={code}>
-                                        <Image src={flag} width={20} className="mx-3" />
-                                        {name}
-                                </div>
-                            )
-                        })
+                        filter(CountryDetails).length > 0
+                        ?   filter(CountryDetails).map((countryD, index) => {
+                                const { code, name, flag } = countryD;
+                                return (
+                                    <div 
+                                        optionname="country"
+                                        className={`option ${country === countryD ? 'selected' : null}`}
+                                        onClick={e => selectOption(e.target.getAttribute('optionname'), countryD)}
+                                        onTouchEnd={e => selectOption(e.target.getAttribute('optionname'), countryD)} 
+                                        key={index} 
+                                        value={code}>
+                                            <Image src={flag} width={22} className="mx-3" />
+                                            {name}
+                                    </div>
+                                )
+                            })
+                        :   <div className="option-null">
+                                <Form.Text>No Country Found</Form.Text> 
+                                <span>Consider Selecting Other</span>
+                            </div>
                     }
                 </div>
             </div>
