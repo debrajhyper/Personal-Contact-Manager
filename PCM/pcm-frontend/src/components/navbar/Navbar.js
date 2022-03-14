@@ -55,7 +55,9 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
                             ?  ( 
                                 <>
                                     <Link to="/user/dashboard" className="navbar-brand pcm">{authSlideBar}</Link>
-                                    <BsFillPersonLinesFill className={`slidebar_ico ${authSlideBar}`} size={25} onClick={handleSlidebar}/>
+                                    <div className={`slidebar_ico ${authSlideBar}`} onClick={handleSlidebar}>
+                                        <BsFillPersonLinesFill size={24}/>
+                                    </div>
                                 </>
                                 )
                             : <Link to="/" className="navbar-brand">Personal Contact Manager</Link>

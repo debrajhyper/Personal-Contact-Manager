@@ -7,7 +7,6 @@ import './modal.scss';
 
 import { Modal, Image } from 'react-bootstrap';
 
-
 const ModalHelper = (props) => {
     const [show, setShow] = useState(true);
 
@@ -20,7 +19,7 @@ const ModalHelper = (props) => {
     }, [])
 
     return (
-        <Modal show={show} onHide={handleClose} id={"modal-" + props.type}>
+        <Modal className='helper-msg' show={show} onHide={handleClose} id={"modal-" + props.type}>
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body className="text-center">
                 <Image className='modal-img' src={props.type !== "error" ? modalSuccess : modalError} fluid />

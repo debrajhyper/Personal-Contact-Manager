@@ -67,11 +67,20 @@ const useForm = validate => {
     const handleChangeFile = e => {
         const { name, files } = e.target;
         const file = files[0];
-        setValues({
-            ...values,
-            [name]: file,
-            profilePicURL: URL.createObjectURL(file)
-        });
+
+        if(file !== undefined) {
+            setValues({
+                ...values,
+                [name]: file,
+                profilePicURL: URL.createObjectURL(file)
+            });
+        } else {
+            setValues({
+                ...values,
+                [name]: "",
+                profilePicURL: ""
+            });
+        }
     };
 
     const handleChangeFileCancel = () => {
@@ -142,6 +151,39 @@ const useForm = validate => {
     };
 
 
+    const handleReset = () => {
+        setValues({
+            name: "",
+            nickName: "",
+            title: "",
+            company: "",
+            email: "",
+            telephoneNo: "",
+            mobileNo: "",
+            address: "",
+            profilePic: "",
+            profilePicURL: "",
+            country: "",
+            dob: "",
+            zodiacSign: "",
+            relationship: "",
+            tags: [],
+            favorite: false,
+            socialLinks: {
+                Facebook: "",
+                Twitter: "",
+                LinkedIn: "",
+                Instagram: "",
+                YouTube: "",
+            },
+            website: "",
+            note: "",
+        });
+        setTouched({});
+        setUploadedFile(false);
+        setErrors({});
+    }
+
 
 
     const handleSubmit = e => {
@@ -153,7 +195,7 @@ const useForm = validate => {
     };
 
 
-    return { values, handleClick, handleChange, handleChangeSelect, handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, handleChangeRemoveTags, handleChangeAddTags, handleChangeSocial, handleChangeNote, handleBlur, handleBlurSocial, handleSubmit, uploadedFile, touched, errors, isSubmit }
+    return { values, handleClick, handleChange, handleChangeSelect, handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, handleChangeRemoveTags, handleChangeAddTags, handleChangeSocial, handleChangeNote, handleBlur, handleBlurSocial, handleReset, handleSubmit, uploadedFile, touched, errors, isSubmit }
 };
 
 export default useForm;

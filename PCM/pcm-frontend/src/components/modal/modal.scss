@@ -1,48 +1,68 @@
 @import '../../sass/variables.scss';
+@import '../../sass/responsive.scss';
 
-.modal-dialog {
-    .modal-content {
-        position: relative;
-        font-size: 1.3rem;
-
-        .modal-header {
-            position: absolute;
-            right: 0;
-            border-bottom: 0;
-            z-index: 5;
-
-            button {
-                padding: .6em;
-                border: 1px solid $base;
-                border-radius: 50%;
-                cursor: pointer;
+.modal {
+    .modal-dialog {
+        .modal-content {
+            font-size: 1.3rem;
+            position: relative;
+            background: $body;
+            box-shadow: 0 15px 16.83px .17px rgba(0, 0, 0, .05);
+            .modal-header {
+                position: absolute;
+                right: 0;
+                border-bottom: 0;
+                z-index: 5;
+                button {
+                    padding: .6em;
+                    border: 1px dashed $base;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+                button:hover {
+                    background-color: $base;
+                    color: $white;
+                }
             }
-
-            button:hover {
-                background-color: $base;
-                color: $white;
+            .modal-body.flex-prop {
+                padding: 3em;
+                padding-bottom: 1em;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
             }
-        }
-
-        .modal-body {
-            padding-bottom: 3em;
-
-            img.modal-img {
-                width: 40%;
-            }
-
-            .modal-title {
-                padding: 0 0 .4em 0;
-                font-size: 2.2rem;
+            .modal-footer {
+                border-top: 0;
+                padding: .7em 5em;
+    
+                .form-button {
+                    .btn {
+                        margin: 0;
+                    }
+                }
             }
         }
     }
 }
 
+
+
+.helper-msg {
+    .modal-body {
+        padding-bottom: 3em;
+        img.modal-img {
+            width: 40%;
+        }
+        .modal-title {
+            padding: 0 0 .4em 0;
+            font-size: 2.2rem;
+        }
+    }
+}
 #modal-success {
     color: $model-success;
 }
-
 #modal-error {
     color: $model-error;
 }
@@ -51,15 +71,7 @@
 // Profile Pic
 .profile-pic {
     .modal-content {
-        background: $body;
-
         .modal-body.profilePic {
-            padding: 3em;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
             .modal-title.error_form {
                 padding-top: 2em;
                 color: $input-error;
@@ -68,16 +80,35 @@
                 transition: all .8s;
             }
         }
+    }
+}
 
-        .modal-footer {
-            border-top: 0;
-            padding: .7em 5em;
 
-            .form-button {
-                .btn {
-                    margin: 0;
+// Edit Profile
+.edit-profile {
+    .modal-dialog {
+        margin: 5rem auto;
+        .modal-content {
+            .modal-body.editProfile {
+                padding: 2em;
+            }
+            .modal-footer {
+                @media screen and (max-width: $mobile) {
+                    padding: .7em 0em!important;
                 }
             }
+        }
+        @media (min-width: 576px) {
+            max-width: 95em;
+        }
+        @media screen and (max-width: $laptop) {
+            max-width: 60em;
+        }
+        @media screen and (max-width: $tablet) {
+            max-width: 52em;
+        }
+        @media screen and (max-width: $mobile) {
+            max-width: 31em;
         }
     }
 }

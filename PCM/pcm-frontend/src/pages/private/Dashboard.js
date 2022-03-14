@@ -4,13 +4,14 @@ import { DashboardCard, Header } from '../../components';
 
 import '../../sass/private/Dashboard.scss';
 import pcmDashboard from '../../img/pcm_dashboard.svg';
+import cLogin from '../../img/cLogin1.png';
 import cTimestamp from '../../img/cTimestamp.png';
 import cTotalContacts from '../../img/cTotalContacts.png';
 import cEmail from '../../img/cEmail.png';
 import cRole from '../../img/cRole.png';
 
 import { Container, Image, Row, Col } from 'react-bootstrap';
-import { FaUserCheck, FaAddressBook, FaAt, FaUserShield } from 'react-icons/fa';
+import { FaUserCheck, FaSignInAlt, FaAddressBook, FaAt, FaUserShield } from 'react-icons/fa';
 
 const CardDetails = [
     {
@@ -22,18 +23,25 @@ const CardDetails = [
     },
     {
         space: 9,
+        image: cLogin,
+        icon: <FaSignInAlt />,
+        title: 'Last Login',
+        subtitle: '23 August 2021 Monday 10:48 PM'
+    },
+    {
+        space: 8,
         image: cTotalContacts,
         icon: <FaAddressBook />,
         title: 'Total Contacts',
         subtitle: 20
     },
-    {
-        space: 8,
-        image: cEmail,
-        icon: <FaAt />,
-        title: 'Email',
-        subtitle: 'debrajkarmakar010@gmail.com'
-    },
+    // {
+    //     space: 8,
+    //     image: cEmail,
+    //     icon: <FaAt />,
+    //     title: 'Email',
+    //     subtitle: 'debrajkarmakar010@gmail.com'
+    // },
     {
         space: 6,
         image: cRole,

@@ -1,4 +1,5 @@
 @import '../../sass/variables.scss';
+@import '../../sass/responsive.scss';
 
 
 .mandatory {
@@ -82,6 +83,18 @@
 }
 
 
+//  Email
+.field-email {
+    input:focus+.form-label,
+    input:not(:placeholder-shown)+.form-label,
+    input:valid+.form-label {
+        top: 0%;
+        font-size: 12px;
+        color: $base;
+    }
+}
+
+
 //  Select
 .field {
     .arrow {
@@ -95,6 +108,8 @@
         top: 50%;
         width: 0;
         height: 0;
+        z-index: 4;
+        cursor: pointer;
     }
 
     .arrow.open {
@@ -191,9 +206,15 @@
     .img-holder {
         position: relative;
         display: inline-block;
-        height: 12em;
-        width: 100%;
-        max-width: 12em;
+        height: 10em;
+        width: 10em;
+        // width: 100%;
+        // max-width: 10em;
+
+        .glass-border {
+            height: 100%;
+            width: 100%;
+        }
 
         label {
             display: inline-block;
@@ -202,7 +223,7 @@
             right: 5%;
             top: 95%;
             text-align: end;
-            padding: 10px 14.5px;
+            padding: 5.5px 10px;
             backdrop-filter: blur(5px);
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.5);
@@ -273,12 +294,26 @@
 .field-favorite {
     display: inline-block;
     padding: 1em;
-    border: 1px solid $base;
+    border: 1px dashed $base;
     border-radius: 50%;
     transition: all .2s ease-out;
     cursor: pointer;
     &:hover {
         background: $base-glassMorph;
+    }
+    svg {
+        animation: favorite .2s ease-out;
+    }
+}
+@keyframes favorite {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.4);
+    }
+    100% {
+        transform: scale(1);
     }
 }
 .field-favorite.no {
@@ -373,58 +408,35 @@
 }
 
 
-.action_button {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: 2em;
-
-    .btn {
+fieldset {
+    position: relative;
+    border: 1px solid $base;
+    border-radius: 5px;
+    padding: 14px;
+    color: $base;
+    legend {
+        position: absolute;
+        top: -15px;
         display: inline-block;
-        background: $base;
-        color: $white;
+        background-color: $body;
         width: auto;
-        margin-right: 30px;
-        padding: .5em 1em;
-        border: 2px solid $base;
-        border-radius: 5px;
-        outline: none;
-        font-size: 1.4rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        cursor: pointer;
-
-        &:focus {
-            box-shadow: 0 0 0 0.25rem transparent;
-        }
-
-        &:hover {
-            background: $base-dark;
-            border: 2px solid $base-dark;
-            color: $white;
-        }
+        padding: 0 5px;
     }
+}
 
-    .btn.form_reset {
-        background: transparent;
-        color: $base;
-        border: 2px solid $base;
-
-        &:hover {
-            background: $base-dark;
-            color: $white;
-            border: 2px solid $base-dark;
-        }
+.upper-social-links {
+    @media screen and (max-width: $laptop) {
+        display: none;
     }
-
-    .btn.form_reset.red {
-        border: 2px solid $deactive;
-        color: $deactive;
-
-        &:hover {
-            background: $deactive;
-            color: $white;
-            border: 2px solid $deactive;
-        }
+    @media screen and (min-width: $laptop) {
+        display: inline-block;
+    }
+}
+.lower-social-links {
+    @media screen and (max-width: $laptop) {
+        display: inline-block;
+    }
+    @media screen and (min-width: $laptop) {
+        display: none;
     }
 }

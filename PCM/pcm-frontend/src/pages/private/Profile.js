@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { DashboardCard, ProfilePic, SignupButtons } from '../../components';
+import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile } from '../../components';
 import { CountryFlag } from '../../components/misc/FlagSelect';
 import { ZodiacSign } from '../../components/misc/ZodiacSelect';
 
@@ -68,6 +68,12 @@ const cardDetails = [
 ]
 
 const Profile = () => {
+    const [modalEditProfile, setModalEditProfile] = useState(false);
+
+    function handleModalEditProfile() {
+        setModalEditProfile(!modalEditProfile);
+    }
+
     return (
         <Container fluid className="profile text-center">
 
@@ -89,9 +95,9 @@ const Profile = () => {
                     })
                 }
             </Row>
-
-            <SignupButtons name='edit_profile' id='EditProfile' cName='btn mt-sm-4 mt-2 p-3 px-5' value='Edit profile' />
-
+            <ButtonNormal name='edit_profile' id='EditProfile' cName='btn mt-sm-4 mt-2 p-3 px-5' value='Edit profile' action={handleModalEditProfile} />
+            
+            <ModalEditProfile modalEditProfile={modalEditProfile} handleModalEditProfile={handleModalEditProfile} />
         </Container>
     )
 }

@@ -1,4 +1,5 @@
-export { default as SignupButtons } from './buttons/SignupButtons';
+export { default as ButtonLink } from './buttons/ButtonLink';
+export { default as ButtonNormal } from './buttons/ButtonNormal';
 
 export { default as DashboardCard } from './card/DashboardCard';
 
@@ -27,6 +28,7 @@ export { default as RequiredStatement } from './form-fields/RequiredStatement';
 
 export { default as Header } from './header/Header';
 
+export { default as ModalEditProfile } from './modal/ModalEditProfile';
 export { default as ModalHelper } from './modal/ModalHelper';
 export { default as ModalProfilePic } from './modal/ModalProfilePic';
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 
-import { FormEmail, FormPassword, SignupButtons } from '../../components';
+import { FormEmail, FormPassword, ButtonNormal } from '../../components';
 import { loginValidate } from '../../components/form-fields/validationMsg';
 
 import '../../sass/public/login.scss';
@@ -90,7 +90,7 @@ const Login = () => {
                                 </Container>
                                 
                                 <Form.Group className="action_button">
-                                    <SignupButtons type="submit" name="login" id="Login" cName="form_submit m-0 ps-5 pe-5" value="Login"/>
+                                    <ButtonNormal type="submit" name="login" id="Login" cName="form_submit m-0 ps-5 pe-5" value="Login"/>
                                 </Form.Group>
                                 
                                 <Container className="signup-link text-center mt-5 mb-3">

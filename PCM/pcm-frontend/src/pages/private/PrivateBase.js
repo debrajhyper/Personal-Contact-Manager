@@ -8,6 +8,7 @@ import AddContact from './AddContact';
 import Profile from './Profile';
 import Settings from './Settings';
 
+
 const PrivateBase = () => {
     const [show, setShow] = useState(true);
 

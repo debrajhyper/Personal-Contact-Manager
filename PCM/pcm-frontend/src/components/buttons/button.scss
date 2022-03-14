@@ -1,0 +1,68 @@
+@import '../../sass//variables.scss';
+@import '../../sass/responsive.scss';
+
+.action_button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 2em;
+
+    .three {
+        width: 50%;
+        @media screen and (max-width: $laptop) {
+            width: 80%;
+        }
+        @media screen and (max-width: $tablet) {
+            width: 100%;
+        }
+    }
+
+    .btn {
+        display: inline-block;
+        background: $base;
+        color: $white;
+        width: auto;
+        margin-right: 30px;
+        padding: .5em 1em;
+        border: 2px solid $base;
+        border-radius: 5px;
+        outline: none;
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        cursor: pointer;
+
+        &:focus {
+            box-shadow: 0 0 0 0.25rem transparent;
+        }
+
+        &:hover {
+            background: $base-dark;
+            border: 2px solid $base-dark;
+            color: $white;
+        }
+    }
+
+    .btn.form_reset {
+        background: transparent;
+        color: $base;
+        border: 2px solid $base;
+
+        &:hover {
+            background: $base-dark;
+            color: $white;
+            border: 2px solid $base-dark;
+        }
+    }
+
+    .btn.form_reset.red {
+        border: 2px solid $deactive;
+        color: $deactive;
+
+        &:hover {
+            background: $deactive;
+            color: $white;
+            border: 2px solid $deactive;
+        }
+    }
+}

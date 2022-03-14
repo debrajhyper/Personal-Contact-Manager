@@ -1,9 +1,9 @@
 $mobile-s : 376px;
-$mobile : 576px;    //Mobile devices -> 320px - 480px
-$tablet : 992px;    //iPads, Tablets -> 768px - 992px
-$laptop : 1024px;   //small screen -> 992px - 1024px
-$laptop-l : 1600px;   //laptops, Desktops -> 1200px - 1600px
-$tv : 1824px;   //Extra large screens, TV -> 1824px - 
+$mobile : 576px;    
+$tablet : 992px;    
+$laptop : 1024px;   
+$laptop-l : 1600px;   
+$tv : 1824px;   
 
 
 html {
@@ -13,7 +13,7 @@ html {
 
 @media screen and (max-width: $mobile) {
     html {
-        font-size: 55%!important;
+        font-size: 75%!important;
     }
     .signup_image img.reg_left {
         display: none;
@@ -24,7 +24,7 @@ html {
 
 @media screen and (max-width: $tablet) {
     html {
-        font-size: 60%;
+        font-size: 75%;
     }
 }
 

@@ -32,19 +32,25 @@
 			}
 			.slidebar_ico {
 				// margin-left: 5px;
+				padding: .5em;
+				border-radius: 5px;
 				margin-left: .0em;
 				cursor: pointer;
 				transition: all 0.2s ease-in-out;
+				&:hover {
+					background: $white-light;
+					color: $base;
+				}
 				@media screen and (max-width: $mobile) {
 					margin-left: 1.5em;
 				}
 			}
 			.slidebar_ico.PCM {
 				// margin-left: 90px;
-				margin-left: 6em;
+				margin-left: 8em;
 
 				@media screen and (max-width: $mobile) {
-					margin-left: 7.5em;
+					margin-left: 9.5em;
 				}
 			}
 
@@ -184,10 +190,6 @@
 						width: 100%;
 					}
 				}
-			}
-
-			@media screen and (max-width: $tablet) {
-				margin: .5em .2em 0;
 			}
 		}
 		

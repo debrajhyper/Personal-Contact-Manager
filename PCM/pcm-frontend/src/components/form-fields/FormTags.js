@@ -12,6 +12,7 @@ const FormTags = ({ tags, cName, functionAddTags, functionRemoveTags, hasTouched
                     title="Tags"
                     type="text"
                     onKeyUp={event => event.key === "Enter" ? functionAddTags(event) : null}
+                    onBlur={e => functionAddTags(e)}
                     className={hasTouched && hasError ? 'hasError' : (tags.length > 0 ? 'noError' : '')}
                     placeholder=""
                 required />

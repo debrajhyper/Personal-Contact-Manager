@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 
-import { FormName, FormEmail, FormPassword, FormTextarea, FormAgrement, SignupButtons, ModalHelper, RequiredStatement } from '../../components';
+import { FormName, FormEmail, FormPassword, FormTextarea, FormAgrement, ButtonNormal, ModalHelper, RequiredStatement } from '../../components';
 import { signupValidate } from '../../components/form-fields/validationMsg';
 
 import guest_signup_register from '../../img/guest_signup_register.png';
@@ -95,8 +95,8 @@ const Signup = () => {
                                 <FormTextarea about={formik.values.about} functionChange={formik.handleChange}/>
                                 <FormAgrement agreement={formik.values.agreement} functionChange={formik.handleChange} hasTouched={formik.touched.agreement} hasError={formik.errors.agreement} Mandatory={true}/>
                                 <Form.Group className="action_button">
-                                    <SignupButtons type="submit" name="signup" id="Signup" cName="form_submit" value="Register"/>
-                                    <SignupButtons type="reset" name="reset" id="reset" cName="form_reset" value="Reset" action={formik.resetForm}/>
+                                    <ButtonNormal type="submit" name="signup" id="Signup" cName="form_submit" value="Register"/>
+                                    <ButtonNormal type="reset" name="reset" id="reset" cName="form_reset" value="Reset" action={formik.resetForm}/>
                                 </Form.Group>
                             </Form>
 

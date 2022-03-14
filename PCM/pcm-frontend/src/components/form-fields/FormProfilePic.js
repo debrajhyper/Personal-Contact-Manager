@@ -23,7 +23,7 @@ const FormProfilePic = ({ profilePic, profilePicURL, uploadedFile, cName, functi
                     placeholder=""
                 required />
                 <div className='img-holder'>
-                    <ProfilePic image={uploadedFile ? profilePicURL : defaultPic} outline={true} />
+                    <ProfilePic image={profilePicURL ? (uploadedFile && !hasError ? profilePicURL : defaultPic) : defaultPic} outline={true} />
                     <Form.Label title='upload'><IoCamera /></Form.Label>
                 </div>
             </div>

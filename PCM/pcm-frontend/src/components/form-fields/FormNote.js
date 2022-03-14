@@ -1,13 +1,15 @@
 import React, { useState, useRef } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 
-const FormNote = ({ note, functionChange, hasTouched, hasError }) => {
+import { Form } from 'react-bootstrap';
+
+const FormNote = ({ note, cName, functionChange, hasTouched, hasError }) => {
   const editorRef = useRef(null);
 
   const [text, setText] = useState('');
 
   return (
-    <>
+    <Form.Group className={`form-input ${cName}`} controlId="Tags">
       <Editor
         apiKey="gdhpvh2ls6uy0c61y0hzy3sxpf1bzg5mpzexdely1mx6a5ag"
         id="Note"
@@ -39,7 +41,7 @@ const FormNote = ({ note, functionChange, hasTouched, hasError }) => {
         }}
       />
       {/* <pre>{text}</pre> */}
-    </>
+    </Form.Group>
   )
 }
 

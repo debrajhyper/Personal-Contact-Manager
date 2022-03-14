@@ -8,7 +8,7 @@ import { Form } from 'react-bootstrap';
 const FormEmail = ({ cName, email, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="Email">
-            <div className="field">
+            <div className="field field-email">
                 <Form.Control 
                     name="email"
                     title="Email"
@@ -17,7 +17,7 @@ const FormEmail = ({ cName, email, functionChange, functionBlur, hasTouched, has
                     onChange={functionChange} 
                     onBlur={functionBlur} 
                     className={hasTouched && hasError ? 'hasError' : (email !== "" ? 'noError' : '')}
-                    placeholder=""
+                    placeholder=" "
                 required />
                 <Form.Label><FaAt className="me-2"/>Email{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
