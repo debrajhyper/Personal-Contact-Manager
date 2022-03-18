@@ -37,3 +37,5 @@ export { default as Navbar } from './navbar/Navbar';
 export { default as ProfilePic } from './profile-pic/ProfilePic';
 
 export { default as SlideBar } from './slidebar/SlideBar';
+
+export { default as SocialIcon } from './social-icon/SocialIcon';

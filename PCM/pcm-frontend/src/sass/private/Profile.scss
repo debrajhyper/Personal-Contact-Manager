@@ -1,36 +1,84 @@
 @import '../responsive.scss';
 @import '../variables.scss';
 
+.slideBar_close {
+    // .social-link-row {
+    //     padding: 1em 32em 2em;
+    // }
+    .container-details {
+        padding: 1em 8em;
+        @media screen and (max-width: $laptop) {
+            padding: 1em 4em;
+        }
+    }
+}
+
+
+.slideBar_open {
+    // .social-link-row {
+    //     padding: 1em 32em 2em;
+    // }
+    .container-details {
+        padding: 1em 2em;
+        @media screen and (max-width: $laptop) {
+            padding: 1em 0em;
+        }
+        
+    }
+}
+
 .profile.container-fluid {
     .header {
         .text {
             font-weight: 700;
             color: $text;
-            font-size: 3.5rem;
+            font-size: 3rem;
+        }
+    }
+    .social-link-row {
+        transition: all 0.2s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .content {
+            display: flex;
+            justify-content: space-evenly;
+            @media screen and (min-width: 556px) {
+                width: 35%;
+            }
+            @media screen and (max-width: $laptop) {
+                width: 50%;
+            }
+            @media screen and (max-width: $tablet) {
+                width: 70%;
+            }
+            @media screen and (max-width: $mobile) {
+                width: 100%;
+            }
         }
     }
     .container-details {
-        padding: 1em 10em;
+        transition: all 0.2s ease-in-out;
+        padding-top: 1em;
+        // padding: 1em 4em;
 
-        .text-area {
-            // padding: 2em 10em;
-            order: 5;
-            @media screen and (max-width: $tablet) {
-                order: 6;
-            }
-        }
+        // .text-area {
+        //     // padding: 2em 10em;
+        //     order: 5;
+        //     @media screen and (max-width: $tablet) {
+        //         order: 6;
+        //     }
+        // }
 
-        @media screen and (max-width: $laptop) {
-            padding: 0em;
-        }
+        
         @media screen and (max-width: $tablet) {
-            padding: 0em;
+            padding: 1em 0em;
         }
         @media screen and (max-width: $mobile) {
-            padding: 2em 5em;
+            padding: 1em;
         }
         @media screen and (max-width: $mobile-s) {
-            padding: 2em;
+            padding: 1em;
         }
     }
 
@@ -57,7 +105,8 @@
         }
     }
 
-    @media screen and (max-width: $mobile) {
+    @media screen and (max-width: $tablet) {
         padding: 0;
     }
 }
+
