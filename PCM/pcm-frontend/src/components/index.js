@@ -25,6 +25,7 @@ export { default as FormTitle } from './form-fields/FormTitle';
 export { default as FormWebsite } from './form-fields/FormWebsite';
 export { default as FormZodiacSign } from './form-fields/FormZodiacSign';
 export { default as RequiredStatement } from './form-fields/RequiredStatement';
+export { default as SearchBar } from './form-fields/SearchBar';
 
 export { default as Header } from './header/Header';
 
@@ -34,8 +35,12 @@ export { default as ModalProfilePic } from './modal/ModalProfilePic';
 
 export { default as Navbar } from './navbar/Navbar';
 
+export { default as Pagination } from './pagination/Pagination';
+
 export { default as ProfilePic } from './profile-pic/ProfilePic';
 
 export { default as SlideBar } from './slidebar/SlideBar';
 
 export { default as SocialIcon } from './social-icon/SocialIcon';
+
+export { default as DisplayTable } from './table/TableDisplay';

@@ -1,0 +1,132 @@
+@import '../../sass/variables.scss';
+
+.display-table {
+
+    table {
+        border-collapse: separate;
+        border-spacing: 0 .6em;
+
+        thead {
+            position: relative;
+
+            tr {
+                color: $text;
+                font-size: 1.3rem;
+                font-weight: 800;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+
+                th {
+                    padding: .1em .6em;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        tbody {
+            position: relative;
+
+            tr {
+                color: $base;
+                background-color: $white;
+                font-size: 1.1rem;
+                font-weight: 500;
+                cursor: pointer;
+
+                td {
+                    padding: .4em .6em;
+                    vertical-align: middle;
+                    word-wrap: break-word;
+
+                    .img-border {
+                        position: relative;
+                        display: inline-block;
+                        height: 3em;
+                        width: 100%;
+                        max-width: 3em;
+
+                        .profile_pic {
+                            display: inline;
+                            margin: 0 auto;
+                            height: 100%;
+                            width: 100%;
+                            background-color: $white;
+                            border: 2px solid $base;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    .btn {
+                        padding: .6em;
+
+                        svg {
+                            height: 18px;
+                            width: 18px;
+                        }
+                    }
+
+                    .btn.edit {
+                        border: 2px solid $base;
+                        color: $white;
+                        background-color: $base;
+                    }
+
+                    .btn.delete {
+                        border: 2px solid $deactive;
+                        color: $deactive;
+                    }
+                }
+
+                &:hover {
+                    color: $white;
+                    background-color: $base;
+
+                    .profile_pic {
+                        border: 2px solid $white !important;
+                    }
+
+                    .btn.edit {
+                        border: 2px solid $white;
+                        color: $base;
+                        background-color: $white;
+
+                        &:hover {
+                            border: 2px solid $base-dark;
+                            color: $white;
+                            background-color: $base-dark;
+                        }
+                    }
+
+                    .btn.delete {
+                        border: 2px solid $white;
+                        color: $deactive;
+                        background-color: $white;
+
+                        &:hover {
+                            border: 2px solid $deactive;
+                            color: $white;
+                            background-color: $deactive;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+input[type=checkbox] {
+    height: 16px;
+    width: 16px;
+    margin-top: 0;
+    display: inline-block;
+    border-color: $base-dark;
+    outline: none;
+    cursor: pointer;
+}
+
+input[type=checkbox]:checked {
+    outline: none;
+    background-color: $base-dark;
+    border-color: $base-dark;
+}
