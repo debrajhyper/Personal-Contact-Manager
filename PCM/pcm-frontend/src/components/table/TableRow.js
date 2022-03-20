@@ -6,7 +6,7 @@ import { Form, Image } from 'react-bootstrap';
 
 const TableRow = ({ user }) => {
     return (
-        <tr id={user.id} className={`data-row ${user?.isChecked ? 'bg-gray-100 dark:bg-gray-800' : null}`}>
+        <tr id={user.id} className={`data-row b ${user?.isChecked ? 'selected' : null}`}>
             <td className="text-center">
                 <Form.Check
                     type="checkbox"
@@ -22,7 +22,7 @@ const TableRow = ({ user }) => {
                 <div className='img-border me-2'>
                     <Image src={ user.image } className="profile_pic" alt="profile_pic"/>
                 </div>
-                {user.name}
+                <span>{user.name}</span>
             </td>
             <td className="text-left" title={user.mobileNo}>{user.mobileNo}</td>
             <td className="text-left" title={user.email}>{user.email}</td>

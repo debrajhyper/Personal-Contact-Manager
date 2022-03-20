@@ -5,6 +5,7 @@
     table {
         border-collapse: separate;
         border-spacing: 0 .6em;
+        white-space: nowrap;
 
         thead {
             position: relative;
@@ -19,6 +20,9 @@
                 th {
                     padding: .1em .6em;
                     vertical-align: middle;
+                }
+                th.name {
+                    padding-right: 4em;
                 }
             }
         }
@@ -36,7 +40,7 @@
                 td {
                     padding: .4em .6em;
                     vertical-align: middle;
-                    word-wrap: break-word;
+                    // word-wrap: break-word;
 
                     .img-border {
                         position: relative;
@@ -47,21 +51,20 @@
 
                         .profile_pic {
                             display: inline;
-                            margin: 0 auto;
                             height: 100%;
                             width: 100%;
                             background-color: $white;
-                            border: 2px solid $base;
+                            border: 2px solid $text;
                             border-radius: 50%;
                             object-fit: cover;
                         }
                     }
 
                     .btn {
-                        padding: .6em;
+                        padding: .4em;
 
                         svg {
-                            height: 18px;
+                            height: 16px;
                             width: 18px;
                         }
                     }
@@ -111,14 +114,21 @@
                     }
                 }
             }
+            tr.selected {
+                background-color: $body-light;
+                &:hover {
+                    background-color: $base;
+                }
+            }
         }
     }
 }
 
+
 input[type=checkbox] {
     height: 16px;
     width: 16px;
-    margin-top: 0;
+    // margin-top: 0;
     display: inline-block;
     border-color: $base-dark;
     outline: none;

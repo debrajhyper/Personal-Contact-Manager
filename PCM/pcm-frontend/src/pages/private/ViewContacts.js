@@ -11,10 +11,10 @@ const ViewContacts = () => {
         <Container fluid className='view-contact'>
             <Header image={HeaderImg} text={'View Contacts'} />
             <Row className='mx-auto'>
-                <Col className='mx-auto col-xl-10 col-12'>
-                    <div className='action_button mt-2 d-flex justify-content-between align-items-center b'>
-                        <ButtonNormal name='DeleteBtn' id='DeleteBtn' cName='btn form_reset red' value="Delete Selected" />
-                        <SearchBar cName='w-25' />
+                <Col className='mx-auto col-xl-10 col-12 px-sm-2 px-0'>
+                    <div className='action_button mt-2 d-flex flex-sm-row flex-column-reverse justify-content-between align-items-sm-center align-items-start'>
+                        <ButtonNormal name='DeleteBtn' id='DeleteBtn' cName='btn form_reset red me-0 mb-sm-0 mb-4' value="Delete Selected" />
+                        <SearchBar cName='display-table-search' />
                     </div>
                     <DisplayTable />
                 </Col>

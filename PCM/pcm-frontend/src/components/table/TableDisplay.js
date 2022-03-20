@@ -9,7 +9,7 @@ import { Form, Table } from 'react-bootstrap';
 
 const Users = [
     {
-        id: 1,
+        id: 'PCM0014',
         image: UserImg,
         name: 'John Doe',
         email: 'debrajkarmakar010@gmail.com',
@@ -82,7 +82,7 @@ const Users = [
 
 const TableDisplay = () => {
     return (
-        <div className="display-table flex flex-col mt-1 min-h-[75vh] min-w-auto md:min-w-[75vw] xl:min-w-[55vw]">
+        <div className="display-table">
             <div className="overflow-auto">
                 <Table responsive className='table-borderless'>
                     <thead>
@@ -96,11 +96,11 @@ const TableDisplay = () => {
                                 // checked={users.slice(indexOfFirstItem, indexOfLastItem).filter(user => user?.isChecked !== true).length < 1}
                                 />
                             </th>
-                            <th scope="col" className="text-center">Id</th>
-                            <th scope="col" className="text-left">Name</th>
-                            <th scope="col" className="text-left">Phone</th>
-                            <th scope="col" className="text-left">Email</th>
-                            <th scope="col" className="text-center">Action</th>
+                            <th scope="col" className="id text-center">Id</th>
+                            <th scope="col" className="name text-left">Name</th>
+                            <th scope="col" className="phone text-left">Phone Number</th>
+                            <th scope="col" className="email text-left">Email</th>
+                            <th scope="col" className="action text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -440,3 +440,11 @@ fieldset {
         display: none;
     }
 }
+
+
+.form-input.display-table-search {
+    width: 25em;
+    @media screen and (max-width: $mobile) {
+        width: 100%;
+    }
+}
