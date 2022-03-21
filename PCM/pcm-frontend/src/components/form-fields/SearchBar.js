@@ -3,7 +3,11 @@ import React from 'react'
 import { FaSearch } from 'react-icons/fa';
 import { Form } from 'react-bootstrap';
 
-const SearchBar = ({ title, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const SearchBar = ({ title, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory, searchResult, setSearchResult }) => {
+    const searchHandler = event => {
+        setSearchResult(event.target.value);
+    };
+
     return (
         <Form.Group className={`form-input ${cName}`} controlId="Search">
             <div className="field">
@@ -11,9 +15,9 @@ const SearchBar = ({ title, cName, functionChange, functionBlur, hasTouched, has
                     name="search"
                     title="Search"
                     type="text"
-                    value={title}
-                    onChange={functionChange}
-                    onBlur={functionBlur}
+                    value={searchResult}
+                    onChange={searchHandler}
+                    // onBlur={functionBlur}
                     className={hasTouched && hasError ? 'hasError' : (title !== "" ? 'noError' : '')}
                     placeholder=""
                     required />

@@ -4,83 +4,10 @@ import TableRow from './TableRow';
 
 import './table.scss';
 
-import UserImg from '../../img/face4_back1.png';
+
 import { Form, Table } from 'react-bootstrap';
 
-const Users = [
-    {
-        id: 'PCM0014',
-        image: UserImg,
-        name: 'John Doe',
-        email: 'debrajkarmakar010@gmail.com',
-        mobileNo: '+91-123-456-7890'
-    },
-    {
-        id: 2,
-        image: UserImg,
-        name: 'John Doe',
-        email: 'kinjal9647576886lol@gmail.com',
-        mobileNo: '+91-123-456-7890'
-    },
-    {
-        id: 3,
-        image: UserImg,
-        name: 'John Doe',
-        email: 'kjhnhi@hj.com',
-        mobileNo: '+91-123-456-7890'
-    },
-    {
-        id: 4,
-        image: UserImg,
-        name: 'John Doe',
-        email: 'kjhnhi@hj.com',
-        mobileNo: '+91-123-456-7890'
-    },
-    {
-        id: 5,
-        image: UserImg,
-        name: 'John Doe',
-        email: 'kjhnhi@hj.com',
-        mobileNo: '+91-123-456-7890'
-    },
-    {
-        id: 6,
-        image: UserImg,
-        name: 'John Doe',
-        email: 'kjhnhi@hj.com',
-        mobileNo: '+91-123-456-7890'
-    },
-    {
-        id: 7,
-        image: UserImg,
-        name: 'John Doe',
-        email: 'kjhnhi@hj.com',
-        mobileNo: '+91-123-456-7890'
-    },
-    {
-        id: 8,
-        image: UserImg,
-        name: 'John Doe',
-        email: 'kjhnhi@hj.com',
-        mobileNo: '+91-123-456-7890'
-    },
-    {
-        id: 9,
-        image: UserImg,
-        name: 'John Doe',
-        email: 'kjhnhi@hj.com',
-        mobileNo: '+91-123-456-7890'
-    },
-    {
-        id: 10,
-        image: UserImg,
-        name: 'John Doe',
-        email: 'kjhnhi@hj.com',
-        mobileNo: '+91-123-456-7890'
-    }
-]
-
-const TableDisplay = () => {
+const TableDisplay = ({ users, filteredUsers, currentItems, setUsers, handleAllChecked, indexOfFirstItem, indexOfLastItem }) => {
     return (
         <div className="display-table">
             <div className="overflow-auto">
@@ -92,8 +19,8 @@ const TableDisplay = () => {
                                     type="checkbox"
                                     value="checkedAll"
                                     className="form-checkbox"
-                                // onChange={handleAllChecked}
-                                // checked={users.slice(indexOfFirstItem, indexOfLastItem).filter(user => user?.isChecked !== true).length < 1}
+                                    onChange={handleAllChecked}
+                                    checked={users.slice(indexOfFirstItem, indexOfLastItem).filter(user => user?.isChecked !== true).length < 1}
                                 />
                             </th>
                             <th scope="col" className="id text-center">Id</th>
@@ -105,11 +32,25 @@ const TableDisplay = () => {
                     </thead>
                     <tbody>
                         {
-                            Users.map((user, index) => {
-                                return (
-                                    <TableRow user={user}  key={index} />
-                                )
-                            })
+                            users && users.length > 0 && filteredUsers.length > 0
+                                ? currentItems.map((user, index) => {
+                                    return (
+                                        <TableRow 
+                                            key={index} 
+                                            user={user} 
+                                            users={users} 
+                                            setUsers={setUsers}
+                                        />
+                                    )
+                                })
+                                : <tr className="text-center w-full text-lg text-indigo-500">
+                                    <td colSpan={6} className="p-5">
+                                        <div className="flex flex-col justify-center items-center">
+                                            {/* <img src={icon} alt="Empty" /> */}
+                                            <span className="p-2 text-lg font-semibold">No Users Found</span>
+                                        </div>
+                                    </td>
+                                </tr>
                         }
                     </tbody>
                 </Table>
