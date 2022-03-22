@@ -5,11 +5,13 @@ import { Form, Image } from 'react-bootstrap';
 
 
 const TableRow = ({ user, users, setUsers }) => {
+    
     const handleChecked = e => {
         const { id, value, checked } = e.target;
-        let newUsers = users.map(user => user.id === id && user.name === value ? { ...user, isChecked: checked } : user);
+        let newUsers = users.map(user => user.id == id && user.name === value ? { ...user, isChecked: checked } : user);
         setUsers(newUsers);
     };
+    
     const handleUserDelete = userId => {
         const newUsers = [ ...users ];
         const index = users.findIndex(user => user.id === userId);
@@ -22,11 +24,11 @@ const TableRow = ({ user, users, setUsers }) => {
             <td className="text-center">
                 <Form.Check
                     type="checkbox"
+                    value={user.name}
                     className="form-checkbox"
                     id={user.id}
                     onChange={handleChecked}
                     checked={user?.isChecked || false}
-                    value={user.name}
                 />
             </td>
             <td className="text-center" title={user.id}>{user.id}</td>

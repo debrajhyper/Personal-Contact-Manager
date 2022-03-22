@@ -43,6 +43,10 @@
         }
     }
 
+    .btn:disabled {
+        cursor: not-allowed;
+    }
+
     .btn.form_reset {
         background: transparent;
         color: $base;

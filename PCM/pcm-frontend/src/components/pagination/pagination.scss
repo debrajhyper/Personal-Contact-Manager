@@ -21,8 +21,8 @@
                 border: 1px solid transparent;
                 margin: 0 .5rem;
                 border-radius: 50%;
-                color: $base-dark;
-                background-color: $base-glassMorph;
+                color: $base;
+                // background-color: $base-glassMorph;
                 font-size: 1.4rem;
                 font-weight: 400;
                 svg {
@@ -39,9 +39,23 @@
                     margin: 0 .2em;
                 }
             }
+            button.key {
+                border: 1px solid $base;
+                background-color: transparent;
+                &:hover {
+                    color: $white;
+                    background-color: $base;
+                }
+            }
             button.disabled {
+                border: 1px solid transparent;
                 color: $white;
                 background-color: $body-light;
+                cursor: not-allowed;
+                &:hover {
+                    color: $white;
+                    background-color: $body-light;
+                }
             }
             button.active {
                 color: $white;

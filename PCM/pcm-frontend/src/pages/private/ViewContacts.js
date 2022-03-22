@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Header, ButtonNormal, SearchBar, DisplayTable, Pagination } from '../../components';
+import useMediaQuery from '../../components/misc/useMediaQuery';
 
 import HeaderImg from '../../img/pcm_view_contacts.png';
 
@@ -334,10 +335,35 @@ const Users = [{
 }]
 
 const ViewContacts = () => {
+    const isMobile = useMediaQuery('(max-width: 590px)');
     const [users, setUsers] = useState(Users);
     const [searchResult, setSearchResult] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemPerPage] = useState(10);
+    const [itemPerPage] = useState(5);
+    const [pageNumberLimit, setPageNumberLimit] = useState(3);
+    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
+    const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+
+    useEffect(() => {
+        if(isMobile) {
+            setPageNumberLimit(1);
+            setMaxPageNumberLimit(1);
+            setMinPageNumberLimit(0);
+        } else {
+            setPageNumberLimit(3);
+            setMaxPageNumberLimit(3);
+            setMinPageNumberLimit(0);
+        }
+    },[isMobile]);
+
+    const handleDeleteSelected = e => {
+        e.preventDefault();
+        let newUsers = [...users];
+        newUsers = newUsers.filter(user => {
+            return !user.isChecked;
+        });
+        setUsers(newUsers);
+    };
 
     const handleAllChecked = e => {
         const { checked } = e.target;
@@ -372,12 +398,23 @@ const ViewContacts = () => {
             <Row className='mx-auto'>
                 <Col className='mx-auto col-xl-10 col-12 px-sm-2 px-0'>
                     <div className='action_button mt-2 d-flex flex-sm-row flex-column-reverse justify-content-between align-items-sm-center align-items-start'>
-                        <ButtonNormal name='DeleteBtn' id='DeleteBtn' cName='btn form_reset red me-0 mb-sm-0 mb-4' value="Delete Selected" users={users} setUsers={setUsers} />
+                        <ButtonNormal name='DeleteBtn' id='DeleteBtn' cName='btn form_reset red me-0 mb-sm-0 mb-4' value="Delete Selected" action={handleDeleteSelected} />
                         <SearchBar cName='display-table-search' searchResult={searchResult} setSearchResult={setSearchResult} />
                     </div>
                     <DisplayTable users={users} filteredUsers={filteredUsers} currentItems={currentItems} setUsers={setUsers} handleAllChecked={handleAllChecked} indexOfFirstItem={indexOfFirstItem} indexOfLastItem={indexOfLastItem} />
-                    <div className={`${users.length !== 0 ? 'flex' : 'd-none'}`}>
-                        <Pagination filteredUsers={filteredUsers} itemPerPage={itemPerPage} currentPage={currentPage}  setCurrentPage={setCurrentPage} />
+                    <div className={`${filteredUsers.length !== 0 ? 'flex' : 'd-none'}`}>
+                        <Pagination 
+                            filteredUsers={filteredUsers} 
+                            itemPerPage={itemPerPage} 
+                            currentPage={currentPage} 
+                            setCurrentPage={setCurrentPage} 
+                            pageNumberLimit={pageNumberLimit}
+                            setPageNumberLimit={setPageNumberLimit}
+                            maxPageNumberLimit={maxPageNumberLimit}
+                            setMaxPageNumberLimit={setMaxPageNumberLimit}
+                            minPageNumberLimit={minPageNumberLimit}
+                            setMinPageNumberLimit={setMinPageNumberLimit}
+                        />
                     </div>
                     </Col>
             </Row>

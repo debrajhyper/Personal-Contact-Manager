@@ -6,7 +6,7 @@ import { FaAngleDoubleLeft, FaAngleLeft, FaAngleRight, FaAngleDoubleRight } from
 
 
 
-const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage }) => {
+const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage, pageNumberLimit, setPageNumberLimit, maxPageNumberLimit, setMaxPageNumberLimit, minPageNumberLimit, setMinPageNumberLimit }) => {
     var pages = [];
 
     for(let i=1; i<=Math.ceil(filteredUsers.length/itemPerPage); i++) {
@@ -18,29 +18,59 @@ const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage }
     };
     const handleFirstBtn = () => {
         setCurrentPage(1);
+        setMaxPageNumberLimit(3);
+        setMinPageNumberLimit(0);
     };
     const handlePrevBtn = () => {
         setCurrentPage(currentPage - 1);
+        if((currentPage -1)%pageNumberLimit === 0) {
+            setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+            setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+        }
     };
     const renderPageNumbers = pages.map(number => {
-        return (
-            <li key={number}>
-                <button
-                    id={number}
-                    className={currentPage === number ? "active" : null}
-                    onClick={handleClick}
-                >
-                    {number}
-                </button>
-            </li>
-        );
+        if(number < maxPageNumberLimit+1 && number > minPageNumberLimit) {
+            return (
+                <li key={number}>
+                    <button
+                        id={number}
+                        className={currentPage === number ? "active" : null}
+                        onClick={handleClick}
+                    >
+                        {number}
+                    </button>
+                </li>
+            );
+        } else {
+            return null;
+        }
     });
     const handleNextBtn = () => {
         setCurrentPage(currentPage + 1);
+        if(currentPage+1 > maxPageNumberLimit) {
+            setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+            setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+        }
     };
     const handleLastBtn = () => {
         setCurrentPage(Math.ceil(filteredUsers.length/itemPerPage));
+        setMaxPageNumberLimit(Math.ceil(filteredUsers.length/itemPerPage));
+        setMinPageNumberLimit(Math.ceil(filteredUsers.length/itemPerPage)-pageNumberLimit);
     };
+
+
+
+    // let pageDecrementBtn = null;
+    // if(pages.length > maxPageNumberLimit) {
+    //     pageDecrementBtn = <li><button onClick={handlePrevBtn}>&hellip;</button></li>
+    // }
+    // let pageIncrementBtn = null;
+    // if(pages.length > maxPageNumberLimit) {
+    //     pageIncrementBtn = <li><button onClick={handleNextBtn}>&hellip;</button></li>
+    // }
+    
+    console.log(currentPage, pageNumberLimit, minPageNumberLimit, maxPageNumberLimit, pages.length);
+    
 
     return (
         <nav id="Pagination" className='pagination' aria-label="Page navigation">
@@ -49,7 +79,7 @@ const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage }
                     <button
                         id="first"
                         name="first"
-                        className={currentPage === pages[0] ? "disabled" : null}
+                        className={`key ${currentPage === pages[0] ? "disabled" : null}`}
                         onClick={handleFirstBtn}
                         disabled={currentPage === pages[0] ? true : false}
                     >
@@ -60,20 +90,40 @@ const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage }
                     <button
                         id="prev"
                         name="prev"
-                        className={currentPage === pages[0] ? "disabled" : null}
+                        className={`key ${currentPage === pages[0] ? "disabled" : null}`}
                         onClick={handlePrevBtn}
                         disabled={currentPage === pages[0] ? true : false}
                     >
                         <FaAngleLeft />
                     </button>
                 </li>
+                <li>
+                    <button
+                        className={` ${currentPage < pageNumberLimit+1 ? "disabled" : null}`} 
+                        onClick={handlePrevBtn} 
+                        disabled={currentPage < pageNumberLimit+1 ? true : false}
+                    >
+                        &hellip;
+                    </button>
+                </li>
+                {/* {pageDecrementBtn} */}
                 {renderPageNumbers}
+                {/* {pageIncrementBtn} */}
+                <li>
+                    <button 
+                        className={` ${currentPage > pages.length+1 - pageNumberLimit ? "disabled" : null}`}
+                        onClick={handleNextBtn}
+                        disabled={currentPage > pages.length+1 - pageNumberLimit ? true : false}
+                    >
+                        &hellip;
+                    </button>
+                </li>
                 <li>
                     <button
                         id="next"
                         name="next"
                         onClick={handleNextBtn}
-                        className={currentPage === pages[pages.length - 1] ? "disabled" : null}
+                        className={`key ${currentPage === pages[pages.length - 1] ? "disabled" : null}`}
                         disabled={currentPage === pages[pages.length - 1] ? true : false}
                     >
                         <FaAngleRight />
@@ -84,7 +134,7 @@ const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage }
                         id="last"
                         name="last"
                         onClick={handleLastBtn}
-                        className={currentPage === pages[pages.length - 1] ? "disabled" : null}
+                        className={`key ${currentPage === pages[pages.length - 1] ? "disabled" : null}`}
                         disabled={currentPage === pages[pages.length - 1] ? true : false}
                     >
                         <FaAngleDoubleRight />
