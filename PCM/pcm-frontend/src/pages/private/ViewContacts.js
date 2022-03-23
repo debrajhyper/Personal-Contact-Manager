@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-import { Header, ButtonNormal, SearchBar, DisplayTable, Pagination } from '../../components';
-import useMediaQuery from '../../components/misc/useMediaQuery';
+import { Header, ButtonNormal, SearchBar, DisplayTable, Pagination, ModalConfirmation } from '../../components';
 
 import HeaderImg from '../../img/pcm_view_contacts.png';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
-import UserImg from '../../img/face4_back1.png';
 const Users = [{
     "id": 1,
     "image": "https://robohash.org/maximesaepeet.png?size=50x50&set=set1",
@@ -335,26 +333,14 @@ const Users = [{
 }]
 
 const ViewContacts = () => {
-    const isMobile = useMediaQuery('(max-width: 590px)');
     const [users, setUsers] = useState(Users);
     const [searchResult, setSearchResult] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemPerPage] = useState(5);
-    const [pageNumberLimit, setPageNumberLimit] = useState(3);
-    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
+    const [itemPerPage] = useState(10);
+    const [pageNumberLimit] = useState(3);
     const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
-
-    useEffect(() => {
-        if(isMobile) {
-            setPageNumberLimit(1);
-            setMaxPageNumberLimit(1);
-            setMinPageNumberLimit(0);
-        } else {
-            setPageNumberLimit(3);
-            setMaxPageNumberLimit(3);
-            setMinPageNumberLimit(0);
-        }
-    },[isMobile]);
+    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
+    
 
     const handleDeleteSelected = e => {
         e.preventDefault();
@@ -365,27 +351,14 @@ const ViewContacts = () => {
         setUsers(newUsers);
     };
 
-    const handleAllChecked = e => {
-        const { checked } = e.target;
-        let newUsers = users.map(user => {
-            if (currentItems.includes(user)) {
-                return { ...user, isChecked: checked };
-            }
-            return user;
-        })
-        setUsers(newUsers);
-    };
-
     const searchResultUser = user => {
         if (searchResult === '') {
             return user;
-        }
-        else if (user.name.toLowerCase().includes(searchResult.toLowerCase()) || user.email.toLowerCase().includes(searchResult.toLowerCase()) || user.mobileNo.toLowerCase().includes(searchResult.toLowerCase())) {
+        } else if (user.name.toLowerCase().includes(searchResult.toLowerCase()) || user.email.toLowerCase().includes(searchResult.toLowerCase()) || user.mobileNo.toLowerCase().includes(searchResult.toLowerCase())) {
             return user;
         }
-        return null;  //  Return null if the user does not match the search text.
+        return null;
     };
-
 
     const indexOfLastItem = currentPage * itemPerPage;  //  Calculate the index of the last item in the current page.
     const indexOfFirstItem = indexOfLastItem - itemPerPage; //  Calculate the index of the first item in the current page.
@@ -393,7 +366,7 @@ const ViewContacts = () => {
     const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);  //  Get the users in the current page.
 
     return (
-        <Container fluid className='view-contact'>
+        <Container fluid className='view-contact px-sm-2 px-0'>
             <Header image={HeaderImg} text={'View Contacts'} />
             <Row className='mx-auto'>
                 <Col className='mx-auto col-xl-10 col-12 px-sm-2 px-0'>
@@ -401,23 +374,23 @@ const ViewContacts = () => {
                         <ButtonNormal name='DeleteBtn' id='DeleteBtn' cName='btn form_reset red me-0 mb-sm-0 mb-4' value="Delete Selected" action={handleDeleteSelected} />
                         <SearchBar cName='display-table-search' searchResult={searchResult} setSearchResult={setSearchResult} />
                     </div>
-                    <DisplayTable users={users} filteredUsers={filteredUsers} currentItems={currentItems} setUsers={setUsers} handleAllChecked={handleAllChecked} indexOfFirstItem={indexOfFirstItem} indexOfLastItem={indexOfLastItem} />
-                    <div className={`${filteredUsers.length !== 0 ? 'flex' : 'd-none'}`}>
-                        <Pagination 
-                            filteredUsers={filteredUsers} 
-                            itemPerPage={itemPerPage} 
-                            currentPage={currentPage} 
-                            setCurrentPage={setCurrentPage} 
+                    <DisplayTable users={users} filteredUsers={filteredUsers} currentItems={currentItems} setUsers={setUsers} indexOfFirstItem={indexOfFirstItem} indexOfLastItem={indexOfLastItem} />
+                    <div className={`text-center ${filteredUsers.length !== 0 ? 'd-flex justify-content-center' : 'd-none'}`}>
+                        <Pagination
+                            filteredUsers={filteredUsers}
+                            itemPerPage={itemPerPage}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
                             pageNumberLimit={pageNumberLimit}
-                            setPageNumberLimit={setPageNumberLimit}
-                            maxPageNumberLimit={maxPageNumberLimit}
-                            setMaxPageNumberLimit={setMaxPageNumberLimit}
                             minPageNumberLimit={minPageNumberLimit}
                             setMinPageNumberLimit={setMinPageNumberLimit}
+                            maxPageNumberLimit={maxPageNumberLimit}
+                            setMaxPageNumberLimit={setMaxPageNumberLimit}
                         />
                     </div>
-                    </Col>
+                </Col>
             </Row>
+            
         </Container>
     )
 }

@@ -4,10 +4,22 @@ import TableRow from './TableRow';
 
 import './table.scss';
 
-
+import { FaUserCircle } from 'react-icons/fa';
 import { Form, Table } from 'react-bootstrap';
 
-const TableDisplay = ({ users, filteredUsers, currentItems, setUsers, handleAllChecked, indexOfFirstItem, indexOfLastItem }) => {
+const TableDisplay = ({ users, filteredUsers, currentItems, setUsers, indexOfFirstItem, indexOfLastItem }) => {
+
+    const handleAllChecked = e => {
+        const { checked } = e.target;
+        let newUsers = users.map(user => {
+            if (currentItems.includes(user)) {
+                return { ...user, isChecked: checked };
+            }
+            return user;
+        })
+        setUsers(newUsers);
+    };
+
     return (
         <div className="display-table">
             <div className="overflow-auto">
@@ -35,22 +47,20 @@ const TableDisplay = ({ users, filteredUsers, currentItems, setUsers, handleAllC
                             users && users.length > 0 && filteredUsers.length > 0
                                 ? currentItems.map((user, index) => {
                                     return (
-                                        <TableRow 
-                                            key={index} 
-                                            user={user} 
-                                            users={users} 
+                                        <TableRow
+                                            key={index}
+                                            user={user}
+                                            users={users}
                                             setUsers={setUsers}
                                         />
                                     )
                                 })
-                                : <tr className="text-center w-full text-lg text-indigo-500">
-                                    <td colSpan={6} className="p-5">
-                                        <div className="flex flex-col justify-center items-center">
-                                            {/* <img src={icon} alt="Empty" /> */}
-                                            <span className="p-2 text-lg font-semibold">No Users Found</span>
-                                        </div>
-                                    </td>
-                                </tr>
+                                : <tr className="no-user text-center w-full">
+                                        <td colSpan={6} className="p-5">
+                                            <FaUserCircle />
+                                            <span className="p-2">No Users Found</span>
+                                        </td>
+                                    </tr>
                         }
                     </tbody>
                 </Table>

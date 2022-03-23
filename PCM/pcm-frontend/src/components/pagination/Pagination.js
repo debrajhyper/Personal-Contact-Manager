@@ -2,11 +2,11 @@ import React from 'react'
 
 import './pagination.scss';
 
-import { FaAngleDoubleLeft, FaAngleLeft, FaAngleRight, FaAngleDoubleRight } from 'react-icons/fa'
+import { FaAngleDoubleLeft, FaAngleLeft, FaAngleRight, FaAngleDoubleRight, FaEllipsisH } from 'react-icons/fa';
 
 
 
-const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage, pageNumberLimit, setPageNumberLimit, maxPageNumberLimit, setMaxPageNumberLimit, minPageNumberLimit, setMinPageNumberLimit }) => {
+const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage, pageNumberLimit, maxPageNumberLimit, setMaxPageNumberLimit, minPageNumberLimit, setMinPageNumberLimit }) => {
     var pages = [];
 
     for(let i=1; i<=Math.ceil(filteredUsers.length/itemPerPage); i++) {
@@ -24,8 +24,8 @@ const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage, 
     const handlePrevBtn = () => {
         setCurrentPage(currentPage - 1);
         if((currentPage -1)%pageNumberLimit === 0) {
-            setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
             setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+            setMaxPageNumberLimit(minPageNumberLimit);
         }
     };
     const renderPageNumbers = pages.map(number => {
@@ -48,29 +48,17 @@ const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage, 
     const handleNextBtn = () => {
         setCurrentPage(currentPage + 1);
         if(currentPage+1 > maxPageNumberLimit) {
-            setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
             setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+            setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
         }
     };
     const handleLastBtn = () => {
         setCurrentPage(Math.ceil(filteredUsers.length/itemPerPage));
+        setMinPageNumberLimit((Math.ceil(filteredUsers.length/itemPerPage)-Math.floor(Math.ceil(filteredUsers.length/itemPerPage)/pageNumberLimit))+1);
         setMaxPageNumberLimit(Math.ceil(filteredUsers.length/itemPerPage));
-        setMinPageNumberLimit(Math.ceil(filteredUsers.length/itemPerPage)-pageNumberLimit);
     };
 
-
-
-    // let pageDecrementBtn = null;
-    // if(pages.length > maxPageNumberLimit) {
-    //     pageDecrementBtn = <li><button onClick={handlePrevBtn}>&hellip;</button></li>
-    // }
-    // let pageIncrementBtn = null;
-    // if(pages.length > maxPageNumberLimit) {
-    //     pageIncrementBtn = <li><button onClick={handleNextBtn}>&hellip;</button></li>
-    // }
-    
-    console.log(currentPage, pageNumberLimit, minPageNumberLimit, maxPageNumberLimit, pages.length);
-    
+    // console.log(currentPage, pageNumberLimit, minPageNumberLimit, maxPageNumberLimit, pages.length);
 
     return (
         <nav id="Pagination" className='pagination' aria-label="Page navigation">
@@ -103,19 +91,18 @@ const Pagination = ({ filteredUsers, itemPerPage, currentPage,  setCurrentPage, 
                         onClick={handlePrevBtn} 
                         disabled={currentPage < pageNumberLimit+1 ? true : false}
                     >
-                        &hellip;
+                        <FaEllipsisH />
                     </button>
                 </li>
-                {/* {pageDecrementBtn} */}
                 {renderPageNumbers}
-                {/* {pageIncrementBtn} */}
                 <li>
                     <button 
-                        className={` ${currentPage > pages.length+1 - pageNumberLimit ? "disabled" : null}`}
+                        className={` ${maxPageNumberLimit >= pages.length ? "disabled" : null}`}
                         onClick={handleNextBtn}
-                        disabled={currentPage > pages.length+1 - pageNumberLimit ? true : false}
+                        // disabled={currentPage > pages.length+1 - pageNumberLimit ? true : false}
+                        disabled={maxPageNumberLimit >= pages.length ? true : false}
                     >
-                        &hellip;
+                        <FaEllipsisH />
                     </button>
                 </li>
                 <li>

@@ -29,6 +29,7 @@ export { default as SearchBar } from './form-fields/SearchBar';
 
 export { default as Header } from './header/Header';
 
+export { default as ModalConfirmation } from './modal/ModalConfirmation';
 export { default as ModalEditProfile } from './modal/ModalEditProfile';
 export { default as ModalHelper } from './modal/ModalHelper';
 export { default as ModalProfilePic } from './modal/ModalProfilePic';
