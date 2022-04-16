@@ -7,12 +7,12 @@ import ViewContacts from './ViewContacts';
 import AddContact from './AddContact';
 import Profile from './Profile';
 import Settings from './Settings';
+import Base from '../public/Base';
 
 
 const PrivateBase = () => {
     const [show, setShow] = useState(true);
 
-    //const handleClose = () => setShow(false);
     const handleSlidebar = () => {
         setShow(!show);
     };
@@ -30,6 +30,7 @@ const PrivateBase = () => {
                             <Route path="/user/add_contact" element={<AddContact />} />
                             <Route path="/user/profile" element={<Profile />} />
                             <Route path="/user/settings" element={<Settings />} />
+                            <Route path="/logout" element={<Base />} />
                         </Routes>
                     </div>
                 </div>

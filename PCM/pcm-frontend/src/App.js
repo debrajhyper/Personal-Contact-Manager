@@ -1,17 +1,14 @@
 import React from 'react'
-import { ToastContainer } from 'react-bootstrap'
+import { useSelector } from 'react-redux';
 
 import Base from './pages/public/Base'
 import PrivateBase from './pages/private/PrivateBase'
 
-import LoginServices from './services/LoginServices'
-
 const App = () => {
+    const auth = useSelector(state => state.auth);
     return (
         <div>
-            <ToastContainer/>
-            
-            { true || LoginServices.isLoggedIn() ? <PrivateBase /> : <Base /> }
+            { auth.isLoggedIn ? <PrivateBase /> : <Base /> }
         </div>
     )
 }

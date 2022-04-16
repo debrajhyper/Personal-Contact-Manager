@@ -3,6 +3,9 @@ import { Link, NavLink } from 'react-router-dom'
 import { Nav } from 'react-bootstrap'
 import profileImage from "../../img/default.png";
 
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../services/index';
+
 import './slidebar.scss'
 
 import { FaUserCircle, FaAddressBook, FaIdBadge, FaAddressCard, FaUserCog, FaSignOutAlt } from "react-icons/fa";
@@ -13,7 +16,12 @@ import { Image } from 'react-bootstrap';
 
 const SlideBar = ({ slidebar }) => {
 
+    const dispatch = useDispatch();
     const icoSize = (slidebar ? icoMin : icoMax);
+
+    const logoutHandler = () => {
+        dispatch(logoutUser());
+    }
 
     return (
         <div className="content-wrapper">
@@ -27,7 +35,7 @@ const SlideBar = ({ slidebar }) => {
                 </Nav>
                 <footer>
                     <Image src={profileImage} alt="profile_img"/>
-                    <Link to={"/logout"} className="user-details">
+                    <Link to={"/logout"} className="user-details" onClick={logoutHandler}>
                         <span>Logout</span>
                         <FaSignOutAlt size={24} title="Logout"/>
                     </Link>
