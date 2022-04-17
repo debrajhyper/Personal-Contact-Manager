@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,6 +19,10 @@ const Login = () => {
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/dashboard";
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -29,6 +33,12 @@ const Login = () => {
             dispatch(authenticationUser(values.email, values.password));
         },
     });
+    
+    useEffect(() => {
+        if (auth.isLoggedIn) {
+            navigate(from, { replace: true });
+        }
+    }, [auth]);
 
     return (
         <>

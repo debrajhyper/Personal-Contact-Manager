@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { Navbar as PrivateNavbar, SlideBar } from '../../components';
+import { Navbar as PrivateNavbar, SlideBar } from '../../components/index';
 import Dashboard from './Dashboard';
 import ViewContacts from './ViewContacts';
 import AddContact from './AddContact';

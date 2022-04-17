@@ -47,7 +47,7 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
                         {auth.isLoggedIn
                             ? (
                                 <>
-                                    <Link to="/user/dashboard" className="navbar-brand pcm">{authSlideBar}</Link>
+                                    <Link to="/dashboard" className="navbar-brand pcm">{authSlideBar}</Link>
                                     <div className={`slidebar_ico ${authSlideBar}`} onClick={handleSlidebar}>
                                         <BsFillPersonLinesFill size={24} />
                                     </div>

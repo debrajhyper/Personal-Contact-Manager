@@ -12,10 +12,10 @@ export const authenticationUser = (email, password) => {
         axios.post(`${BASE_API_URL}/generate-token`, credentials)
         .then(response => {
             dispatch(loginSuccess(true));
-            setToken(response.data.token);
+            setToken(response?.data?.token);
         })
         .catch(error => {
-            dispatch(loginFailure(false, error.response.data.message));
+            dispatch(loginFailure(false, error?.response?.data?.message));
         })
     };
 };

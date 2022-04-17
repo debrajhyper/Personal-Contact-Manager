@@ -4,7 +4,7 @@ import './DashboardCard.scss';
 
 import { Card } from 'react-bootstrap';
 
-const DashboardCard = ({ image, icon, title, subtitle, flag }) => {
+const DashboardCard = ({ image, icon, title, subtitle }) => {
     return (
         <Card>
             <Card.Img src={image} />
