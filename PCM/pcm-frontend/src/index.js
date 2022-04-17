@@ -12,7 +12,6 @@ import './sass/responsive.scss';
 
 import App from './App.js';
 
-
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

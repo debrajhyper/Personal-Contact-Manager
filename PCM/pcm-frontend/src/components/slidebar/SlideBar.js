@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Nav } from 'react-bootstrap'
 import profileImage from "../../img/default.png";
 

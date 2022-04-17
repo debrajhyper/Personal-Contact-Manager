@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { FormName, FormEmail, RequiredStatement, FormCountry, FormDOB, FormMobileNo, FormProfilePic, ModalProfilePic, FormZodiacSign, FormWebsite, FormSocialLinks, FormNote, ButtonNormal } from '../../components';
+import { FormName, FormEmail, RequiredStatement, FormCountry, FormDOB, FormMobileNo, FormProfilePic, ModalProfilePic, FormZodiacSign, FormWebsite, FormSocialLinks, FormNote, ButtonNormal } from '../../components/index';
 import { contactValidate } from '../../validation/validationMsg';
 import useForm from '../../validation/useForm';
 
