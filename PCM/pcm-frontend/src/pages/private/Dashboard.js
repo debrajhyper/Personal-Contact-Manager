@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { DashboardCard, Header } from '../../components';
+import { DashboardCard, Header } from '../../components/index';
 
 import '../../sass/private/Dashboard.scss';
 import pcmDashboard from '../../img/pcm_dashboard.svg';
 import cLogin from '../../img/cLogin1.png';
 import cTimestamp from '../../img/cTimestamp.png';
 import cTotalContacts from '../../img/cTotalContacts.png';
-import cEmail from '../../img/cEmail.png';
 import cRole from '../../img/cRole.png';
 
 import { Container, Image, Row, Col } from 'react-bootstrap';
-import { FaUserCheck, FaSignInAlt, FaAddressBook, FaAt, FaUserShield } from 'react-icons/fa';
+import { FaUserCheck, FaSignInAlt, FaAddressBook, FaUserShield } from 'react-icons/fa';
 
 const CardDetails = [
     {

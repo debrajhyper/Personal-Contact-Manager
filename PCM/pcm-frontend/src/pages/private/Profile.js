@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon } from '../../components';
+import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon } from '../../components/index';
 import { CountryFlag } from '../../components/misc/FlagSelect';
 import { ZodiacSign } from '../../components/misc/ZodiacSelect';
 

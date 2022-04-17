@@ -1,12 +1,13 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import { Navbar as PublicNavbar } from '../../components'
-import Home from './Home'
-import About from './About'
-import Login from './Login'
-import Signup from './Signup'
-import TermsConditions from './terms-conditions'
+import { Navbar as PublicNavbar } from '../../components/index';
+import Home from './Home';
+import About from './About';
+import Login from './Login';
+import Signup from './Signup';
+import TermsConditions from './terms-conditions';
+import NoMatchFound from '../NoMatchFound';
 
 const Base = () => {
     return (
@@ -19,7 +20,7 @@ const Base = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/terms-conditions" element={<TermsConditions />} />
-                    {/* <Navigate to="/"/> */}
+                    <Route path="*" element={<NoMatchFound />} />
                 </Routes>
             </div>
         </div>

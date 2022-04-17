@@ -3,7 +3,7 @@ import logger from "redux-logger";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from "./rootReducer";
-import authToken from "./utils/authToken";
+// import authToken from "./utils/authToken";
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger, thunk)));
 

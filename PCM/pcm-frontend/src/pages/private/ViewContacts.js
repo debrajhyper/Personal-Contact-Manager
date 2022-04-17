@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import { Header, ButtonNormal, SearchBar, DisplayTable, Pagination, ModalConfirmation } from '../../components';
-
+import { Header, ButtonNormal, SearchBar, DisplayTable, Pagination } from '../../components/index';
+// import { ModalConfirmation } from '../../components/index';
 import HeaderImg from '../../img/pcm_view_contacts.png';
 
 import { Container, Row, Col } from 'react-bootstrap';

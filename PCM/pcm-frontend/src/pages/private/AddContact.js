@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Header } from '../../components';
+import { Header } from '../../components/index';
 import EditContact from './EditContact';
 
 import HeaderImg from '../../img/pcm_add_contact.png';
