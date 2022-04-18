@@ -39,8 +39,8 @@ const useForm = validate => {
     }, [values, validate]);
 
 
-    console.log('values ->', values);
-    console.log('errors ->', errors);
+    // console.log('values ->', values);
+    // console.log('errors ->', errors);
 
     const handleClick = (e) => {
         setValues({

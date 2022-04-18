@@ -8,7 +8,7 @@ import { Navbar as PublicNavbar, Navbar as PrivateNavbar, SlideBar } from './com
 import About from './pages/public/About';
 import Login from './pages/public/Login';
 import Signup from './pages/public/Signup';
-import TermsConditions from './pages/public/terms-conditions';
+import TermsConditions from './pages/public/TermsConditions';
 import NoMatchFound from './pages/NoMatchFound';
 import Dashboard from './pages/private/Dashboard';
 import ViewContacts from './pages/private/ViewContacts';
@@ -59,6 +59,7 @@ const App = () => {
                                     <Route path="add_contact" element={<AddContact />} />
                                     <Route path="profile" element={<Profile />} />
                                     <Route path="settings" element={<Settings />} />
+                                    {/* <Route path="*" element={<Dashboard />} /> */}
                                 </Route>
 
                                 <Route path="*" element={<NoMatchFound />} />

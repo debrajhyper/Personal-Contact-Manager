@@ -64,7 +64,7 @@ export const contactValidate = values => {
     const phoneNo_pattern = /^(\+\d{1,3}[- ]?)?\d{10}$/gm;
     const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)$/gm
 
-    console.log("-------------------> ",values)
+    // console.log("-------------------> ",values)
 
     if (!values.name) {
         errors.name = "Please Provide Name";

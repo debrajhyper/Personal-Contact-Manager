@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getCurrentUser, logoutUser } from '../../services/index';
 
 import { DashboardCard, Header } from '../../components/index';
 
@@ -34,13 +38,6 @@ const CardDetails = [
         title: 'Total Contacts',
         subtitle: 20
     },
-    // {
-    //     space: 8,
-    //     image: cEmail,
-    //     icon: <FaAt />,
-    //     title: 'Email',
-    //     subtitle: 'debrajkarmakar010@gmail.com'
-    // },
     {
         space: 6,
         image: cRole,
@@ -51,6 +48,26 @@ const CardDetails = [
 ]
 
 const Dashboard = () => {
+    const auth = useSelector(state => state.auth);
+    const currentUser = useSelector(state => state.currentUser);
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const jwtToken = localStorage.getItem('jwtToken');
+
+    useEffect(() => {
+        if(jwtToken) {
+            dispatch(getCurrentUser());
+        } else {
+            dispatch(logoutUser('/login'));
+        }
+        
+    },[jwtToken, dispatch, navigate, location]);
+
+    console.log(currentUser.currentUser);
+
     return (
         <div className='dashboard'>
             <div className='background'>

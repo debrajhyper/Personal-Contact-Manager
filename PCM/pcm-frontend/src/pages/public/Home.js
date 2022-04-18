@@ -1,11 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
 
 import '../../sass/public/home.scss';
 
 import { Button } from 'react-bootstrap';
 
 const Home = () => {
+    const auth = useSelector(state => state.auth);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/dashboard";
+
+    useEffect(() => {
+        if (auth.isLoggedIn) {
+            navigate(from, { replace: true });
+        }
+    }, [auth]);
 
     return (
         <>
@@ -15,7 +28,7 @@ const Home = () => {
                     <p>
                         PCM is the web portal to Collecting your contacts in very Smarter way. We provide very efficient and smarter way of handling contacts.
                     </p>
-                    <Button as={Link} to={"/dashboard"} className="bg-navbar text-white" size="lg">Get Started</Button>
+                    <Button as={Link} to={"/login"} className="bg-navbar text-white" size="lg">Get Started</Button>
                 </div>
             </section>
         </>

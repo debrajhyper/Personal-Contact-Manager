@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
 
@@ -20,8 +20,13 @@ import { Container, Image, Form, Row, Col, Alert } from 'react-bootstrap';
 const validate = signupValidate;
 
 const Signup = () => {
+    const auth = useSelector(state => state.auth);
     const userRegister = useSelector(state => state.register);
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/dashboard";
 
     const formik = useFormik({
         initialValues: {
@@ -41,7 +46,10 @@ const Signup = () => {
         if (userRegister.isRegistered === true && userRegister.status === 200) {
             formik.resetForm();
         }
-    }, [userRegister]);
+        if (auth.isLoggedIn) {
+            navigate(from, { replace: true });
+        }
+    }, [auth, userRegister]);
 
     return (
         <>

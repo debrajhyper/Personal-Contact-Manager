@@ -20,7 +20,7 @@ const SlideBar = ({ slidebar }) => {
     const icoSize = (slidebar ? icoMin : icoMax);
 
     const logoutHandler = () => {
-        dispatch(logoutUser());
+        dispatch(logoutUser('/'));
     }
 
     return (

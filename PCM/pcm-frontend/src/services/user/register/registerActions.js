@@ -1,13 +1,13 @@
 import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from "./registerTypes";
-import axios from "axios";
-import { BASE_API_URL } from "../../../api/HomeAPI";
+import axios from "../../../api/HomeAPI";
+import { SIGNUP_URL } from "../../../api/HomeAPI";
 import { toast } from "react-toastify";
 
 export const registerUser = (user) => {
     return dispatch => {
         dispatch(signupRequest());
-        const toastLoading = toast.loading("Please wait...")
-        axios.post(`${BASE_API_URL}/do_register`, user)
+        const toastLoading = toast.loading("Uploading data to the server")
+        axios.post(SIGNUP_URL, user)
         .then(response => {
             dispatch(signupSuccess(true, response?.status));
             toast.update(

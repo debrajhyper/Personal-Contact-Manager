@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
 
 import "../../sass/public/terms_conditions.scss";
 
-const termsConditions = () => {
+const TermsConditions = () => {
+    const auth = useSelector(state => state.auth);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/dashboard";
+
+    useEffect(() => {
+        if (auth.isLoggedIn) {
+            navigate(from, { replace: true });
+        }
+    }, [auth]);
+
     return (
     <div className="term_cond public_pages">
         <div data-custom-class="body">
@@ -6209,4 +6224,4 @@ const termsConditions = () => {
     );
 };
 
-export default termsConditions;
+export default TermsConditions;
