@@ -22,7 +22,7 @@ export const authenticationUser = (email, password) => {
             } else if (error?.response?.status === 500) {
                 dispatch(loginFailure(false, 'Internal Server Error'));
             } else {
-                dispatch(loginFailure(false, error?.response?.data?.message || 'Something went wrong'));
+                dispatch(loginFailure(false, error?.response?.data?.message || 'Oops... Something went wrong'));
             }
         })
     };

@@ -33,7 +33,7 @@ export const registerUser = (user) => {
             toast.update(
                 toastLoading,
                 {
-                    render: "Something went wrong",
+                    render: "Oops... Something went wrong",
                     type: "error",
                     position: "top-right",
                     isLoading: false,
