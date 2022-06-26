@@ -9,15 +9,16 @@ import '../../components/form-fields/form_fields.scss';
 import { Row, Col, Form } from 'react-bootstrap';
 
 const EditContact = () => {
-    const { values, handleClick, handleChange, handleChangeSelect, handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, handleChangeRemoveTags, handleChangeAddTags, handleChangeSocial, handleChangeNote, handleBlur, handleBlurSocial, handleReset, handleSubmit, uploadedFile, touched, errors } = useForm(contactValidate);
+    const { values, handleClick, handleChange,handleChangeTelephoneNumber,handleBlurTelephoneNumber,handleChangeCountry, handleChangeSelect, handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, handleChangeRemoveTags, handleChangeAddTags, handleChangeSocial, handleChangeNote, handleBlur, handleBlurSocial, handleReset, handleSubmit, uploadedFile, touched, errors } = useForm(contactValidate);
     const [modalProfilePicShow, setModalProfilePicShow] = useState(true);
 
     useEffect(() => {
         setModalProfilePicShow(true);
     }, [values.profilePic]);
 
+    console.log(values);
     return (
-        <Form onSubmit={handleSubmit} className="contact-form" id="contact-form" action="/user/process_contact" method="post" noValidate>
+        <Form onSubmit={handleSubmit} className="contact-form" id="contact-form" action="/add-contact" method="post" encType="multipart/form-data" noValidate>
             <RequiredStatement />
             <Form.Group className="input-field-all position-relative">
                 <Row>
@@ -47,12 +48,12 @@ const EditContact = () => {
                 </Row>
                 <Row className='py-md-4'>
                     <FormEmail email={values.email} cName="col-md-4 col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.email} hasError={errors.email} Mandatory={true} />
-                    <FormMobileNo mobileNo={values.mobileNo} countryCode={values.country?.no} cName="col-md-4 col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.mobileNo} hasError={errors.mobileNo} Mandatory={true} />
-                    <FormTelephoneNo telephoneNo={values.telephoneNo} countryCode={values.country?.no} cName="col-md-4 col-sm-12 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.telephoneNo} hasError={errors.telephoneNo} Mandatory={false} />
+                    {/* <FormMobileNo mobileNo={values.mobileNumber} countryCode={values.country?.no} cName="col-md-4 col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.mobileNo} hasError={errors.mobileNo} Mandatory={true} /> */}
+                    <FormTelephoneNo telephoneNumber={values.telephoneNumber} countryCode={values.country?.no} cName="col-md-4 col-sm-12 col-12 px-sm-4" functionChange={handleChangeTelephoneNumber} functionBlur={handleBlurTelephoneNumber} hasTouched={touched.telephoneNo} hasError={errors.telephoneNo} Mandatory={false} />
                 </Row>
                 <Row className='py-md-4'>
                     <FormCountry country={values.country} cName="col-md-4 col-sm-6 col-12 px-sm-4" functionChange={(name, val) => handleChangeSelect(name, val)} functionBlur={handleBlur} hasTouched={touched.country} hasError={errors.country} Mandatory={false} />
-                    <FormDOB dob={values.dob} cName="col-md-4 col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.dob} hasError={errors.dob} Mandatory={false} />
+                    <FormDOB dob={values.dateOfBirth} cName="col-md-4 col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.dateOfBirth} hasError={errors.dateOfBirth} Mandatory={false} />
                     <FormAddress address={values.address} cName="col-md-4 col-sm-12 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched.address} hasError={errors.address} Mandatory={false} />
                 </Row>
                 <Row className='py-md-4'>
@@ -70,7 +71,7 @@ const EditContact = () => {
                     </Col>
                 </Row>
                 <Row className='justify-content-center'>
-                    <FormNote note={values.note} cName="col-md-10 col-12 px-md-4" functionChange={handleChangeNote} hasTouched={touched.note} hasError={errors.note} Mandatory={false} />
+                    <FormNote description={values.description} cName="col-md-10 col-12 px-md-4" functionChange={handleChangeNote} hasTouched={touched.note} hasError={errors.note} Mandatory={false} />
                 </Row>
             </Form.Group>
             <Form.Group className='action_button d-flex justify-content-center align-items-center pb-5'>

@@ -5,23 +5,28 @@ import { Form } from 'react-bootstrap';
 
 const SocialWebsite = [
     {
-        name: 'Facebook',
+        name: 'facebook',
+        displayName: 'Facebook',
         icon: <FaFacebookF className="me-2" />,
     },
     {
-        name: 'Twitter',
+        name: 'twitter',
+        displayName: 'Twitter',
         icon: <FaTwitter className="me-2" />,
     },
     {
-        name: 'LinkedIn',
+        name: 'linkedIn',
+        displayName: 'LinkedIn',
         icon: <FaLinkedinIn className="me-2" />,
     },
     {
-        name: 'Instagram',
+        name: 'instagram',
+        displayName: 'Instagram',
         icon: <FaInstagram className="me-2" />,
     },
     {
-        name: 'YouTube',
+        name: 'youtube',
+        displayName: 'YouTube',
         icon: <FaYoutube className="me-2" />,
     },
 ];
@@ -31,13 +36,13 @@ const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, has
         <>
             {
                 SocialWebsite.map((website, index) => {
-                    const { name, icon } = website;
+                    const { name, displayName, icon } = website;
                     return (
                         <Form.Group key={index} className={`form-input ${cName}`} controlId={name}>
                             <div className="field field-url">
                                 <Form.Control
                                     name={name}
-                                    title={`${name} URL`}
+                                    title={`${displayName} URL`}
                                     type="url"
                                     value={socialLinks[name]}
                                     onChange={functionChange}
@@ -45,7 +50,7 @@ const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, has
                                     className={hasTouched?.[name] && hasError[name] ? 'hasError' : (socialLinks[name] !== "" ? 'noError' : '')}
                                     placeholder=" "
                                 required />
-                                <Form.Label>{icon}{name}{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
+                                <Form.Label>{icon}{displayName}{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                             </div>
                             {
                                 hasTouched?.[name] && hasError[name] &&

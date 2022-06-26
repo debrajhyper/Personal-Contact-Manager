@@ -9,7 +9,7 @@ import { Form } from 'react-bootstrap';
 
 const FormProfilePic = ({ profilePic, profilePicURL, uploadedFile, cName, functionChange, functionBlur, hasTouched, hasError }) => {
     return (
-        <Form.Group className={`form-input ${cName}`} controlId="ProfilePic">
+        <Form.Group className={`form-input ${cName}`} controlId="profilePic">
             <div className="field">
                 <Form.Control
                     name="profilePic"

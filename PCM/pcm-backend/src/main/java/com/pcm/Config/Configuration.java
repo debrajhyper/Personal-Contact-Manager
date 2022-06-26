@@ -63,7 +63,7 @@ public class Configuration extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()
-			.antMatchers("/generate-token", "/do_register").permitAll()
+			.antMatchers("/generate-token", "/register").permitAll()
 			.antMatchers(HttpMethod.OPTIONS).permitAll()
 			.anyRequest().authenticated()
 			.and()

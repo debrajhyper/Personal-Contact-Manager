@@ -11,7 +11,7 @@ import com.pcm.Model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	//Signup User
+	//FIND USER BY USER EMAIL
 	@Query("select u from User u where u.email = :email")
 	public User findByUserName(@Param("email") String email);
 

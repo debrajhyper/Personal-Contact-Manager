@@ -3,19 +3,20 @@ import { Editor } from '@tinymce/tinymce-react';
 
 import { Form } from 'react-bootstrap';
 
-const FormNote = ({ note, cName, functionChange, hasTouched, hasError }) => {
+const FormNote = ({ description, cName, functionChange, hasTouched, hasError }) => {
   const editorRef = useRef(null);
 
   const [text, setText] = useState('');
 
   return (
-    <Form.Group className={`form-input ${cName}`} controlId="Tags">
+    <Form.Group className={`form-input ${cName}`} controlId="description">
       <Editor
+        name="description"
         apiKey="gdhpvh2ls6uy0c61y0hzy3sxpf1bzg5mpzexdely1mx6a5ag"
         id="Note"
         type={text}
-        value={note}
-        className={hasTouched && hasError ? 'hasError' : (note !== '' ? 'noError' : '')}
+        value={description}
+        className={hasTouched && hasError ? 'hasError' : (description !== '' ? 'noError' : '')}
         onInit={(evt, editor) => {
           editorRef.current = editor;
           setText(editor.getContent({ format: 'html' }));

@@ -56,7 +56,7 @@ const FormCountry = ({ country, cName, functionChange, functionBlur, hasTouched,
                             functionChange(e.target.name, e.target.value)
                         }}
                         onBlur={functionBlur}
-                        className={hasTouched && hasError ? 'hasError' : (country !== "" ? 'noError' : '')}
+                        className={hasTouched && hasError ? 'hasError' : (country?.name !== "" ? 'noError' : '')}
                         onClick={toggle}
                         onTouchEnd={toggle}
                         placeholder=""

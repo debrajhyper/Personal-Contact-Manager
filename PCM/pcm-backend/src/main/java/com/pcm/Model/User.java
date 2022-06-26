@@ -27,7 +27,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
@@ -42,7 +51,7 @@ public class User implements UserDetails {
 	private int id;
 
 	@NotBlank(message = "Name field is required")
-	@Size(min = 2, max = 30, message = "Min 2 and max 30 characters are allowed")
+	@Size(min = 2, max = 30, message = "Min 2 and max 30 characters are allowed in name field")
 	private String name;
 
 	@Column(unique = true)
@@ -56,9 +65,16 @@ public class User implements UserDetails {
 	@NotNull
 	@AssertTrue
 	private boolean agreement;
+	
 	private boolean enabled;
-	private Timestamp date;
-	private String imageUrl;
+	
+	private Timestamp connectedWithUS;
+	
+	private Timestamp lastLogin;
+	
+	private int totalContacts;
+	
+	private String image;
 
 	@Column(length = 500)
 	private String about;
@@ -70,130 +86,16 @@ public class User implements UserDetails {
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Contact> contacts = new ArrayList<>();
-
+	
+	
+	
+	
+	
+	
 
 	
 	
 	
-	public User(int id,
-			@NotBlank(message = "Name field is required") @Size(min = 2, max = 30, message = "Min 2 and max 30 characters are allowed") String name,
-			@NotBlank(message = "Email field is required") @Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$") String email,
-			@NotBlank(message = "Password field is required") String password, boolean agreement, boolean enabled,
-			Timestamp date, String imageUrl, String about, Set<UserRole> userRoles, List<Contact> contacts) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.agreement = agreement;
-		this.enabled = enabled;
-		this.date = date;
-		this.imageUrl = imageUrl;
-		this.about = about;
-		this.userRoles = userRoles;
-		this.contacts = contacts;
-	}
-
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public boolean isAgreement() {
-		return agreement;
-	}
-
-	public void setAgreement(boolean agreement) {
-		this.agreement = agreement;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public Timestamp getDate() {
-		return date;
-	}
-
-	public void setDate(Timestamp date) {
-		this.date = date;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public String getAbout() {
-		return about;
-	}
-
-	public void setAbout(String about) {
-		this.about = about;
-	}
-
-	public Set<UserRole> getUserRoles() {
-		return userRoles;
-	}
-
-	public void setUserRoles(Set<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
-
-	public List<Contact> getContacts() {
-		return contacts;
-	}
-
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", agreement="
-				+ agreement + ", enabled=" + enabled + ", date=" + date + ", imageUrl=" + imageUrl + ", about=" + about
-				+ ", userRoles=" + userRoles + ", contacts=" + contacts + "]";
-	}
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub

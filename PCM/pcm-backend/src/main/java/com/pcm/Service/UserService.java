@@ -6,9 +6,12 @@ import com.pcm.Model.User;
 import com.pcm.Model.UserRole;
 
 
-public interface HomeService {
+public interface UserService {
 	
-	//Signup User
+	//USER SIGNUP
 	public User registerUser(User user, Set<UserRole> userRoles) throws Exception;
+	
+	//CURRENT USER
+	public User currentUser(String email) throws Exception;
 
 }

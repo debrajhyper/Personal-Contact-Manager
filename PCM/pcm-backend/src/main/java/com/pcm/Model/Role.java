@@ -19,6 +19,7 @@ public class Role {
 
 	@Id
 	private int roleId;
+	
 	private String roleName;
 
 	@JsonIgnore

@@ -43,7 +43,7 @@ const Signup = () => {
     });
 
     useEffect(() => {
-        if (userRegister.isRegistered === true && userRegister.status === 200) {
+        if (userRegister.isRegistered === true) {
             formik.resetForm();
         }
         if (auth.isLoggedIn) {

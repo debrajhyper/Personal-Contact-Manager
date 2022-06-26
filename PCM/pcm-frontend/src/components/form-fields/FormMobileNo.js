@@ -10,12 +10,13 @@ const FormMobileNo = ({ mobileNo, countryCode, cName, functionChange, functionBl
                 countryCode &&
                 <span className='pt-1 pe-2 d-inline-flex justify-content-start align-items-center'>
                     <pre className='m-0' style={{ fontSize: '14px' }}>{`+${countryCode}`}</pre>
+                    <input type="hidden" name="mobileCode" value={countryCode} />
                 </span>
             }
             <div className="field">
                 <div className="field">
                     <Form.Control
-                        name="mobileNo"
+                        name="mobileNumber"
                         title="Mobile Number"
                         type="number"
                         value={mobileNo}

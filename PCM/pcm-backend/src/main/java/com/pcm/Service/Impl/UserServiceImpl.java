@@ -6,25 +6,28 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pcm.Config.UserDetailsServiceImpl;
 import com.pcm.Model.User;
 import com.pcm.Model.UserRole;
 import com.pcm.Repository.RoleRepository;
 import com.pcm.Repository.UserRepository;
-import com.pcm.Service.HomeService;
+import com.pcm.Service.UserService;
 
 
 @Service
-public class HomeServiceImpl implements HomeService {
+public class UserServiceImpl implements UserService {
 
+	@Autowired
+	private UserDetailsServiceImpl userDetailsServiceImpl;
+	
 	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	
 
-	//Signup User
+	//USER SIGNUP
 	@Override
 	public User registerUser(User user, Set<UserRole> userRoles) throws Exception {
 		
@@ -43,15 +46,28 @@ public class HomeServiceImpl implements HomeService {
 			
 			user.setEnabled(true);
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			user.setDate(timestamp);
-			user.setImageUrl("default.png");
+			user.setConnectedWithUS(timestamp);
+			user.setLastLogin(timestamp);
+			user.setTotalContacts(0);
+			user.setImage("default.png");
 			user.getUserRoles().addAll(userRoles);
 			
 			User save = this.userRepository.save(user);
-			System.out.println("SAVE -> " + user.getEmail());
+			System.out.println("REGISTERED USER -> " + user.getEmail());
 			
 			return save;
 		}
+	}
+
+
+	//CURRENT USER
+	@Override
+	public User currentUser(String email) throws Exception {
+		// TODO Auto-generated method stub
+		User currentUser = (User) this.userDetailsServiceImpl.loadUserByUsername(email);
+		currentUser.setPassword(null);
+		
+		return currentUser;
 	}
 
 }

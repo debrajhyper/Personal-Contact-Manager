@@ -1,32 +1,46 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
+import { addContact } from '../services/index';
 
 const useForm = validate => {
     const [values, setValues] = useState({
+        profilePic: "",
+        profilePicURL: "",
+        favorite: false,
         name: "",
         nickName: "",
         title: "",
         company: "",
         email: "",
-        telephoneNo: "",
-        mobileNo: "",
-        address: "",
-        profilePic: "",
-        profilePicURL: "",
-        country: "",
-        dob: "",
-        zodiacSign: "",
-        relationship: "",
-        tags: [],
-        favorite: false,
-        socialLinks: {
-            Facebook: "",
-            Twitter: "",
-            LinkedIn: "",
-            Instagram: "",
-            YouTube: "",
+        mobileNumber: [
+            {
+                code: "",
+                number: ""
+            }
+        ],
+        telephoneNumber: {
+            code: "",
+            number: ""
         },
+        country: {
+            code: "",
+            name: "",
+            no: ""
+        },
+        dateOfBirth: "",
+        address: "",
+        relationship: "",
+        zodiacSign: "",
+        tags: [],
         website: "",
-        note: "",
+        socialLinks: {
+            facebook: "",
+            twitter: "",
+            linkedIn: "",
+            instagram: "",
+            youtube: "",
+        },
+        description: "",
     });
 
     const [touched, setTouched] = useState({});
@@ -60,7 +74,11 @@ const useForm = validate => {
     const handleChangeSelect = (name, value) => {
         setValues({
             ...values,
-            [name]: value
+            [name]: value,
+            telephoneNumber: {
+                ...values.telephoneNumber,
+                code: value.no,
+            }
         });
     };
 
@@ -124,6 +142,17 @@ const useForm = validate => {
         });
     };
 
+    const handleChangeTelephoneNumber = e => {
+        const { name, value } = e.target;
+        setValues({
+            ...values,
+            telephoneNumber: {
+                ...values.telephoneNumber,
+                [name]: value
+            }
+        });
+    }
+
     const handleChangeNote = value => {
         setValues({
             ...values,
@@ -149,6 +178,17 @@ const useForm = validate => {
             }
         })
     };
+
+    const handleBlurTelephoneNumber = e => {
+        const { name } = e.target;
+        setTouched({
+            ...touched,
+            telephoneNumber: {
+                ...touched.telephoneNumber,
+                [name]: true
+            }
+        })
+    }
 
 
     const handleReset = () => {
@@ -184,7 +224,7 @@ const useForm = validate => {
         setErrors({});
     }
 
-
+    const dispatch = useDispatch();
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -192,10 +232,11 @@ const useForm = validate => {
         setIsSubmit(true);
 
         console.log(values)
+        dispatch(addContact(values));
     };
 
 
-    return { values, handleClick, handleChange, handleChangeSelect, handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, handleChangeRemoveTags, handleChangeAddTags, handleChangeSocial, handleChangeNote, handleBlur, handleBlurSocial, handleReset, handleSubmit, uploadedFile, touched, errors, isSubmit }
+    return { values, handleClick, handleChange, handleChangeSelect, handleChangeFile,handleChangeTelephoneNumber, handleBlurTelephoneNumber, handleChangeFileCancel, handleChangeFileUpload, handleChangeRemoveTags, handleChangeAddTags, handleChangeSocial, handleChangeNote, handleBlur, handleBlurSocial, handleReset, handleSubmit, uploadedFile, touched, errors, isSubmit }
 };
 
 export default useForm;

@@ -26,7 +26,7 @@ const FormDOB = ({ dob, cName, functionChange, functionBlur, hasTouched, hasErro
             <div className="field">
                 <Form.Control
                     ref={ref}
-                    name="dob"
+                    name="dateOfBirth"
                     title="Birth Date"
                     type="date"
                     value={dob}

@@ -5,6 +5,7 @@ const token = localStorage.jwtToken;
 const initialState = {
     loading: false,
     isLoggedIn: token ? true : '',
+    // isLoggedIn: '',
     logInError: ''
 };
 

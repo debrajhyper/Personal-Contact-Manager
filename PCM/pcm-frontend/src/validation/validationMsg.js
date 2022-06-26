@@ -78,13 +78,13 @@ export const contactValidate = values => {
         errors.email = "Email Address Is Invalid";
     }
 
-    if(!values.mobileNo) {
-        errors.mobileNo = "Please Provide Mobile Number";
-    } else if (!values.mobileNo?.match(phoneNo_pattern)) {
-        errors.mobileNo = "Invalid Mobile Number";
+    if(!values.mobileNumber.number) {
+        errors.mobileNumber = "Please Provide Mobile Number";
+    } else if (!values.mobileNumber.number?.match(phoneNo_pattern)) {
+        errors.mobileNumber = "Invalid Mobile Number";
     }
 
-    if(values.country !== '') {
+    if(values.country.name !== '') {
         if (!CountryDetails.filter(country => country.name.toLocaleLowerCase() === values.country?.name?.toLocaleLowerCase()).length > 0) {
             errors.country = "Country Not Found";
         }
@@ -116,35 +116,35 @@ export const contactValidate = values => {
         }
     }
 
-    if(values.socialLinks.Facebook !== '') {
-        if(!values.socialLinks.Facebook?.match(url_pattern)) {
-            errors.socialLinks.Facebook = "Invalid Facebook URL";
-        }
-    }
+    // if(values.socialLinks.Facebook !== '') {
+    //     if(!values.socialLinks.Facebook?.match(url_pattern)) {
+    //         errors.socialLinks.Facebook = "Invalid Facebook URL";
+    //     }
+    // }
 
-    if(values.socialLinks.Twitter !== '') {
-        if(!values.socialLinks.Twitter?.match(url_pattern)) {
-            errors.socialLinks.Twitter = "Invalid Twitter URL";
-        }
-    }
+    // if(values.socialLinks.Twitter !== '') {
+    //     if(!values.socialLinks.Twitter?.match(url_pattern)) {
+    //         errors.socialLinks.Twitter = "Invalid Twitter URL";
+    //     }
+    // }
 
-    if(values.socialLinks.LinkedIn !== '') {
-        if(!values.socialLinks.LinkedIn?.match(url_pattern)) {
-            errors.socialLinks.LinkedIn = "Invalid LinkedIn URL";
-        }
-    }
+    // if(values.socialLinks.LinkedIn !== '') {
+    //     if(!values.socialLinks.LinkedIn?.match(url_pattern)) {
+    //         errors.socialLinks.LinkedIn = "Invalid LinkedIn URL";
+    //     }
+    // }
 
-    if(values.socialLinks.Instagram !== '') {
-        if(!values.socialLinks.Instagram?.match(url_pattern)) {
-            errors.socialLinks.Instagram = "Invalid Instagram URL";
-        }
-    }
+    // if(values.socialLinks.Instagram !== '') {
+    //     if(!values.socialLinks.Instagram?.match(url_pattern)) {
+    //         errors.socialLinks.Instagram = "Invalid Instagram URL";
+    //     }
+    // }
 
-    if(values.socialLinks.YouTube !== '') {
-        if(!values.socialLinks.YouTube?.match(url_pattern)) {
-            errors.socialLinks.YouTube = "Invalid YouTube URL";
-        }
-    }
+    // if(values.socialLinks.YouTube !== '') {
+    //     if(!values.socialLinks.YouTube?.match(url_pattern)) {
+    //         errors.socialLinks.YouTube = "Invalid YouTube URL";
+    //     }
+    // }
 
 
     return errors;
