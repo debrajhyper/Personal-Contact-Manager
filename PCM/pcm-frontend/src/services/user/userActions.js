@@ -10,7 +10,7 @@ export const getCurrentUser = () => {
             dispatch(userSuccess(response.data));
         })
         .catch(error => {
-            dispatch(userFailure(error.response.data.message));
+            dispatch(userFailure(error.message));
         });
     };
 }
