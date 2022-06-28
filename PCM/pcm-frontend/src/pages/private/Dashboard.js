@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUser, logoutUser } from '../../services/index';
 
+import { ToastContainer } from 'react-toastify';
 import { DashboardCard, Header } from '../../components/index';
 
 import '../../sass/private/Dashboard.scss';
@@ -15,37 +16,9 @@ import cRole from '../../img/cRole.png';
 
 import { Container, Image, Row, Col } from 'react-bootstrap';
 import { FaUserCheck, FaSignInAlt, FaAddressBook, FaUserShield } from 'react-icons/fa';
+import moment from 'moment';
 
-const CardDetails = [
-    {
-        space: 10,
-        image: cTimestamp,
-        icon: <FaUserCheck />,
-        title: 'Connected with us',
-        subtitle: '23 August 2021 Monday 10:48 PM'
-    },
-    {
-        space: 9,
-        image: cLogin,
-        icon: <FaSignInAlt />,
-        title: 'Last Login',
-        subtitle: '23 August 2021 Monday 10:48 PM'
-    },
-    {
-        space: 8,
-        image: cTotalContacts,
-        icon: <FaAddressBook />,
-        title: 'Total Contacts',
-        subtitle: 20
-    },
-    {
-        space: 6,
-        image: cRole,
-        icon: <FaUserShield />,
-        title: 'Role',
-        subtitle: 'Admin'
-    }
-]
+
 
 const Dashboard = () => {
     const auth = useSelector(state => state.auth);
@@ -58,24 +31,70 @@ const Dashboard = () => {
     const jwtToken = localStorage.getItem('jwtToken');
 
     useEffect(() => {
-        if(jwtToken) {
+        if(auth.isLoggedIn) {
             dispatch(getCurrentUser());
         } else {
             dispatch(logoutUser('/login'));
         }
         
-    },[jwtToken, dispatch, navigate, location]);
+    },[auth, dispatch, navigate, location]);
 
     console.log(currentUser.currentUser);
 
+    const { name, connectedWithUS, lastLogin, totalContacts, authorities } = currentUser.currentUser;
+
+    const dateFormater = (APIDate) => {
+        const dateString = moment(APIDate).format('Do MMMM YYYY, dddd hh:mm:ss a');
+        return dateString;
+    };
+
+    const CardDetails = [
+        {
+            space: 10,
+            image: cTimestamp,
+            icon: <FaUserCheck />,
+            title: 'Connected with us',
+            subtitle: connectedWithUS ? dateFormater(connectedWithUS) ?? '-' : '-',
+            // subtitle: '23 August 2021 Monday 10:48 PM'
+            
+        },
+        {
+            space: 9,
+            image: cLogin,
+            icon: <FaSignInAlt />,
+            title: 'Last Login',
+            subtitle: lastLogin ? dateFormater(lastLogin) ?? '-' : '-',
+            // subtitle: '23 August 2021 Monday 10:48 PM'
+        },
+        {
+            space: 8,
+            image: cTotalContacts,
+            icon: <FaAddressBook />,
+            title: 'Total Contacts',
+            subtitle: totalContacts ?? '-',
+            // subtitle: 20
+        },
+        {
+            space: 6,
+            image: cRole,
+            icon: <FaUserShield />,
+            title: 'Role',
+            subtitle: authorities?.length > 0 ? authorities?.[0].authority.toUpperCase() : '-',
+            // subtitle: role?.[0]?.authority.toUpperCase()
+            // subtitle: 'Admin'
+        }
+    ]
+
     return (
         <div className='dashboard'>
+            <ToastContainer theme='colored' />
+
             <div className='background'>
                 <Image fluid={true} src={pcmDashboard} className="background-img" alt="dashboard" />
 			</div>
 
             <Container>
-                <Header text={'Welcome Debraj'}/>
+                <Header text={name ? `Welcome ${name}` : 'Welcome'}/>
 
                 <Row className="container-fluid m-0 position-relative d-flex justify-content-end">
                     <Col xl={6} lg={10} md={9}  className="container-left col-12">

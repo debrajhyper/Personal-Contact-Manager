@@ -1,5 +1,5 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST } from './authTypes';
-import axios from '../../../api/HomeAPI';
+import axios, { axiosPrivate } from '../../../api/HomeAPI';
 import { LOGIN_URL } from '../../../api/HomeAPI';
 
 export const authenticationUser = (email, password) => {
@@ -51,6 +51,7 @@ const loginFailure = (isLoggedIn, error) => {
 };
 
 const setToken = token => {
+    axiosPrivate.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return localStorage.setItem('jwtToken', token);
 };
 

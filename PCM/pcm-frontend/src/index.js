@@ -14,13 +14,13 @@ import App from './App.js';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <Routes>
-          <Route path="/*" element={<App />} />
-        </Routes>
-      </Provider>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Provider store={store}>
+          <Routes>
+            <Route path="/*" element={<App />} />
+          </Routes>
+        </Provider>
+      </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

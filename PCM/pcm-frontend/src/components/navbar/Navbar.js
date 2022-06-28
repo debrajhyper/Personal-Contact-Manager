@@ -14,15 +14,19 @@ import { Navbar, Container, Nav, Image } from 'react-bootstrap';
 
 const PublicNavbar = ({ slidebar, handleSlidebar }) => {
     const auth = useSelector(state => state.auth);
+    const { currentUser } = useSelector(state => state.currentUser);
+    const { image, name = '-', username = '-' } = currentUser;
+
     const authSlideBar = (slidebar ? "PCM" : "");
 
     const privateNav = (
+        
         <div className="auth-nav">
-            <Nav.Link as={Link} to={"/user/profile"}>
-                <Image src={profileImage} alt="profile_img" />
+            <Nav.Link as={Link} to={"/profile"}>
+                <Image src={image ?? profileImage} alt="profile_img" />
                 <div className='details'>
-                    <span>Debraj karmakar</span>
-                    <p>debrajkarmakar010@gmail.com</p>
+                    <span>{name}</span>
+                    <p>{username}</p>
                 </div>
             </Nav.Link>
         </div>

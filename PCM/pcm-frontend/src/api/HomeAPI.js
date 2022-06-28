@@ -8,7 +8,7 @@ export const CURRENT_USER_URL = "/current-user";
 export const ADD_CONTACT_URL = "/add-contact";
 
 const TOKEN_HEADER = 'Authorization';
-let jwtToken = localStorage.getItem('jwtToken');
+
 
 export default axios.create({
     baseURL: BASE_URL,
@@ -23,21 +23,16 @@ export const axiosPrivate = axios.create({
     // }
 });
 
-axiosPrivate.interceptors.request.use(async config => {
-    // const jwtToken = localStorage.getItem('jwtToken');
-    // if(!jwtToken) {
-    //     jwtToken = localStorage.getItem('jwtToken') ? JSON.parse(localStorage.getItem('jwtToken')) : null;
-    //     config.headers[TOKEN_HEADER] = `Bearer ${jwtToken}`;
-    // } else {
-    //     const expires_at = new Date(jwtDecode(jwtToken).exp * 1000);
-    //     if(!new Date(expires_at) > new Date()) {
-    //         localStorage.removeItem('jwtToken')
-    //     }
-    // }
+// axiosPrivate.defaults.headers.common[TOKEN_HEADER] = `Bearer ${jwtToken}`;
+
+axiosPrivate.interceptors.request.use(config => {
+    let jwtToken = localStorage.getItem('jwtToken');
     const expires_at = new Date(jwtDecode(jwtToken).exp * 1000);
     if(new Date(expires_at) > new Date()) {
+        // localStorage.removeItem('jwtToken');
         config.headers[TOKEN_HEADER] = `Bearer ${jwtToken}`;
-    } else {
+    } 
+    else {
         localStorage.removeItem('jwtToken');
     }
     

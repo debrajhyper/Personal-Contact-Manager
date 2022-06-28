@@ -135,7 +135,7 @@ const Profile = () => {
                     SocialDetails.map((social, index) => {
                         return (
                             // <Col key={index} className="text-center d-inline-block" >
-                                <SocialIcon icon={social.icon} title={social.title} link={social.link} />
+                                <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
                             // </Col>
                         )
                     })
