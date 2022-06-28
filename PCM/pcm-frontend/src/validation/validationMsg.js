@@ -102,10 +102,10 @@ export const contactValidate = values => {
         }
     }
 
-    if(values.profilePic !== '') {
-        if(values.profilePic.size > 5242880) {
+    if(values.profilePic !== '' || values.profilePic !== undefined || values.profilePic !== null) {
+        if(values.profilePic?.size > 5242880) {
             errors.profilePic = "File size must be less than 5MB";
-        } else if (!values.profilePic.name?.match(/\.(jpg|jpeg|png|gif)$/)) {
+        } else if (!values.profilePic?.name?.match(/\.(jpg|jpeg|png|gif)$/)) {
             errors.profilePic = "Invalid File Format";
         }
     }

@@ -85,6 +85,7 @@ const useForm = validate => {
     const handleChangeFile = e => {
         const { name, files } = e.target;
         const file = files[0];
+        console.log('file ->', files[0]);
 
         if(file !== undefined) {
             setValues({
