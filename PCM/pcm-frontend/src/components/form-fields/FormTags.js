@@ -3,7 +3,7 @@ import React from 'react'
 import { FaUserTag } from 'react-icons/fa';
 import { Form } from 'react-bootstrap';
 
-const FormTags = ({ tags, cName, functionAddTags, functionRemoveTags, hasTouched, hasError, Mandatory }) => {
+const FormTags = ({ tags, cName, functionAddTags, functionRemoveTags, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="Tags">
             <div className="field">
@@ -13,6 +13,7 @@ const FormTags = ({ tags, cName, functionAddTags, functionRemoveTags, hasTouched
                     type="text"
                     onKeyUp={event => event.key === "Enter" ? functionAddTags(event) : null}
                     onBlur={e => functionAddTags(e)}
+                    onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (tags.length > 0 ? 'noError' : '')}
                     placeholder=""
                 required />

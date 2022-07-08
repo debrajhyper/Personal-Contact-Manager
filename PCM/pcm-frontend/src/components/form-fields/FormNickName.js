@@ -3,7 +3,7 @@ import React from 'react'
 import { FaUsersCog } from 'react-icons/fa';
 import { Form } from 'react-bootstrap';
 
-const FormNickName = ({ nickName, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormNickName = ({ nickName, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="NickName">
             <div className="field">
@@ -14,6 +14,7 @@ const FormNickName = ({ nickName, cName, functionChange, functionBlur, hasTouche
                     value={nickName}
                     onChange={functionChange}
                     onBlur={functionBlur}
+                    onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (nickName !== "" ? 'noError' : '')}
                     placeholder=""
                 required />

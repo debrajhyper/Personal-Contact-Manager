@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { addContact } from '../services/index';
+import { toast } from "react-toastify";
 
 const useForm = validate => {
     const [values, setValues] = useState({
@@ -12,21 +13,15 @@ const useForm = validate => {
         title: "",
         company: "",
         email: "",
-        mobileNumber: [
-            {
-                code: "",
-                number: ""
-            }
-        ],
+        mobileNumber: {
+            code: "",
+            number: ""
+        },
         telephoneNumber: {
             code: "",
             number: ""
         },
-        country: {
-            code: "",
-            name: "",
-            no: ""
-        },
+        country: "",
         dateOfBirth: "",
         address: "",
         relationship: "",
@@ -46,21 +41,38 @@ const useForm = validate => {
     const [touched, setTouched] = useState({});
     const [uploadedFile, setUploadedFile] = useState(false);
     const [errors, setErrors] = useState({});
-    const [isSubmit, setIsSubmit] = useState(false);
+    const mandatoryFields = ["name", "email", "mobileNumber"];
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setErrors(validate(values));
     }, [values, validate]);
 
-
     // console.log('values ->', values);
-    // console.log('errors ->', errors);
+    // console.log('touched ->', touched);
+
+
+
+
+
+
+
+
 
     const handleClick = (e) => {
         setValues({
             ...values,
             favorite: !values.favorite
         })
+    };
+
+    const handleEnter = (event) => {
+        if (event.key.toLowerCase() === "enter") {
+            const form = event.target.form;
+            const index = [...form].indexOf(event.target);
+            form.elements[index + 1].focus();
+            event.preventDefault();
+        }
     };
 
     const handleChange = e => {
@@ -71,23 +83,10 @@ const useForm = validate => {
         });
     };
 
-    const handleChangeSelect = (name, value) => {
-        setValues({
-            ...values,
-            [name]: value,
-            telephoneNumber: {
-                ...values.telephoneNumber,
-                code: value.no,
-            }
-        });
-    };
-
     const handleChangeFile = e => {
         const { name, files } = e.target;
         const file = files[0];
-        console.log('file ->', files[0]);
-
-        if(file !== undefined) {
+        if (file !== undefined) {
             setValues({
                 ...values,
                 [name]: file,
@@ -101,7 +100,6 @@ const useForm = validate => {
             });
         }
     };
-
     const handleChangeFileCancel = () => {
         setValues({
             ...values,
@@ -109,16 +107,53 @@ const useForm = validate => {
             profilePicURL: ""
         });
     };
-
     const handleChangeFileUpload = () => {
         setUploadedFile(true);
     };
-
-    const handleChangeRemoveTags = indexToRemove => {
+    
+    const handleChangeMobileNumber = e => {
+        const { name, value } = e.target;
         setValues({
             ...values,
-            tags: [...values.tags.filter((_, index) => index !== indexToRemove)]
+            mobileNumber: {
+                ...values.mobileNumber,
+                [name]: value
+            }
         });
+    }
+    
+    const handleChangeTelephoneNumber = e => {
+        const { name, value } = e.target;
+        setValues({
+            ...values,
+            telephoneNumber: {
+                ...values.telephoneNumber,
+                [name]: value
+            }
+        });
+    }
+
+    const handleChangeSelect = (name, value) => {
+        if (name === 'country') {
+            setValues({
+                ...values,
+                [name]: value,
+                mobileNumber: {
+                    ...values.mobileNumber,
+                    code: value.no,
+                },
+                telephoneNumber: {
+                    ...values.telephoneNumber,
+                    code: value.no,
+                },
+            })
+        }
+        else {
+            setValues({
+                ...values,
+                [name]: value,
+            });
+        }
     };
 
     const handleChangeAddTags = e => {
@@ -130,6 +165,12 @@ const useForm = validate => {
             });
             e.target.value = "";
         }
+    };
+    const handleChangeRemoveTags = indexToRemove => {
+        setValues({
+            ...values,
+            tags: [...values.tags.filter((_, index) => index !== indexToRemove)]
+        });
     };
 
     const handleChangeSocial = e => {
@@ -143,24 +184,21 @@ const useForm = validate => {
         });
     };
 
-    const handleChangeTelephoneNumber = e => {
-        const { name, value } = e.target;
-        setValues({
-            ...values,
-            telephoneNumber: {
-                ...values.telephoneNumber,
-                [name]: value
-            }
-        });
-    }
-
     const handleChangeNote = value => {
         setValues({
             ...values,
-            note: value
+            description: value
         });
     }
 
+
+
+
+
+
+
+
+    
     const handleBlur = e => {
         const { name } = e.target;
         setTouched({
@@ -168,6 +206,28 @@ const useForm = validate => {
             [name]: true
         });
     };
+
+    const handleBlurMobileNumber = e => {
+        const { name } = e.target;
+        setTouched({
+            ...touched,
+            mobileNumber: {
+                ...touched.mobileNumber,
+                [name]: true
+            }
+        })
+    }
+    
+    const handleBlurTelephoneNumber = e => {
+        const { name } = e.target;
+        setTouched({
+            ...touched,
+            telephoneNumber: {
+                ...touched.telephoneNumber,
+                [name]: true
+            }
+        })
+    }
 
     const handleBlurSocial = e => {
         const { name } = e.target;
@@ -180,64 +240,110 @@ const useForm = validate => {
         })
     };
 
-    const handleBlurTelephoneNumber = e => {
-        const { name } = e.target;
-        setTouched({
-            ...touched,
-            telephoneNumber: {
-                ...touched.telephoneNumber,
-                [name]: true
-            }
-        })
-    }
+
+
+
+
+
 
 
     const handleReset = () => {
         setValues({
+            profilePic: "",
+            profilePicURL: "",
+            favorite: false,
             name: "",
             nickName: "",
             title: "",
             company: "",
             email: "",
-            telephoneNo: "",
-            mobileNo: "",
-            address: "",
-            profilePic: "",
-            profilePicURL: "",
-            country: "",
-            dob: "",
-            zodiacSign: "",
-            relationship: "",
-            tags: [],
-            favorite: false,
-            socialLinks: {
-                Facebook: "",
-                Twitter: "",
-                LinkedIn: "",
-                Instagram: "",
-                YouTube: "",
+            mobileNumber: {
+                code: "",
+                number: ""
             },
+            telephoneNumber: {
+                code: "",
+                number: ""
+            },
+            country: "",
+            dateOfBirth: "",
+            address: "",
+            relationship: "",
+            zodiacSign: "",
+            tags: [],
             website: "",
-            note: "",
+            socialLinks: {
+                facebook: "",
+                twitter: "",
+                linkedIn: "",
+                instagram: "",
+                youtube: "",
+            },
+            description: "",
         });
         setTouched({});
         setUploadedFile(false);
         setErrors({});
     }
 
-    const dispatch = useDispatch();
+
+
+
+
+
+    
 
     const handleSubmit = e => {
         e.preventDefault();
         setErrors(validate(values));
-        setIsSubmit(true);
+        setTouched({
+            ...touched,
+            name: true,
+            email: true,
+            mobileNumber: {
+                code: true,
+                number: true
+            },
+        });
 
-        console.log(values)
-        dispatch(addContact(values));
+        const mandatoryCheck = Object.keys(errors).filter(key => mandatoryFields.includes(key));
+
+        if(Object.keys(errors).length === 1 && Object.keys(errors.socialLinks).length === 0) {
+            dispatch(addContact(values));
+            handleReset();
+        } else if(mandatoryCheck.length !== 0) {
+            toast.warning("Please fill all the required fields");
+        } else {
+            toast.warning("Some fields have errors");
+        }
     };
 
 
-    return { values, handleClick, handleChange, handleChangeSelect, handleChangeFile,handleChangeTelephoneNumber, handleBlurTelephoneNumber, handleChangeFileCancel, handleChangeFileUpload, handleChangeRemoveTags, handleChangeAddTags, handleChangeSocial, handleChangeNote, handleBlur, handleBlurSocial, handleReset, handleSubmit, uploadedFile, touched, errors, isSubmit }
+
+
+
+
+    return { 
+        values, 
+        handleClick, 
+        handleEnter, 
+        handleChange, 
+        handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, 
+        handleChangeMobileNumber, 
+        handleChangeTelephoneNumber, 
+        handleChangeSelect, 
+        handleChangeAddTags, handleChangeRemoveTags, 
+        handleChangeSocial, 
+        handleChangeNote, 
+
+        handleBlur, 
+        handleBlurMobileNumber, 
+        handleBlurTelephoneNumber, 
+        handleBlurSocial, 
+
+        handleReset, 
+        handleSubmit, 
+        uploadedFile, touched, errors }
 };
 
 export default useForm;

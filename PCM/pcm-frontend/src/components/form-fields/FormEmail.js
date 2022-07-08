@@ -5,7 +5,7 @@ import '../../sass/variables.scss';
 import { FaAt } from "react-icons/fa";
 import { Form } from 'react-bootstrap';
 
-const FormEmail = ({ cName, email, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormEmail = ({ cName, email, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="Email">
             <div className="field field-email">
@@ -15,7 +15,8 @@ const FormEmail = ({ cName, email, functionChange, functionBlur, hasTouched, has
                     type="email"
                     value={email} 
                     onChange={functionChange} 
-                    onBlur={functionBlur} 
+                    onBlur={functionBlur}
+                    onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (email !== "" ? 'noError' : '')}
                     placeholder=" "
                 required />

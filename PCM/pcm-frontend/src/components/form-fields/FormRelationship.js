@@ -5,7 +5,7 @@ import { RelationshipDetails } from '../misc/RelationshipDetails';
 import { FaHeart } from 'react-icons/fa';
 import { Form } from 'react-bootstrap';
 
-const FormRelationship = ({ relationship, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormRelationship = ({ relationship, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
     const ref = useRef(null);
@@ -55,9 +55,10 @@ const FormRelationship = ({ relationship, cName, functionChange, functionBlur, h
                             functionChange(e.target.name, e.target.value)
                         }}
                         onBlur={functionBlur}
-                        className={hasTouched && hasError ? 'hasError' : (relationship !== "" ? 'noError' : '')}
                         onClick={toggle}
                         onTouchEnd={toggle}
+                        onKeyDown={functionKeyDown}
+                        className={hasTouched && hasError ? 'hasError' : (relationship !== "" ? 'noError' : '')}
                         placeholder=""
                     required />
                     <Form.Label><FaHeart className="me-2" />Relationship{Mandatory && <span className='mandatory'>*</span>}</Form.Label>

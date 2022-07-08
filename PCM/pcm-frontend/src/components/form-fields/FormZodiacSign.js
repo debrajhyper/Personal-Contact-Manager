@@ -5,7 +5,7 @@ import { zodiacDetails } from '../misc/ZodiacDetails';
 import { IoDisc } from 'react-icons/io5';
 import { Form, Image } from 'react-bootstrap';
 
-const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
     const ref = useRef(null);
@@ -55,9 +55,10 @@ const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, hasTo
                             functionChange(e.target.name, e.target.value)
                         }}
                         onBlur={functionBlur}
-                        className={hasTouched && hasError ? 'hasError' : (zodiacSign !== "" ? 'noError' : '')}
                         onClick={toggle}
                         onTouchEnd={toggle}
+                        onKeyDown={functionKeyDown}
+                        className={hasTouched && hasError ? 'hasError' : (zodiacSign !== "" ? 'noError' : '')}
                         placeholder=""
                     required />
                     <Form.Label><IoDisc className="me-2" />Zodiac Sign{Mandatory && <span className='mandatory'>*</span>}</Form.Label>

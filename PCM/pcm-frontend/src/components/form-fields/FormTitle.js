@@ -3,7 +3,7 @@ import React from 'react'
 import { FaUserTie } from 'react-icons/fa';
 import { Form } from 'react-bootstrap';
 
-const FormTitle = ({ title, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormTitle = ({ title, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="Title">
             <div className="field">
@@ -14,6 +14,7 @@ const FormTitle = ({ title, cName, functionChange, functionBlur, hasTouched, has
                     value={title}
                     onChange={functionChange}
                     onBlur={functionBlur}
+                    onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (title !== "" ? 'noError' : '')}
                     placeholder=""
                 required />

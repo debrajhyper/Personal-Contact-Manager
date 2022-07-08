@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { IoCalendar } from 'react-icons/io5';
 import { Form } from 'react-bootstrap';
 
-const FormDOB = ({ dob, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormDOB = ({ dob, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
 
@@ -29,10 +29,12 @@ const FormDOB = ({ dob, cName, functionChange, functionBlur, hasTouched, hasErro
                     name="dateOfBirth"
                     title="Birth Date"
                     type="date"
+                    format="dd-MM-yyyy"
                     value={dob}
                     onChange={functionChange}
                     onBlur={functionBlur}
-                    className={`${open ? 'focused': 'not-focused'} ${hasTouched && hasError ? 'hasError' : (dob !== "" ? 'noError' : '')}`}
+                    onKeyDown={functionKeyDown}
+                    className={`${open ? 'focused' : 'not-focused'} ${hasTouched && hasError ? 'hasError' : (dob !== "" ? 'noError' : '')}`}
                     placeholder=""
                 required />
                 <Form.Label><IoCalendar className="me-2" />Birth Date{Mandatory && <span className='mandatory'>*</span>}</Form.Label>

@@ -3,26 +3,26 @@ import React from 'react'
 import { IoPhonePortraitOutline } from 'react-icons/io5';
 import { Form } from 'react-bootstrap';
 
-const FormMobileNo = ({ mobileNo, countryCode, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormMobileNo = ({ mobileNumber, countryCode, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${countryCode ? 'd-flex align-items-center' : ''} ${cName}`} controlId="MobileNo">
             {
                 countryCode &&
                 <span className='pt-1 pe-2 d-inline-flex justify-content-start align-items-center'>
                     <pre className='m-0' style={{ fontSize: '14px' }}>{`+${countryCode}`}</pre>
-                    <input type="hidden" name="mobileCode" value={countryCode} />
                 </span>
             }
             <div className="field">
                 <div className="field">
                     <Form.Control
-                        name="mobileNumber"
+                        name="number"
                         title="Mobile Number"
                         type="number"
-                        value={mobileNo}
+                        value={mobileNumber?.number}
                         onChange={functionChange}
                         onBlur={functionBlur}
-                        className={hasTouched && hasError ? 'hasError' : (mobileNo !== '' ? 'noError' : '')}
+                        onKeyDown={functionKeyDown}
+                        className={hasTouched && hasError ? 'hasError' : (mobileNumber?.number !== '' ? 'noError' : '')}
                         placeholder=""
                     required />
                     <Form.Label><IoPhonePortraitOutline className="me-2" />Mobile Number{Mandatory && <span className='mandatory'>*</span>}</Form.Label>

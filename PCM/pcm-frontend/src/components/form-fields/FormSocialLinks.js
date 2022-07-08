@@ -31,7 +31,7 @@ const SocialWebsite = [
     },
 ];
 
-const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <>
             {
@@ -47,6 +47,7 @@ const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, has
                                     value={socialLinks[name]}
                                     onChange={functionChange}
                                     onBlur={functionBlur}
+                                    onKeyDown={functionKeyDown}
                                     className={hasTouched?.[name] && hasError[name] ? 'hasError' : (socialLinks[name] !== "" ? 'noError' : '')}
                                     placeholder=" "
                                 required />

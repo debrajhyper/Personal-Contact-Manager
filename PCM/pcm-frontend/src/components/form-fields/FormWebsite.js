@@ -3,7 +3,7 @@ import React from 'react'
 import { FaLink } from 'react-icons/fa';
 import { Form } from 'react-bootstrap';
 
-const FormWebsite = ({ website, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormWebsite = ({ website, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="Website">
             <div className="field field-url">
@@ -14,6 +14,7 @@ const FormWebsite = ({ website, cName, functionChange, functionBlur, hasTouched,
                     value={website}
                     onChange={functionChange}
                     onBlur={functionBlur}
+                    onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (website !== "" ? 'noError' : '')}
                     placeholder=" "
                 required />

@@ -58,11 +58,14 @@ export const loginValidate = values => {
 
 export const contactValidate = values => { 
     const errors = {
-        socialLinks: [],
+        socialLinks: {},
     };
     const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const phoneNo_pattern = /^(\+\d{1,3}[- ]?)?\d{10}$/gm;
+    const dateOfBirth_pattern = /^\d{4}-\d{2}-\d{2}$/;
     const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)$/gm
+
+    const excluded = [null, undefined, ""];
 
     // console.log("-------------------> ",values)
 
@@ -84,25 +87,37 @@ export const contactValidate = values => {
         errors.mobileNumber = "Invalid Mobile Number";
     }
 
-    if(values.country.name !== '') {
+    if(!excluded.includes(values?.country)) {
         if (!CountryDetails.filter(country => country.name.toLocaleLowerCase() === values.country?.name?.toLocaleLowerCase()).length > 0) {
             errors.country = "Country Not Found";
         }
     }
 
-    if(values.relationship !== '') {
+    if(!excluded.includes(values?.dateOfBirth)) {
+        if (!values.dateOfBirth?.match(dateOfBirth_pattern)) {
+            errors.dateOfBirth = "Invalid Date Format";
+        } else {
+            const date = new Date(values.dateOfBirth);
+            const today = new Date();
+            if (date > today) {
+                errors.dateOfBirth = "Date is in Future";
+            }
+        }
+    }
+
+    if(!excluded.includes(values?.relationship)) {
         if (!RelationshipDetails.filter(relationship => relationship.name.toLocaleLowerCase() === values.relationship.toLocaleLowerCase()).length > 0) {
             errors.relationship = "Relationship does not exist";
         }
     }
 
-    if(values.zodiacSign !== '') {
-        if (!zodiacDetails.filter(zodiac => zodiac.name.toLocaleLowerCase() === values.zodiacSign?.name?.toLocaleLowerCase()).length > 0) {
+    if(!excluded.includes(values?.zodiacSign)) {
+        if (!zodiacDetails.filter(zodiacSign => zodiacSign.name.toLocaleLowerCase() === values.zodiacSign?.name?.toLocaleLowerCase()).length > 0) {
             errors.zodiacSign = "Zodiac Name does not exist";
         }
     }
 
-    if(values.profilePic !== '' || values.profilePic !== undefined || values.profilePic !== null) {
+    if(!excluded.includes(values?.profilePic)) {
         if(values.profilePic?.size > 5242880) {
             errors.profilePic = "File size must be less than 5MB";
         } else if (!values.profilePic?.name?.match(/\.(jpg|jpeg|png|gif)$/)) {
@@ -110,41 +125,41 @@ export const contactValidate = values => {
         }
     }
 
-    if(values.website !== '') {
+    if(!excluded.includes(values?.website)) {
         if(!values.website?.match(url_pattern)) {
             errors.website = "Invalid URL";
         }
     }
 
-    // if(values.socialLinks.Facebook !== '') {
-    //     if(!values.socialLinks.Facebook?.match(url_pattern)) {
-    //         errors.socialLinks.Facebook = "Invalid Facebook URL";
-    //     }
-    // }
+    if(!excluded.includes(values?.socialLinks?.facebook)) {
+        if(!values.socialLinks.facebook?.match(url_pattern)) {
+            errors.socialLinks.facebook = "Invalid Facebook URL";
+        }
+    }
 
-    // if(values.socialLinks.Twitter !== '') {
-    //     if(!values.socialLinks.Twitter?.match(url_pattern)) {
-    //         errors.socialLinks.Twitter = "Invalid Twitter URL";
-    //     }
-    // }
+    if(!excluded.includes(values?.socialLinks?.twitter)) {
+        if(!values.socialLinks.twitter?.match(url_pattern)) {
+            errors.socialLinks.twitter = "Invalid Twitter URL";
+        }
+    }
 
-    // if(values.socialLinks.LinkedIn !== '') {
-    //     if(!values.socialLinks.LinkedIn?.match(url_pattern)) {
-    //         errors.socialLinks.LinkedIn = "Invalid LinkedIn URL";
-    //     }
-    // }
+    if(!excluded.includes(values?.socialLinks?.linkedIn)) {
+        if(!values.socialLinks.linkedIn?.match(url_pattern)) {
+            errors.socialLinks.linkedIn = "Invalid LinkedIn URL";
+        }
+    }
 
-    // if(values.socialLinks.Instagram !== '') {
-    //     if(!values.socialLinks.Instagram?.match(url_pattern)) {
-    //         errors.socialLinks.Instagram = "Invalid Instagram URL";
-    //     }
-    // }
+    if(!excluded.includes(values?.socialLinks?.instagram)) {
+        if(!values.socialLinks.instagram?.match(url_pattern)) {
+            errors.socialLinks.instagram = "Invalid Instagram URL";
+        }
+    }
 
-    // if(values.socialLinks.YouTube !== '') {
-    //     if(!values.socialLinks.YouTube?.match(url_pattern)) {
-    //         errors.socialLinks.YouTube = "Invalid YouTube URL";
-    //     }
-    // }
+    if(!excluded.includes(values?.socialLinks?.youtube)) {
+        if(!values.socialLinks.youtube?.match(url_pattern)) {
+            errors.socialLinks.youtube = "Invalid Youtube URL";
+        }
+    }
 
 
     return errors;

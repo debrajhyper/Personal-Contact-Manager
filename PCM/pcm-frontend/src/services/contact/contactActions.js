@@ -1,7 +1,6 @@
 import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./contactTypes";
 import { axiosPrivate, ADD_CONTACT_URL } from "../../api/HomeAPI";
 import { toast } from "react-toastify";
-import axios from "axios";
 
 const config = {
     headers: {
@@ -14,49 +13,11 @@ export const addContact = (contact) => {
         dispatch(contactRequest());
         const toastLoading = toast.loading("Uploading data to the server")
 
-
-        const data = new FormData();
-        data.append('profilePic', contact.profilePic);
-        data.append('name', contact.name);
-        data.append('email', contact.email);
-        // data.append('favorite', contact.favorite);
-        
-        // data.append('nickName', contact.nickName);
-        // data.append('title', contact.title);
-        // data.append('company', contact.company);
-        
-        // data.append('mobileNumber', contact.mobileNumber);
-        // Object.entries(contact.telephoneNumber).map(([key, value]) => {
-        //     console.log(key, value)
-        //     data.append(`telephoneNumber[${key}]`, value)}
-        // );
-        // data.append('Contact', JSON.stringify(contact));
-        // data.append('country', contact.country);
-        // data.append('dateOfBirth', contact.dateOfBirth);
-        // data.append('address', contact.address);
-        // data.append('relationship', contact.relationship);
-        // data.append('zodiacSign', contact.zodiacSign);
-        // data.append('tags', contact.tags);
-        // data.append('website', contact.website);
-        // data.append('socialLinks', contact.socialLinks);
-        // data.append('description', contact.description);
-        let formObject = Object.fromEntries(data.entries())
-
-
-        // const createFormData = (data) => {
-        //     console.log(data)
-        //     return Object.keys(data).reduce((formData, key) => {
-        //         console.log(key, data[key])
-        //     formData.append(key, data[key]);
-        //     return formData;
-        //     }, new FormData());
-        // };
-        // const data = createFormData(contact);
-        console.log('DATA ->', formObject)
-
+        const data = createFormData(contact);
+        let formObject = Object.fromEntries(data.entries());
+        console.log('SENDING CONTACT DATA -> ', formObject);
 
         axiosPrivate.post(ADD_CONTACT_URL, data, config)
-        // axios.post("http://localhost:1010/add-contact", contact, config)
         .then(response => {
             dispatch(contactSuccess(response?.data));
             toast.update(
@@ -79,7 +40,7 @@ export const addContact = (contact) => {
         })
         .catch(error => {
             dispatch(contactFailure(error?.response?.data?.message));
-            const errorMessage = error?.response?.data?.message?.length > 100 ? 'Something went wrong' : error?.response?.data?.message;
+            const errorMessage = error?.response?.data?.errors ? error.response.data.errors[0].defaultMessage : error?.response?.data?.message?.length > 100 ? 'Something went wrong' : error.response.data.message;
             toast.update(
                 toastLoading,
                 {
@@ -122,3 +83,39 @@ const contactFailure = (error) => {
         error: error
     }
 }
+
+const createFormData = (data) => {
+    return Object.keys(data).reduce((formData, key) => {
+        // console.log(key, data[key])
+        if(key === 'country'){
+            Object.entries(data[key]).map(([key, value]) => {
+                return formData.append(`country.${key}`, value)
+            });
+        }
+        else if(key === 'mobileNumber'){
+            Object.entries(data[key]).map(([key, value]) => {
+                return formData.append(`mobileNumber.${key}`, value)
+            });
+        }
+        else if(key === 'socialLinks'){
+            Object.entries(data[key]).map(([key, value]) => {
+                return formData.append(`socialLinks.${key}`, value)
+            });
+        }
+        else if(key === 'telephoneNumber'){
+            Object.entries(data[key]).map(([key, value]) => {
+                return formData.append(`telephoneNumber.${key}`, value)
+            });
+        }
+        else if(key === 'zodiacSign'){
+            formData.append('zodiacSign', data[key].name)
+        }
+        else if(key === 'dateOfBirth'){
+            formData.append(key, data[key].split('-').reverse().join('-'))
+        }
+        else {
+            formData.append(key, data[key]);
+        }
+        return formData;
+    }, new FormData());
+};

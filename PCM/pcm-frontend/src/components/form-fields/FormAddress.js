@@ -3,7 +3,7 @@ import React from 'react'
 import { IoLocationSharp } from "react-icons/io5";
 import { Form } from 'react-bootstrap';
 
-const FormAddress = ({ address, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormAddress = ({ address, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="Address">
             <div className="field">
@@ -14,6 +14,7 @@ const FormAddress = ({ address, cName, functionChange, functionBlur, hasTouched,
                     value={address}
                     onChange={functionChange}
                     onBlur={functionBlur}
+                    onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (address !== "" ? 'noError' : '')}
                     placeholder=""
                 required />

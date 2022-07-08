@@ -3,7 +3,7 @@ import React from 'react'
 import { FaPhoneAlt } from 'react-icons/fa';
 import { Form } from 'react-bootstrap';
 
-const FormTelephoneNo = ({ telephoneNumber, countryCode, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
+const FormTelephoneNo = ({ telephoneNumber, countryCode, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${countryCode ? 'd-flex align-items-center' : ''} ${cName}`} controlId="TelephoneNo">
             {
@@ -21,6 +21,7 @@ const FormTelephoneNo = ({ telephoneNumber, countryCode, cName, functionChange, 
                         value={telephoneNumber?.number}
                         onChange={functionChange}
                         onBlur={functionBlur}
+                        onKeyDown={functionKeyDown}
                         className={hasTouched && hasError ? 'hasError' : (telephoneNumber?.number !== '' ? 'noError' : '')}
                         placeholder=""
                     required />
