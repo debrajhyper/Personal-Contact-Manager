@@ -16,6 +16,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pcm.Helper.DateValidator;
+import com.pcm.Helper.ImageUploader;
 import com.pcm.Model.Contact;
 import com.pcm.Model.User;
 import com.pcm.Repository.ContactRepository;
@@ -47,29 +49,18 @@ public class ContactServiceImpl implements ContactService {
 			}
 	    }
 		
-		if(profilePic.isEmpty()) {
-			System.out.println("IMAGE FILE EMPTY");
-			contact.setImage("default.png");
-		} 
-		else if(!profilePic.getContentType().equals("image/jpeg") && !profilePic.getContentType().equals("image/png")) {
-			throw new ValidationException("Only JPEG/PNG content type are allowed");
-		} 
-		else {
-			String imageName = contact.getCId() + "_" + profilePic.getOriginalFilename();
-			
-			contact.setImage(imageName);
-			System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
-			
-			File saveFile = new ClassPathResource("static/upload/").getFile();
-			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + imageName);
-			System.out.println("IMAGE LOCATION -> " + path);
-			
-			Files.copy(profilePic.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			System.out.println("IMAGE FILE SUCCESSFULLY UPLOADED");
-		}
+		System.out.println("PROFILE PIC -> " + profilePic);
+		new ImageUploader(profilePic).uploadImage(contact);
 		
+		
+		if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isBlank()) {
+			DateValidator validator = new DateValidator("dd-MM-yyyy");
+			boolean isvalidDate = validator.isValid(contact.getDateOfBirth());
+			System.out.println("IS BIRTH DATE VALID -> " + isvalidDate);
+		}
 		if(contact.getMobileNumber() != null) {
-			contact.getMobileNumber().forEach(mobileNumber -> mobileNumber.setContact(contact));
+//			contact.getMobileNumber().forEach(mobileNumber -> mobileNumber.setContact(contact));
+			contact.getMobileNumber().setContact(contact);
 		}
 		if(contact.getTelephoneNumber() != null) {
 			contact.getTelephoneNumber().setContact(contact);

@@ -1,8 +1,5 @@
 package com.pcm.Model;
 
-import java.sql.Date;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,13 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
-import javax.validation.constraints.Past;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -44,8 +40,8 @@ public class Contact {
 	
 	private boolean favorite;
 	
-//	@NotBlank(message = "Name field is required")
-//	@Size(min = 2, max = 30, message = "Min 2 and max 30 characters are allowed in name field")
+	@Size(min = 2, max = 30, message = "Min 2 and max 30 characters are allowed in name field")
+	@NotBlank(message = "Name field is required")
 	private String name;
 	
 	private String nickName;
@@ -55,13 +51,13 @@ public class Contact {
 	private String company;
 	
 	@Column(unique = true)
-//	@NotBlank(message = "Email address is required")
-//	@Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
+	@NotBlank(message = "Email address is required")
+	@Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
 	private String email;
 	
 	@Valid
-	@OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<ContactMobileNumber> mobileNumber;
+	@OneToOne(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private ContactMobileNumber mobileNumber;
 	
 	@OneToOne(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ContactTelephoneNumber telephoneNumber;
@@ -69,10 +65,8 @@ public class Contact {
 	@OneToOne(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private ContactCountryName country;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Past(message = "The date of birth must be in the past")
-	private Date dateOfBirth;
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	private String dateOfBirth;
 	
 	private String address;
 	
@@ -85,7 +79,6 @@ public class Contact {
 	@Column(length = 9000)
 	private String description;
 	
-	@org.hibernate.validator.constraints.URL(message = "Website URL is not a valid URL")
 	private String website;
 	
 	@Valid

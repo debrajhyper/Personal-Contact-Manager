@@ -27,9 +27,9 @@ public class ContactController {
 	@Autowired
 	private ContactService contactService;
 	
-	
+//	@RequestMapping(value = "/add-contact", method = RequestMethod.POST, consumes = {"multipart/form-data"})
 	@PostMapping("/add-contact")
-	public ResponseEntity<String> addContact(@Valid @ModelAttribute Contact contact, @RequestParam("profilePic") MultipartFile profilePic, Principal principal ) throws Exception {
+	public ResponseEntity<String> addContact(@Valid @ModelAttribute Contact contact, @RequestParam(value = "profilePic", required = false) MultipartFile profilePic, Principal principal ) throws Exception {
 		
 		String email = principal.getName();
 		
