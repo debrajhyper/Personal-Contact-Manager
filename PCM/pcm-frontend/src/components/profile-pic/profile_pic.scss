@@ -4,7 +4,7 @@
     position: relative;
     display: inline-block;
     height: 12em;
-    width: 100%;
+    width: 100em;
     max-width: 12em;
 
     .profile_pic {
@@ -30,6 +30,25 @@
         border: 6px solid $body;
         border-radius: 50%;
         cursor: pointer;
+    }
+
+    .favorite-overlay {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: .2em;
+        background-color: $body;
+        border: 6px solid $body;
+        border-radius: 50%;
+        cursor: pointer;
+
+        .favorite-icon.ok {
+            color: $input-error;
+        }
+        .favorite-icon.no {
+            // color: $text;
+            color: $white;
+        }
     }
 }
 

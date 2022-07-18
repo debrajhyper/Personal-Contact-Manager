@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
 
 import { IoCalendar } from 'react-icons/io5';
 import { Form } from 'react-bootstrap';
 
-const FormDOB = ({ dob, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
+const FormDOB = ({ dob, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
+    const { cid } = useParams();
 
     useEffect(() => {
         ['click', 'touchend'].forEach(e => {
@@ -30,11 +32,11 @@ const FormDOB = ({ dob, cName, functionChange, functionBlur, functionKeyDown, ha
                     title="Birth Date"
                     type="date"
                     format="dd-MM-yyyy"
-                    value={dob}
+                    value={cid ? dob?.split('-').reverse().join('-') : dob}
                     onChange={functionChange}
                     onBlur={functionBlur}
                     onKeyDown={functionKeyDown}
-                    className={`${open ? 'focused' : 'not-focused'} ${hasTouched && hasError ? 'hasError' : (dob !== "" ? 'noError' : '')}`}
+                    className={`${open ? 'focused' : 'not-focused'} ${hasTouched && hasError ? 'hasError' : (!excluded?.includes(dob) ? 'noError' : '')}`}
                     placeholder=""
                 required />
                 <Form.Label><IoCalendar className="me-2" />Birth Date{Mandatory && <span className='mandatory'>*</span>}</Form.Label>

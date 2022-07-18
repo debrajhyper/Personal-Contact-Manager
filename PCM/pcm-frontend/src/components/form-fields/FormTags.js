@@ -14,13 +14,14 @@ const FormTags = ({ tags, cName, functionAddTags, functionRemoveTags, functionKe
                     onKeyUp={event => event.key === "Enter" ? functionAddTags(event) : null}
                     onBlur={e => functionAddTags(e)}
                     onKeyDown={functionKeyDown}
-                    className={hasTouched && hasError ? 'hasError' : (tags.length > 0 ? 'noError' : '')}
+                    className={hasTouched && hasError ? 'hasError' : (tags?.length > 0 ? 'noError' : '')}
                     placeholder=""
                 required />
                 <Form.Label><FaUserTag className="me-2" />Tags{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             <ul id="tags">
                 {
+                    tags &&
                     tags.map((tag, index) => (
                         <li key={index} className="tag">
                             <span className='tag-title'>{tag}</span>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 import Layout from './pages/Layout';
 import RequireAuth from './pages/RequireAuth';
@@ -12,7 +13,9 @@ import TermsConditions from './pages/public/TermsConditions';
 import NoMatchFound from './pages/NoMatchFound';
 import Dashboard from './pages/private/Dashboard';
 import ViewContacts from './pages/private/ViewContacts';
+import ViewContact from './pages/private/ViewContact';
 import AddContact from './pages/private/AddContact';
+import EditContact from './pages/private/EditContact';
 import Profile from './pages/private/Profile';
 import Settings from './pages/private/Settings';
 import Home from './pages/public/Home';
@@ -45,6 +48,18 @@ const App = () => {
                 }
                 <div className={auth.isLoggedIn ? 'private_pages' : 'public_pages12'}>
                     <div className={auth.isLoggedIn ? 'content position-relative' : null}>
+                        <ToastContainer
+                            theme='colored'
+                            position="top-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                        />
                         <Routes>
                             <Route path="/" element={<Layout />} >
                                 <Route path="/" element={<Home />} />
@@ -56,6 +71,8 @@ const App = () => {
                                 <Route element={<RequireAuth />} >
                                     <Route path="dashboard" element={<Dashboard />} />
                                     <Route path="view_contacts" element={<ViewContacts />} />
+                                    <Route path="view_contact/:cid" element={<ViewContact />} />
+                                    <Route path="edit_contact/:cid" element={<EditContact />} />
                                     <Route path="add_contact" element={<AddContact />} />
                                     <Route path="profile" element={<Profile />} />
                                     <Route path="settings" element={<Settings />} />

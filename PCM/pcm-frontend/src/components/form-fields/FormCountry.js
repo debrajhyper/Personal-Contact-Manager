@@ -6,7 +6,7 @@ import { FaGlobeAmericas } from 'react-icons/fa';
 import { Form, Image } from 'react-bootstrap';
 
 
-const FormCountry = ({ country, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
+const FormCountry = ({ country, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
     const ref = useRef(null);
@@ -59,7 +59,7 @@ const FormCountry = ({ country, cName, functionChange, functionBlur, functionKey
                         onClick={toggle}
                         onTouchEnd={toggle}
                         onKeyDown={functionKeyDown}
-                        className={hasTouched && hasError ? 'hasError' : (country !== "" ? 'noError' : '')}
+                        className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(country) && !excluded?.includes(country?.name) ? 'noError' : '')}
                         placeholder=""
                     required />
                     <Form.Label><FaGlobeAmericas className="me-2" />Country{Mandatory && <span className='mandatory'>*</span>}</Form.Label>

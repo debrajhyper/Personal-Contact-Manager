@@ -1,10 +1,84 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Header, ButtonNormal, SearchBar, DisplayTable, Pagination } from '../../components/index';
 // import { ModalConfirmation } from '../../components/index';
 import HeaderImg from '../../img/pcm_view_contacts.png';
 
 import { Container, Row, Col } from 'react-bootstrap';
+
+
+
+
+
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { viewContact, logoutUser, viewContacts } from '../../services/index';
+
+const ViewContacts = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth);
+    const contacts = useSelector(state => state.viewContacts.contacts);
+    const totalContacts = useSelector(state => state.viewContacts.totalContacts);
+    const currentPage = useSelector(state => state.viewContacts.page);
+    const totalPages = useSelector(state => state.viewContacts.totalPages);
+    const deleteContact = useSelector(state => state.deleteContact.success);
+
+//     const [users, setUsers] = useState(Users);
+//     const [searchResult, setSearchResult] = useState('');
+//     const [currentPage, setCurrentPage] = useState(1);
+    const [itemPerPage] = useState(10);
+    const [pageNumberLimit] = useState(3);
+    const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
+
+    const indexOfLastItem = currentPage+1 * itemPerPage;  //  Calculate the index of the last item in the current page.
+    const indexOfFirstItem = indexOfLastItem - itemPerPage; //  Calculate the index of the first item in the current page.
+    // const filteredUsers = users.filter((user) => searchResultUser(user));  //  Filter the users based on the search text entered by the user.
+    // const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+
+    useEffect(() => {
+        if (auth.isLoggedIn) {
+            dispatch(viewContacts(currentPage));
+        } else {
+            dispatch(logoutUser('/login'));
+        }
+    }, [auth, dispatch, currentPage]);
+
+    useEffect(() => {
+        if(deleteContact) {
+            navigate(0);
+        }
+    }, [deleteContact, navigate]);
+
+    // console.log(contacts);
+
+    return (
+        <Container fluid className='view-contact px-sm-2 px-0'>
+            <Header image={HeaderImg} text={'View Contacts'} />
+            <Row className='mx-auto'>
+                <Col className='mx-auto col-xl-10 col-12 px-sm-2 px-0'>
+                    <div className='action_button mt-2 d-flex flex-sm-row flex-column-reverse justify-content-between align-items-sm-center align-items-start'>
+                        <ButtonNormal name='DeleteBtn' id='DeleteBtn' cName='btn form_reset red me-0 mb-sm-0 mb-4' value="Delete Selected" action={''} />
+                        <SearchBar cName='display-table-search' />
+                    </div>
+                    <DisplayTable indexOfFirstItem={indexOfFirstItem} indexOfLastItem={indexOfLastItem} />
+                    <div className={`text-center ${contacts.length !== 0 ? 'd-flex justify-content-center' : 'd-none'}`}>
+                        <Pagination
+                            itemPerPage={itemPerPage}
+                            pageNumberLimit={pageNumberLimit}
+                            minPageNumberLimit={minPageNumberLimit}
+                            setMinPageNumberLimit={setMinPageNumberLimit}
+                            maxPageNumberLimit={maxPageNumberLimit}
+                            setMaxPageNumberLimit={setMaxPageNumberLimit}
+                        />
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+    )
+}
 
 const Users = [{
     "id": 1,
@@ -332,67 +406,66 @@ const Users = [{
     "mobileNo": "160-99-8464"
 }]
 
-const ViewContacts = () => {
-    const [users, setUsers] = useState(Users);
-    const [searchResult, setSearchResult] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemPerPage] = useState(10);
-    const [pageNumberLimit] = useState(3);
-    const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
-    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
-    
+// const ViewContacts = () => {
+//     const [users, setUsers] = useState(Users);
+//     const [searchResult, setSearchResult] = useState('');
+//     const [currentPage, setCurrentPage] = useState(1);
+//     const [itemPerPage] = useState(10);
+//     const [pageNumberLimit] = useState(3);
+//     const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+//     const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
 
-    const handleDeleteSelected = e => {
-        e.preventDefault();
-        let newUsers = [...users];
-        newUsers = newUsers.filter(user => {
-            return !user.isChecked;
-        });
-        setUsers(newUsers);
-    };
+//     const handleDeleteSelected = e => {
+//         e.preventDefault();
+//         let newUsers = [...users];
+//         newUsers = newUsers.filter(user => {
+//             return !user.isChecked;
+//         });
+//         setUsers(newUsers);
+//     };
 
-    const searchResultUser = user => {
-        if (searchResult === '') {
-            return user;
-        } else if (user.name.toLowerCase().includes(searchResult.toLowerCase()) || user.email.toLowerCase().includes(searchResult.toLowerCase()) || user.mobileNo.toLowerCase().includes(searchResult.toLowerCase())) {
-            return user;
-        }
-        return null;
-    };
+//     const searchResultUser = user => {
+//         if (searchResult === '') {
+//             return user;
+//         } else if (user.name.toLowerCase().includes(searchResult.toLowerCase()) || user.email.toLowerCase().includes(searchResult.toLowerCase()) || user.mobileNo.toLowerCase().includes(searchResult.toLowerCase())) {
+//             return user;
+//         }
+//         return null;
+//     };
 
-    const indexOfLastItem = currentPage * itemPerPage;  //  Calculate the index of the last item in the current page.
-    const indexOfFirstItem = indexOfLastItem - itemPerPage; //  Calculate the index of the first item in the current page.
-    const filteredUsers = users.filter((user) => searchResultUser(user));  //  Filter the users based on the search text entered by the user.
-    const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);  //  Get the users in the current page.
+//     const indexOfLastItem = currentPage * itemPerPage;  //  Calculate the index of the last item in the current page.
+//     const indexOfFirstItem = indexOfLastItem - itemPerPage; //  Calculate the index of the first item in the current page.
+//     const filteredUsers = users.filter((user) => searchResultUser(user));  //  Filter the users based on the search text entered by the user.
+//     const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);  //  Get the users in the current page.
 
-    return (
-        <Container fluid className='view-contact px-sm-2 px-0'>
-            <Header image={HeaderImg} text={'View Contacts'} />
-            <Row className='mx-auto'>
-                <Col className='mx-auto col-xl-10 col-12 px-sm-2 px-0'>
-                    <div className='action_button mt-2 d-flex flex-sm-row flex-column-reverse justify-content-between align-items-sm-center align-items-start'>
-                        <ButtonNormal name='DeleteBtn' id='DeleteBtn' cName='btn form_reset red me-0 mb-sm-0 mb-4' value="Delete Selected" action={handleDeleteSelected} />
-                        <SearchBar cName='display-table-search' searchResult={searchResult} setSearchResult={setSearchResult} />
-                    </div>
-                    <DisplayTable users={users} filteredUsers={filteredUsers} currentItems={currentItems} setUsers={setUsers} indexOfFirstItem={indexOfFirstItem} indexOfLastItem={indexOfLastItem} />
-                    <div className={`text-center ${filteredUsers.length !== 0 ? 'd-flex justify-content-center' : 'd-none'}`}>
-                        <Pagination
-                            filteredUsers={filteredUsers}
-                            itemPerPage={itemPerPage}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                            pageNumberLimit={pageNumberLimit}
-                            minPageNumberLimit={minPageNumberLimit}
-                            setMinPageNumberLimit={setMinPageNumberLimit}
-                            maxPageNumberLimit={maxPageNumberLimit}
-                            setMaxPageNumberLimit={setMaxPageNumberLimit}
-                        />
-                    </div>
-                </Col>
-            </Row>
+//     return (
+//         <Container fluid className='view-contact px-sm-2 px-0'>
+//             <Header image={HeaderImg} text={'View Contacts'} />
+//             <Row className='mx-auto'>
+//                 <Col className='mx-auto col-xl-10 col-12 px-sm-2 px-0'>
+//                     <div className='action_button mt-2 d-flex flex-sm-row flex-column-reverse justify-content-between align-items-sm-center align-items-start'>
+//                         <ButtonNormal name='DeleteBtn' id='DeleteBtn' cName='btn form_reset red me-0 mb-sm-0 mb-4' value="Delete Selected" action={handleDeleteSelected} />
+//                         <SearchBar cName='display-table-search' searchResult={searchResult} setSearchResult={setSearchResult} />
+//                     </div>
+//                     <DisplayTable users={users} filteredUsers={filteredUsers} currentItems={currentItems} setUsers={setUsers} indexOfFirstItem={indexOfFirstItem} indexOfLastItem={indexOfLastItem} />
+//                     <div className={`text-center ${filteredUsers.length !== 0 ? 'd-flex justify-content-center' : 'd-none'}`}>
+//                         <Pagination
+//                             filteredUsers={filteredUsers}
+//                             itemPerPage={itemPerPage}
+//                             currentPage={currentPage}
+//                             setCurrentPage={setCurrentPage}
+//                             pageNumberLimit={pageNumberLimit}
+//                             minPageNumberLimit={minPageNumberLimit}
+//                             setMinPageNumberLimit={setMinPageNumberLimit}
+//                             maxPageNumberLimit={maxPageNumberLimit}
+//                             setMaxPageNumberLimit={setMaxPageNumberLimit}
+//                         />
+//                     </div>
+//                 </Col>
+//             </Row>
             
-        </Container>
-    )
-}
+//         </Container>
+//     )
+// }
 
 export default ViewContacts

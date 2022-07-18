@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../services/index';
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const useForm = validate => {
     const [values, setValues] = useState({
@@ -41,12 +42,23 @@ const useForm = validate => {
     const [touched, setTouched] = useState({});
     const [uploadedFile, setUploadedFile] = useState(false);
     const [errors, setErrors] = useState({});
+    const excluded = [null, undefined, "null", "undefined", ""];
     const mandatoryFields = ["name", "email", "mobileNumber"];
     const dispatch = useDispatch();
+    const { cid } = useParams();
+    const contact = useSelector(state => state.viewContact.contact);
 
     useEffect(() => {
         setErrors(validate(values));
     }, [values, validate]);
+
+    useEffect(() => {
+        if (cid && contact) {
+            setValues(contact);
+        } else {
+            handleReset();
+        }
+    }, [cid, contact]);
 
     // console.log('values ->', values);
     // console.log('touched ->', touched);
@@ -134,6 +146,7 @@ const useForm = validate => {
     }
 
     const handleChangeSelect = (name, value) => {
+        console.log('name ->', name, 'value ->', value);
         if (name === 'country') {
             setValues({
                 ...values,
@@ -324,7 +337,8 @@ const useForm = validate => {
 
 
     return { 
-        values, 
+        values, setValues, 
+        excluded, 
         handleClick, 
         handleEnter, 
         handleChange, 

@@ -39,6 +39,20 @@
             font-weight: 600;
             word-break: break-word;
         }
+
+        ul#tags {
+            margin: 0;
+            justify-content: flex-end;
+
+            li.tag {
+                margin-bottom: 0;
+                height: 2.4em;
+            }
+
+            li.tag.text-wrapped {
+                margin-bottom: 8px;
+            }
+        }
     }
 
     .card-body.text-area {
@@ -47,4 +61,10 @@
         height: 100%;
         // min-height: 12em;
     }
+}
+
+.hide-card {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
 }

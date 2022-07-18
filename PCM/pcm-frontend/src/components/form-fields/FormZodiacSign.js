@@ -5,7 +5,7 @@ import { zodiacDetails } from '../misc/ZodiacDetails';
 import { IoDisc } from 'react-icons/io5';
 import { Form, Image } from 'react-bootstrap';
 
-const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
+const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
     const ref = useRef(null);
@@ -30,7 +30,7 @@ const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, funct
 
     function displayValue() {
         if (query.length > 0) return query;
-        if (zodiacSign) return zodiacSign.name;
+        if (zodiacSign) return zodiacSign;
         return '';
     }
 
@@ -58,7 +58,7 @@ const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, funct
                         onClick={toggle}
                         onTouchEnd={toggle}
                         onKeyDown={functionKeyDown}
-                        className={hasTouched && hasError ? 'hasError' : (zodiacSign !== "" ? 'noError' : '')}
+                        className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(zodiacSign) ? 'noError' : '')}
                         placeholder=""
                     required />
                     <Form.Label><IoDisc className="me-2" />Zodiac Sign{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
@@ -73,8 +73,8 @@ const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, funct
                                     <div
                                         optionname="zodiacSign"
                                         className={`option ${zodiacSign === zodiacSignD ? 'selected' : null}`}
-                                        onClick={e => selectOption(e.target.getAttribute('optionname'), zodiacSignD)}
-                                        onTouchEnd={e => selectOption(e.target.getAttribute('optionname'), zodiacSignD)}
+                                        onClick={e => selectOption(e.target.getAttribute('optionname'), name)}
+                                        onTouchEnd={e => selectOption(e.target.getAttribute('optionname'), name)}
                                         key={id}
                                         value={name}>
                                             <Image src={image} width={25} className="mx-3" />

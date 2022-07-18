@@ -1,5 +1,5 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./contactTypes";
-import { axiosPrivate, ADD_CONTACT_URL } from "../../api/HomeAPI";
+import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./addContactTypes";
+import { axiosPrivate, ADD_CONTACT_URL } from "../../../api/HomeAPI";
 import { toast } from "react-toastify";
 
 const config = {
@@ -10,7 +10,7 @@ const config = {
 
 export const addContact = (contact) => {
     return dispatch => {
-        dispatch(contactRequest());
+        dispatch(addContactRequest());
         const toastLoading = toast.loading("Uploading data to the server")
 
         const data = createFormData(contact);
@@ -19,7 +19,7 @@ export const addContact = (contact) => {
 
         axiosPrivate.post(ADD_CONTACT_URL, data, config)
         .then(response => {
-            dispatch(contactSuccess(response?.data));
+            dispatch(addContactSuccess(response?.data));
             toast.update(
                 toastLoading,
                 {
@@ -39,7 +39,7 @@ export const addContact = (contact) => {
             );
         })
         .catch(error => {
-            dispatch(contactFailure(error?.response?.data?.message));
+            dispatch(addContactFailure(error?.response?.data?.message));
             const errorMessage = error?.response?.data?.errors ? error.response.data.errors[0].defaultMessage : error?.response?.data?.message?.length > 100 ? 'Something went wrong' : error.response.data.message;
             toast.update(
                 toastLoading,
@@ -62,13 +62,13 @@ export const addContact = (contact) => {
     }
 };
 
-const contactRequest = () => {
+const addContactRequest = () => {
     return {
         type: CONTACT_REQUEST
     }
 };
 
-const contactSuccess = (contact) => {
+const addContactSuccess = (contact) => {
     return {
         type: CONTACT_SUCCESS,
         payload: contact,
@@ -76,7 +76,7 @@ const contactSuccess = (contact) => {
     }
 };
 
-const contactFailure = (error) => {
+const addContactFailure = (error) => {
     return {
         type: CONTACT_FAILURE,
         payload: {},

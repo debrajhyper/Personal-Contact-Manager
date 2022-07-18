@@ -6,6 +6,11 @@ export const LOGIN_URL = "/generate-token";
 export const SIGNUP_URL = "/register";
 export const CURRENT_USER_URL = "/current-user";
 export const ADD_CONTACT_URL = "/add-contact";
+export const VIEW_CONTACTS_URL = "/view-contacts/";
+export const VIEW_CONTACT_URL = "/view-contact/";
+// export const EDIT_CONTACT_URL = "/view-contact/";
+export const DELETE_CONTACT_URL = "/delete-contact/";
+export const SEARCH_CONTACT_URL = "/search/";
 
 const TOKEN_HEADER = 'Authorization';
 

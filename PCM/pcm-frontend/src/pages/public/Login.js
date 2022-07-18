@@ -54,8 +54,8 @@ const Login = () => {
                             {auth?.logInError && <Alert className="alert-user-already-exists" variant="danger">{auth.logInError}</Alert>}
 
                             <Form className="register-form" onSubmit={formik.handleSubmit} method="post" noValidate>
-                                <FormEmail email={formik.values.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.email} hasError={formik.errors.email} />
-                                <FormPassword password={formik.values.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.password} hasError={formik.errors.password} />
+                                <FormEmail email={formik.values?.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
+                                <FormPassword password={formik.values?.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true} />
 
                                 <Container className="forgot-pass-link">
                                     <Form.Group className="form-input-agreement" controlId="agree-term" style={{ display: "inline-block" }}>

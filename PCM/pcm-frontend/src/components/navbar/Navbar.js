@@ -20,7 +20,6 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
     const authSlideBar = (slidebar ? "PCM" : "");
 
     const privateNav = (
-        
         <div className="auth-nav">
             <Nav.Link as={Link} to={"/profile"}>
                 <Image src={image ?? profileImage} alt="profile_img" />

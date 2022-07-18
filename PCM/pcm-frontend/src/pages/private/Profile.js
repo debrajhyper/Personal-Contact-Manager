@@ -116,6 +116,7 @@ const SocialDetails = [
 
 const Profile = () => {
     const [modalEditProfile, setModalEditProfile] = useState(false);
+    const exclude = [null, undefined, 'null', 'undefined', '', ' '];
 
     function handleModalEditProfile() {
         setModalEditProfile(!modalEditProfile);
@@ -125,7 +126,7 @@ const Profile = () => {
         <Container fluid className="profile text-center">
 
             <div className='header d-inline-block'>
-                <ProfilePic image={myProfilePic} outline={true} active={true} />
+                <ProfilePic image={myProfilePic} outline={true} active={true} isUserProfile={true} />
                 <h4 className="text pt-2">Debraj Karmakar</h4>
             </div>
 
@@ -135,7 +136,7 @@ const Profile = () => {
                     SocialDetails.map((social, index) => {
                         return (
                             // <Col key={index} className="text-center d-inline-block" >
-                                <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
+                                !exclude?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
                             // </Col>
                         )
                     })

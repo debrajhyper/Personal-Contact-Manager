@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUser, logoutUser } from '../../services/index';
 
-import { ToastContainer } from 'react-toastify';
 import { DashboardCard, Header } from '../../components/index';
 
 import '../../sass/private/Dashboard.scss';
@@ -87,7 +86,6 @@ const Dashboard = () => {
 
     return (
         <div className='dashboard'>
-            <ToastContainer theme='colored' />
 
             <div className='background'>
                 <Image fluid={true} src={pcmDashboard} className="background-img" alt="dashboard" />

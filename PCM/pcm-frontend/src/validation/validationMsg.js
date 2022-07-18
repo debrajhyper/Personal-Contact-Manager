@@ -81,7 +81,7 @@ export const contactValidate = values => {
         errors.email = "Email Address Is Invalid";
     }
 
-    if(!values.mobileNumber.number) {
+    if(!values.mobileNumber?.number) {
         errors.mobileNumber = "Please Provide Mobile Number";
     } else if (!values.mobileNumber.number?.match(phoneNo_pattern)) {
         errors.mobileNumber = "Invalid Mobile Number";
@@ -112,7 +112,7 @@ export const contactValidate = values => {
     }
 
     if(!excluded.includes(values?.zodiacSign)) {
-        if (!zodiacDetails.filter(zodiacSign => zodiacSign.name.toLocaleLowerCase() === values.zodiacSign?.name?.toLocaleLowerCase()).length > 0) {
+        if (!zodiacDetails.filter(zodiacSign => zodiacSign.name.toLocaleLowerCase() === values.zodiacSign.toLocaleLowerCase()).length > 0) {
             errors.zodiacSign = "Zodiac Name does not exist";
         }
     }

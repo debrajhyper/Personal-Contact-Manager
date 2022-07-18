@@ -31,7 +31,7 @@ const SocialWebsite = [
     },
 ];
 
-const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
+const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
     return (
         <>
             {
@@ -44,19 +44,19 @@ const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, fun
                                     name={name}
                                     title={`${displayName} URL`}
                                     type="url"
-                                    value={socialLinks[name]}
+                                    value={socialLinks?.[name]}
                                     onChange={functionChange}
                                     onBlur={functionBlur}
                                     onKeyDown={functionKeyDown}
-                                    className={hasTouched?.[name] && hasError[name] ? 'hasError' : (socialLinks[name] !== "" ? 'noError' : '')}
+                                    className={hasTouched?.[name] && hasError?.[name] ? 'hasError' : (!excluded?.includes(socialLinks) && !excluded?.includes(socialLinks?.[name]) ? 'noError' : '')}
                                     placeholder=" "
                                 required />
                                 <Form.Label>{icon}{displayName}{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                             </div>
                             {
-                                hasTouched?.[name] && hasError[name] &&
+                                hasTouched?.[name] && hasError?.[name] &&
                                 <Form.Text className="e_msg error_form" id="name_error_message">
-                                    {hasError[name]}
+                                    {hasError?.[name]}
                                 </Form.Text>
                             }
                         </Form.Group>
