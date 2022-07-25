@@ -15,12 +15,12 @@ import javax.validation.ValidationException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pcm.Constant.AppConstant;
 import com.pcm.Model.Contact;
 
 public class ImageUploader {
 	private MultipartFile imageFile;
 	private String imageName = "default.png";
-	private static final String uploadLocation = "static/upload";
 
 	public ImageUploader() {
 		// TODO Auto-generated constructor stub
@@ -48,15 +48,43 @@ public class ImageUploader {
 			System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
 			contact.setImage(imageName);
 			
-			uploadImageToLocation(uploadLocation);
+			uploadImageToLocation(AppConstant.SET_UPLOAD_LOCATION);
 			
 			System.out.println("IMAGE FILE SUCCESSFULLY UPLOADED");
 		}
 	}
 	
+	public void updateImage(Contact oldContact, Contact contact) throws IOException {
+		if(!imageFile.isEmpty()) {
+			//delete old pic
+			System.out.println(oldContact.getImage() != "default.png");
+			
+			if(oldContact.getImage() != "default.png") {
+				File deleteFile = new ClassPathResource("static/upload").getFile();
+				File delfile = new File(deleteFile, oldContact.getImage());
+				delfile.delete();
+			}
+			
+			
+			//update new pic
+			String imageName = contact.getCId() + "_" + imageFile.getOriginalFilename();
+			
+			File saveFile = new ClassPathResource("static/upload").getFile();	
+			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + imageName);
+			System.out.println(path);
+			
+			Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			
+			contact.setImage(imageName);
+		}
+		else {
+			contact.setImage(oldContact.getImage());
+		}
+	}
+	
 	public void uploadImageToLocation(String location) throws IOException {
-		File saveFile = new ClassPathResource(location).getFile();
 		
+		File saveFile = new ClassPathResource(location).getFile();
 		Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + imageName);
 		System.out.println("IMAGE UPLOAD PATH LOCATION -> " + path);
 		
@@ -65,7 +93,7 @@ public class ImageUploader {
 	
 	public InputStream getImageFromLocation(String imageName) throws IOException {
 		
-		File saveFile = new ClassPathResource(uploadLocation).getFile();
+		File saveFile = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
 		String fullPath = Paths.get(saveFile.getAbsolutePath() + File.separator + imageName).toString();
 		
 		InputStream image = new FileInputStream(fullPath);

@@ -22,9 +22,12 @@ public interface ContactService {
 	public Contact viewContact(Integer cId, String email) throws Exception;
 	
 	//UPDATE CONTACT
+	public void updateContact(Contact contact, MultipartFile profilePic, String email) throws Exception;
 	
+	//DELETE MULTIPLE CONTACTS
+	public void deleteSelectedContacts(List<Integer> deleteIds, String email) throws Exception;
 	
 	//DELETE CONTACT
 	public void deleteContact(Integer cId, String email) throws Exception;
-	
+		
 }

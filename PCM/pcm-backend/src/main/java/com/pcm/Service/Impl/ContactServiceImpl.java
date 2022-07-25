@@ -3,6 +3,8 @@ package com.pcm.Service.Impl;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.pcm.Constant.AppConstant;
 import com.pcm.Exception.ResourceNotFoundException;
 import com.pcm.Helper.DateValidator;
 import com.pcm.Helper.ImageUploader;
@@ -31,8 +34,6 @@ import com.pcm.Service.ContactService;
 
 @Service
 public class ContactServiceImpl implements ContactService {
-	
-	private static final String uploadLocation = "/upload/";
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -61,7 +62,7 @@ public class ContactServiceImpl implements ContactService {
 			
 			
 			if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isBlank()) {
-				DateValidator validator = new DateValidator("dd-MM-yyyy");
+				DateValidator validator = new DateValidator(AppConstant.DATE_FORMATER);
 				boolean isvalidDate = validator.isValid(contact.getDateOfBirth());
 				System.out.println("IS BIRTH DATE VALID -> " + isvalidDate);
 			}
@@ -171,7 +172,7 @@ public class ContactServiceImpl implements ContactService {
 			else {
 				contacts.forEach(
 						contact -> contact.setImage(
-										ServletUriComponentsBuilder.fromCurrentContextPath().path(uploadLocation).path(contact.getImage()).toUriString()
+										ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstant.GET_UPLOAD_LOCATION).path(contact.getImage()).toUriString()
 									)
 							);
 				System.out.println("SUCCESS =================== > VIEW CONTACTS FOR PAGE " + page + " SEND SUCCESSFULLY");
@@ -204,7 +205,7 @@ public class ContactServiceImpl implements ContactService {
 			Contact contact = this.contactRepository.findById(cId).get();
 			
 			if(sessionUser.getId() == contact.getUser().getId()) {
-				String uriLocation = ServletUriComponentsBuilder.fromCurrentContextPath().path(uploadLocation).path(contact.getImage()).toUriString();
+				String uriLocation = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstant.GET_UPLOAD_LOCATION).path(contact.getImage()).toUriString();
 				contact.setImage(uriLocation);
 				
 				System.out.println("SUCCESS =================== > VIEW CONTACT PROFILE DETAILS SEND SUCCESSFULLY");
@@ -232,24 +233,89 @@ public class ContactServiceImpl implements ContactService {
 			e.printStackTrace();
 			throw new Exception("Oops... Something went wrong.");
 		}
+	}	
+
+
+
+
+	@Override
+	public void deleteSelectedContacts(List<Integer> deleteIds, String email) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			List<Contact> contacts = new ArrayList<Contact>();
+			List<Integer> contactIds = new ArrayList<>();
+			List<Integer> userIds = new ArrayList<>();
+			User sessionUser = this.userRepository.findByUserName(email);
+			
+			System.out.println("DELETE IDs -> " + deleteIds);
+			
+			deleteIds.forEach(cId -> {
+				Contact contact = this.contactRepository.findById(cId).get();
+				contacts.add(contact);
+			});
+			
+			contacts.forEach(contact -> {
+				contactIds.add(contact.getCId());
+				userIds.add(contact.getUser().getId());
+			});
+
+			System.out.println("DELETE CONTACT IDs -> " + contactIds);
+			System.out.println("RESPECTIVE USER IDs -> " + userIds);
+		
+			boolean sessionUserEqualsUserIds = Collections.frequency(userIds, sessionUser.getId()) == userIds.size();
+			System.out.println("SESSION USER == CONTACT USER IDS -> " + sessionUserEqualsUserIds);
+			
+			if(sessionUserEqualsUserIds) {
+				User user = this.userRepository.findByUserName(email);
+				System.out.println("BEFORE DELETE : TOTAL USER CONTACTS -> " + user.getTotalContacts());
+				
+				System.out.println("TOTAL NUMBER OF CONTACTS WILL BE DELETED -> " + deleteIds.size());
+				contacts.forEach(contact -> this.contactRepository.delete(contact));
+				
+				user.setTotalContacts(user.getTotalContacts() - deleteIds.size());
+				this.userRepository.save(user);
+				
+				System.out.println("AFTER DELETE : TOTAL USER CONTACTS -> " + user.getTotalContacts());
+				System.out.println("SUCCESS =================== > SELECTED CONTACTS DELETED SUCCESSFULLY");
+			} 
+			else {
+				throw new ResourceNotFoundException("Contacts does not belongs to this User.");
+			}
+		} 
+		catch (ResourceNotFoundException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new ResourceNotFoundException(e.getMessage());
+		}
+		catch (NoSuchElementException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new NoSuchElementException("No such contact found.");
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new Exception("Problem while deleting selected Contacts.");
+		}
 	}
-
-
+	
+	
 	
 	
 	@Override
 	public void deleteContact(Integer cId, String email) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			Contact contact = this.contactRepository.findById(cId).get();
-			System.out.println("DELETE CONTACT ID -> " + contact.getCId());
-			
 			User sessionUser = this.userRepository.findByUserName(email);
+			Contact contact = this.contactRepository.findById(cId).get();				
 			
 			if(sessionUser.getId() == contact.getUser().getId()) {
 				User user = this.userRepository.findByUserName(email);
 				System.out.println("BEFORE DELETE : TOTAL USER CONTACTS -> " + user.getTotalContacts());
-
+				
 				this.contactRepository.delete(contact);
 				
 				user.setTotalContacts(user.getTotalContacts() - 1);
@@ -268,6 +334,12 @@ public class ContactServiceImpl implements ContactService {
 			e.printStackTrace();
 			throw new ResourceNotFoundException(e.getMessage());
 		}
+		catch (NoSuchElementException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new NoSuchElementException("No such contact found.");
+		}
 		catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
@@ -275,9 +347,105 @@ public class ContactServiceImpl implements ContactService {
 			throw new Exception("Problem while deleting this Contact.");
 		}
 	}
-	
-	
-	
-	
+
+
+
+
+	@Override
+	public void updateContact(Contact contact, MultipartFile profilePic, String email) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			System.out.println("UPDATING CONTACT -> ID: " + contact.getCId() + " NAME: " + contact.getName());
+			
+			User sessionUser = this.userRepository.findByUserName(email);
+			System.out.println("DB USER -> " + sessionUser.getEmail());
+			
+			List<Contact> contactsByUser = this.contactRepository.findContactsByUser(sessionUser.getId());
+			ListIterator<Contact> iterateContactList = contactsByUser.listIterator();
+			while(iterateContactList.hasNext()) {
+				if(iterateContactList.next().getEmail().equals(contact.getEmail())) {
+					throw new DuplicateKeyException("Contact already exist.");
+				}
+			}
+			
+			Contact oldContact = this.contactRepository.findById(contact.getCId()).get();
+			
+			System.out.println("PROFILE PIC DATA -> " + profilePic);
+			new ImageUploader(profilePic).updateImage(oldContact, contact);
+			
+			
+			if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isBlank()) {
+				DateValidator validator = new DateValidator(AppConstant.DATE_FORMATER);
+				boolean isvalidDate = validator.isValid(contact.getDateOfBirth());
+				System.out.println("IS BIRTH DATE VALID -> " + isvalidDate);
+			}
+			if(contact.getMobileNumber() != null) {
+//			contact.getMobileNumber().forEach(mobileNumber -> mobileNumber.setContact(contact));
+				contact.getMobileNumber().setContact(contact);
+			}
+			if(contact.getTelephoneNumber() != null) {
+				contact.getTelephoneNumber().setContact(contact);
+			}
+			if(contact.getCountry() != null) {
+				contact.getCountry().setContact(contact);
+			}
+			if(contact.getSocialLinks() != null) {
+				contact.getSocialLinks().setContact(contact);
+			}
+			
+			contact.setUser(sessionUser);
+//			sessionUser.getContacts().add(contact);
+//			sessionUser.setTotalContacts(sessionUser.getTotalContacts() + 1);
+			
+//			User savedUserContact = this.userRepository.save(sessionUser);
+			Contact updatedContact = this.contactRepository.save(contact);
+			
+			System.out.println("SUCCESS =================== >  UPDATED CONTACT ID " + updatedContact.getCId() + " -> " + updatedContact.getEmail() + " FOR USER -> " + updatedContact.getUser().getEmail());
+		} 
+		catch (DuplicateKeyException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new DuplicateKeyException(e.getMessage());
+		}
+		catch(ValidationException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new ValidationException(e.getMessage());
+		}
+		catch (IOException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new IOException("Failed to upload image in specified location.");
+		}
+		catch (DateTimeParseException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new DateTimeException("Invalid Date Format");
+		}
+		catch (DateTimeException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new DateTimeException(e.getMessage());
+		}
+		catch (DataFormatException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new DataFormatException(e.getMessage());
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new Exception("Oops... Something went wrong.");
+		}
+		
+	}
+
 
 }

@@ -36,7 +36,7 @@ public class ContactController {
 	
 	
 	@PostMapping("/add-contact")
-	public ResponseEntity<String> addContact(@Valid @ModelAttribute Contact contact, @RequestParam(value = "profilePic", required = false) MultipartFile profilePic, Principal principal ) throws Exception {
+	public ResponseEntity<String> addContact(@Valid @ModelAttribute Contact contact, @RequestParam(value = "profilePic", required = false) MultipartFile profilePic, Principal principal) throws Exception {
 		System.out.println("==============================================================================================================================");
 		
 		String email = principal.getName();
@@ -67,6 +67,8 @@ public class ContactController {
 		
 		String email = principal.getName();
 		Page<Contact> viewContacts = this.contactService.viewContacts(page, email);
+		
+		System.out.println("PAGE -> " + page);
 
 		Map<String, Object> viewContactsMap = new HashMap<>();
 		viewContactsMap.put("contacts", viewContacts);
@@ -93,6 +95,19 @@ public class ContactController {
 	
 	
 	
+	@DeleteMapping("/delete-selected-contacts/{deleteIds}")
+	public ResponseEntity<String> deleteSelectedContacts(@PathVariable("deleteIds") List<Integer> deleteIds, Principal principal) throws Exception {
+		System.out.println("==============================================================================================================================");
+		
+		String email = principal.getName();
+		this.contactService.deleteSelectedContacts(deleteIds, email);
+		
+		return new ResponseEntity<String>("Selected contacts deleted successfully", HttpStatus.OK);
+	}
+	
+	
+	
+	
 	@DeleteMapping("/delete-contact/{cId}")
 	public ResponseEntity<String> deleteContact(@PathVariable("cId") int cId, Principal principal) throws Exception {
 		System.out.println("==============================================================================================================================");
@@ -102,5 +117,19 @@ public class ContactController {
 		
 		return new ResponseEntity<String>("Contact deleted successfully", HttpStatus.OK);
 	}
+	
+	
+	
+	
+	@PostMapping("/update-contact")
+	public ResponseEntity<String> updateContact(@Valid @ModelAttribute Contact contact, @RequestParam(value = "profilePic", required = false) MultipartFile profilePic, Principal principal) throws Exception {
+		System.out.println("==============================================================================================================================");
+		
+		String email = principal.getName();
+		this.contactService.updateContact(contact, profilePic, email);
+		
+		return new ResponseEntity<String>("Contact updated successfully", HttpStatus.OK);
+	}
+	
 
 }
