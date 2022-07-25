@@ -40,7 +40,7 @@ export const addContact = (contact) => {
         })
         .catch(error => {
             dispatch(addContactFailure(error?.response?.data?.message));
-            const errorMessage = error?.response?.data?.errors ? error.response.data.errors[0].defaultMessage : error?.response?.data?.message?.length > 100 ? 'Something went wrong' : error.response.data.message;
+            const errorMessage = error?.response?.data?.errors ? error?.response?.data?.errors?.[0]?.defaultMessage : error?.response?.data?.message?.length > 100 ? 'Something went wrong' : error?.response?.data?.message;
             toast.update(
                 toastLoading,
                 {
@@ -107,12 +107,12 @@ const createFormData = (data) => {
                 return formData.append(`telephoneNumber.${key}`, value)
             });
         }
-        else if(key === 'zodiacSign'){
-            formData.append('zodiacSign', data[key].name)
-        }
-        else if(key === 'dateOfBirth'){
-            formData.append(key, data[key].split('-').reverse().join('-'))
-        }
+        // else if(key === 'zodiacSign'){
+        //     formData.append('zodiacSign', data[key].name)
+        // }
+        // else if(key === 'dateOfBirth'){
+        //     formData.append(key, data[key].split('-').reverse().join('-'))
+        // }
         else {
             formData.append(key, data[key]);
         }

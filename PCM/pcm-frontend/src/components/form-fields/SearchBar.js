@@ -18,7 +18,9 @@ const SearchBar = ({ cName, hasTouched, hasError, Mandatory }) => {
     const ref = useRef(null);
 
     useEffect(() => {
-        dispatch(searchContact(searchResult));
+        if(searchResult !== '') {
+            dispatch(searchContact(searchResult));
+        }
     }, [searchResult, dispatch]);
     
     useEffect(() => {

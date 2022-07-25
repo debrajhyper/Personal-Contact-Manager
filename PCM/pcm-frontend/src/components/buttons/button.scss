@@ -2,9 +2,6 @@
 @import '../../sass/responsive.scss';
 
 .action_button {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
     margin-top: 2em;
 
     .three {
@@ -18,12 +15,14 @@
     }
 
     .btn {
-        display: inline-block;
-        background: $base;
-        color: $white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        color: $base;
         width: auto;
-        margin-right: 30px;
-        padding: .5em 1em;
+        // margin-right: 30px;
+        padding: .6em 1em;
         border: 2px solid $base;
         border-radius: 5px;
         outline: none;
@@ -43,30 +42,74 @@
         }
     }
 
-    .btn:disabled {
-        cursor: not-allowed;
-    }
-
-    .btn.form_reset {
-        background: transparent;
-        color: $base;
-        border: 2px solid $base;
-
+    .btn.fill {
+        background-color: $base;
+        color: $white;
         &:hover {
             background: $base-dark;
             color: $white;
-            border: 2px solid $base-dark;
         }
     }
 
-    .btn.form_reset.red {
+    .btn.danger {
         border: 2px solid $deactive;
         color: $deactive;
+        .ico {
+            margin-top: -7px;
+            svg {
+                path {
+                    stroke: $deactive;
+                }
+            }
+        }
 
         &:hover {
             background: $deactive;
             color: $white;
-            border: 2px solid $deactive;
+            svg {
+                path {
+                    stroke: $white;
+                }
+            }
         }
     }
+
+    .btn:disabled {
+        cursor: not-allowed;
+    }
+
+    // .btn.form_reset {
+    //     background: transparent;
+    //     color: $base;
+    //     border: 2px solid $base;
+
+    //     &:hover {
+    //         background: $base-dark;
+    //         color: $white;
+    //         border: 2px solid $base-dark;
+    //     }
+    // }
+
+    // .btn.form_reset.red {
+    //     border: 2px solid $deactive;
+    //     color: $deactive;
+
+    //     &:hover {
+    //         background: $deactive;
+    //         color: $white;
+    //         border: 2px solid $deactive;
+    //     }
+    // }
+}
+
+.action_button.left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.action_button.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

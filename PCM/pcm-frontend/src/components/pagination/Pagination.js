@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import './pagination.scss';
 
@@ -22,6 +22,7 @@ const Pagination = ({ itemPerPage, pageNumberLimit, maxPageNumberLimit, setMaxPa
     const currentPageDb = useSelector(state => state.viewContacts.page);
     const currentPage = currentPageDb + 1;
 
+    
     for(let i=1; i<=Math.ceil(totalContacts/itemPerPage); i++) {
         pages.push(i);
     };
@@ -35,8 +36,8 @@ const Pagination = ({ itemPerPage, pageNumberLimit, maxPageNumberLimit, setMaxPa
     };
     const handleFirstBtn = () => {
         setCurrentPage(1);
-        setMaxPageNumberLimit(3);
         setMinPageNumberLimit(0);
+        setMaxPageNumberLimit(3);
     };
     const handlePrevBtn = () => {
         setCurrentPage(currentPage - 1);
@@ -71,9 +72,18 @@ const Pagination = ({ itemPerPage, pageNumberLimit, maxPageNumberLimit, setMaxPa
         }
     };
     const handleLastBtn = () => {
+        // console.log(Math.floor(currentPage/itemPerPage), itemPerPage);
+        // console.log(minPageNumberLimit + pageNumberLimit, maxPageNumberLimit + pageNumberLimit)
+        // console.log((Math.ceil(totalContacts/itemPerPage)-Math.floor(Math.ceil(totalContacts/itemPerPage)/pageNumberLimit))+1, Math.ceil(totalContacts/itemPerPage))
         setCurrentPage(Math.ceil(totalContacts/itemPerPage));
+
         setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
         setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+
+        // setMinPageNumberLimit(Math.floor(currentPage/itemPerPage))
+        
+        // setMinPageNumberLimit((Math.ceil(totalContacts/itemPerPage)-Math.floor(Math.ceil(totalContacts/itemPerPage)/pageNumberLimit))+1);
+        // setMaxPageNumberLimit(Math.ceil(totalContacts/itemPerPage));
     };
 
     return (

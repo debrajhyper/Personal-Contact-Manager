@@ -67,8 +67,8 @@ const Login = () => {
                                     <Link to="/forgot" className="underline">Forgot Password?</Link>
                                 </Container>
 
-                                <Form.Group className="action_button">
-                                    <ButtonNormal type="submit" name="login" id="Login" cName="form_submit m-0 ps-5 pe-5" value="Login" loading={auth.loading} />
+                                <Form.Group className="action_button center">
+                                    <ButtonNormal type="submit" name="login" id="Login" cName="form_submit fill px-5" value="Login" loading={auth.loading} />
                                 </Form.Group>
 
                                 <Container className="signup-link text-center mt-5 mb-3">

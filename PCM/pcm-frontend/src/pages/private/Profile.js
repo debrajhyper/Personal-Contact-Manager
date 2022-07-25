@@ -160,7 +160,9 @@ const Profile = () => {
                 </Row>
             </div>
 
-            <ButtonNormal name='edit_profile' id='EditProfile' cName='btn mt-sm-4 mt-2 p-3 px-5' value='Edit profile' action={handleModalEditProfile} />
+            <div className='action_button center pb-5'>
+                <ButtonNormal name='edit_profile' id='EditProfile' cName='fill mt-sm-4 mt-2 px-4' value='Edit profile' action={handleModalEditProfile} />
+            </div>
 
             <ModalEditProfile modalEditProfile={modalEditProfile} handleModalEditProfile={handleModalEditProfile} />
         </Container>

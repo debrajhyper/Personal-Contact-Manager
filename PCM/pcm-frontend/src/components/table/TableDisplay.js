@@ -9,13 +9,28 @@ import { Form, Table } from 'react-bootstrap';
 
 
 
+import UseAnimations from "react-useanimations";
+import alertTriangle from 'react-useanimations/lib/alertTriangle';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { ContactsCheckedAll } from '../../services';
 
 
-const TableDisplay = ({ indexOfFirstItem, indexOfLastItem }) => {
+const TableDisplay = ({ deleteIds, setDeleteIds, indexOfFirstItem, indexOfLastItem }) => {
+    const dispatch = useDispatch();
     const contacts = useSelector(state => state.viewContacts.contacts);
+    
+    const handleAllChecked = e => {
+        const { checked } = e.target;
+        if(checked) {
+            setDeleteIds(contacts.map(contact => contact.cid));
+        }
+        else {
+            setDeleteIds([]);
+        }
+        dispatch(ContactsCheckedAll(checked));
+    };
     
     return (
         <div className="display-table">
@@ -28,8 +43,8 @@ const TableDisplay = ({ indexOfFirstItem, indexOfLastItem }) => {
                                     type="checkbox"
                                     value="checkedAll"
                                     className="form-checkbox"
-                                    // onChange={handleAllChecked}
-                                    // checked={users.slice(indexOfFirstItem, indexOfLastItem).filter(user => user?.isChecked !== true).length < 1}
+                                    onChange={handleAllChecked}
+                                    checked={contacts.filter(user => user?.isChecked !== true).length < 1}
                                 />
                             </th>
                             <th scope="col" className="id text-center">Id</th>
@@ -45,13 +60,15 @@ const TableDisplay = ({ indexOfFirstItem, indexOfLastItem }) => {
                             contacts && contacts.length > 0
                                 ? contacts.map((contact, index) => {
                                     return (
-                                        <TableRow key={index} contact={contact} />
+                                        <TableRow key={index} contact={contact} deleteIds={deleteIds} setDeleteIds={setDeleteIds} />
                                     )
                                 })
                                 : <tr className="no-user text-center w-full">
                                         <td colSpan={6} className="p-5">
-                                            <FaUserCircle />
-                                            <span className="p-2">No Users Found</span>
+                                            <div className='content'>
+                                                <UseAnimations size={45} animation={alertTriangle} />
+                                                <span className="p-2">No Users Found</span>
+                                            </div>
                                         </td>
                                     </tr>
                         }

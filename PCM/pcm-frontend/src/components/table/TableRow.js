@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { FaUserEdit, FaTrash } from 'react-icons/fa';
 import { Form, Image } from 'react-bootstrap';
@@ -12,34 +12,69 @@ import { Form, Image } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import profilePic from '../../img/default.png';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../services/index';
+import { useDispatch, useSelector } from 'react-redux';
+import { ContactsChecked, deleteContact } from '../../services/index';
 
 
 import UseAnimations from "react-useanimations";
 import trash from 'react-useanimations/lib/trash';
 
-const TableRow = ({ contact }) => {
+const TableRow = ({ contact, deleteIds, setDeleteIds }) => {
     const dispatch = useDispatch();
+    const contacts = useSelector(state => state.viewContacts.contacts);
     let navigate = useNavigate();
+
+    const handleChecked = e => {
+        // e.preventDefault();
+        // e.stopPropagation();
+        const { id, value, checked } = e.target;
+
+        if(deleteIds.includes(parseInt(id))) {
+            const index = deleteIds.indexOf(parseInt(id));
+            deleteIds.splice(index, 1);
+        }
+        else {
+            deleteIds.push(parseInt(id));
+        }
+        // let newContacts = contacts.map(user => user.cid == id && user.name === value ? { ...user, isChecked: checked } : user);
+        // setUsers(newUsers);
+        dispatch(ContactsChecked(parseInt(id), checked));
+        // console.log(deleteId);
+    };
+
+    // const isChecked = () => {
+    //     console.log(deleteId.includes(contact.cid))
+    //     return deleteId.includes(contact.cid);
+    // }
 
     const handleDelete = (e, cId) => {
         e.preventDefault();
         dispatch(deleteContact(cId));
     }
 
+    const exclude = ['INPUT', 'BUTTON', 'SVG', 'PATH'];
+    const handleLink = (e, cid) => {
+        if(!exclude.includes(e.target.tagName.toUpperCase())) {
+            navigate(`/view_contact/${cid}`);
+        }
+    }
+
     const { cid, name, image, mobileNumber, email } = contact
 
+    // console.log(contact?.isChecked || false);
+    
+
     return (
-        <Link to={`/view_contact/${cid}`} id={cid} className={`data-row b ${contact?.isChecked ? 'selected' : null}`}>
+        // <Link to={`/view_contact/${cid}`} id={cid} className={`data-row b ${contact?.isChecked ? 'selected' : null}`}>
+        <tr id={cid} className={`data-row b ${contact?.isChecked ? 'selected' : null}`} onClick={ e => handleLink(e, cid)}>
             <td className="text-center">
                 <Form.Check
                     type="checkbox"
                     value={name}
                     className="form-checkbox"
                     id={cid}
-                    // onChange={handleChecked}
-                    // checked={user?.isChecked || false}
+                    onChange={handleChecked}
+                    checked={contact?.isChecked || false}
                 />
             </td>
             <td className="text-center" title={cid}>{cid}</td>
@@ -77,7 +112,8 @@ const TableRow = ({ contact }) => {
                     />
                 {/* </button> */}
             </td>
-        </Link>
+        </tr>
+        // </Link>
     )
 }
 

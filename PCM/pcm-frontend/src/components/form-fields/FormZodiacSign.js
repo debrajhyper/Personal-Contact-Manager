@@ -30,7 +30,7 @@ const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, funct
 
     function displayValue() {
         if (query.length > 0) return query;
-        if (zodiacSign) return zodiacSign;
+        if (!excluded?.includes(zodiacSign)) return zodiacSign;
         return '';
     }
 

@@ -6,10 +6,19 @@ import './button.scss';
 
 import { Button } from 'react-bootstrap';
 
-const ButtonNormal = ({ type, name, id, cName, value, hasError, action, loading }) => {
+const ButtonNormal = ({ type, name, id, cName, value, icon, hasError, action, loading }) => {
     return (
         <div className="form-button">
-            <Button type={type} name={name} id={id} className={cName} value={value} disabled={hasError} onClick={action}>{loading ?  <UseAnimations animation={loadingIco} strokeColor='white' /> : value}</Button>
+            <Button type={type} name={name} id={id} className={cName} value={value} disabled={hasError} onClick={action}>
+                {
+                    loading 
+                    ?   <UseAnimations animation={loadingIco} strokeColor='white' /> 
+                    :   <>
+                            {icon && <div>{icon}</div>}
+                            <span>{value}</span>
+                        </>
+                }
+            </Button>
         </div>
     )
 }

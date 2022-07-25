@@ -31,9 +31,9 @@ const ModalProfilePic = ({ modalProfilePicShow, setModalProfilePicShow, profileP
                     </Modal.Title>
                 }
             </Modal.Body>
-            <Modal.Footer className="action_button justify-content-evenly pb-5 m-0">
-                <ButtonNormal type='reset' name='cancelBtn' id='CancelBtn' cName='btn form_reset red' value='Cancel' action={handleClose} />
-                <ButtonNormal type='submit' name='uploadBtn' id='UploadBtn' cName='btn' value='Upload' hasError={hasError} action={handleUpload} />
+            <Modal.Footer className="action_button center pb-5 m-0">
+                <ButtonNormal type='submit' name='uploadBtn' id='UploadBtn' cName='fill me-4' value='Upload' hasError={hasError} action={handleUpload} />
+                <ButtonNormal type='reset' name='cancelBtn' id='CancelBtn' cName='danger' value='Cancel' action={handleClose} />
             </Modal.Footer>
         </Modal>
     )

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -18,10 +19,13 @@ import cTags from '../../img/cTags.png';
 
 import '../../sass/private/Profile.scss';
 
+import UseAnimations from "react-useanimations";
+import trash from 'react-useanimations/lib/trash';
+
 import { IoFingerPrint, IoCalendar, IoDisc, IoPhonePortraitOutline, IoLocationSharp } from 'react-icons/io5';
-import { FaAt, FaPhoneAlt, FaHeart, FaUserTag, FaUserShield, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaLink } from 'react-icons/fa';
+import { FaUserEdit, FaAt, FaPhoneAlt, FaHeart, FaUserTag, FaUserShield, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaLink } from 'react-icons/fa';
 import { Container, Row, Col } from 'react-bootstrap';
-import { viewContact } from '../../services';
+import { viewContact, deleteContact, viewContacts } from '../../services/index';
 
 const tags = ['asd','cool','awesome','funny','cool','awesome','funny', 'lol', 'friends', 'family', 'friends', 'family']
 
@@ -31,7 +35,10 @@ const ViewContact = () => {
     const exclude = [null, undefined, 'null', 'undefined', '', ' '];
     const { cid } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const contact = useSelector(state => state.viewContact.contact);
+    const currentPage = useSelector(state => state.viewContacts.page);
+    const deleteContactDone = useSelector(state => state.deleteContact.success);
     
     function handleModalEditProfile() {
         setModalEditProfile(!modalEditProfile);
@@ -42,6 +49,17 @@ const ViewContact = () => {
             dispatch(viewContact(cid));
         }
     }, [cid, dispatch]);
+
+    useEffect(() => {
+        if(deleteContactDone) {
+            navigate(-1);
+        }
+    }, [deleteContactDone, navigate]);
+
+    const handleDelete = (e, cId) => {
+        e.preventDefault();
+        dispatch(deleteContact(cId));
+    }
     
     
     const { image, favorite, name, nickName, title, company, email, mobileNumber, telephoneNumber, address, tags, dateOfBirth, description, relationship, zodiacSign, country, socialLinks, profilePic, website } = contact;
@@ -76,7 +94,7 @@ const ViewContact = () => {
         },
         {
             spaceLg: 3,
-            spaceMd: 5,
+            spaceMd: 6,
             image: CountryFlag(country?.code?.toUpperCase()),
             icon: <FaGlobeAmericas />,
             title: 'Country',
@@ -160,6 +178,7 @@ const ViewContact = () => {
             link: website
         }
     ]
+
     return (
         <Container fluid className="profile text-center">
 
@@ -203,9 +222,19 @@ const ViewContact = () => {
                 </Row>
             </div>
 
-            <Link to={`/edit_contact/${cid}`}>
-                <ButtonNormal name='edit_contact' id='EditContact' cName='btn mt-sm-4 mt-2 p-3 px-5' value='Edit Contact' />
-            </Link>
+            <div className='action_button center pb-5'>
+                <Link to={`/edit_contact/${cid}`}>
+                    <ButtonNormal name='edit_contact' id='EditContact' cName='fill p-3 px-4 me-4' value='Edit Contact' icon={<FaUserEdit size={20} className="me-2" />} />
+                </Link>
+                <UseAnimations animation={trash} size={25} speed={.5} className="ico" onClick={(e) => handleDelete(e, cid)}
+                    render={(eventProps, animationProps) => (
+                        <button type="button" title="Delete Contact" className="btn danger ms-4 p-3" {...eventProps}>
+                            <div {...animationProps} />
+                            <span>Delete Contact</span>
+                        </button>
+                    )}
+                />
+            </div>
 
             <ModalEditProfile modalEditProfile={modalEditProfile} handleModalEditProfile={handleModalEditProfile} />
         </Container>

@@ -10,6 +10,7 @@ export const VIEW_CONTACTS_URL = "/view-contacts/";
 export const VIEW_CONTACT_URL = "/view-contact/";
 // export const EDIT_CONTACT_URL = "/view-contact/";
 export const DELETE_CONTACT_URL = "/delete-contact/";
+export const DELETE_SELECTED_CONTACTS_URL = "/delete-selected-contacts/";
 export const SEARCH_CONTACT_URL = "/search/";
 
 const TOKEN_HEADER = 'Authorization';

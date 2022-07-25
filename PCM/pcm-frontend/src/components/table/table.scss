@@ -134,12 +134,23 @@
                     background-color: $base;
                 }
             }
+
             tr.no-user {
                 background-color: transparent;
+                color: $base;
                 font-size: 1.8rem;
+                font-weight: 400;
                 cursor: default;
-                &:hover {
-                    color: $base;
+                .content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    svg {
+                        margin-top: -1px;
+                        path {
+                            stroke: $base;
+                        }
+                    }
                 }
             }
         }

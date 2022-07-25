@@ -1,4 +1,4 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./viewContactsTypes";
+import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE, CONTACT_CHECKED, CONTACT_CHECKED_ALL } from "./viewContactsTypes";
 
 const initialState = {
     loading: false,
@@ -33,6 +33,22 @@ const viewContactsReducer = (state = initialState, action) => {
                 page: action.page,
                 totalPages: action.totalPages,
                 error: action.error
+            }
+        case CONTACT_CHECKED:
+            return {
+                ...state,
+                contacts: state.contacts.map(
+                        contact => contact.cid === action.payload ? { ...contact, isChecked: action.checked } : contact
+                    )
+            }
+        case CONTACT_CHECKED_ALL:
+            return {
+                ...state,
+                contacts: state.contacts.map(
+                        contact => {
+                            return { ...contact, isChecked: action.checked }
+                        }
+                    )
             }
         default:
             return state;

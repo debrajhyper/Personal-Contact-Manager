@@ -9,11 +9,14 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 
 
+import UseAnimations from "react-useanimations";
+import trash from 'react-useanimations/lib/trash';
+
 
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { viewContact, logoutUser, viewContacts } from '../../services/index';
+import { viewContact, logoutUser, viewContacts, deleteSelectedContacts } from '../../services/index';
 
 const ViewContacts = () => {
     const navigate = useNavigate();
@@ -23,7 +26,8 @@ const ViewContacts = () => {
     const totalContacts = useSelector(state => state.viewContacts.totalContacts);
     const currentPage = useSelector(state => state.viewContacts.page);
     const totalPages = useSelector(state => state.viewContacts.totalPages);
-    const deleteContact = useSelector(state => state.deleteContact.success);
+    const deleteContactDone = useSelector(state => state.deleteContact.success);
+    const allDeleted = useSelector(state => state.deleteContact.allDeleted);
 
 //     const [users, setUsers] = useState(Users);
 //     const [searchResult, setSearchResult] = useState('');
@@ -32,6 +36,7 @@ const ViewContacts = () => {
     const [pageNumberLimit] = useState(3);
     const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
     const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
+    const [deleteIds, setDeleteIds] = useState([]);
 
     const indexOfLastItem = currentPage+1 * itemPerPage;  //  Calculate the index of the last item in the current page.
     const indexOfFirstItem = indexOfLastItem - itemPerPage; //  Calculate the index of the first item in the current page.
@@ -40,30 +45,58 @@ const ViewContacts = () => {
 
     useEffect(() => {
         if (auth.isLoggedIn) {
-            dispatch(viewContacts(currentPage));
+            if(deleteContactDone && allDeleted === contacts.length) {
+                dispatch(viewContacts(currentPage - 1));
+            } 
+            else if(deleteContactDone && allDeleted !== contacts.length) {
+                dispatch(viewContacts(currentPage));
+            } else {
+                dispatch(viewContacts(currentPage));
+            }
+            setDeleteIds([]);
         } else {
             dispatch(logoutUser('/login'));
         }
-    }, [auth, dispatch, currentPage]);
+    }, [auth, dispatch, currentPage, deleteContactDone, allDeleted, contacts.length]);
 
-    useEffect(() => {
-        if(deleteContact) {
-            navigate(0);
+    // useEffect(() => {
+    //     if(deleteContact && allDeleted !== contacts.length) {
+    //         dispatch(viewContacts(currentPage));
+    //     }
+    // }, [deleteContact, dispatch, currentPage, allDeleted, contacts.length]);
+
+    // useEffect(() => {
+    //     if(allDeleted === contacts.length) {
+    //         dispatch(viewContacts(currentPage-1));
+    //     }
+    // }, [allDeleted, dispatch, currentPage, contacts.length]);
+
+    const handleDeleteSelected = e => {
+        e.preventDefault();
+        if(deleteIds.length > 0) {
+            dispatch(deleteSelectedContacts(deleteIds));
         }
-    }, [deleteContact, navigate]);
-
-    // console.log(contacts);
-
+    };
+    console.log('deleteId -> ', deleteIds);
+    
     return (
         <Container fluid className='view-contact px-sm-2 px-0'>
             <Header image={HeaderImg} text={'View Contacts'} />
             <Row className='mx-auto'>
                 <Col className='mx-auto col-xl-10 col-12 px-sm-2 px-0'>
                     <div className='action_button mt-2 d-flex flex-sm-row flex-column-reverse justify-content-between align-items-sm-center align-items-start'>
-                        <ButtonNormal name='DeleteBtn' id='DeleteBtn' cName='btn form_reset red me-0 mb-sm-0 mb-4' value="Delete Selected" action={''} />
+                        {/* <ButtonNormal name='DeleteBtn' id='DeleteBtn' cName='danger mb-sm-0 mb-4' value="Delete Selected" action={handleDeleteSelected} /> */}
+                        <UseAnimations animation={trash} size={25} speed={.5} className="ico" onClick={(e) => handleDeleteSelected(e)}
+                            render={(eventProps, animationProps) => (
+                                <button type="button" title="Delete Contact" className="btn danger mb-sm-0 mb-4" name='DeleteBtn' id='DeleteBtn' {...eventProps}>
+                                    <div {...animationProps} />
+                                    <span>Delete Selected</span>
+                                </button>
+                            )}
+                        />
                         <SearchBar cName='display-table-search' />
                     </div>
-                    <DisplayTable indexOfFirstItem={indexOfFirstItem} indexOfLastItem={indexOfLastItem} />
+                    <DisplayTable deleteIds={deleteIds} setDeleteIds={setDeleteIds} indexOfFirstItem={indexOfFirstItem} indexOfLastItem={indexOfLastItem} />
                     <div className={`text-center ${contacts.length !== 0 ? 'd-flex justify-content-center' : 'd-none'}`}>
                         <Pagination
                             itemPerPage={itemPerPage}

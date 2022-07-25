@@ -3,7 +3,8 @@ import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./deleteConta
 const initialState = {
     loading: false,
     success: false,
-    status: '',
+    allDeleted: false,
+    message: '',
     error: ''
 }
 
@@ -18,14 +19,16 @@ const deleteContactReducer = (state = initialState, action) => {
             return {
                 loading: false,
                 success: true,
-                status: action.payload,
+                allDeleted: action.allDeleted,
+                message: action.payload,
                 error: action.error
             }
         case CONTACT_FAILURE:
             return {
                 loading: false,
                 success: false,
-                status: action.payload,
+                allDeleted: action.allDeleted,
+                message: action.payload,
                 error: action.error
             }
         default:

@@ -6,7 +6,7 @@ const initialState = {
     error: '',
 }
 
-const contactReducer = (state = initialState, action) => {
+const addContactReducer = (state = initialState, action) => {
     switch (action.type) {
         case CONTACT_REQUEST:
             return {
@@ -30,4 +30,4 @@ const contactReducer = (state = initialState, action) => {
     }
 }
 
-export default contactReducer;
+export default addContactReducer;

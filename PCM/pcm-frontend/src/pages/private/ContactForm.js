@@ -41,9 +41,9 @@ const ContactForm = () => {
 
     useEffect(() => {
         setModalProfilePicShow(true);
-    }, [values.profilePic, touched]);
+    }, [values.profilePic, touched.profilePic]);
 
-    // console.log(values);
+    console.log(values);
     return (
         <Form onSubmit={handleSubmit} onReset={handleReset} className="contact-form" id="contact-form" method="post" encType="multipart/form-data" noValidate>
             <RequiredStatement />
@@ -101,9 +101,9 @@ const ContactForm = () => {
                     <FormNote description={values?.description} cName="col-md-10 col-12 px-md-4" functionChange={handleChangeNote} hasTouched={touched.note} hasError={errors.note} Mandatory={false} />
                 </Row>
             </Form.Group>
-            <Form.Group className='action_button d-flex justify-content-center align-items-center pb-5'>
+            <Form.Group className='action_button center pb-5'>
+                <ButtonNormal type="submit" name="add-contact" id="ADD-Contact" cName="form_submit fill px-5 me-5" value="Save" loading={addContact.loading}/>
                 <ButtonNormal type="reset" name="reset" id="reset" cName="form_reset px-4" value="Reset" />
-                <ButtonNormal type="submit" name="add-contact" id="ADD-Contact" cName="form_submit px-5" value="Save" loading={addContact.loading}/>
             </Form.Group>
             {
                 values.profilePic && values.profilePicURL &&

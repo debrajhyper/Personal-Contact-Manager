@@ -43,10 +43,11 @@ const useForm = validate => {
     const [uploadedFile, setUploadedFile] = useState(false);
     const [errors, setErrors] = useState({});
     const excluded = [null, undefined, "null", "undefined", ""];
-    const mandatoryFields = ["name", "email", "mobileNumber"];
+    // const mandatoryFields = ["name", "email", "mobileNumber"];
     const dispatch = useDispatch();
     const { cid } = useParams();
     const contact = useSelector(state => state.viewContact.contact);
+    const addContactError = useSelector(state => state.addContact.error);
 
     useEffect(() => {
         setErrors(validate(values));
@@ -54,7 +55,41 @@ const useForm = validate => {
 
     useEffect(() => {
         if (cid && contact) {
-            setValues(contact);
+            // setValues(contact);
+            setValues({
+                profilePic: "",
+                profilePicURL: contact?.image,
+                favorite: contact?.favorite,
+                name: contact?.name,
+                nickName: contact?.nickName,
+                title: contact?.title,
+                company: contact?.company,
+                email: contact?.email,
+                mobileNumber: {
+                    code: contact?.mobileNumber?.code,
+                    number: contact?.mobileNumber?.number
+                },
+                telephoneNumber: {
+                    code: contact?.telephoneNumber?.code,
+                    number: contact?.telephoneNumber?.number
+                },
+                country: contact?.country,
+                dateOfBirth: contact?.dateOfBirth,
+                address: contact?.address,
+                relationship: contact?.relationship,
+                zodiacSign: contact?.zodiacSign,
+                tags: contact?.tags,
+                website: contact?.website,
+                socialLinks: {
+                    facebook: contact?.socialLinks?.facebook,
+                    twitter: contact?.socialLinks?.twitter,
+                    linkedIn: contact?.socialLinks?.linkedIn,
+                    instagram: contact?.socialLinks?.instagram,
+                    youtube: contact?.socialLinks?.youtube,
+                },
+                description: contact?.description,
+            });
+            setUploadedFile(true);
         } else {
             handleReset();
         }
@@ -122,7 +157,7 @@ const useForm = validate => {
     const handleChangeFileUpload = () => {
         setUploadedFile(true);
     };
-    
+
     const handleChangeMobileNumber = e => {
         const { name, value } = e.target;
         setValues({
@@ -133,7 +168,7 @@ const useForm = validate => {
             }
         });
     }
-    
+
     const handleChangeTelephoneNumber = e => {
         const { name, value } = e.target;
         setValues({
@@ -146,7 +181,7 @@ const useForm = validate => {
     }
 
     const handleChangeSelect = (name, value) => {
-        console.log('name ->', name, 'value ->', value);
+        // console.log('name ->', name, 'value ->', value);
         if (name === 'country') {
             setValues({
                 ...values,
@@ -211,7 +246,7 @@ const useForm = validate => {
 
 
 
-    
+
     const handleBlur = e => {
         const { name } = e.target;
         setTouched({
@@ -230,7 +265,7 @@ const useForm = validate => {
             }
         })
     }
-    
+
     const handleBlurTelephoneNumber = e => {
         const { name } = e.target;
         setTouched({
@@ -304,7 +339,7 @@ const useForm = validate => {
 
 
 
-    
+
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -319,15 +354,22 @@ const useForm = validate => {
             },
         });
 
-        const mandatoryCheck = Object.keys(errors).filter(key => mandatoryFields.includes(key));
+        // const mandatoryCheck = Object.keys(errors).filter(key => mandatoryFields.includes(key));
+        const PLEASE = "please";
 
-        if(Object.keys(errors).length === 1 && Object.keys(errors.socialLinks).length === 0) {
+        if (Object.keys(errors).length === 1 && Object.keys(errors.socialLinks).length === 0) {
             dispatch(addContact(values));
-            handleReset();
-        } else if(mandatoryCheck.length !== 0) {
-            toast.warning("Please fill all the required fields");
-        } else {
-            toast.warning("Some fields have errors");
+            if (addContactError === '') {
+                handleReset();
+            }
+        }
+        else if (errors?.name?.split(' ')?.[0].toLowerCase() === PLEASE
+            || errors?.email?.split(' ')?.[0].toLowerCase() === PLEASE
+            || errors?.mobileNumber?.split(' ')?.[0].toLowerCase() === PLEASE) {
+            toast.warning("Please fill all the required fields.");
+        }
+        else {
+            toast.warning("Some fields have errors.");
         }
     };
 
@@ -336,28 +378,29 @@ const useForm = validate => {
 
 
 
-    return { 
-        values, setValues, 
-        excluded, 
-        handleClick, 
-        handleEnter, 
-        handleChange, 
-        handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, 
-        handleChangeMobileNumber, 
-        handleChangeTelephoneNumber, 
-        handleChangeSelect, 
-        handleChangeAddTags, handleChangeRemoveTags, 
-        handleChangeSocial, 
-        handleChangeNote, 
+    return {
+        values, setValues,
+        excluded,
+        handleClick,
+        handleEnter,
+        handleChange,
+        handleChangeFile, handleChangeFileCancel, handleChangeFileUpload,
+        handleChangeMobileNumber,
+        handleChangeTelephoneNumber,
+        handleChangeSelect,
+        handleChangeAddTags, handleChangeRemoveTags,
+        handleChangeSocial,
+        handleChangeNote,
 
-        handleBlur, 
-        handleBlurMobileNumber, 
-        handleBlurTelephoneNumber, 
-        handleBlurSocial, 
+        handleBlur,
+        handleBlurMobileNumber,
+        handleBlurTelephoneNumber,
+        handleBlurSocial,
 
-        handleReset, 
-        handleSubmit, 
-        uploadedFile, touched, errors }
+        handleReset,
+        handleSubmit,
+        uploadedFile, touched, errors
+    }
 };
 
 export default useForm;

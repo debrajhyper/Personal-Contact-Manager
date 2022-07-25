@@ -1,8 +1,8 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./viewContactsTypes";
+import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE, CONTACT_CHECKED, CONTACT_CHECKED_ALL } from "./viewContactsTypes";
 import { axiosPrivate, VIEW_CONTACTS_URL } from "../../../api/HomeAPI";
 
-export const viewContacts = (pageNo) => {
-    return (dispatch) => {
+export const viewContacts = pageNo => {
+    return dispatch => {
         dispatch(viewContactsRequest());
         
         axiosPrivate.get(VIEW_CONTACTS_URL + pageNo)
@@ -42,5 +42,32 @@ const viewContactsFailure = (error) => {
         page: 0,
         totalPages: 0,
         error: error
+    }
+}
+
+export const ContactsChecked = (id, checked) => {
+    return dispatch => {
+        dispatch(viewContactsChecked(id, checked));
+    }
+}
+
+const viewContactsChecked = (id, checked) => {
+    return {
+        type: CONTACT_CHECKED,
+        payload: id,
+        checked: checked
+    }
+}
+
+export const ContactsCheckedAll = (checked) => {
+    return dispatch => {
+        dispatch(viewContactsCheckedAll(checked));
+    }
+}
+
+const viewContactsCheckedAll = (checked) => {
+    return {
+        type: CONTACT_CHECKED_ALL,
+        checked: checked
     }
 }

@@ -8,6 +8,7 @@ import { IoCamera } from 'react-icons/io5';
 import { Form } from 'react-bootstrap';
 
 const FormProfilePic = ({ profilePic, profilePicURL, uploadedFile, cName, functionChange, functionBlur, excluded, hasTouched, hasError }) => {
+    
     return (
         <Form.Group className={`form-input ${cName}`} controlId="profilePic">
             <div className="field">
@@ -17,8 +18,8 @@ const FormProfilePic = ({ profilePic, profilePicURL, uploadedFile, cName, functi
                     type="file"
                     accept='image/*'
                     onChange={functionChange}
-                    onSelect={functionChange}
                     onBlur={functionBlur}
+                    onSelect={functionChange}
                     className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(profilePic) ? 'noError' : '')}
                     placeholder=""
                 required />
