@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../services/index';
+import { addContact, updateContact } from '../services/index';
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { submitErrorFields } from "./validationMsg";
 
 const useForm = validate => {
     const [values, setValues] = useState({
@@ -46,8 +47,14 @@ const useForm = validate => {
     // const mandatoryFields = ["name", "email", "mobileNumber"];
     const dispatch = useDispatch();
     const { cid } = useParams();
+    const location = useLocation();
     const contact = useSelector(state => state.viewContact.contact);
     const addContactError = useSelector(state => state.addContact.error);
+    const updateContactError = useSelector(state => state.updateContact.error);
+
+
+    console.log("URL LOCATION -> ", cid, location.pathname);
+    console.log(location.pathname.includes("edit"));
 
     useEffect(() => {
         setErrors(validate(values));
@@ -57,37 +64,38 @@ const useForm = validate => {
         if (cid && contact) {
             // setValues(contact);
             setValues({
-                profilePic: "",
-                profilePicURL: contact?.image,
-                favorite: contact?.favorite,
-                name: contact?.name,
-                nickName: contact?.nickName,
-                title: contact?.title,
-                company: contact?.company,
-                email: contact?.email,
+                cId: contact?.cid,
+                profilePic: '',
+                profilePicURL: contact?.image ?? '',
+                favorite: contact?.favorite ?? false,
+                name: contact?.name ?? '',
+                nickName: contact?.nickName ?? '',
+                title: contact?.title ?? '',
+                company: contact?.company ?? '',
+                email: contact?.email ?? '',
                 mobileNumber: {
-                    code: contact?.mobileNumber?.code,
-                    number: contact?.mobileNumber?.number
+                    code: contact?.mobileNumber?.code ?? '',
+                    number: contact?.mobileNumber?.number ?? ''
                 },
                 telephoneNumber: {
-                    code: contact?.telephoneNumber?.code,
-                    number: contact?.telephoneNumber?.number
+                    code: contact?.telephoneNumber?.code ?? '',
+                    number: contact?.telephoneNumber?.number ?? ''
                 },
-                country: contact?.country,
-                dateOfBirth: contact?.dateOfBirth,
-                address: contact?.address,
-                relationship: contact?.relationship,
-                zodiacSign: contact?.zodiacSign,
-                tags: contact?.tags,
-                website: contact?.website,
+                country: contact?.country ?? '',
+                dateOfBirth: contact?.dateOfBirth ?? '',
+                address: contact?.address ?? '',
+                relationship: contact?.relationship ?? '',
+                zodiacSign: contact?.zodiacSign ?? '',
+                tags: contact?.tags ?? [],
+                website: contact?.website ?? '',
                 socialLinks: {
-                    facebook: contact?.socialLinks?.facebook,
-                    twitter: contact?.socialLinks?.twitter,
-                    linkedIn: contact?.socialLinks?.linkedIn,
-                    instagram: contact?.socialLinks?.instagram,
-                    youtube: contact?.socialLinks?.youtube,
+                    facebook: contact?.socialLinks?.facebook ?? '',
+                    twitter: contact?.socialLinks?.twitter ?? '',
+                    linkedIn: contact?.socialLinks?.linkedIn ?? '',
+                    instagram: contact?.socialLinks?.instagram ?? '',
+                    youtube: contact?.socialLinks?.youtube ?? '',
                 },
-                description: contact?.description,
+                description: contact?.description ?? '',
             });
             setUploadedFile(true);
         } else {
@@ -151,7 +159,7 @@ const useForm = validate => {
         setValues({
             ...values,
             profilePic: "",
-            profilePicURL: ""
+            profilePicURL: contact?.image ?? ""
         });
     };
     const handleChangeFileUpload = () => {
@@ -357,16 +365,29 @@ const useForm = validate => {
         // const mandatoryCheck = Object.keys(errors).filter(key => mandatoryFields.includes(key));
         const PLEASE = "please";
 
+        console.log(Object.keys(errors))
+
         if (Object.keys(errors).length === 1 && Object.keys(errors.socialLinks).length === 0) {
-            dispatch(addContact(values));
-            if (addContactError === '') {
-                handleReset();
+            if(location.pathname.includes("add")) {
+                dispatch(addContact(values));
+                if (addContactError === '') {
+                    handleReset();
+                }
+            }
+            if(location.pathname.includes("edit")) {
+                dispatch(updateContact(values));
+                if (updateContactError === '') {
+                    handleReset();
+                }
             }
         }
         else if (errors?.name?.split(' ')?.[0].toLowerCase() === PLEASE
             || errors?.email?.split(' ')?.[0].toLowerCase() === PLEASE
             || errors?.mobileNumber?.split(' ')?.[0].toLowerCase() === PLEASE) {
             toast.warning("Please fill all the required fields.");
+        }
+        else if(Object.keys(errors).length > 1) {
+            toast.warning(`${submitErrorFields(Object.keys(errors)[1])} field has error.`);
         }
         else {
             toast.warning("Some fields have errors.");

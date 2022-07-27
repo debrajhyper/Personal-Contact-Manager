@@ -164,3 +164,33 @@ export const contactValidate = values => {
 
     return errors;
 };
+
+
+export const submitErrorFields = (fieldName) => {
+    switch (fieldName) {
+        case "name":
+            return "Name";
+        case "email":
+            return "Email";
+        case "password":
+            return "Password";
+        case "mobileNumber":
+            return "Mobile Number";
+        case "country":
+            return "Country";
+        case "dateOfBirth":
+            return "Birth Date";
+        case "relationship":
+            return "Relationship";
+        case "zodiacSign":
+            return "Zodiac Sign";
+        case "profilePic":
+            return "Profile Picture";
+        case "website":
+            return "Website";
+        case "socialLinks":
+            return "Social Links";
+        default:
+            return "";
+    }
+}

@@ -6,3 +6,4 @@ export * from './contact/viewContacts/viewContactsActions';
 export * from './contact/viewContact/viewContactActions';
 export * from './contact/deleteContact/deleteContactActions';
 export * from './contact/searchContact/searchContactActions';
+export * from './contact/updateContact/updateContactActions';

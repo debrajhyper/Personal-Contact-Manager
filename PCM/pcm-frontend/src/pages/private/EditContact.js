@@ -20,14 +20,22 @@ import { Container, Row, Col } from 'react-bootstrap';
 const EditContact = () => {
     const { cid } = useParams();
     const location = useLocation();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    console.log(cid, location.pathname);
+    const updateContactDone = useSelector(state => state.updateContact.success);
+    
 
     useEffect(() => {
         if(cid) {
             dispatch(viewContact(cid));
         }
     }, [cid, dispatch]);
+
+    useEffect(() => {
+        if(updateContactDone) {
+            navigate(-1);
+        }
+    }, [updateContactDone, navigate]);
 
     return (
         <Container fluid className='add-contact'>
