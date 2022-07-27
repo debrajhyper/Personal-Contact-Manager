@@ -40,10 +40,7 @@ public class ImageUploader {
 			throw new ValidationException("Only JPEG/PNG content type are allowed.");
 		} 
 		else {
-			String name = imageFile.getOriginalFilename();
-			String randomId = UUID.randomUUID().toString();
-			String savedFileName = randomId.concat(name.substring(name.lastIndexOf(".")));
-			imageName = contact.getCId() + "_" + savedFileName;
+			imageName = setImageName();
 			
 			System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
 			contact.setImage(imageName);
@@ -55,46 +52,70 @@ public class ImageUploader {
 	}
 	
 	public void updateImage(Contact oldContact, Contact contact) throws IOException {
-		if(!imageFile.isEmpty()) {
-			//delete old pic
-			System.out.println(oldContact.getImage() != "default.png");
-			
-			if(oldContact.getImage() != "default.png") {
-				File deleteFile = new ClassPathResource("static/upload").getFile();
-				File delfile = new File(deleteFile, oldContact.getImage());
-				delfile.delete();
+		if(imageFile != null && !imageFile.isEmpty()) {
+			if(!imageFile.getContentType().equals("image/jpeg") && !imageFile.getContentType().equals("image/png")) {
+				throw new ValidationException("Only JPEG/PNG content type are allowed.");
 			}
-			
-			
-			//update new pic
-			String imageName = contact.getCId() + "_" + imageFile.getOriginalFilename();
-			
-			File saveFile = new ClassPathResource("static/upload").getFile();	
-			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + imageName);
-			System.out.println(path);
-			
-			Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			
-			contact.setImage(imageName);
+			else {				
+				//DELETE OLD IMAGE
+				if(oldContact.getImage() != "default.png") {
+					deleteImageFromLocation(AppConstant.SET_UPLOAD_LOCATION, oldContact);
+				}
+				
+				//UPDATE NEW IMAGE
+				imageName = setImageName();
+				
+				System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
+				contact.setImage(imageName);
+				
+				uploadImageToLocation(AppConstant.SET_UPLOAD_LOCATION);
+				
+				System.out.println("IMAGE FILE SUCCESSFULLY UPLOADED");
+			}
 		}
 		else {
 			contact.setImage(oldContact.getImage());
 		}
 	}
 	
-	public void uploadImageToLocation(String location) throws IOException {
+	public void deleteImage(Contact contact) throws IOException {
+		System.out.println("CONTACT IMAGE IS -> " + contact.getImage() + " : DEFAULT IMAGE IS -> " + imageName);
 		
-		File saveFile = new ClassPathResource(location).getFile();
-		Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + imageName);
+		if(!contact.getImage().equals(imageName)) {
+			System.out.println("SO, DELETING CONTACT IMAGE FROM LOCATION");
+			deleteImageFromLocation(AppConstant.SET_UPLOAD_LOCATION, contact);
+		} else {			
+			System.out.println("SO, NO NEED TO DELETE CONTACT IMAGE FROM LOCATION");
+		}
+		
+	}
+	
+	public String setImageName() {
+		String name = imageFile.getOriginalFilename();
+		String randomId = UUID.randomUUID().toString();
+		String savedFileName = randomId.concat(name.substring(name.lastIndexOf(".")));
+		
+		return savedFileName;
+	}
+	
+	public void uploadImageToLocation(String location) throws IOException {
+		File saveFileLocation = new ClassPathResource(location).getFile();
+		Path path = Paths.get(saveFileLocation.getAbsolutePath() + File.separator + imageName);
 		System.out.println("IMAGE UPLOAD PATH LOCATION -> " + path);
 		
 		Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 	}
 	
-	public InputStream getImageFromLocation(String imageName) throws IOException {
+	public void deleteImageFromLocation(String location, Contact oldContact) throws IOException {
+		File deleteFileLocation = new ClassPathResource(location).getFile();
+		File delleteFile = new File(deleteFileLocation, oldContact.getImage());
 		
-		File saveFile = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
-		String fullPath = Paths.get(saveFile.getAbsolutePath() + File.separator + imageName).toString();
+		delleteFile.delete();
+	}
+	
+	public InputStream getImageFromLocation(String imageName) throws IOException {
+		File saveFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
+		String fullPath = Paths.get(saveFileLocation.getAbsolutePath() + File.separator + imageName).toString();
 		
 		InputStream image = new FileInputStream(fullPath);
 		return image;

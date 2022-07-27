@@ -270,7 +270,15 @@ public class ContactServiceImpl implements ContactService {
 				System.out.println("BEFORE DELETE : TOTAL USER CONTACTS -> " + user.getTotalContacts());
 				
 				System.out.println("TOTAL NUMBER OF CONTACTS WILL BE DELETED -> " + deleteIds.size());
-				contacts.forEach(contact -> this.contactRepository.delete(contact));
+				contacts.forEach(contact -> {
+					try {
+						new ImageUploader().deleteImage(contact);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					this.contactRepository.delete(contact);
+				});
 				
 				user.setTotalContacts(user.getTotalContacts() - deleteIds.size());
 				this.userRepository.save(user);
@@ -316,6 +324,7 @@ public class ContactServiceImpl implements ContactService {
 				User user = this.userRepository.findByUserName(email);
 				System.out.println("BEFORE DELETE : TOTAL USER CONTACTS -> " + user.getTotalContacts());
 				
+				new ImageUploader().deleteImage(contact);
 				this.contactRepository.delete(contact);
 				
 				user.setTotalContacts(user.getTotalContacts() - 1);
@@ -340,6 +349,12 @@ public class ContactServiceImpl implements ContactService {
 			e.printStackTrace();
 			throw new NoSuchElementException("No such contact found.");
 		}
+		catch (IOException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+//			throw new IOException("Failed to delete image for this contact.");
+		}
 		catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
@@ -360,19 +375,10 @@ public class ContactServiceImpl implements ContactService {
 			User sessionUser = this.userRepository.findByUserName(email);
 			System.out.println("DB USER -> " + sessionUser.getEmail());
 			
-			List<Contact> contactsByUser = this.contactRepository.findContactsByUser(sessionUser.getId());
-			ListIterator<Contact> iterateContactList = contactsByUser.listIterator();
-			while(iterateContactList.hasNext()) {
-				if(iterateContactList.next().getEmail().equals(contact.getEmail())) {
-					throw new DuplicateKeyException("Contact already exist.");
-				}
-			}
-			
 			Contact oldContact = this.contactRepository.findById(contact.getCId()).get();
 			
 			System.out.println("PROFILE PIC DATA -> " + profilePic);
 			new ImageUploader(profilePic).updateImage(oldContact, contact);
-			
 			
 			if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isBlank()) {
 				DateValidator validator = new DateValidator(AppConstant.DATE_FORMATER);
@@ -380,34 +386,35 @@ public class ContactServiceImpl implements ContactService {
 				System.out.println("IS BIRTH DATE VALID -> " + isvalidDate);
 			}
 			if(contact.getMobileNumber() != null) {
-//			contact.getMobileNumber().forEach(mobileNumber -> mobileNumber.setContact(contact));
-				contact.getMobileNumber().setContact(contact);
+				if(oldContact.getMobileNumber() != null) {					
+					contact.getMobileNumber().setId(oldContact.getMobileNumber().getId());
+				}
+				contact.getMobileNumber().setContact(oldContact);
 			}
 			if(contact.getTelephoneNumber() != null) {
-				contact.getTelephoneNumber().setContact(contact);
+				if(oldContact.getTelephoneNumber() != null) {					
+					contact.getTelephoneNumber().setId(oldContact.getTelephoneNumber().getId());
+				}
+				contact.getTelephoneNumber().setContact(oldContact);
 			}
 			if(contact.getCountry() != null) {
-				contact.getCountry().setContact(contact);
+				if(oldContact.getCountry() != null) {					
+					contact.getCountry().setId(oldContact.getCountry().getId());
+				}
+				contact.getCountry().setContact(oldContact);
 			}
 			if(contact.getSocialLinks() != null) {
-				contact.getSocialLinks().setContact(contact);
+				if(oldContact.getSocialLinks() != null) {					
+					contact.getSocialLinks().setId(oldContact.getSocialLinks().getId());
+				}
+				contact.getSocialLinks().setContact(oldContact);
 			}
 			
 			contact.setUser(sessionUser);
-//			sessionUser.getContacts().add(contact);
-//			sessionUser.setTotalContacts(sessionUser.getTotalContacts() + 1);
-			
-//			User savedUserContact = this.userRepository.save(sessionUser);
 			Contact updatedContact = this.contactRepository.save(contact);
 			
 			System.out.println("SUCCESS =================== >  UPDATED CONTACT ID " + updatedContact.getCId() + " -> " + updatedContact.getEmail() + " FOR USER -> " + updatedContact.getUser().getEmail());
 		} 
-		catch (DuplicateKeyException e) {
-			// TODO: handle exception
-			System.out.println("ERROR -> " + e.getMessage());
-			e.printStackTrace();
-			throw new DuplicateKeyException(e.getMessage());
-		}
 		catch(ValidationException e) {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
