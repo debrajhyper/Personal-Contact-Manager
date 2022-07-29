@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon } from '../../components/index';
 import { CountryFlag } from '../../components/misc/FlagSelect';
@@ -16,118 +16,130 @@ import '../../sass/private/Profile.scss';
 import { IoFingerPrint, IoCalendar, IoDisc, IoPhonePortraitOutline } from 'react-icons/io5';
 import { FaAt, FaUserShield, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaLink } from 'react-icons/fa';
 import { Container, Row, Col } from 'react-bootstrap';
-
-const cardDetails = [
-    {
-        spaceLg: 3,
-        spaceMd: 3,
-        image: cId,
-        icon: <IoFingerPrint />,
-        title: 'Id',
-        subtitle: 'PCM21'
-    },
-    {
-        spaceLg: 3,
-        spaceMd: 4,
-        image: cRole,
-        icon: <FaUserShield />,
-        title: 'Role',
-        subtitle: 'Admin'
-    },
-    {
-        spaceLg: 3,
-        spaceMd: 5,
-        image: CountryFlag('IN'),
-        icon: <FaGlobeAmericas />,
-        title: 'Country',
-        subtitle: 'India',
-    },
-    {
-        spaceLg: 3,
-        spaceMd: 6,
-        image: cDob,
-        icon: <IoCalendar />,
-        title: 'Birth date',
-        subtitle: '23 August, 2021'
-    },
-    {
-        spaceLg: 4,
-        spaceMd: 6,
-        image: cMobileNo,
-        icon: <IoPhonePortraitOutline />,
-        title: 'Mobile Number',
-        subtitle: '+91-9888888888'
-    },
-    {
-        spaceLg: 4,
-        spaceMd: 6,
-        image: cEmail,
-        icon: <FaAt />,
-        title: 'Email',
-        subtitle: 'debrajkarmakar010@gmail.com'
-    },
-    {
-        spaceLg: 4,
-        spaceMd: 6,
-        image: ZodiacSign('SAGITTARIUS'),
-        icon: <IoDisc />,
-        title: 'Zodiac sign',
-        subtitle: 'Sagittarius'
-    },
-    {
-        spaceLg: 8,
-        title: 'text-area',
-        subtitle: 'This is My 1st project on spring boot Web ID -  email(debrajkarmakae010) Password - Debrajkarmakar'
-    },
-]
-
-const SocialDetails = [
-    {
-        icon: <FaFacebookF />,
-        title: 'Facebook',
-        link: 'https://www.facebook.com/debrajkarmakar'
-    },
-    {
-        icon: <FaTwitter />,
-        title: 'Twitter',
-        link: 'https://twitter.com/debrajkarmakar'
-    },
-    {
-        icon: <FaLinkedinIn />,
-        title: 'Linkedin',
-        link: 'https://www.linkedin.com/in/debraj-karmakar-a8a9b817b/'
-    },
-    {
-        icon: <FaInstagram />,
-        title: 'Instagram',
-        link: 'https://www.instagram.com/debrajkarmakar/'
-    },
-    {
-        icon: <FaYoutube />,
-        title: 'Youtube',
-        link: 'https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw'
-    },
-    {
-        icon: <FaLink />,
-        title: 'Website',
-        link: 'https://debrajkarmakar.github.io/'
-    }
-]
+import { useSelector, useDispatch } from 'react-redux';
+import { getCurrentUser } from '../../services/index';
 
 const Profile = () => {
     const [modalEditProfile, setModalEditProfile] = useState(false);
     const exclude = [null, undefined, 'null', 'undefined', '', ' '];
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.currentUser.currentUser);
+    const updateUserSuccess = useSelector(state => state.updateUser.success);
+
+    console.log('CURRENT USER _> ', currentUser);
 
     function handleModalEditProfile() {
         setModalEditProfile(!modalEditProfile);
     }
 
+    useEffect(() => {
+        if(updateUserSuccess) {
+            handleModalEditProfile();
+            dispatch(getCurrentUser());
+        }
+    }, [updateUserSuccess, dispatch]);
+
+    const { id, email, image, enabled, name, authorities, country, dateOfBirth, mobileNumber, zodiacSign, socialLinks, description } = currentUser
+
+    const cardDetails = [
+        {
+            spaceLg: 3,
+            spaceMd: 3,
+            image: cId,
+            icon: <IoFingerPrint />,
+            title: 'Id',
+            subtitle: `PCM22U${id}`,
+        },
+        {
+            spaceLg: 3,
+            spaceMd: 4,
+            image: cRole,
+            icon: <FaUserShield />,
+            title: 'Role',
+            subtitle: authorities?.length > 0 ? authorities?.[0].authority.toUpperCase() : '-'
+        },
+        {
+            spaceLg: 3,
+            spaceMd: 5,
+            image: CountryFlag(country?.code?.toUpperCase()),
+            icon: <FaGlobeAmericas />,
+            title: 'Country',
+            subtitle: country?.name,
+        },
+        {
+            spaceLg: 3,
+            spaceMd: 6,
+            image: cDob,
+            icon: <IoCalendar />,
+            title: 'Birth date',
+            subtitle: dateOfBirth
+        },
+        {
+            spaceLg: 4,
+            spaceMd: 6,
+            image: cMobileNo,
+            icon: <IoPhonePortraitOutline />,
+            title: 'Mobile Number',
+            pretitle: mobileNumber?.code ? mobileNumber.code : country?.no ? country.no : '',
+            subtitle: mobileNumber?.number,
+        },
+        {
+            spaceLg: 4,
+            spaceMd: 6,
+            image: cEmail,
+            icon: <FaAt />,
+            title: 'Email',
+            subtitle: email,
+        },
+        {
+            spaceLg: 4,
+            spaceMd: 6,
+            image: ZodiacSign(zodiacSign?.toUpperCase()),
+            icon: <IoDisc />,
+            title: 'Zodiac sign',
+            subtitle: zodiacSign
+        },
+        {
+            spaceLg: 8,
+            title: 'text-area',
+            subtitle: description
+        },
+    ]
+    
+    const SocialDetails = [
+        {
+            icon: <FaFacebookF />,
+            title: 'Facebook',
+            link: socialLinks?.facebook
+        },
+        {
+            icon: <FaTwitter />,
+            title: 'Twitter',
+            link: socialLinks?.twitter
+        },
+        {
+            icon: <FaLinkedinIn />,
+            title: 'Linkedin',
+            link: socialLinks?.linkedIn
+        },
+        {
+            icon: <FaInstagram />,
+            title: 'Instagram',
+            link: socialLinks?.instagram
+        },
+        {
+            icon: <FaYoutube />,
+            title: 'Youtube',
+            link: socialLinks?.youtube
+        },
+    ]
+
     return (
         <Container fluid className="profile text-center">
 
             <div className='header d-inline-block'>
-                <ProfilePic image={myProfilePic} outline={true} active={true} isUserProfile={true} />
-                <h4 className="text pt-2">Debraj Karmakar</h4>
+                <ProfilePic image={image} outline={true} active={enabled} isUserProfile={true} />
+                <h4 className="text pt-2">{name}</h4>
             </div>
 
             <Row className='social-link-row'>
@@ -135,9 +147,7 @@ const Profile = () => {
                 {
                     SocialDetails.map((social, index) => {
                         return (
-                            // <Col key={index} className="text-center d-inline-block" >
-                                !exclude?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
-                            // </Col>
+                            !exclude?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
                         )
                     })
                 }

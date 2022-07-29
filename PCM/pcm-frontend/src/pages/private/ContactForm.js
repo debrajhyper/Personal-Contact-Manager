@@ -51,7 +51,7 @@ const ContactForm = () => {
                 <Row>
                     <Col className='col-xl-3 col-sm-6 col-12'>
                         <Row className='d-flex flex-column align-items-center'>
-                            <FormProfilePic profilePic={values?.profilePic} profilePicURL={values.profilePicURL} uploadedFile={uploadedFile} cName="col-auto px-md-4" functionChange={handleChangeFile} excluded={excluded} hasTouched={touched.profilePic} hasError={errors.profilePic} />
+                            <FormProfilePic profilePic={values?.profilePic} profilePicURL={values?.profilePicURL} uploadedFile={uploadedFile} cName="col-auto px-md-4" functionChange={handleChangeFile} excluded={excluded} hasTouched={touched.profilePic} hasError={errors.profilePic} />
                             <FormFavorite favorite={values?.favorite} cName="col-auto py-0 px-0" functionClick={handleClick} hasTouched={touched.favorite} hasError={errors.favorite} Mandatory={false} />
                         </Row>
                     </Col>
@@ -106,7 +106,7 @@ const ContactForm = () => {
                 <ButtonNormal type="reset" name="reset" id="reset" cName="form_reset px-4" value="Reset" />
             </Form.Group>
             {
-                values.profilePic && values.profilePicURL &&
+                values?.profilePic && values?.profilePicURL &&
                 <ModalProfilePic modalProfilePicShow={modalProfilePicShow} setModalProfilePicShow={setModalProfilePicShow} profilePic={values.profilePic} profilePicURL={values.profilePicURL} functionCancel={handleChangeFileCancel} functionUpload={handleChangeFileUpload} hasError={errors.profilePic} />
             }
         </Form>

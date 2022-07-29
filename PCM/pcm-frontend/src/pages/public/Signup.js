@@ -33,7 +33,7 @@ const Signup = () => {
             name: "",
             email: "",
             password: "",
-            about: "",
+            description: "",
             agreement: false
         },
         validate,
@@ -84,7 +84,7 @@ const Signup = () => {
                                 <FormName name={formik.values.name} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={true} />
                                 <FormEmail email={formik.values.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
                                 <FormPassword password={formik.values.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true} />
-                                <FormTextarea about={formik.values.about} functionChange={formik.handleChange} />
+                                <FormTextarea about={formik.values.description} functionChange={formik.handleChange} />
                                 <FormAgrement agreement={formik.values.agreement} functionChange={formik.handleChange} hasTouched={formik.touched.agreement} hasError={formik.errors.agreement} Mandatory={true} />
                                 <Form.Group className="action_button left">
                                     <ButtonNormal type="submit" name="signup" id="Signup" cName="form_submit fill me-5" value="Register" loading={userRegister.loading} />

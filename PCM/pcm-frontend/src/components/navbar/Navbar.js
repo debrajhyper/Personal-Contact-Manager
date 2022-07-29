@@ -10,7 +10,11 @@ import './navbar.scss';
 
 import { BsFillHouseFill, BsFillPersonLinesFill } from "react-icons/bs";
 import { FaAddressCard, FaSignInAlt, FaUserPlus } from "react-icons/fa";
+import { AiFillAppstore } from "react-icons/ai";
 import { Navbar, Container, Nav, Image } from 'react-bootstrap';
+
+import UseAnimations from 'react-useanimations';
+import maximizeMinimize from 'react-useanimations/lib/maximizeMinimize';
 
 const PublicNavbar = ({ slidebar, handleSlidebar }) => {
     const auth = useSelector(state => state.auth);
@@ -22,7 +26,9 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
     const privateNav = (
         <div className="auth-nav">
             <Nav.Link as={Link} to={"/profile"}>
-                <Image src={image ?? profileImage} alt="profile_img" />
+                <div className='img_container'>
+                    <Image src={image ?? profileImage} className="profile_pic" alt="" />
+                </div>
                 <div className='details'>
                     <span>{name}</span>
                     <p>{username}</p>
@@ -51,9 +57,14 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
                             ? (
                                 <>
                                     <Link to="/dashboard" className="navbar-brand pcm">{authSlideBar}</Link>
-                                    <div className={`slidebar_ico ${authSlideBar}`} onClick={handleSlidebar}>
-                                        <BsFillPersonLinesFill size={24} />
-                                    </div>
+                                    <UseAnimations animation={maximizeMinimize} size={28} speed={.9} reverse={true} className="ico" onClick={handleSlidebar}
+                                        render={(eventProps, animationProps) => (
+                                            <div className={`slidebar_ico ${authSlideBar}`} {...eventProps}>
+                                                {/* <AiFillAppstore size={24} /> */}
+                                                <div {...animationProps} />
+                                            </div>
+                                        )}
+                                    />
                                 </>
                             )
                             : <Link to="/" className="navbar-brand">Personal Contact Manager</Link>

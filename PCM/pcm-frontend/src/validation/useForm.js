@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, updateContact } from '../services/index';
+import { addContact, updateContact, updateUser } from '../services/index';
 import { toast } from "react-toastify";
 import { useParams, useLocation } from "react-router-dom";
 import { submitErrorFields } from "./validationMsg";
@@ -43,7 +43,8 @@ const useForm = validate => {
     const [touched, setTouched] = useState({});
     const [uploadedFile, setUploadedFile] = useState(false);
     const [errors, setErrors] = useState({});
-    const excluded = [null, undefined, "null", "undefined", ""];
+    const [profileEdit, setProfileEdit] = useState(false);
+    const excluded = [null, undefined, "null", "undefined", "", " "];
     // const mandatoryFields = ["name", "email", "mobileNumber"];
     const dispatch = useDispatch();
     const { cid } = useParams();
@@ -51,10 +52,11 @@ const useForm = validate => {
     const contact = useSelector(state => state.viewContact.contact);
     const addContactError = useSelector(state => state.addContact.error);
     const updateContactError = useSelector(state => state.updateContact.error);
+    const currentUser = useSelector(state => state.currentUser.currentUser);
+    const updateUserError = useSelector(state => state.updateUser.error);
 
 
     console.log("URL LOCATION -> ", cid, location.pathname);
-    console.log(location.pathname.includes("edit"));
 
     useEffect(() => {
         setErrors(validate(values));
@@ -62,7 +64,6 @@ const useForm = validate => {
 
     useEffect(() => {
         if (cid && contact) {
-            // setValues(contact);
             setValues({
                 cId: contact?.cid,
                 profilePic: '',
@@ -102,6 +103,39 @@ const useForm = validate => {
             handleReset();
         }
     }, [cid, contact]);
+
+    useEffect(() => {
+        if(profileEdit && currentUser && location.pathname === "/profile") {
+            setValues({
+                id: currentUser?.id,
+                agreement: currentUser?.agreement ?? true,
+                password: currentUser?.password ?? null,
+                profilePic: '',
+                profilePicURL: currentUser?.image ?? '',
+                name: currentUser?.name ?? '',
+                email: currentUser?.email ?? '',
+                mobileNumber: {
+                    code: currentUser?.mobileNumber?.code ?? '',
+                    number: currentUser?.mobileNumber?.number ?? ''
+                },
+                country: currentUser?.country ?? '',
+                dateOfBirth: currentUser?.dateOfBirth ?? '',
+                zodiacSign: currentUser?.zodiacSign ?? '',
+                website: currentUser?.website ?? '',
+                socialLinks: {
+                    facebook: currentUser?.socialLinks?.facebook ?? '',
+                    twitter: currentUser?.socialLinks?.twitter ?? '',
+                    linkedIn: currentUser?.socialLinks?.linkedIn ?? '',
+                    instagram: currentUser?.socialLinks?.instagram ?? '',
+                    youtube: currentUser?.socialLinks?.youtube ?? '',
+                },
+                description: currentUser?.description ?? '',
+            })
+            setUploadedFile(true);
+        } else {
+            handleReset();
+        }
+    }, [profileEdit, currentUser, location.pathname]);
 
     // console.log('values ->', values);
     // console.log('touched ->', touched);
@@ -156,11 +190,20 @@ const useForm = validate => {
         }
     };
     const handleChangeFileCancel = () => {
-        setValues({
-            ...values,
-            profilePic: "",
-            profilePicURL: contact?.image ?? ""
-        });
+        if(location.pathname === "/profile") {
+            setValues({
+                ...values,
+                profilePic: '',
+                profilePicURL: currentUser?.image ?? '',
+            });
+        }
+        else {
+            setValues({
+                ...values,
+                profilePic: "",
+                profilePicURL: contact?.image ?? ""
+            });
+        }
     };
     const handleChangeFileUpload = () => {
         setUploadedFile(true);
@@ -304,39 +347,67 @@ const useForm = validate => {
 
 
     const handleReset = () => {
-        setValues({
-            profilePic: "",
-            profilePicURL: "",
-            favorite: false,
-            name: "",
-            nickName: "",
-            title: "",
-            company: "",
-            email: "",
-            mobileNumber: {
-                code: "",
-                number: ""
-            },
-            telephoneNumber: {
-                code: "",
-                number: ""
-            },
-            country: "",
-            dateOfBirth: "",
-            address: "",
-            relationship: "",
-            zodiacSign: "",
-            tags: [],
-            website: "",
-            socialLinks: {
-                facebook: "",
-                twitter: "",
-                linkedIn: "",
-                instagram: "",
-                youtube: "",
-            },
-            description: "",
-        });
+        if(profileEdit) {
+            setValues({
+                ...values,
+                profilePic: '',
+                profilePicURL: '',
+                name: '',
+                email: '',
+                mobileNumber: {
+                    code: '',
+                    number: ''
+                },
+                country: '',
+                dateOfBirth: '',
+                zodiacSign: '',
+                website: '',
+                socialLinks: {
+                    facebook: '',
+                    twitter: '',
+                    linkedIn: '',
+                    instagram: '',
+                    youtube: '',
+                },
+                description: '',
+            })
+        } 
+        else {
+            setValues({
+                ...values,
+                profilePic: "",
+                profilePicURL: "",
+                favorite: false,
+                name: "",
+                nickName: "",
+                title: "",
+                company: "",
+                email: "",
+                mobileNumber: {
+                    code: "",
+                    number: ""
+                },
+                telephoneNumber: {
+                    code: "",
+                    number: ""
+                },
+                country: "",
+                dateOfBirth: "",
+                address: "",
+                relationship: "",
+                zodiacSign: "",
+                tags: [],
+                website: "",
+                socialLinks: {
+                    facebook: "",
+                    twitter: "",
+                    linkedIn: "",
+                    instagram: "",
+                    youtube: "",
+                },
+                description: "",
+            });
+        }
         setTouched({});
         setUploadedFile(false);
         setErrors({});
@@ -380,6 +451,12 @@ const useForm = validate => {
                     handleReset();
                 }
             }
+            if(location.pathname === "/profile") {
+                dispatch(updateUser(values));
+                if (updateUserError === '') {
+                    handleReset();
+                }
+            }
         }
         else if (errors?.name?.split(' ')?.[0].toLowerCase() === PLEASE
             || errors?.email?.split(' ')?.[0].toLowerCase() === PLEASE
@@ -420,7 +497,8 @@ const useForm = validate => {
 
         handleReset,
         handleSubmit,
-        uploadedFile, touched, errors
+        uploadedFile, touched, errors, 
+        profileEdit, setProfileEdit
     }
 };
 

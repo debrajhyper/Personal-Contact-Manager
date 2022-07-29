@@ -42,7 +42,7 @@ public class ContactController {
 		String email = principal.getName();
 		this.contactService.addContact(contact, profilePic, email);
 		
-		return new ResponseEntity<String>("Contact Added Successfully", HttpStatus.OK);
+		return new ResponseEntity<String>("Contact Added Successfully", HttpStatus.CREATED);
 	}
 	
 	

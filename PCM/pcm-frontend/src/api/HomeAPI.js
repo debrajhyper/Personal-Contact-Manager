@@ -8,14 +8,19 @@ export const CURRENT_USER_URL = "/current-user";
 export const ADD_CONTACT_URL = "/add-contact";
 export const VIEW_CONTACTS_URL = "/view-contacts/";
 export const VIEW_CONTACT_URL = "/view-contact/";
-// export const EDIT_CONTACT_URL = "/view-contact/";
 export const DELETE_SELECTED_CONTACTS_URL = "/delete-selected-contacts/";
 export const DELETE_CONTACT_URL = "/delete-contact/";
 export const SEARCH_CONTACT_URL = "/search/";
 export const UPDATE_CONTACT_URL = "/update-contact";
+export const UPDATE_USER_URL = "/update-user";
 
 const TOKEN_HEADER = 'Authorization';
 
+export const config = {
+    headers: {
+        'content-type': 'multipart/form-data; boundary=<calculated when request is sent>'
+    }
+}
 
 export default axios.create({
     baseURL: BASE_URL,

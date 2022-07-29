@@ -15,7 +15,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -25,6 +27,7 @@ import javax.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -55,15 +58,29 @@ public class User implements UserDetails {
 	private String name;
 
 	@Column(unique = true)
-	@NotBlank(message = "Email field is required")
+	@NotBlank(message = "Email address is required.")
 	@Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
 	private String email;
 
-	@NotBlank(message = "Password field is required")
+	@NotBlank(message = "Password is required.")
 	private String password;
 	
+	private String image;
+	
+	@Valid
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private UserMobileNumber mobileNumber;
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private UserCountryName country;
+	
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	private String dateOfBirth;
+	
+	private String zodiacSign;
+	
 	@NotNull
-	@AssertTrue
+	@AssertTrue(message = "Please accept our terms and conditions.")
 	private boolean agreement;
 	
 	private boolean enabled;
@@ -74,10 +91,14 @@ public class User implements UserDetails {
 	
 	private int totalContacts;
 	
-	private String image;
-
 	@Column(length = 500)
-	private String about;
+	private String description;
+	
+	private String website;
+	
+	@Valid
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private UserSocialLinks socialLinks;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

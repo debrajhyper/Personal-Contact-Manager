@@ -8,6 +8,7 @@ import viewContactReducer from './contact/viewContact/viewContactReducer';
 import deleteContactReducer from './contact/deleteContact/deleteContactReducer';
 import searchContactReducer from './contact/searchContact/searchContactReducer';
 import updateContactReducer from './contact/updateContact/updateContactReducer';
+import updateUserReducer from './user/updateUser/updateUserReducer';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     deleteContact: deleteContactReducer,
     searchContact: searchContactReducer,
     updateContact: updateContactReducer,
+    updateUser: updateUserReducer,
 });
 
 export default rootReducer;

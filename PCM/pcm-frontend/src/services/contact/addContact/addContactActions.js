@@ -1,13 +1,7 @@
 import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./addContactTypes";
-import { axiosPrivate, ADD_CONTACT_URL } from "../../../api/HomeAPI";
+import { axiosPrivate, ADD_CONTACT_URL, config } from "../../../api/HomeAPI";
 import { toast } from "react-toastify";
 import { createFormData } from "../../../validation/FormData";
-
-const config = {
-    headers: {
-        'content-type': 'multipart/form-data; boundary=<calculated when request is sent>'
-    }
-}
 
 export const addContact = (contact) => {
     return dispatch => {

@@ -1,27 +1,28 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./updateContactTypes";
-import { axiosPrivate, UPDATE_CONTACT_URL, config } from "../../../api/HomeAPI";
+import { UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAILURE } from './updateUserTypes';
+import { axiosPrivate, UPDATE_USER_URL, config } from '../../../api/HomeAPI';
 import { toast } from "react-toastify";
-import { createFormData } from "../../../validation/FormData";
+import { createFormData } from '../../../validation/FormData';
 
-export const updateContact = (contact) => {
+export const updateUser = (user) => {
     return dispatch => {
-        dispatch(updateContactRequest());
-        const toastLoading = toast.loading("Uploading data to the server...")
+        dispatch(updateUserRequest());
+        const toastLoading = toast.loading("Uploading data to the server...");
 
-        const data = createFormData(contact);
+        const data = createFormData(user);
         let formObject = Object.fromEntries(data.entries());
         console.log('SENDING CONTACT DATA -> ', formObject);
 
-        axiosPrivate.post(UPDATE_CONTACT_URL, data, config)
+        axiosPrivate.post(UPDATE_USER_URL, data, config)
         .then(response => {
-            dispatch(updateContactSuccess(response?.data));
+            console.log('RESPONSE DATA -> ', response?.data);
+            dispatch(updateUserSuccess(response?.data));
             setTimeout(() => {
-                dispatch(updateContactFailure(''));
+                dispatch(updateUserFailure(''));
             }, 1000);
             toast.update(
                 toastLoading,
                 {
-                    render: "Contact Updated successfully.",
+                    render: response?.data,
                     type: "success",
                     position: "top-right",
                     isLoading: false,
@@ -37,7 +38,8 @@ export const updateContact = (contact) => {
             );
         })
         .catch(error => {
-            dispatch(updateContactFailure(error?.response?.data?.message));
+            console.log('ERROR DATA -> ', error?.response?.data);
+            dispatch(updateUserFailure(error?.response?.data?.message));
             const errorMessage = error?.response?.data?.errors ? error?.response?.data?.errors?.[0]?.defaultMessage : error?.response?.data?.message?.length > 100 ? 'Something went wrong' : error?.response?.data?.message;
             toast.update(
                 toastLoading,
@@ -58,26 +60,26 @@ export const updateContact = (contact) => {
             );
         })
     }
-};
+}
 
-const updateContactRequest = () => {
+const updateUserRequest = () => {
     return {
-        type: CONTACT_REQUEST
+        type: UPDATE_USER_REQUEST
     }
 };
 
-const updateContactSuccess = (contact) => {
+const updateUserSuccess = (message) => {
     return {
-        type: CONTACT_SUCCESS,
-        payload: contact,
+        type: UPDATE_USER_SUCCESS,
+        payload: message,
         error: ''
     }
 };
 
-const updateContactFailure = (error) => {
+const updateUserFailure = (error) => {
     return {
-        type: CONTACT_FAILURE,
-        payload: {},
+        type: UPDATE_USER_FAILURE,
+        payload: '',
         error: error
     }
 }

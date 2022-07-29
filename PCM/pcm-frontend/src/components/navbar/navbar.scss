@@ -32,14 +32,24 @@
 			}
 			.slidebar_ico {
 				// margin-left: 5px;
-				padding: .5em;
+				padding: .3em;
 				border-radius: 5px;
 				margin-left: .0em;
 				cursor: pointer;
 				transition: all 0.2s ease-in-out;
+				svg {
+					path {
+						stroke: $white;
+					}
+				}
 				&:hover {
 					background: $white-light;
 					color: $base;
+					svg {
+						path {
+							stroke: $base;
+						}
+					}
 				}
 				@media screen and (max-width: $mobile) {
 					margin-left: 1.5em;
@@ -70,9 +80,25 @@
 						align-items: center;
 						justify-content: center;
 						padding: .4em 1em;
-						img {
+						.img_container {
+							position: relative;
+							display: inline-block;
+							margin-right: 6px;
 							height: 3.3em;
-							margin-right: 8px;
+							width: 100em;
+							max-width: 3.3em;
+
+							img.profile_pic {
+								// height: 3.3em;
+								display: inline;
+								margin: 0 auto;
+								height: 100%;
+								width: 100%;
+								background-color: $white;
+								border: 2px solid $white;
+								border-radius: 50%;
+								object-fit: cover;
+							}
 						}
 						.details {
 							text-transform: capitalize;

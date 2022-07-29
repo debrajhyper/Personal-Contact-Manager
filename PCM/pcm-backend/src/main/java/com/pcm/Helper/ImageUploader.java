@@ -17,10 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pcm.Constant.AppConstant;
 import com.pcm.Model.Contact;
+import com.pcm.Model.User;
 
 public class ImageUploader {
 	private MultipartFile imageFile;
-	private String imageName = "default.png";
+	private String imageName = AppConstant.DEFAULT_IMAGE;
 
 	public ImageUploader() {
 		// TODO Auto-generated constructor stub
@@ -36,7 +37,7 @@ public class ImageUploader {
 			System.out.println("IMAGE FILE EMPTY");
 			contact.setImage(imageName);
 		} 
-		else if(!imageFile.getContentType().equals("image/jpeg") && !imageFile.getContentType().equals("image/png")) {
+		else if(!imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_JPEG) && !imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_PNG)) {
 			throw new ValidationException("Only JPEG/PNG content type are allowed.");
 		} 
 		else {
@@ -53,12 +54,12 @@ public class ImageUploader {
 	
 	public void updateImage(Contact oldContact, Contact contact) throws IOException {
 		if(imageFile != null && !imageFile.isEmpty()) {
-			if(!imageFile.getContentType().equals("image/jpeg") && !imageFile.getContentType().equals("image/png")) {
+			if(!imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_JPEG) && !imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_PNG)) {
 				throw new ValidationException("Only JPEG/PNG content type are allowed.");
 			}
 			else {				
 				//DELETE OLD IMAGE
-				if(oldContact.getImage() != "default.png") {
+				if(oldContact.getImage() != AppConstant.DEFAULT_IMAGE) {
 					deleteImageFromLocation(AppConstant.SET_UPLOAD_LOCATION, oldContact);
 				}
 				
@@ -75,6 +76,33 @@ public class ImageUploader {
 		}
 		else {
 			contact.setImage(oldContact.getImage());
+		}
+	}
+	
+	public void updateImage(User oldUser, User user) throws IOException {
+		if(imageFile != null && !imageFile.isEmpty()) {
+			if(!imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_JPEG) && !imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_PNG)) {
+				throw new ValidationException("Only JPEG/PNG content type are allowed.");
+			}
+			else {				
+				//DELETE OLD IMAGE
+				if(oldUser.getImage() != AppConstant.DEFAULT_IMAGE) {
+					deleteImageFromLocation(AppConstant.SET_UPLOAD_LOCATION, oldUser);
+				}
+				
+				//UPDATE NEW IMAGE
+				imageName = setImageName();
+				
+				System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
+				user.setImage(imageName);
+				
+				uploadImageToLocation(AppConstant.SET_UPLOAD_LOCATION);
+				
+				System.out.println("IMAGE FILE SUCCESSFULLY UPLOADED");
+			}
+		}
+		else {
+			user.setImage(oldUser.getImage());
 		}
 	}
 	
@@ -109,6 +137,13 @@ public class ImageUploader {
 	public void deleteImageFromLocation(String location, Contact oldContact) throws IOException {
 		File deleteFileLocation = new ClassPathResource(location).getFile();
 		File delleteFile = new File(deleteFileLocation, oldContact.getImage());
+		
+		delleteFile.delete();
+	}
+	
+	public void deleteImageFromLocation(String location, User oldUser) throws IOException {
+		File deleteFileLocation = new ClassPathResource(location).getFile();
+		File delleteFile = new File(deleteFileLocation, oldUser.getImage());
 		
 		delleteFile.delete();
 	}

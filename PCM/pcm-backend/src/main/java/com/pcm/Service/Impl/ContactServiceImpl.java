@@ -42,6 +42,8 @@ public class ContactServiceImpl implements ContactService {
 	private ContactRepository contactRepository;
 	
 
+	
+	
 	@Override
 	public void addContact(Contact contact, MultipartFile profilePic, String email) throws Exception {
 		// TODO Auto-generated method stub

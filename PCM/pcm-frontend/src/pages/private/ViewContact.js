@@ -27,8 +27,6 @@ import { FaUserEdit, FaAt, FaPhoneAlt, FaHeart, FaUserTag, FaUserShield, FaGlobe
 import { Container, Row, Col } from 'react-bootstrap';
 import { viewContact, deleteContact, viewContacts } from '../../services/index';
 
-const tags = ['asd','cool','awesome','funny','cool','awesome','funny', 'lol', 'friends', 'family', 'friends', 'family']
-
 
 const ViewContact = () => {
     const [modalEditProfile, setModalEditProfile] = useState(false);
