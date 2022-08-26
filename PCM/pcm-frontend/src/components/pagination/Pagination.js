@@ -13,14 +13,19 @@ import { FaAngleDoubleLeft, FaAngleLeft, FaAngleRight, FaAngleDoubleRight, FaEll
 
 
 import { useDispatch, useSelector } from 'react-redux';
-import { viewContacts } from '../../services';
+import { viewContacts, setMinMaxPageNumberLimit } from '../../services/index';
 
-const Pagination = ({ itemPerPage, pageNumberLimit, maxPageNumberLimit, setMaxPageNumberLimit, minPageNumberLimit, setMinPageNumberLimit }) => {
+const Pagination = () => {
     var pages = [];
     const dispatch = useDispatch();
     const totalContacts = useSelector(state => state.viewContacts.totalContacts);
     const currentPageDb = useSelector(state => state.viewContacts.page);
     const currentPage = currentPageDb + 1;
+
+    const itemPerPage = useSelector(state => state.pagination.itemPerPage);
+    const pageNumberLimit = useSelector(state => state.pagination.pageNumberLimit);
+    const minPageNumberLimit = useSelector(state => state.pagination.minPageNumberLimit);
+    const maxPageNumberLimit = useSelector(state => state.pagination.maxPageNumberLimit);
 
     
     for(let i=1; i<=Math.ceil(totalContacts/itemPerPage); i++) {
@@ -36,49 +41,63 @@ const Pagination = ({ itemPerPage, pageNumberLimit, maxPageNumberLimit, setMaxPa
     };
     const handleFirstBtn = () => {
         setCurrentPage(1);
-        setMinPageNumberLimit(0);
-        setMaxPageNumberLimit(3);
+        // setMinPageNumberLimit(0);
+        // setMaxPageNumberLimit(3);
+        dispatch(setMinMaxPageNumberLimit(0, 3));
     };
     const handlePrevBtn = () => {
         setCurrentPage(currentPage - 1);
-        if((currentPage -1)%pageNumberLimit === 0) {
-            setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
-            setMaxPageNumberLimit(minPageNumberLimit);
+        if((currentPage - 1) % pageNumberLimit === 0) {
+            // setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+            // setMaxPageNumberLimit(minPageNumberLimit);
+            dispatch(setMinMaxPageNumberLimit(minPageNumberLimit - pageNumberLimit, minPageNumberLimit));
         }
     };
-    const renderPageNumbers = pages.map(number => {
-        if(number < maxPageNumberLimit+1 && number > minPageNumberLimit) {
-            // console.log(currentPage, number, maxPageNumberLimit+1, minPageNumberLimit);
-            return (
-                <li key={number}>
-                    <button
-                        id={number}
-                        className={currentPage === number ? "active" : null}
-                        onClick={handleClick}
-                    >
-                        {number}
-                    </button>
-                </li>
-            );
-        } else {
-            return null;
-        }
-    });
+    const renderPageNumbers = () => {
+        return pages.map(number => {
+            if(number > minPageNumberLimit && number < maxPageNumberLimit + 1) {
+                // console.log(' CURRENT PAGE -> ', currentPage, 
+                //             ' PAGE NUMBER -> ', number, 
+                //             ' MIN PAGE -> ', minPageNumberLimit, 
+                //             ' MAX PAGE -> ', maxPageNumberLimit + 1
+                //             )
+                return (
+                    <li key={number}>
+                        <button
+                            id={number}
+                            className={currentPage === number ? "active" : null}
+                            onClick={handleClick}
+                        >
+                            {number}
+                        </button>
+                    </li>
+                );
+            } else {
+                return null;
+            }
+        });
+    }
     const handleNextBtn = () => {
         setCurrentPage(currentPage + 1);
         if(currentPage+1 > maxPageNumberLimit) {
-            setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-            setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+            // setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+            // setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+            dispatch(setMinMaxPageNumberLimit(minPageNumberLimit + pageNumberLimit, maxPageNumberLimit + pageNumberLimit));
         }
     };
     const handleLastBtn = () => {
-        // console.log(Math.floor(currentPage/itemPerPage), itemPerPage);
-        // console.log(minPageNumberLimit + pageNumberLimit, maxPageNumberLimit + pageNumberLimit)
-        // console.log((Math.ceil(totalContacts/itemPerPage)-Math.floor(Math.ceil(totalContacts/itemPerPage)/pageNumberLimit))+1, Math.ceil(totalContacts/itemPerPage))
+        // console.log('CURRENT PAGE -> ', Math.ceil(totalContacts/itemPerPage))
+        // console.log('MIN PAGE -> ', minPageNumberLimit + pageNumberLimit)
+        // console.log('MAX PAGE LIMIT BEFORE -> ', maxPageNumberLimit)
+        // console.log('MAX PAGE -> ', maxPageNumberLimit + pageNumberLimit)
+
         setCurrentPage(Math.ceil(totalContacts/itemPerPage));
 
-        setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-        setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+        if(Math.ceil(totalContacts/itemPerPage) > maxPageNumberLimit) {
+            // setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+            // setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+            dispatch(setMinMaxPageNumberLimit(minPageNumberLimit + pageNumberLimit, maxPageNumberLimit + pageNumberLimit));
+        }
 
         // setMinPageNumberLimit(Math.floor(currentPage/itemPerPage))
         
@@ -120,7 +139,7 @@ const Pagination = ({ itemPerPage, pageNumberLimit, maxPageNumberLimit, setMaxPa
                         <FaEllipsisH />
                     </button>
                 </li>
-                {renderPageNumbers}
+                { renderPageNumbers() }
                 <li>
                     <button 
                         className={` ${maxPageNumberLimit >= pages.length ? "disabled" : null}`}

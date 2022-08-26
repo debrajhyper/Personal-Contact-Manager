@@ -16,7 +16,7 @@ import trash from 'react-useanimations/lib/trash';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { viewContact, logoutUser, viewContacts, deleteSelectedContacts } from '../../services/index';
+import { viewContact, logoutUser, viewContacts, deleteSelectedContacts, setMinMaxPageNumberLimit } from '../../services/index';
 
 const ViewContacts = () => {
     const navigate = useNavigate();
@@ -29,13 +29,17 @@ const ViewContacts = () => {
     const deleteContactDone = useSelector(state => state.deleteContact.success);
     const allDeleted = useSelector(state => state.deleteContact.allDeleted);
 
+    const itemPerPage = useSelector(state => state.pagination.itemPerPage);
+    const pageNumberLimit = useSelector(state => state.pagination.pageNumberLimit);
+    const minPageNumberLimit = useSelector(state => state.pagination.minPageNumberLimit);
+
 //     const [users, setUsers] = useState(Users);
 //     const [searchResult, setSearchResult] = useState('');
 //     const [currentPage, setCurrentPage] = useState(1);
-    const [itemPerPage] = useState(10);
-    const [pageNumberLimit] = useState(3);
-    const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
-    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
+    // const [itemPerPage] = useState(10);
+    // const [pageNumberLimit] = useState(3);
+    // const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+    // const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
     const [deleteIds, setDeleteIds] = useState([]);
 
     const indexOfLastItem = currentPage+1 * itemPerPage;  //  Calculate the index of the last item in the current page.
@@ -47,6 +51,12 @@ const ViewContacts = () => {
         if (auth.isLoggedIn) {
             if(deleteContactDone && allDeleted === contacts.length) {
                 dispatch(viewContacts(currentPage - 1));
+                if((currentPage - 1) % pageNumberLimit === 0) {
+                    dispatch(setMinMaxPageNumberLimit(minPageNumberLimit - pageNumberLimit, minPageNumberLimit));
+                }
+                else {
+                    dispatch(setMinMaxPageNumberLimit(0, 3));
+                }
             } 
             else if(deleteContactDone && allDeleted !== contacts.length) {
                 dispatch(viewContacts(currentPage));
@@ -98,14 +108,7 @@ const ViewContacts = () => {
                     </div>
                     <DisplayTable deleteIds={deleteIds} setDeleteIds={setDeleteIds} indexOfFirstItem={indexOfFirstItem} indexOfLastItem={indexOfLastItem} />
                     <div className={`text-center ${contacts.length !== 0 ? 'd-flex justify-content-center' : 'd-none'}`}>
-                        <Pagination
-                            itemPerPage={itemPerPage}
-                            pageNumberLimit={pageNumberLimit}
-                            minPageNumberLimit={minPageNumberLimit}
-                            setMinPageNumberLimit={setMinPageNumberLimit}
-                            maxPageNumberLimit={maxPageNumberLimit}
-                            setMaxPageNumberLimit={setMaxPageNumberLimit}
-                        />
+                        <Pagination />
                     </div>
                 </Col>
             </Row>
