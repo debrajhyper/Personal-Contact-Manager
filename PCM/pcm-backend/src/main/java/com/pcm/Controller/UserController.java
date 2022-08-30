@@ -32,8 +32,6 @@ public class UserController {
 	private UserService userService;
 	
 	
-	
-	
 	@PostMapping("/register")
 	public ResponseEntity<User> registerUser(@Valid @RequestBody User user) throws Exception {
 		System.out.println("==============================================================================================================================");
@@ -69,6 +67,7 @@ public class UserController {
 	
 	
 	
+	
 	@PostMapping("/update-user")
 	public ResponseEntity<String> updateUser(@Valid @ModelAttribute User user, @RequestParam(value = "profilePic", required = false) MultipartFile profilePic, Principal principal) throws Exception {
 		System.out.println("==============================================================================================================================");
@@ -77,6 +76,19 @@ public class UserController {
 		this.userService.updateUser(user, profilePic, email);
 		
 		return new ResponseEntity<String>("User updated successfully.", HttpStatus.OK);
+	}
+	
+	
+	
+	
+	@GetMapping("/logout-user")
+	public ResponseEntity<String> logoutUser(Principal principal) throws Exception {
+		System.out.println("==============================================================================================================================");
+
+		String email = principal.getName();
+		this.userService.logoutUser(email);
+		
+		return new ResponseEntity<String>("User logout successfully", HttpStatus.OK);
 	}
 
 }

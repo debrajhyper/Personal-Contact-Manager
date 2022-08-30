@@ -1,4 +1,5 @@
 export * from './user/auth/authActions';
+export * from './user/forgotPassword/sendOTP/sendOTPActions';
 export * from './user/register/registerActions';
 export * from './user/userActions';
 export * from './contact/addContact/addContactActions';

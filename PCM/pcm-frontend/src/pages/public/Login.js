@@ -64,7 +64,7 @@ const Login = () => {
                                             <Form.Label className="label-agree-term m-0">Remember Me</Form.Label>
                                         </div>
                                     </Form.Group>
-                                    <Link to="/forgot" className="underline">Forgot Password?</Link>
+                                    <Link to="/forgot-password" className="underline">Forgot Password?</Link>
                                 </Container>
 
                                 <Form.Group className="action_button center">

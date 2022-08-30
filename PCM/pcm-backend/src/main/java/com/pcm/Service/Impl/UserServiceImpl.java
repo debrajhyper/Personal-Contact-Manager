@@ -39,8 +39,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RoleRepository roleRepository;
 	
-
-	
 	
 	@Override
 	public User registerUser(User user, Set<UserRole> userRoles) throws Exception {
@@ -189,6 +187,41 @@ public class UserServiceImpl implements UserService {
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
 			throw new DataFormatException(e.getMessage());
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new Exception("Oops... Something went wrong.");
+		}
+	}
+
+
+
+
+	@Override
+	public void logoutUser(String email) throws Exception {
+		// TODO Auto-generated method stub
+		try {			
+			User sessionUser = this.userRepository.findByUserName(email);
+			if(sessionUser != null) {				
+				System.out.println("DB USER ID -> " + sessionUser.getId());
+				
+				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+				sessionUser.setLastLogin(timestamp);
+				this.userRepository.save(sessionUser);
+				
+				System.out.println("SUCCESS =================== > LOGOUT USER : " + sessionUser.getName());
+			}
+			else {
+				throw new UsernameNotFoundException("Sorry, we couldn't find an account with that email address");
+			}
+		} 
+		catch (UsernameNotFoundException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new UsernameNotFoundException(e.getMessage());
 		}
 		catch (Exception e) {
 			// TODO: handle exception

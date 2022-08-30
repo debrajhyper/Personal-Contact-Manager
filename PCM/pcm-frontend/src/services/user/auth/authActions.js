@@ -1,6 +1,7 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST } from './authTypes';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_ACTION } from './authTypes';
 import axios, { axiosPrivate } from '../../../api/HomeAPI';
-import { LOGIN_URL } from '../../../api/HomeAPI';
+import { LOGIN_URL, LOGOUT_URL } from '../../../api/HomeAPI';
+import { toast } from "react-toastify";
 
 export const authenticationUser = (email, password) => {
     const credentials = {
@@ -28,6 +29,27 @@ export const authenticationUser = (email, password) => {
     };
 };
 
+export const logoutUser = to => {
+    return dispatch => {
+        dispatch(logoutAction());
+        
+        axiosPrivate.get(LOGOUT_URL)
+        .then(response => {
+            console.log(response?.data)
+            dispatch(loginFailure(false, "User logged out successfully."));
+            setTimeout(() => {
+                dispatch(loginFailure(false, ''));
+            }, 4000);
+            removeToken();
+            // window.location = to;
+        })
+        .catch(error => {
+            console.log(error?.response?.data)
+            toast.error(error?.response?.data?.message);
+        })
+    }
+}
+
 const loginRequest = () => {
     return {
         type: LOGIN_REQUEST
@@ -50,22 +72,26 @@ const loginFailure = (isLoggedIn, error) => {
     };
 };
 
+const logoutAction = () => {
+    return {
+        type: LOGOUT_ACTION
+    };
+};
+
 const setToken = token => {
-    axiosPrivate.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    // axiosPrivate.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return localStorage.setItem('jwtToken', token);
 };
 
-const logoutRequest = () => {
-    return {
-        type: LOGOUT_REQUEST
-    };
+const removeToken = () => {
+    return localStorage.removeItem('jwtToken');
 };
 
-export const logoutUser = (to) => {
-    return dispatch => {
-        dispatch(logoutRequest());
-        dispatch(loginSuccess(false));
-        localStorage.removeItem('jwtToken');
-        window.location = to;
-    };
-};
+
+// const logoutSuccess = (to) => {
+//     return {
+//         dispatch(loginSuccess(false));
+//         localStorage.removeItem('jwtToken');
+//         window.location = to;
+//     };
+// };

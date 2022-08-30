@@ -18,5 +18,8 @@ public interface UserService {
 	
 	//UPDATE USER
 	public void updateUser(User user, MultipartFile profilePic, String email) throws Exception;
+	
+	//LOGOUT USER
+	public void logoutUser(String email) throws Exception;
 
 }

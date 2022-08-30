@@ -19,6 +19,8 @@ import EditContact from './pages/private/EditContact';
 import Profile from './pages/private/Profile';
 import Settings from './pages/private/Settings';
 import Home from './pages/public/Home';
+import ForgotPassword from './pages/public/ForgotPassword';
+import VerifyOTP from './pages/public/VerifyOTP';
 
 
 // import Base from './pages/public/Base';
@@ -65,6 +67,8 @@ const App = () => {
                                 <Route path="/" element={<Home />} />
                                 <Route path="about" element={<About />} />
                                 <Route path="login" element={<Login />} />
+                                <Route path="forgot-password" element={<ForgotPassword />} />
+                                <Route path="verify-otp" element={<VerifyOTP />} />
                                 <Route path="signup" element={<Signup />} />
                                 <Route path="terms-conditions" element={<TermsConditions />} />
 

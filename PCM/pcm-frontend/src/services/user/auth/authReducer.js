@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST } from './authTypes';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_ACTION } from './authTypes';
 
 const token = localStorage.jwtToken;
 
@@ -28,10 +28,10 @@ const authReducer = (state = initialState, action) => {
                 isLoggedIn: action.payload,
                 logInError: action.error
             };
-        case LOGOUT_REQUEST:
+        case LOGOUT_ACTION:
             return {
                 ...state
-            };
+            }
         default:
             return state;
     }

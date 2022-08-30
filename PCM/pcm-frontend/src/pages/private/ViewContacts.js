@@ -14,7 +14,7 @@ import trash from 'react-useanimations/lib/trash';
 
 
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { viewContact, logoutUser, viewContacts, deleteSelectedContacts, setMinMaxPageNumberLimit } from '../../services/index';
 
@@ -85,6 +85,9 @@ const ViewContacts = () => {
         e.preventDefault();
         if(deleteIds.length > 0) {
             dispatch(deleteSelectedContacts(deleteIds));
+        }
+        else {
+            toast.info("Please select contacts to be deleted.")
         }
     };
     console.log('deleteId -> ', deleteIds);

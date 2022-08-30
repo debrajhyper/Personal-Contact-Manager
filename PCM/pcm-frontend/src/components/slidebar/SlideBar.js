@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { Nav } from 'react-bootstrap'
 import profileImage from "../../img/default.png";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../services/index';
 
 import './slidebar.scss'
@@ -17,10 +17,11 @@ import { Image } from 'react-bootstrap';
 const SlideBar = ({ slidebar }) => {
 
     const dispatch = useDispatch();
+    const { image } = useSelector(state => state.currentUser.currentUser);
     const icoSize = (slidebar ? icoMin : icoMax);
 
     const logoutHandler = () => {
-        dispatch(logoutUser('/'));
+        dispatch(logoutUser('/login'));
     }
 
     return (
@@ -34,7 +35,9 @@ const SlideBar = ({ slidebar }) => {
                     <Nav.Link as={NavLink} to={"/settings"}><FaUserCog size={icoSize}/><span>Settings</span></Nav.Link>
                 </Nav>
                 <footer>
-                    <Image src={profileImage} alt="profile_img"/>
+                    <div className='img_container'>
+                        <Image src={image ?? profileImage} className="profile_pic" alt="" />
+                    </div>
                     <div className="user-details" onClick={logoutHandler}>
                         <span>Logout</span>
                         <FaSignOutAlt size={24} title="Logout"/>

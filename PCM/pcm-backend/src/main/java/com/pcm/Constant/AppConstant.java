@@ -15,4 +15,10 @@ public class AppConstant {
 	
 	public static final String IMAGE_TYPE_PNG = "image/png";
 	
+	public static final String RANDOM_OTP = String.valueOf((int)((Math.random()*900000)+100000));
+	
+	public static final String PCM_EMAIL_ID = "projectnotification2021@gmail.com";
+	
+	public static final String PCM_EMAIL_PASS = "lbxkbsajxnsrvzrb";
+	
 }

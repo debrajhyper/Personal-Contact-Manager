@@ -37,6 +37,8 @@ public class AuthenticateController {
 	//GENERATE TOKEN
 	@PostMapping("/generate-token")
 	public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
+		System.out.println("==============================================================================================================================");
+		
 		try {
 			if(jwtRequest.getUsername() == "" || jwtRequest.getPassword() == "") {
 				throw new BadCredentialsException("Missing email address or passward");

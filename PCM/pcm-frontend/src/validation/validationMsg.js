@@ -53,6 +53,19 @@ export const loginValidate = values => {
     return errors;
 };
 
+export const ForgotPasswordValidate = values => {
+    const errors = {};
+    const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+    if (!values.email) {
+        errors.email = "Please Provide your Email Address";
+    } else if (!email_pattern.test(values.email)) {
+        errors.email = "Email Address Is Invalid";
+    }
+
+    return errors;
+};
+
 
 
 
