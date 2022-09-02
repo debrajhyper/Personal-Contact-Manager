@@ -44,7 +44,7 @@ const useForm = validate => {
     const [uploadedFile, setUploadedFile] = useState(false);
     const [errors, setErrors] = useState({});
     const [profileEdit, setProfileEdit] = useState(false);
-    const excluded = [null, undefined, "null", "undefined", "", " "];
+    // const excluded = [null, undefined, "null", "undefined", "", " "];
     // const mandatoryFields = ["name", "email", "mobileNumber"];
     const dispatch = useDispatch();
     const { cid } = useParams();
@@ -478,7 +478,7 @@ const useForm = validate => {
 
     return {
         values, setValues,
-        excluded,
+        // excluded,
         handleClick,
         handleEnter,
         handleChange,

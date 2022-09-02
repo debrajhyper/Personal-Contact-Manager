@@ -5,9 +5,9 @@ import { FaLock } from "react-icons/fa";
 import { Form } from 'react-bootstrap'
 import visibility2 from 'react-useanimations/lib/visibility2';
 
-const FormPassword = ({ cName, password, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
-    const exclude = [null, undefined, 'null', 'undefined', '', ' '];
+const FormPassword = ({ cName, label, password, functionChange, functionBlur, excluded, hasTouched, hasError, Mandatory }) => {
     const ref = useRef();
+
     const handlePasswordShow = () => {
         ref.current.type = ref.current.type === 'password' ? 'text' : 'password';
         // ref.current.focus();
@@ -24,10 +24,10 @@ const FormPassword = ({ cName, password, functionChange, functionBlur, hasTouche
                     value={password}
                     onChange={functionChange}
                     onBlur={functionBlur}
-                    className={hasTouched && hasError ? 'hasError' : (!exclude.includes(password) ? 'noError' : '')}
+                    className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(password) ? 'noError' : '')}
                     placeholder=" "
                 required />
-                <Form.Label><FaLock className="me-2" />Password{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
+                <Form.Label><FaLock className="me-2" />{label ?? 'Password'}{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                 <UseAnimations className='password-visibility' onClick={handlePasswordShow} animation={visibility2} reverse={true} />
             </div>
             {

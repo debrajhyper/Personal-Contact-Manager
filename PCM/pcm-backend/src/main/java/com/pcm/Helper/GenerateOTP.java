@@ -1,14 +1,12 @@
 package com.pcm.Helper;
 
-import com.pcm.Constant.AppConstant;
-
 public class GenerateOTP {
 	private String otp;
 
 	public GenerateOTP() {
 		super();
 		// TODO Auto-generated constructor stub
-		this.otp = AppConstant.RANDOM_OTP;
+		this.otp = String.valueOf((int)((Math.random()*900000)+100000));
 	}
 	
 	public GenerateOTP(String otp) {

@@ -1,12 +1,14 @@
 import { SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAILURE } from './sendOTPTypes';
 import axios, { SEND_OTP_URL } from '../../../../api/HomeAPI';
 
-export const sendOTP = (email) => {
+export const sendOTP = userEmail => {
     return dispatch => {
         dispatch(sendOTPRequest());
 
         axios.post(SEND_OTP_URL , null, {
-            params: email
+            params: {
+                email: userEmail
+            }
         })
         .then(response => {
             console.log(response.data)
@@ -15,12 +17,12 @@ export const sendOTP = (email) => {
                 dispatch(sendOTPSuccess(false, response?.data?.message, response?.data?.generatedOTP, response?.data?.maxInActiveInterval, response?.data?.email));
             }, 1000);
             setTimeout(() => {
-                dispatch(sendOTPFailure(''));
+                dispatch(sendOTPFailure(response?.data?.email, ''));
             }, response?.data?.maxInActiveInterval);
         })
         .catch(error => {
             console.log(error.response.data)
-            dispatch(sendOTPFailure(error?.response?.data?.message));
+            dispatch(sendOTPFailure('', error?.response?.data?.message));
         })
     }
 }
@@ -43,14 +45,14 @@ const sendOTPSuccess = (emailSent, message, generatedOTP, maxInActiveInterval, e
     };
 };
 
-const sendOTPFailure = error => {
+const sendOTPFailure = (email, error) => {
     return {
         type: SEND_OTP_FAILURE,
         emailSent: false,
         payload: '',
         generatedOTP: '',
         maxInActiveInterval: 0,
-        email: '',
+        email: email,
         error: error
     };
 };

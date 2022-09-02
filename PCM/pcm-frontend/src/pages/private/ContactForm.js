@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { editContact } from '../../services/index';
 
 import { FormAddress, FormName, FormEmail, RequiredStatement, FormCompany, FormCountry, FormDOB, FormMobileNo, FormNickName, FormProfilePic, FormRelationship, FormTags, ModalProfilePic, FormTelephoneNo, FormTitle, FormZodiacSign, FormWebsite, FormSocialLinks, FormNote, FormFavorite, ButtonNormal } from '../../components/index';
-import { contactValidate } from '../../validation/validationMsg';
+import { excluded, contactValidate } from '../../validation/validationMsg';
 import useForm from '../../validation/useForm';
 
 import '../../components/form-fields/form_fields.scss';
@@ -14,7 +14,7 @@ import { Row, Col, Form } from 'react-bootstrap';
 const ContactForm = () => {
     const { 
         values, 
-        excluded, 
+        // excluded, 
         handleClick, 
         handleEnter, 
         handleChange, 

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { registerUser } from '../../services/index';
 
 import { FormName, FormEmail, FormPassword, FormTextarea, FormAgrement, ButtonNormal, RequiredStatement } from '../../components/index';
-import { signupValidate } from '../../validation/validationMsg';
+import { excluded, signupValidate } from '../../validation/validationMsg';
 
 import guest_signup_register from '../../img/guest_signup_register.png';
 import guest_signup_register_left from '../../img/guest_signup_register_left.png';
@@ -81,9 +81,9 @@ const Signup = () => {
 
                             <Form className="register-form" onSubmit={formik.handleSubmit} method="post" noValidate>
                                 <RequiredStatement />
-                                <FormName name={formik.values.name} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={true} />
-                                <FormEmail email={formik.values.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
-                                <FormPassword password={formik.values.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true} />
+                                <FormName name={formik.values.name} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={true} />
+                                <FormEmail email={formik.values.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
+                                <FormPassword password={formik.values.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true} />
                                 <FormTextarea about={formik.values.description} functionChange={formik.handleChange} />
                                 <FormAgrement agreement={formik.values.agreement} functionChange={formik.handleChange} hasTouched={formik.touched.agreement} hasError={formik.errors.agreement} Mandatory={true} />
                                 <Form.Group className="action_button left">

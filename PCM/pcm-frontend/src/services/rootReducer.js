@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import authReducer from './user/auth/authReducer';
 import sendOTPReducer from './user/forgotPassword/sendOTP/sendOTPReducer';
+import verifyOTPReducer from './user/forgotPassword/verifyOTP/verifyOTPReducer';
 import registerReducer from './user/register/registerReducer';
 import userReducer from './user/userReducer';
 import addContactReducer from './contact/addContact/addContactReducer';
@@ -15,6 +16,7 @@ import updateUserReducer from './user/updateUser/updateUserReducer';
 const rootReducer = combineReducers({
     auth: authReducer,
     sendOTP: sendOTPReducer,
+    verifyOTP: verifyOTPReducer,
     register: registerReducer,
     currentUser: userReducer,
     addContact: addContactReducer,

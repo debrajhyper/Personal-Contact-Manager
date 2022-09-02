@@ -43,6 +43,24 @@ section.login {
                     text-align: center;
                 }
 
+                .details {
+                    font-size: 1.1rem;
+                    color: $text;
+                    font-weight: 500;
+
+                    ul {
+                        margin: 0;
+                        list-style-type: disc;
+                        li {
+                            padding: 2px 0;
+                            a {
+                                text-decoration: underline;
+                                color: $text;
+                            }
+                        }
+                    }
+                }
+
                 form.register-form {
                     padding: .5em;
                     .forgot-pass-link {
@@ -61,6 +79,31 @@ section.login {
                     .signup-link a {
                         font-size: 1.5rem;
                         color: $text;
+                    }
+                    .resend-otp {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        font-size: 1.1rem;
+                        font-weight: 500;
+                        color: $text;
+                        h5 {
+                            font-size: 1.4rem;
+                            font-weight: 600;
+                            margin: 0;
+                            cursor: pointer;
+                            
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+                        h5.disabled {
+                            opacity: 0.6;
+                            text-decoration: none;
+                            user-select: none;
+                            cursor: not-allowed;
+                            pointer-events: none;
+                        }
                     }
                 }
             }

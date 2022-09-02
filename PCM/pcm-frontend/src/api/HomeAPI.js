@@ -4,6 +4,8 @@ import jwtDecode from "jwt-decode";
 const BASE_URL = "http://localhost:1010";
 export const LOGIN_URL = "/generate-token";
 export const SEND_OTP_URL = "/send-otp";
+export const VERIFY_OTP_URL = "/verify-otp";
+export const RESET_PASSWORD_URL = "/reset-password";
 export const LOGOUT_URL = "/logout-user";
 export const SIGNUP_URL = "/register";
 export const CURRENT_USER_URL = "/current-user";

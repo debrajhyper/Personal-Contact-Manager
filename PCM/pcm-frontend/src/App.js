@@ -21,6 +21,7 @@ import Settings from './pages/private/Settings';
 import Home from './pages/public/Home';
 import ForgotPassword from './pages/public/ForgotPassword';
 import VerifyOTP from './pages/public/VerifyOTP';
+import ResetPassword from './pages/public/ResetPassword';
 
 
 // import Base from './pages/public/Base';
@@ -69,6 +70,7 @@ const App = () => {
                                 <Route path="login" element={<Login />} />
                                 <Route path="forgot-password" element={<ForgotPassword />} />
                                 <Route path="verify-otp" element={<VerifyOTP />} />
+                                <Route path="reset-password" element={<ResetPassword />} />
                                 <Route path="signup" element={<Signup />} />
                                 <Route path="terms-conditions" element={<TermsConditions />} />
 

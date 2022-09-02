@@ -3,6 +3,8 @@ export { default as ButtonNormal } from './buttons/ButtonNormal';
 
 export { default as DashboardCard } from './card/DashboardCard';
 
+export { default as Counter } from './counter/Counter';
+
 export { default as FormAddress } from './form-fields/FormAddress';
 export { default as FormAgrement } from './form-fields/FormAgrement';
 export { default as FormCompany } from './form-fields/FormCompany';
@@ -14,6 +16,7 @@ export { default as FormMobileNo } from './form-fields/FormMobileNo';
 export { default as FormName } from './form-fields/FormName';
 export { default as FormNickName } from './form-fields/FormNickName';
 export { default as FormNote } from './form-fields/FormNote';
+export { default as FormOTP } from './form-fields/FormOTP';
 export { default as FormPassword } from './form-fields/FormPassword';
 export { default as FormProfilePic } from './form-fields/FormProfilePic';
 export { default as FormRelationship } from './form-fields/FormRelationship';

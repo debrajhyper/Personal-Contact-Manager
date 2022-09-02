@@ -3,11 +3,11 @@ import { SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAILURE } from './sendOTPT
 const initialState = {
     loading: false,
     emailSent: false,
-    message: '',
+    sendOTPMessage: '',
     generatedOTP: '',
     maxInActiveInterval: 0,
     email: '',
-    error: ''
+    sendOTPError: ''
 }
 
 const sendOTPReducer = (state = initialState, action) => {
@@ -21,21 +21,21 @@ const sendOTPReducer = (state = initialState, action) => {
             return {
                 loading: false,
                 emailSent: action.emailSent,
-                message: action.payload,
+                sendOTPMessage: action.payload,
                 generatedOTP: action.generatedOTP,
                 maxInActiveInterval: action.maxInActiveInterval,
                 email: action.email,
-                error: action.error
+                sendOTPError: action.error
             };
         case SEND_OTP_FAILURE:
             return {
                 loading: false,
                 emailSent: action.emailSent,
-                message: action.payload,
+                sendOTPMessage: action.payload,
                 generatedOTP: action.generatedOTP,
                 maxInActiveInterval: action.maxInActiveInterval,
                 email: action.email,
-                error: action.error
+                sendOTPError: action.error
             };
         default:
             return state;

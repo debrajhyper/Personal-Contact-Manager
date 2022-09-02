@@ -2,6 +2,8 @@ import { CountryDetails } from "../components/misc/CountryDetails";
 import { RelationshipDetails } from "../components/misc/RelationshipDetails";
 import { zodiacDetails } from "../components/misc/ZodiacDetails";
 
+export const excluded = [null, undefined, "null", "undefined", "", " "];
+
 export const signupValidate = values => {
     const errors = {};
     const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -67,6 +69,19 @@ export const ForgotPasswordValidate = values => {
 };
 
 
+export const OtpValidate = values => {
+    const errors = {};
+
+    if(!values.otp) {
+        errors.otp = "Please provide the OTP";
+    } else if(values.otp.toString().length < 6 || values.otp.toString().length > 6) {
+        errors.otp = "Invalid OTP";
+    }
+
+    return errors;
+}
+
+
 
 
 export const contactValidate = values => { 
@@ -78,7 +93,7 @@ export const contactValidate = values => {
     const dateOfBirth_pattern = /^\d{4}-\d{2}-\d{2}$/;
     const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)$/gm
 
-    const excluded = [null, undefined, "null", "undefined", "", " "];
+    // const excluded = [null, undefined, "null", "undefined", "", " "];
 
     // console.log("-------------------> ",values)
 
@@ -218,7 +233,7 @@ export const userValidate = values => {
     const dateOfBirth_pattern = /^\d{4}-\d{2}-\d{2}$/;
     const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)$/gm
 
-    const excluded = [null, undefined, "null", "undefined", "", " "];
+    // const excluded = [null, undefined, "null", "undefined", "", " "];
 
     // console.log("-------------------> ",values)
 

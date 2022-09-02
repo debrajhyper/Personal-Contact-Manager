@@ -21,10 +21,11 @@ import com.pcm.Service.EmailService;
 @Service
 public class EmailServiceImpl implements EmailService {
 	
-	private static final String EMAIL_SUBJECT = "Verify your email on PCM";
-	private String userName;
 	private String email;
-	private String generatedOTP;	
+	private String userName;
+	private String generatedOTP;
+	private static final String EMAIL_SUBJECT = "Verify your email on PCM";
+	private String EMAIL_BODY;
 	
 	
 	
@@ -32,15 +33,19 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public void setDetails(String userName, String email, String generatedOTP) {
 		// TODO Auto-generated method stub
-		this.userName = userName;
 		this.email = email;
+		this.userName = userName;
 		this.generatedOTP = generatedOTP;
+		this.EMAIL_BODY = setEmailBody(userName, generatedOTP);
 	}
 	
 	
 	
 	
 	public String setEmailBody(String userName, String generatedOTP) {
+		System.out.println("USER NAME -> " + this.userName);
+		System.out.println("GENERATED OTP -> " + this.generatedOTP);
+		
 		String EMAIL_BODY = "<div style='padding:1em 0;'>"
 				+ "<div class='mail' style='height: 100%; width:93%; max-width:550px; overflow: auto; padding: 5% 4% 2%; margin:0 auto; background:#f2f1f1; border-radius:5px; font-size:1rem; font-weight:400; line-height:1.5; color:#415860;'>"
 				+ 	"<div style='margin-bottom:5%; color:#415860;'>"
@@ -52,15 +57,16 @@ public class EmailServiceImpl implements EmailService {
 				+		"<div style='text-align:center; margin-bottom: 10%;'>"
 				+			"<p style='margin-top:2em; color:#415860;'>Use the following OTP to complete your Login procedures.</p>"
 				+			"<h1 style='margin-top:0; font-weight:800; letter-spacing: .2em; font-size:2.5rem; margin-bottom:.2em; color:#415860;'>"+ generatedOTP +"</h1>"
-				+			"<p style='margin-top:0; font-size:1rem; color:#415860;'>OTP is valid for 5 minutes.</p>"
+				+			"<p style='margin-top:0; font-size:1rem; color:#415860;'>OTP is valid for 2 minutes.</p>"
 				+		"</div>"
 				+		"<p style='padding: 2% 0; margin-top:0; font-size:1em; font-weight400; line-height:1.5; color:#415860;'>"
 				+			"If you did not initiate this request, please contact us immediately at "
 				+			"<a href='projectnotification2021@gmail.com'>projectnotification2021@gmail.com</a>"
 				+		"</p>"
 				+		"<div style='margin-top: 6%; font-size: 1rem; color: #17a395;'>"
-				+			"<p style='margin:0;'>Thank You,</p>"
+				+			"<p style='margin:0;'>Regards,</p>"
 				+			"<p style='margin:0;'>Debraj Karmakar</p>"
+				+			"<p style='margin:0;'>Personal Contact Manager</p>"
 				+		"</div>"
 				+	"</div>"
 				+	"<div style='text-align: center; margin-top: 10%;'>"
@@ -68,7 +74,7 @@ public class EmailServiceImpl implements EmailService {
 				+			"<h3 style='margin: 0; color:#415860; font-size:2rem; font-weight:800;'>PCM</h3>"
 				+			"<h6 style='margin:0 0 5%; font-size:.8rem; color:#415860;'>Send with Confidence</h6>"
 				+		"</div>"
-				+		"<p style='color: #b0b0b0;'>© Personal Contact manager inc. 2021 &#10084; India</p>"
+				+		"<p style='color: #b0b0b0;'>© Personal Contact Manager inc. 2021 &#10084; India</p>"
 				+	"</div>"
 				+ "</div>"
 				+"</div>";
@@ -82,28 +88,17 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public boolean sendEmail() throws Exception {
 		// TODO Auto-generated method stub
-		boolean f = false;
+		boolean emailSent = false;
 		
-		String from = AppConstant.PCM_EMAIL_ID;
-		//variable for gMail host
+		String sender = AppConstant.PCM_EMAIL_ID;
 		String host = "smtp.gmail.com";
 		
-		
-		
-		//get the system properties
 		Properties properties = System.getProperties();
-		/* System.out.println("PROPERTIES -> " + properties); */
-		
-		//setting imp info to properties object
-		//host set [key, value]
 		properties.put("mail.smtp.host", host);
-		properties.put("mail.smtp.post", "465"); //google gmail port
-		properties.put("mail.smtp.ssl.enable", "true"); //ssl enale
-		properties.put("mail.smtp.auth", "true"); //auth true
+		properties.put("mail.smtp.post", "465");	//GOOGLE GMAIL PORT
+		properties.put("mail.smtp.ssl.enable", "true");		//SSL ENABLE
+		properties.put("mail.smtp.auth", "true");	//AUTH TRUE
 		
-		
-		
-		//step 1: to get the session object
 		Session session = Session.getInstance(properties, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -112,32 +107,17 @@ public class EmailServiceImpl implements EmailService {
 			}
 		});
 		
-		/* session.setDebug(true); */
-		
-		//step 2: compose the message [text, Multimedia]
 		MimeMessage mail = new MimeMessage(session);
-		
 		try {
-			//from email
-			mail.setFrom(from);
-			
-			//adding recipient to message
+			mail.setFrom(sender);
 			mail.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-			
-			//adding subject to message
 			mail.setSubject(EMAIL_SUBJECT);
+			mail.setContent(EMAIL_BODY, "text/html");
 			
-			//adding text to message
-			mail.setContent(setEmailBody(userName, generatedOTP), "text/html");
-			
-			//send
-			
-			//step 3 : send the message using Transport class
 			Transport.send(mail);
+			emailSent = true;
 			
-			System.out.println("Mail sent success.......................");
-			f = true;
-			
+			System.out.println("SUCCESS =================== > EMAIL SENT SUCCESSFULLY TO -> " + email);
 		} 
 		catch (AddressException e) {
 			// TODO: handle exception
@@ -158,7 +138,7 @@ public class EmailServiceImpl implements EmailService {
 			throw new Exception("Oops... Something went wrong.");
 		}
 				
-		return f;
+		return emailSent;
 	}
 
 }
