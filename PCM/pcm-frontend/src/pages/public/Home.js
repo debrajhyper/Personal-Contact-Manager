@@ -8,17 +8,17 @@ import '../../sass/public/home.scss';
 import { Button } from 'react-bootstrap';
 
 const Home = () => {
-    const auth = useSelector(state => state.auth);
+    const { isLoggedIn } = useSelector(state => state.auth);
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/dashboard";
 
     useEffect(() => {
-        if (auth.isLoggedIn) {
+        if (isLoggedIn) {
             navigate(from, { replace: true });
         }
-    }, [auth]);
+    }, [isLoggedIn, navigate, from]);
 
     return (
         <>

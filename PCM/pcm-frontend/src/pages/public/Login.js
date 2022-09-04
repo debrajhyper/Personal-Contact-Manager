@@ -3,22 +3,22 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { authenticationUser } from '../../services/index';
-
-import { FormEmail, FormPassword, ButtonNormal } from '../../components/index';
-import { excluded, loginValidate } from '../../validation/validationMsg';
+import { authenticationUser, clearResetPassword, clearSendOTP, clearVerifyOTP } from '../../services/index';
 
 import '../../sass/public/login.scss';
 import '../../components/form-fields/form_fields.scss';
 
+import { excluded, loginValidate } from '../../validation/validationMsg';
+
+import { FormEmail, FormPassword, ButtonNormal } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
-const validate = loginValidate;
-
 const Login = () => {
-    const auth = useSelector(state => state.auth);
+    const { loading, isLoggedIn, logInError } = useSelector(state => state.auth);
+    const { resetPasswordMessage } = useSelector(state => state.resetPassword);
+    
+    const validate = loginValidate;
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/dashboard";
@@ -35,10 +35,20 @@ const Login = () => {
     });
     
     useEffect(() => {
-        if (auth.isLoggedIn) {
+        if (isLoggedIn) {
             navigate(from, { replace: true });
         }
-    }, [auth]);
+    }, [isLoggedIn, navigate, from]);
+
+    useEffect(() => {
+        if(resetPasswordMessage !== '') {
+            dispatch(clearSendOTP());
+            dispatch(clearVerifyOTP());
+            setTimeout(() => {
+                dispatch(clearResetPassword());
+            }, 10000);
+        }
+    }, [resetPasswordMessage, dispatch])
 
     return (
         <>
@@ -51,7 +61,11 @@ const Login = () => {
                                 <h2 className="form-title">Log in to PCM</h2>
                             </Container>
 
-                            {auth?.logInError && <Alert className="alert-user-already-exists" variant="danger">{auth.logInError}</Alert>}
+                            {
+                                resetPasswordMessage
+                                ? <Alert className="alert-user-already-exists" variant="success">{resetPasswordMessage}</Alert>
+                                : logInError && <Alert className="alert-user-already-exists" variant={`${logInError === 'User logout successfully' ? 'success' : 'danger'}`}>{logInError}</Alert>
+                            }
 
                             <Form className="register-form" onSubmit={formik.handleSubmit} method="post" noValidate>
                                 <FormEmail email={formik.values?.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
@@ -68,7 +82,7 @@ const Login = () => {
                                 </Container>
 
                                 <Form.Group className="action_button center">
-                                    <ButtonNormal type="submit" name="login" id="Login" cName="form_submit fill px-5" value="Login" loading={auth.loading} />
+                                    <ButtonNormal type="submit" name="login" id="Login" cName="form_submit fill px-5" value="Login" loading={loading} />
                                 </Form.Group>
 
                                 <Container className="signup-link text-center mt-5 mb-3">

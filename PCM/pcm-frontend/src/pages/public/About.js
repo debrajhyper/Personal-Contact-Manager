@@ -4,17 +4,17 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const About = () => {
-    const auth = useSelector(state => state.auth);
+    const { isLoggedIn } = useSelector(state => state.auth);
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/dashboard";
 
     useEffect(() => {
-        if (auth.isLoggedIn) {
+        if (isLoggedIn) {
             navigate(from, { replace: true });
         }
-    }, [auth]);
+    }, [isLoggedIn,  from]);
     
     return (
         <>

@@ -4,7 +4,7 @@ const initialState = {
     loading: false,
     contacts: [],
     totalContacts: 0,
-    page: 0,
+    currentPage: 0,
     totalPages: 0,
     error: '',
 }
@@ -21,7 +21,7 @@ const viewContactsReducer = (state = initialState, action) => {
                 loading: false,
                 contacts: action.payload,
                 totalContacts: action.totalContacts,
-                page: action.page,
+                currentPage: action.page,
                 totalPages: action.totalPages,
                 error: action.error
             }
@@ -30,7 +30,7 @@ const viewContactsReducer = (state = initialState, action) => {
                 loading: false,
                 contacts: action.payload,
                 totalContacts: action.totalContacts,
-                page: action.page,
+                currentPage: action.page,
                 totalPages: action.totalPages,
                 error: action.error
             }

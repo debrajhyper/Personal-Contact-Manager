@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 const Settings = () => {
     return (
-        <div className=''>Settings</div>
+        <div className=''>Settings | Feature coming soon...</div>
     )
 }
 

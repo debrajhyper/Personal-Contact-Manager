@@ -1,5 +1,5 @@
-import { VERIFY_OTP_REQUEST, VERIFY_OTP_SUCCESS, VERIFY_OTP_FAILURE } from './verifyOTPTypes';
-import axios, { CHANGE_PASSWORD_URL, VERIFY_OTP_URL }  from '../../../../api/HomeAPI';
+import { VERIFY_OTP_REQUEST, VERIFY_OTP_CLEAR, VERIFY_OTP_SUCCESS, VERIFY_OTP_FAILURE } from './verifyOTPTypes';
+import axios, { VERIFY_OTP_URL }  from '../../../../api/HomeAPI';
 
 export const verifyOTP = (userEmail, userOTP, serviceOTP) => {
     return dispatch => {
@@ -20,20 +20,26 @@ export const verifyOTP = (userEmail, userOTP, serviceOTP) => {
         })
         .catch(error => {
             console.log(error.response.data);
-            dispatch(verifyOTPFailure(error.response.data.message));
+            dispatch(verifyOTPFailure(error?.response?.data?.message));
         })
     }
 }
 
-export const clearVerifyOTPError = () => {
+export const clearVerifyOTP = () => {
     return dispatch => {
-        dispatch(verifyOTPFailure(''));
+        dispatch(verifyOTPClear());
     }
 }
 
 const verifyOTPRequest = () => {
     return {
         type: VERIFY_OTP_REQUEST
+    };
+};
+
+const verifyOTPClear = () => {
+    return {
+        type: VERIFY_OTP_CLEAR
     };
 };
 

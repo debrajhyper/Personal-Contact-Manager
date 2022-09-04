@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { clearVerifyOTPError, sendOTP, verifyOTP } from '../../services/index';
+import { clearVerifyOTP, sendOTP, verifyOTP } from '../../services/index';
 
 import { excluded, OtpValidate } from '../../validation/validationMsg';
 
 import { FormOTP, ButtonNormal, Counter } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
-const validate = OtpValidate;
 
 const VerifyOTP = () => {
-    const { emailSent, sendOTPMessage, generatedOTP, email, maxInActiveInterval, sendOTPError } = useSelector(state => state.sendOTP);
+    const { sendOTPMessage, generatedOTP, email, maxInActiveInterval } = useSelector(state => state.sendOTP);
     const { loading, verifiedOTP, verifyOTPError } = useSelector(state => state.verifyOTP);
+    
+    const validate = OtpValidate;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
     const [timeRemaining, setTimeRemaining] = useState(maxInActiveInterval);
 
     const formik = useFormik({
@@ -25,7 +27,6 @@ const VerifyOTP = () => {
         },
         validate,
         onSubmit: values => {
-            console.log(values)
             dispatch(verifyOTP(email, values.otp, generatedOTP));
         },
     });
@@ -42,19 +43,18 @@ const VerifyOTP = () => {
     }, [email, navigate]);
 
     useEffect(() => {
-        console.log("otp verify -> " ,verifiedOTP)
         if(verifiedOTP) {
-            navigate("/reset-password")
+            navigate("/reset-password");
         }
     }, [verifiedOTP, navigate]);
 
     useEffect(() => {
-        dispatch(clearVerifyOTPError())
+        dispatch(clearVerifyOTP());
     }, [dispatch])
 
     useEffect(() => {
         if(timeRemaining <= 0) {
-            dispatch(clearVerifyOTPError())
+            dispatch(clearVerifyOTP());
         }
     }, [timeRemaining, dispatch])
 
@@ -93,8 +93,6 @@ const VerifyOTP = () => {
                                 <FormOTP otp={formik.values?.otp} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.otp} hasError={formik.errors.otp} Mandatory={true} />
                                 
                                 <Form.Group className='resend-otp'>
-                                    {/* <button disabled={maxInActiveInterval === 0 ? false : true} onClick={(e) => resend(e)}>Resend OTP</button> */}
-                                    {/* <ButtonNormal type="" name="otp" id="Otp" cName="form_submit p-1 px-3" value="Resend OTP" loading={loading} /> */}
                                     <h5 className={`${maxInActiveInterval !== 0 ? 'disabled' : ''}`} onClick={(e) => resendOTP(e)}>Resend OTP</h5>
                                     <Counter timeRemaining={timeRemaining} setTimeRemaining={setTimeRemaining} />
                                 </Form.Group>

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,10 +10,10 @@ import { excluded, ForgotPasswordValidate } from '../../validation/validationMsg
 import { FormEmail, ButtonNormal } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
-const validate = ForgotPasswordValidate;
-
 const ForgotPassword = () => {
-    const { loading, emailSent, generatedOTP, sendOTPError } = useSelector(state => state.sendOTP);
+    const { loading, emailSent, sendOTPError } = useSelector(state => state.sendOTP);
+    
+    const validate = ForgotPasswordValidate;
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

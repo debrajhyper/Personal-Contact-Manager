@@ -32,7 +32,7 @@ const SlideBar = ({ slidebar }) => {
                     <Nav.Link as={NavLink} to={"/view_contacts"}><FaAddressBook size={icoSize}/><span>View Contacts</span></Nav.Link>
                     <Nav.Link as={NavLink} to={"/add_contact"}><FaIdBadge size={icoSize}/><span>Add Contact</span></Nav.Link>
                     <Nav.Link as={NavLink} to={"/profile"}><FaAddressCard size={icoSize}/><span>Profile</span></Nav.Link>
-                    <Nav.Link as={NavLink} to={"/settings"}><FaUserCog size={icoSize}/><span>Settings</span></Nav.Link>
+                    {/* <Nav.Link as={NavLink} to={"/settings"}><FaUserCog size={icoSize}/><span>Settings</span></Nav.Link> */}
                 </Nav>
                 <footer>
                     <div className='img_container'>

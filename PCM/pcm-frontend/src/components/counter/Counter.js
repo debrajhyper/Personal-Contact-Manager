@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux';
 
-const Counter = ({timeRemaining, setTimeRemaining}) => {
-    const { loading, emailSent, sendOTPMessage, generatedOTP, email, maxInActiveInterval, sendOTPError } = useSelector(state => state.sendOTP);
-    // const [timeRemaining, setTimeRemaining] = useState(maxInActiveInterval);
+const Counter = ({ timeRemaining, setTimeRemaining }) => {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
 
-    // countdown timer
     useEffect(() => {
         if (timeRemaining < 0) return;
         const intervalId = setInterval(() => {
             setTimeRemaining(timeRemaining - 1000);
-            
+
             setSeconds(Math.floor((timeRemaining / 1000) % 60));
             setMinutes(Math.floor((timeRemaining / 1000 / 60) % 60));
         }, 1000);
+
         return () => clearInterval(intervalId);
-    }, [timeRemaining]);
+    }, [timeRemaining, setTimeRemaining]);
 
     return (
         <div className="counter">

@@ -5,7 +5,7 @@ import { FaLock } from "react-icons/fa";
 import { Form } from 'react-bootstrap'
 import visibility2 from 'react-useanimations/lib/visibility2';
 
-const FormPassword = ({ cName, label, password, functionChange, functionBlur, excluded, hasTouched, hasError, Mandatory }) => {
+const FormPassword = ({ cName, label, name, password, functionChange, functionBlur, excluded, hasTouched, hasError, Mandatory }) => {
     const ref = useRef();
 
     const handlePasswordShow = () => {
@@ -18,7 +18,7 @@ const FormPassword = ({ cName, label, password, functionChange, functionBlur, ex
             <div className="field field-password">
                 <Form.Control
                     ref={ref}
-                    name="password"
+                    name={name ?? "password"}
                     title="Password"
                     type="password"
                     value={password}

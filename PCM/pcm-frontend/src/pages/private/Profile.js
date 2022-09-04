@@ -1,46 +1,43 @@
 import React, { useEffect, useState } from 'react';
 
-import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon } from '../../components/index';
-import { CountryFlag } from '../../components/misc/FlagSelect';
-import { ZodiacSign } from '../../components/misc/ZodiacSelect';
+import { useSelector, useDispatch } from 'react-redux';
+import { getCurrentUser } from '../../services/index';
 
-import myProfilePic from '../../img/default.png';
 import cId from '../../img/cId.png';
 import cEmail from '../../img/cEmail.png';
 import cRole from '../../img/cRole.png';
 import cDob from '../../img/cDob.png';
 import cMobileNo from '../../img/cMobileNo.png';
-
 import '../../sass/private/Profile.scss';
 
-import { IoFingerPrint, IoCalendar, IoDisc, IoPhonePortraitOutline } from 'react-icons/io5';
-import { FaAt, FaUserShield, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaLink } from 'react-icons/fa';
+import { excluded } from '../../validation/validationMsg';
+
+import { CountryFlag } from '../../components/misc/FlagSelect';
+import { ZodiacSign } from '../../components/misc/ZodiacSelect';
+import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon } from '../../components/index';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { getCurrentUser } from '../../services/index';
+import { IoFingerPrint, IoCalendar, IoDisc, IoPhonePortraitOutline } from 'react-icons/io5';
+import { FaAt, FaUserShield, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const Profile = () => {
-    const [modalEditProfile, setModalEditProfile] = useState(false);
-    const exclude = [null, undefined, 'null', 'undefined', '', ' '];
+    const { currentUser } = useSelector(state => state.currentUser);
+    const { success } = useSelector(state => state.updateUser);
     const dispatch = useDispatch();
-    const currentUser = useSelector(state => state.currentUser.currentUser);
-    const updateUserSuccess = useSelector(state => state.updateUser.success);
 
-    console.log('CURRENT USER _> ', currentUser);
+    const [modalEditProfile, setModalEditProfile] = useState(false);
 
     function handleModalEditProfile() {
         setModalEditProfile(!modalEditProfile);
     }
 
     useEffect(() => {
-        if(updateUserSuccess) {
+        if (success) {
             handleModalEditProfile();
             dispatch(getCurrentUser());
         }
-    }, [updateUserSuccess, dispatch]);
+    }, [success, dispatch]);
 
     const { id, email, image, enabled, name, authorities, country, dateOfBirth, mobileNumber, zodiacSign, socialLinks, description } = currentUser
-
     const cardDetails = [
         {
             spaceLg: 3,
@@ -48,7 +45,7 @@ const Profile = () => {
             image: cId,
             icon: <IoFingerPrint />,
             title: 'Id',
-            subtitle: `PCM22U${id}`,
+            subtitle: `PCM22U${id}`
         },
         {
             spaceLg: 3,
@@ -64,7 +61,7 @@ const Profile = () => {
             image: CountryFlag(country?.code?.toUpperCase()),
             icon: <FaGlobeAmericas />,
             title: 'Country',
-            subtitle: country?.name,
+            subtitle: country?.name
         },
         {
             spaceLg: 3,
@@ -81,7 +78,7 @@ const Profile = () => {
             icon: <IoPhonePortraitOutline />,
             title: 'Mobile Number',
             pretitle: mobileNumber?.code ? mobileNumber.code : country?.no ? country.no : '',
-            subtitle: mobileNumber?.number,
+            subtitle: mobileNumber?.number
         },
         {
             spaceLg: 4,
@@ -89,7 +86,7 @@ const Profile = () => {
             image: cEmail,
             icon: <FaAt />,
             title: 'Email',
-            subtitle: email,
+            subtitle: email
         },
         {
             spaceLg: 4,
@@ -105,7 +102,7 @@ const Profile = () => {
             subtitle: description
         },
     ]
-    
+
     const SocialDetails = [
         {
             icon: <FaFacebookF />,
@@ -136,7 +133,6 @@ const Profile = () => {
 
     return (
         <Container fluid className="profile text-center">
-
             <div className='header d-inline-block'>
                 <ProfilePic image={image} outline={true} active={enabled} isUserProfile={true} />
                 <h4 className="text pt-2">{name}</h4>
@@ -144,15 +140,14 @@ const Profile = () => {
 
             <Row className='social-link-row'>
                 <div className='content'>
-                {
-                    SocialDetails.map((social, index) => {
-                        return (
-                            !exclude?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
-                        )
-                    })
-                }
+                    {
+                        SocialDetails.map((social, index) => {
+                            return (
+                                !excluded?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
+                            )
+                        })
+                    }
                 </div>
-                
             </Row>
 
             <div className='d-flex justify-content-center'>

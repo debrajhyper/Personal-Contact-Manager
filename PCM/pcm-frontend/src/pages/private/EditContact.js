@@ -1,41 +1,33 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { viewContact } from '../../services/index';
 
-import { ToastContainer } from 'react-toastify';
-
-import { Header } from '../../components/index';
-import ContactForm from './ContactForm';
-
-import { contactValidate } from '../../validation/validationMsg'
-import useForm from '../../validation/useForm';
-
-import AddContactImg from '../../img/pcm_add_contact.png';
 import EditContactImg from '../../img/pcm_edit_profile.png';
 
+import ContactForm from './ContactForm';
+import { Header } from '../../components/index';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const EditContact = () => {
-    const { cid } = useParams();
-    const location = useLocation();
-    const navigate = useNavigate();
+    const { success } = useSelector(state => state.updateContact);
+
     const dispatch = useDispatch();
-    const updateContactDone = useSelector(state => state.updateContact.success);
-    
+    const navigate = useNavigate();
+    const { cid } = useParams();
 
     useEffect(() => {
-        if(cid) {
+        if (cid) {
             dispatch(viewContact(cid));
         }
     }, [cid, dispatch]);
 
     useEffect(() => {
-        if(updateContactDone) {
+        if (success) {
             navigate(-1);
         }
-    }, [updateContactDone, navigate]);
+    }, [success, navigate]);
 
     return (
         <Container fluid className='add-contact'>

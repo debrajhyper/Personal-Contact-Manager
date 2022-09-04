@@ -1,4 +1,4 @@
-import { SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAILURE } from './sendOTPTypes';
+import { SEND_OTP_REQUEST, SEND_OTP_CLEAR, SEND_OTP_SUCCESS, SEND_OTP_FAILURE } from './sendOTPTypes';
 
 const initialState = {
     loading: false,
@@ -11,11 +11,21 @@ const initialState = {
 }
 
 const sendOTPReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case SEND_OTP_REQUEST:
             return {
                 ...state,
                 loading: true
+            };
+        case SEND_OTP_CLEAR:
+            return {
+                loading: false,
+                emailSent: false,
+                sendOTPMessage: '',
+                generatedOTP: '',
+                maxInActiveInterval: 0,
+                email: '',
+                sendOTPError: ''
             };
         case SEND_OTP_SUCCESS:
             return {

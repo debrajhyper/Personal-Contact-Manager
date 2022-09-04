@@ -9,13 +9,13 @@ export const RESET_PASSWORD_URL = "/reset-password";
 export const LOGOUT_URL = "/logout-user";
 export const SIGNUP_URL = "/register";
 export const CURRENT_USER_URL = "/current-user";
-export const ADD_CONTACT_URL = "/add-contact";
+export const SEARCH_CONTACT_URL = "/search/";
 export const VIEW_CONTACTS_URL = "/view-contacts/";
 export const VIEW_CONTACT_URL = "/view-contact/";
-export const DELETE_SELECTED_CONTACTS_URL = "/delete-selected-contacts/";
-export const DELETE_CONTACT_URL = "/delete-contact/";
-export const SEARCH_CONTACT_URL = "/search/";
 export const UPDATE_CONTACT_URL = "/update-contact";
+export const DELETE_CONTACT_URL = "/delete-contact/";
+export const DELETE_SELECTED_CONTACTS_URL = "/delete-selected-contacts/";
+export const ADD_CONTACT_URL = "/add-contact";
 export const UPDATE_USER_URL = "/update-user";
 
 const TOKEN_HEADER = 'Authorization';
@@ -28,15 +28,10 @@ export const config = {
 
 export default axios.create({
     baseURL: BASE_URL,
-    // withCredentials: true,
 });
 
 export const axiosPrivate = axios.create({
-    baseURL: BASE_URL,
-    // withCredentials: true
-    // headers: {
-    //     [TOKEN_HEADER]: `Bearer ${jwtToken}`
-    // }
+    baseURL: BASE_URL
 });
 
 // axiosPrivate.defaults.headers.common[TOKEN_HEADER] = `Bearer ${jwtToken}`;

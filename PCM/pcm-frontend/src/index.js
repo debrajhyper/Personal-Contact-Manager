@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './services/store';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,6 +10,7 @@ import './sass/variables.scss';
 import './sass/responsive.scss';
 
 import App from './App.js';
+import store from './services/store';
 
 ReactDOM.render(
   <React.StrictMode>

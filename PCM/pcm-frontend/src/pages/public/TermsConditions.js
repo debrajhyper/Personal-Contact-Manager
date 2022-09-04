@@ -6,17 +6,17 @@ import { useSelector } from 'react-redux';
 import "../../sass/public/terms_conditions.scss";
 
 const TermsConditions = () => {
-    const auth = useSelector(state => state.auth);
+    const { isLoggedIn } = useSelector(state => state.auth);
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/dashboard";
 
     useEffect(() => {
-        if (auth.isLoggedIn) {
+        if (isLoggedIn) {
             navigate(from, { replace: true });
         }
-    }, [auth]);
+    }, [isLoggedIn, navigate, from]);
 
     return (
     <div className="term_cond public_pages">

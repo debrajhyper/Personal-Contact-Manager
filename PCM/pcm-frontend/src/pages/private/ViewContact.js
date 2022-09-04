@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { viewContact, deleteContact } from '../../services/index';
 
-import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon } from '../../components/index';
-import { CountryFlag } from '../../components/misc/FlagSelect';
-import { ZodiacSign } from '../../components/misc/ZodiacSelect';
-
-import myProfilePic from '../../img/default.png';
 import cEmail from '../../img/cEmail.png';
 import cMobileNo from '../../img/cMobileNo.png';
 import cTelephoneNo from '../../img/cTelephoneNo.png';
@@ -16,53 +11,52 @@ import cRelationship from '../../img/cRelationship.png';
 import cDob from '../../img/cDob.png';
 import cAddress from '../../img/cAddress1.png';
 import cTags from '../../img/cTags.png';
-
 import '../../sass/private/Profile.scss';
 
 import UseAnimations from "react-useanimations";
 import trash from 'react-useanimations/lib/trash';
 
-import { IoFingerPrint, IoCalendar, IoDisc, IoPhonePortraitOutline, IoLocationSharp } from 'react-icons/io5';
-import { FaUserEdit, FaAt, FaPhoneAlt, FaHeart, FaUserTag, FaUserShield, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaLink } from 'react-icons/fa';
-import { Container, Row, Col } from 'react-bootstrap';
-import { viewContact, deleteContact, viewContacts } from '../../services/index';
+import { excluded } from '../../validation/validationMsg';
 
+import { CountryFlag } from '../../components/misc/FlagSelect';
+import { ZodiacSign } from '../../components/misc/ZodiacSelect';
+import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon } from '../../components/index';
+import { Container, Row, Col } from 'react-bootstrap';
+import { IoCalendar, IoDisc, IoPhonePortraitOutline, IoLocationSharp } from 'react-icons/io5';
+import { FaUserEdit, FaAt, FaPhoneAlt, FaHeart, FaUserTag, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaLink } from 'react-icons/fa';
 
 const ViewContact = () => {
-    const [modalEditProfile, setModalEditProfile] = useState(false);
-    const exclude = [null, undefined, 'null', 'undefined', '', ' '];
-    const { cid } = useParams();
+    const { deleteContactSuccess } = useSelector(state => state.deleteContact);
+    const { contact } = useSelector(state => state.viewContact);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const contact = useSelector(state => state.viewContact.contact);
-    const currentPage = useSelector(state => state.viewContacts.page);
-    const deleteContactDone = useSelector(state => state.deleteContact.success);
-    
+    const { cid } = useParams();
+
+    const [modalEditProfile, setModalEditProfile] = useState(false);
+
     function handleModalEditProfile() {
         setModalEditProfile(!modalEditProfile);
     }
-    
+
     useEffect(() => {
-        if(cid) {
+        if (cid) {
             dispatch(viewContact(cid));
         }
     }, [cid, dispatch]);
 
     useEffect(() => {
-        if(deleteContactDone) {
+        if (deleteContactSuccess) {
             navigate(-1);
         }
-    }, [deleteContactDone, navigate]);
+    }, [deleteContactSuccess, navigate]);
 
     const handleDelete = (e, cId) => {
         e.preventDefault();
         dispatch(deleteContact(cId));
     }
-    
-    
-    const { image, favorite, name, nickName, title, company, email, mobileNumber, telephoneNumber, address, tags, dateOfBirth, description, relationship, zodiacSign, country, socialLinks, profilePic, website } = contact;
-    
-    console.log('VIEW CONTACT -> ', contact);
+
+    const { image, favorite, name, nickName, title, company, email, mobileNumber, telephoneNumber, address, tags, dateOfBirth, description, relationship, zodiacSign, country, socialLinks, website } = contact;
     const cardDetails = [
         {
             spaceLg: 4,
@@ -70,7 +64,7 @@ const ViewContact = () => {
             image: cEmail,
             icon: <FaAt />,
             title: 'Email',
-            subtitle: email,
+            subtitle: email
         },
         {
             spaceLg: 4,
@@ -78,8 +72,8 @@ const ViewContact = () => {
             image: cMobileNo,
             icon: <IoPhonePortraitOutline />,
             title: 'Mobile Number',
-            pretitle: mobileNumber?.code ? mobileNumber.code : country?.no ? country.no : '',
-            subtitle: mobileNumber?.number,
+            pretitle: mobileNumber?.code ? mobileNumber?.code : country?.no ? country?.no : '',
+            subtitle: mobileNumber?.number
         },
         {
             spaceLg: 4,
@@ -87,8 +81,8 @@ const ViewContact = () => {
             image: cTelephoneNo,
             icon: <FaPhoneAlt />,
             title: 'Telephone Number',
-            pretitle: telephoneNumber?.code ? telephoneNumber.code : country?.no ? country.no : '',
-            subtitle: telephoneNumber?.number,
+            pretitle: telephoneNumber?.code ? telephoneNumber?.code : country?.no ? country?.no : '',
+            subtitle: telephoneNumber?.number
         },
         {
             spaceLg: 3,
@@ -96,7 +90,7 @@ const ViewContact = () => {
             image: CountryFlag(country?.code?.toUpperCase()),
             icon: <FaGlobeAmericas />,
             title: 'Country',
-            subtitle: country?.name,
+            subtitle: country?.name
         },
         {
             spaceLg: 3,
@@ -144,6 +138,7 @@ const ViewContact = () => {
             subtitle: description
         },
     ]
+
     const SocialDetails = [
         {
             icon: <FaFacebookF />,
@@ -179,29 +174,28 @@ const ViewContact = () => {
 
     return (
         <Container fluid className="profile text-center">
-
             <div className='header d-inline-block'>
                 <ProfilePic image={image} outline={true} active={false} favorite={favorite} isViewContact={true} />
                 <h4 className="text pt-2">{name}</h4>
-                { !exclude.includes(nickName) && <h3 className='nickname'>{nickName}</h3> }
-                { 
-                    !exclude.includes(title) && !exclude.includes(company) 
-                        ?   <h5 className='title'>{title}, <span className='company'>{company}</span></h5>
-                        : !exclude.includes(title)
+                {!excluded.includes(nickName) && <h3 className='nickname'>{nickName}</h3>}
+                {
+                    !excluded.includes(title) && !excluded.includes(company)
+                        ? <h5 className='title'>{title}, <span className='company'>{company}</span></h5>
+                        : !excluded.includes(title)
                             ? <h5 className='title'>{title}</h5>
-                            : !exclude.includes(company) && <h5 className='title'>{company}</h5>
+                            : !excluded.includes(company) && <h5 className='title'>{company}</h5>
                 }
             </div>
 
             <Row className='social-link-row'>
                 <div className='content'>
-                {
-                    SocialDetails.map((social, index) => {
-                        return (
-                            !exclude?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
-                        )
-                    })
-                }
+                    {
+                        SocialDetails.map((social, index) => {
+                            return (
+                                !excluded?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
+                            )
+                        })
+                    }
                 </div>
             </Row>
 

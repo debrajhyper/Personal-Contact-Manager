@@ -1,34 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
+
+import { useSelector } from 'react-redux';
 
 import Layout from './pages/Layout';
 import RequireAuth from './pages/RequireAuth';
-import { Navbar as PublicNavbar, Navbar as PrivateNavbar, SlideBar } from './components/index';
+import Home from './pages/public/Home';
 import About from './pages/public/About';
 import Login from './pages/public/Login';
+import ForgotPassword from './pages/public/ForgotPassword';
+import VerifyOTP from './pages/public/VerifyOTP';
+import ResetPassword from './pages/public/ResetPassword';
 import Signup from './pages/public/Signup';
 import TermsConditions from './pages/public/TermsConditions';
 import NoMatchFound from './pages/NoMatchFound';
 import Dashboard from './pages/private/Dashboard';
 import ViewContacts from './pages/private/ViewContacts';
 import ViewContact from './pages/private/ViewContact';
-import AddContact from './pages/private/AddContact';
 import EditContact from './pages/private/EditContact';
+import AddContact from './pages/private/AddContact';
 import Profile from './pages/private/Profile';
 import Settings from './pages/private/Settings';
-import Home from './pages/public/Home';
-import ForgotPassword from './pages/public/ForgotPassword';
-import VerifyOTP from './pages/public/VerifyOTP';
-import ResetPassword from './pages/public/ResetPassword';
-
-
-// import Base from './pages/public/Base';
-// import PrivateBase from './pages/private/PrivateBase';
+import { Navbar as PublicNavbar, Navbar as PrivateNavbar, SlideBar } from './components/index';
 
 const App = () => {
-    const auth = useSelector(state => state.auth);
+    const { isLoggedIn } = useSelector(state => state.auth);
     const [show, setShow] = useState(true);
 
     const handleSlidebar = () => {
@@ -37,10 +34,8 @@ const App = () => {
 
     return (
         <>
-            {/* {auth.isLoggedIn ? <PrivateBase /> : <Base />} */}
-
-            <div className={auth.isLoggedIn ? `private_base h-100 ${show ? "slideBar_open" : "slideBar_close"}` : "base"}>
-                {auth.isLoggedIn
+            <div className={isLoggedIn ? `private_base h-100 ${show ? "slideBar_open" : "slideBar_close"}` : "base"}>
+                {   isLoggedIn
                     ? (
                         <>
                             <PrivateNavbar slidebar={show} handleSlidebar={handleSlidebar} />
@@ -49,8 +44,8 @@ const App = () => {
                     )
                     : (<PublicNavbar />)
                 }
-                <div className={auth.isLoggedIn ? 'private_pages' : 'public_pages12'}>
-                    <div className={auth.isLoggedIn ? 'content position-relative' : null}>
+                <div className={isLoggedIn ? 'private_pages' : 'public_pages12'}>
+                    <div className={isLoggedIn ? 'content position-relative' : null}>
                         <ToastContainer
                             theme='colored'
                             position="top-right"
@@ -82,7 +77,6 @@ const App = () => {
                                     <Route path="add_contact" element={<AddContact />} />
                                     <Route path="profile" element={<Profile />} />
                                     <Route path="settings" element={<Settings />} />
-                                    {/* <Route path="*" element={<Dashboard />} /> */}
                                 </Route>
 
                                 <Route path="*" element={<NoMatchFound />} />

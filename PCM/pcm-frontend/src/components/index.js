@@ -1,9 +1,9 @@
-export { default as ButtonLink } from './buttons/ButtonLink';
-export { default as ButtonNormal } from './buttons/ButtonNormal';
+export { default as ButtonLink } from './buttons/ButtonLink.js';
+export { default as ButtonNormal } from './buttons/ButtonNormal.js';
 
-export { default as DashboardCard } from './card/DashboardCard';
+export { default as DashboardCard } from './card/DashboardCard.js';
 
-export { default as Counter } from './counter/Counter';
+export { default as Counter } from './counter/Counter.js';
 
 export { default as FormAddress } from './form-fields/FormAddress';
 export { default as FormAgrement } from './form-fields/FormAgrement';

@@ -1,49 +1,47 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { editContact } from '../../services/index';
+import React, { useState, useEffect } from 'react';
 
-import { FormAddress, FormName, FormEmail, RequiredStatement, FormCompany, FormCountry, FormDOB, FormMobileNo, FormNickName, FormProfilePic, FormRelationship, FormTags, ModalProfilePic, FormTelephoneNo, FormTitle, FormZodiacSign, FormWebsite, FormSocialLinks, FormNote, FormFavorite, ButtonNormal } from '../../components/index';
-import { excluded, contactValidate } from '../../validation/validationMsg';
-import useForm from '../../validation/useForm';
+import { useSelector } from 'react-redux';
 
 import '../../components/form-fields/form_fields.scss';
 
+import useForm from '../../validation/useForm';
+import { excluded, contactValidate } from '../../validation/validationMsg';
+
+import { FormAddress, FormName, FormEmail, RequiredStatement, FormCompany, FormCountry, FormDOB, FormMobileNo, FormNickName, FormProfilePic, FormRelationship, FormTags, ModalProfilePic, FormTelephoneNo, FormTitle, FormZodiacSign, FormWebsite, FormSocialLinks, FormNote, FormFavorite, ButtonNormal } from '../../components/index';
 import { Row, Col, Form } from 'react-bootstrap';
 
 const ContactForm = () => {
-    const { 
-        values, 
-        // excluded, 
-        handleClick, 
-        handleEnter, 
-        handleChange, 
-        handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, 
-        handleChangeMobileNumber, 
-        handleChangeTelephoneNumber, 
-        handleChangeSelect, 
-        handleChangeAddTags, handleChangeRemoveTags, 
-        handleChangeSocial, 
-        handleChangeNote, 
+    const { loading } = useSelector(state => state.addContact);
 
-        handleBlur, 
-        handleBlurMobileNumber, 
-        handleBlurTelephoneNumber, 
-        handleBlurSocial, 
+    const {
+        values,
+        handleClick,
+        handleEnter,
+        handleChange,
+        handleChangeFile, handleChangeFileCancel, handleChangeFileUpload,
+        handleChangeMobileNumber,
+        handleChangeTelephoneNumber,
+        handleChangeSelect,
+        handleChangeAddTags, handleChangeRemoveTags,
+        handleChangeSocial,
+        handleChangeNote,
 
-        handleReset, 
-        handleSubmit, 
-        uploadedFile, touched, errors 
+        handleBlur,
+        handleBlurMobileNumber,
+        handleBlurTelephoneNumber,
+        handleBlurSocial,
+
+        handleReset,
+        handleSubmit,
+        uploadedFile, touched, errors
     } = useForm(contactValidate);
-    
     const [modalProfilePicShow, setModalProfilePicShow] = useState(true);
-    const addContact = useSelector(state => state.addContact);
+
 
     useEffect(() => {
         setModalProfilePicShow(true);
     }, [values.profilePic, touched.profilePic]);
 
-    console.log(values);
     return (
         <Form onSubmit={handleSubmit} onReset={handleReset} className="contact-form" id="contact-form" method="post" encType="multipart/form-data" noValidate>
             <RequiredStatement />
@@ -102,7 +100,7 @@ const ContactForm = () => {
                 </Row>
             </Form.Group>
             <Form.Group className='action_button center pb-5'>
-                <ButtonNormal type="submit" name="add-contact" id="ADD-Contact" cName="form_submit fill px-5 me-5" value="Save" loading={addContact.loading}/>
+                <ButtonNormal type="submit" name="add-contact" id="ADD-Contact" cName="form_submit fill px-5 me-5" value="Save" loading={loading} />
                 <ButtonNormal type="reset" name="reset" id="reset" cName="form_reset px-4" value="Reset" />
             </Form.Group>
             {

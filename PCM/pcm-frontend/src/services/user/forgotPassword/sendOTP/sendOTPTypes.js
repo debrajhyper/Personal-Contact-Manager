@@ -1,3 +1,4 @@
 export const SEND_OTP_REQUEST = "SEND_OTP_REQUEST";
+export const SEND_OTP_CLEAR = "SEND_OTP_CLEAR";
 export const SEND_OTP_SUCCESS = "SEND_OTP_SUCCESS";
 export const SEND_OTP_FAILURE = "SEND_OTP_FAILURE";

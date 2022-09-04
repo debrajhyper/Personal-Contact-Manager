@@ -1,4 +1,4 @@
-import { SEND_OTP_REQUEST, SEND_OTP_SUCCESS, SEND_OTP_FAILURE } from './sendOTPTypes';
+import { SEND_OTP_REQUEST, SEND_OTP_CLEAR, SEND_OTP_SUCCESS, SEND_OTP_FAILURE } from './sendOTPTypes';
 import axios, { SEND_OTP_URL } from '../../../../api/HomeAPI';
 
 export const sendOTP = userEmail => {
@@ -19,6 +19,9 @@ export const sendOTP = userEmail => {
             setTimeout(() => {
                 dispatch(sendOTPFailure(response?.data?.email, ''));
             }, response?.data?.maxInActiveInterval);
+            setTimeout(() => {
+                dispatch(sendOTPClear())
+            }, 300000);
         })
         .catch(error => {
             console.log(error.response.data)
@@ -27,9 +30,21 @@ export const sendOTP = userEmail => {
     }
 }
 
+export const clearSendOTP = () => {
+    return dispatch => {
+        dispatch(sendOTPClear());
+    }
+}
+
 const sendOTPRequest = () => {
     return {
         type: SEND_OTP_REQUEST
+    };
+};
+
+const sendOTPClear = () => {
+    return {
+        type: SEND_OTP_CLEAR
     };
 };
 

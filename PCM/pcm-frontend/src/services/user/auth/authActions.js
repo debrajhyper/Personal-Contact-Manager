@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_ACTION } from './authTypes';
+import { LOGIN_REQUEST, LOGIN_CLEAR, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_ACTION } from './authTypes';
 import axios, { axiosPrivate } from '../../../api/HomeAPI';
 import { LOGIN_URL, LOGOUT_URL } from '../../../api/HomeAPI';
 import { toast } from "react-toastify";
@@ -36,9 +36,10 @@ export const logoutUser = to => {
         axiosPrivate.get(LOGOUT_URL)
         .then(response => {
             console.log(response?.data)
-            dispatch(loginFailure(false, "User logged out successfully."));
+            dispatch(loginFailure(false, response?.data));
             setTimeout(() => {
-                dispatch(loginFailure(false, ''));
+                // dispatch(loginFailure(false, ''));
+                dispatch(clearLogin());
             }, 4000);
             removeToken();
             // window.location = to;
@@ -50,9 +51,21 @@ export const logoutUser = to => {
     }
 }
 
+export const clearLogin = () => {
+    return dispatch => {
+        dispatch(loginClear());
+    };
+};
+
 const loginRequest = () => {
     return {
         type: LOGIN_REQUEST
+    };
+};
+
+const loginClear = () => {
+    return {
+        type: LOGIN_CLEAR
     };
 };
 

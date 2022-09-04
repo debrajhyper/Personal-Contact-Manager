@@ -9,15 +9,13 @@ export const deleteContact = (cId) => {
 
         axiosPrivate.delete(DELETE_CONTACT_URL + cId)
         .then(response => {
-            console.log('RESPONSE -> ', response.data);
             dispatch(deleteContactSuccess(response?.data, 1));
             setTimeout(() => {
                 dispatch(deleteContactFailure(''));
             }, 1000);
-            toast.success(response.data);
+            toast.success(response?.data);
         })
         .catch(error => {
-            console.log('ERROR -> ', error.response);
             dispatch(deleteContactFailure(error?.response?.data?.message));
             toast.error(error?.response?.data?.message);
         })

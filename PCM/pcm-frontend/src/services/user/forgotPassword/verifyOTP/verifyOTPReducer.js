@@ -1,4 +1,4 @@
-import { VERIFY_OTP_REQUEST, VERIFY_OTP_SUCCESS, VERIFY_OTP_FAILURE } from './verifyOTPTypes';
+import { VERIFY_OTP_REQUEST, VERIFY_OTP_CLEAR, VERIFY_OTP_SUCCESS, VERIFY_OTP_FAILURE } from './verifyOTPTypes';
 
 const initialState = {
     loading: false,
@@ -13,6 +13,12 @@ const verifyOTPReducer = (state = initialState, action) => {
                 ...state,
                 loading: true
             };
+        case VERIFY_OTP_CLEAR:
+                return {
+                    loading: false,
+                    verifiedOTP: false,
+                    verifyOTPError: '',
+                };
         case VERIFY_OTP_SUCCESS:
             return {
                 loading: false,

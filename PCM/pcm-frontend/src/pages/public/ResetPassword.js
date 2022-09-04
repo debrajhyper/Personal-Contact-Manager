@@ -1,26 +1,46 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 
-import { excluded, OtpValidate } from '../../validation/validationMsg';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetPassword } from '../../services/index';
 
-import { ButtonNormal, Counter, FormPassword } from '../../components/index';
+import { excluded, passwordValidation } from '../../validation/validationMsg';
+
+import { ButtonNormal, FormPassword } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
 const ResetPassword = () => {
+    const { email } = useSelector(state => state.sendOTP);
+    const { verifiedOTP } = useSelector(state => state.verifyOTP);
+    const { loading, passwordReset, resetPasswordError } = useSelector(state => state.resetPassword)
+    
+    const validate = passwordValidation;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
             password: "",
             confirmPassword: ""
         },
-        // validate,
+        validate,
         onSubmit: values => {
-            console.log(values)
-            // dispatch(verifyOTP(values.otp, generatedOTP, email));
+            dispatch(resetPassword(email, values?.confirmPassword));
         },
     });
 
-    console.log(formik.values)
+    useEffect(() => {
+        if(passwordReset) {
+            navigate("/login")
+        }
+    }, [passwordReset, navigate])
+
+    useEffect(() => {
+        if(email === "" || verifiedOTP === false) {
+            navigate("/forgot-password");
+        }
+    }, [email, verifiedOTP, navigate]);
     
     return (
         <>
@@ -33,11 +53,9 @@ const ResetPassword = () => {
                                 <h2 className="form-title">Reset Password</h2>
                             </Container>
 
-                            {/* {
-                                verifyOTPError 
-                                ? <Alert className="alert-user-already-exists" variant="danger">{verifyOTPError}</Alert>
-                                : sendOTPMessage && <Alert className="alert-user-already-exists" variant="success">{sendOTPMessage}</Alert>
-                            } */}
+                            {
+                                resetPasswordError && <Alert className="alert-user-already-exists" variant="danger">{resetPasswordError}</Alert>
+                            }
 
                             <Container className='details pt-4 p-2'>
                                 <h5 className='m-0'>In order to <strong>protect your account,</strong> make sure your password:</h5>
@@ -51,11 +69,11 @@ const ResetPassword = () => {
                             </Container>
                             
                             <Form className="register-form" onSubmit={formik.handleSubmit} method="post" noValidate>
-                                <FormPassword label="New Password" password={formik.values?.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true} />
-                                <FormPassword label="Confirm New Password" password={formik.values?.confirmPassword} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.confirmPassword} hasError={formik.errors.confirmPassword} Mandatory={true} />
+                                <FormPassword label="New Password" name="password" password={formik.values?.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true} />
+                                <FormPassword label="Confirm New Password" name="confirmPassword" password={formik.values?.confirmPassword} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.confirmPassword} hasError={formik.errors.confirmPassword} Mandatory={true} />
 
                                 <Form.Group className="action_button center">
-                                    <ButtonNormal type="submit" name="otp" id="Otp" cName="form_submit fill px-5" value="Verify OTP" loading={false} />
+                                    <ButtonNormal type="submit" name="otp" id="Otp" cName="form_submit fill px-5" value="Verify OTP" loading={loading} />
                                 </Form.Group>
                             </Form>
                         </Col>
