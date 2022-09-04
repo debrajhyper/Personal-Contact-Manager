@@ -4,18 +4,18 @@ import './DashboardCard.scss';
 
 import { excluded } from '../../validation/validationMsg';
 
-import { Card as BootstrapCard } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 const DashboardCard = ({ image, icon, title, pretitle, subtitle }) => {
     return (
-        <BootstrapCard className={`${title === 'text-area' && excluded.includes(subtitle) && 'hide-card'}`}>
-            <BootstrapCard.Img src={image} />
-            <BootstrapCard.Body className={title}>
+        <Card className={`${title === 'text-area' && excluded.includes(subtitle) && 'hide-card'}`}>
+            <Card.Img src={image} />
+            <Card.Body className={title}>
                 {
                     title !== 'text-area' &&
-                    <BootstrapCard.Title>
+                    <Card.Title>
                         {icon} <span className='ps-1'>{title}</span>
-                    </BootstrapCard.Title>
+                    </Card.Title>
                 }
                 {
                     title === 'Tags'
@@ -27,20 +27,20 @@ const DashboardCard = ({ image, icon, title, pretitle, subtitle }) => {
                                             <span className='tag-title'>{!excluded.includes(tag) && tag}</span>
                                         </li>
                                     ))
-                                    : <BootstrapCard.Subtitle className='mb-2 text-muted'>-</BootstrapCard.Subtitle>
+                                    : <Card.Subtitle className='mb-2 text-muted'>-</Card.Subtitle>
                             }
                         </ul>
                         : title === 'text-area'
-                            ? <BootstrapCard.Subtitle className='mb-2 text-muted'>
+                            ? <Card.Subtitle className='mb-2 text-muted'>
                                 {subtitle && <div dangerouslySetInnerHTML={{ __html: subtitle }} />}
-                            </BootstrapCard.Subtitle>
-                            : <BootstrapCard.Subtitle className='mb-2 text-muted'>
+                            </Card.Subtitle>
+                            : <Card.Subtitle className='mb-2 text-muted'>
                                 {title === 'Mobile Number' || title === 'Telephone Number' ? subtitle ? !excluded.includes(pretitle) && `+${pretitle} ` : '' : ''}
                                 {!excluded.includes(subtitle) ? subtitle : '-'}
-                            </BootstrapCard.Subtitle>
+                            </Card.Subtitle>
                 }
-            </BootstrapCard.Body>
-        </BootstrapCard>
+            </Card.Body>
+        </Card>
     )
 }
 
