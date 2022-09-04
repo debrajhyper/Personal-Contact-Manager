@@ -1,7 +1,7 @@
 export { default as ButtonLink } from './buttons/ButtonLink';
 export { default as ButtonNormal } from './buttons/ButtonNormal';
 
-// export { default as DashboardCard } from './card/DashboardCard';
+export { default as DashboardCard } from './dashboardCard/DashboardCard';
 
 export { default as Counter } from './counter/Counter';
 
