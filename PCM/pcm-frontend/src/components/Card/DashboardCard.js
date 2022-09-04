@@ -2,7 +2,7 @@ import React from 'react';
 
 import './DashboardCard.scss';
 
-import { excluded } from '../../validation/validationMsg';
+import { excluded } from '../../validation/validationMsg.js';
 
 import { Card } from 'react-bootstrap';
 
