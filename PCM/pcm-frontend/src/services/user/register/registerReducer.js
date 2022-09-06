@@ -2,7 +2,7 @@ import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from "./registerTypes"
 
 const initialState = {
     loading: false,
-    isRegistered: '',
+    isRegistered: false,
     status: null,
     registerError: ''
 };
@@ -11,10 +11,8 @@ const signupReducer = (state = initialState, action) => {
     switch (action.type) {
         case SIGNUP_REQUEST:
             return {
-                loading: true,
-                isRegistered: action.payload,
-                status: action.status,
-                registerError: action.error
+                ...state,
+                loading: true
             };
         case SIGNUP_SUCCESS:
             return {

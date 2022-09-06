@@ -1,21 +1,21 @@
 import { USER_REQUEST, USER_SUCCESS, USER_FAILURE } from "./userTypes";
-import { axiosPrivate } from "../../api/HomeAPI";
-import { CURRENT_USER_URL } from "../../api/HomeAPI";
+import { axiosPrivate, CURRENT_USER_URL } from "../../api/HomeAPI";
 import { toast } from "react-toastify";
 
 export const getCurrentUser = () => {
     return dispatch => {
         dispatch(userRequest());
+        
         axiosPrivate.get(CURRENT_USER_URL)
         .then(response => {
-            dispatch(userSuccess(response.data));
+            dispatch(userSuccess(response?.data));
         })
         .catch(error => {
-            dispatch(userFailure(error.message));
-            toast.error(error.message);
+            dispatch(userFailure(error?.message));
+            toast.error(error?.message);
         });
     };
-}
+};
 
 const userRequest = () => {
     return {

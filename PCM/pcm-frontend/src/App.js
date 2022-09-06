@@ -26,7 +26,7 @@ import { Navbar as PublicNavbar, Navbar as PrivateNavbar, SlideBar } from './com
 
 const App = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
 
     const handleSlidebar = () => {
         setShow(!show);

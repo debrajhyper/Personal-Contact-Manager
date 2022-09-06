@@ -41,15 +41,13 @@ public class ContactServiceImpl implements ContactService {
 	@Autowired
 	private ContactRepository contactRepository;
 	
-
-	
 	
 	@Override
 	public void addContact(Contact contact, MultipartFile profilePic, String email) throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			User sessionUser = this.userRepository.findByUserName(email);
-			System.out.println("DB USER -> " + sessionUser.getEmail());
+			System.out.println("DB USER -> ID : " + sessionUser.getId() + ", EMAIL : " + sessionUser.getEmail());
 			
 			List<Contact> contactsByUser = this.contactRepository.findContactsByUser(sessionUser.getId());
 			ListIterator<Contact> iterateContactList = contactsByUser.listIterator();
@@ -162,9 +160,11 @@ public class ContactServiceImpl implements ContactService {
 		// TODO Auto-generated method stub
 		try {
 			User sessionUser = this.userRepository.findByUserName(email);
+			System.out.println("DB USER -> ID : " + sessionUser.getId() + ", EMAIL : " + sessionUser.getEmail());
 			
-			//pagination
+			//PAGINATION
 			Pageable pageable = PageRequest.of(page, 10);
+			System.out.println("PAGEABLE -> " + pageable);
 			Page<Contact> contacts = this.contactRepository.findContactsByUser(sessionUser.getId(), pageable);
 			System.out.println("TOTAL CONTACTS FOR PAGE " + page + " -> " + contacts.getNumberOfElements());
 			
@@ -192,7 +192,7 @@ public class ContactServiceImpl implements ContactService {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("Oops... Something went wrong.");
+			throw new Exception("oops... Something went wrong.");
 		}
 	}
 

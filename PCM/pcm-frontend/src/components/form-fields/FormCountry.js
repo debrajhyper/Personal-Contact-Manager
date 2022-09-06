@@ -1,12 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react';
+
+import { excluded } from '../../validation/validationMsg';
 
 import { CountryDetails } from '../misc/CountryDetails';
-
-import { FaGlobeAmericas } from 'react-icons/fa';
 import { Form, Image } from 'react-bootstrap';
+import { FaGlobeAmericas } from 'react-icons/fa';
 
-
-const FormCountry = ({ country, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+const FormCountry = ({ country, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
     const ref = useRef(null);
@@ -61,30 +61,30 @@ const FormCountry = ({ country, cName, functionChange, functionBlur, functionKey
                         onKeyDown={functionKeyDown}
                         className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(country) && !excluded?.includes(country?.name) ? 'noError' : '')}
                         placeholder=""
-                    required />
+                        required />
                     <Form.Label><FaGlobeAmericas className="me-2" />Country{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                     <div className={`arrow ${open ? 'open' : null}`} />
                 </div>
                 <div className={`OptionDetails ${open ? 'open' : null}`}>
                     {
                         filter(CountryDetails).length > 0
-                        ?   filter(CountryDetails).map((countryD, index) => {
+                            ? filter(CountryDetails).map((countryD, index) => {
                                 const { code, name, flag } = countryD;
                                 return (
-                                    <div 
+                                    <div
                                         optionname="country"
                                         className={`option ${country === countryD ? 'selected' : null}`}
                                         onClick={e => selectOption(e.target.getAttribute('optionname'), countryD)}
-                                        onTouchEnd={e => selectOption(e.target.getAttribute('optionname'), countryD)} 
-                                        key={index} 
+                                        onTouchEnd={e => selectOption(e.target.getAttribute('optionname'), countryD)}
+                                        key={index}
                                         value={code}>
-                                            <Image src={flag} width={22} className="mx-3" />
-                                            {name}
+                                        <Image src={flag} width={22} className="mx-3" />
+                                        {name}
                                     </div>
                                 )
                             })
-                        :   <div className="option-null">
-                                <Form.Text>No Country Found</Form.Text> 
+                            : <div className="option-null">
+                                <Form.Text>No Country Found</Form.Text>
                                 <span>Consider Selecting Other</span>
                             </div>
                     }

@@ -1,28 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { searchContact } from '../../services/index';
+
+import { excluded } from '../../validation/validationMsg';
 
 import UseAnimations from "react-useanimations";
 import alertTriangle from 'react-useanimations/lib/alertTriangle';
 
-import { FaSearch } from 'react-icons/fa';
 import { Form, Image } from 'react-bootstrap';
+import { FaSearch } from 'react-icons/fa';
 
 const SearchBar = ({ cName, hasTouched, hasError, Mandatory }) => {
+    const { contact } = useSelector(state => state.searchContact);
+    const dispatch = useDispatch();
+
     const [searchResult, setSearchResult] = useState('');
     const [open, setOpen] = useState(false);
-    const dispatch = useDispatch();
-    const contact = useSelector(state => state.searchContact.contact);
-    const exclude = [null, undefined, 'null', 'undefined', '', ' '];
     const ref = useRef(null);
 
     useEffect(() => {
-        if(searchResult !== '') {
+        if (searchResult !== '') {
             dispatch(searchContact(searchResult));
         }
     }, [searchResult, dispatch]);
-    
+
     useEffect(() => {
         ['click', 'touchend'].forEach(e => {
             document.addEventListener(e, toggle);
@@ -51,7 +54,6 @@ const SearchBar = ({ cName, hasTouched, hasError, Mandatory }) => {
                     type="text"
                     value={searchResult}
                     onChange={searchHandler}
-                    // onBlur={functionBlur}
                     className={hasTouched && hasError ? 'hasError' : (searchResult !== "" ? 'noError' : '')}
                     placeholder=""
                     required />
@@ -63,33 +65,33 @@ const SearchBar = ({ cName, hasTouched, hasError, Mandatory }) => {
                     {hasError}
                 </Form.Text>
             }
-            <div className={`search-result ${searchResult !== ''? open ? 'open' : '' : ''} ${contact?.length > 0 ? 'hasData' : 'noData'}`}>
+            <div className={`search-result ${searchResult !== '' ? open ? 'open' : '' : ''} ${contact?.length > 0 ? 'hasData' : 'noData'}`}>
                 {
                     contact && contact.length > 0
-                    ?   contact.map((contact, index) => {
-                            const { cid, name, image, mobileNumber, email } = contact;
+                        ? contact.map((contact, index) => {
+                            const { cid, name, image, mobileNumber } = contact;
                             return (
                                 <Link to={`/view_contact/${cid}`} id={cid} key={index} className="list-group-item">
                                     <div className="item">
                                         <div className='img-border me-3'>
-                                            <Image src={image} className="profile_pic" alt=""/>
+                                            <Image src={image} className="profile_pic" alt="" />
                                         </div>
                                         <div className="info">
                                             <span>{name ?? '-'}</span>
-                                            {  
-                                                !exclude.includes(mobileNumber?.number) 
-                                                ?   <span>
-                                                        { !exclude.includes(mobileNumber?.code) && <span>+{ mobileNumber?.code } </span> } 
-                                                        { mobileNumber?.number ?? '-'}
+                                            {
+                                                !excluded.includes(mobileNumber?.number)
+                                                    ? <span>
+                                                        {!excluded.includes(mobileNumber?.code) && <span>+{mobileNumber?.code} </span>}
+                                                        {mobileNumber?.number ?? '-'}
                                                     </span>
-                                                :  <span>-</span>
+                                                    : <span>-</span>
                                             }
                                         </div>
                                     </div>
                                 </Link>
                             )
                         })
-                    :   <div className="option-null">
+                        : <div className="option-null">
                             <UseAnimations className='me-2' animation={alertTriangle} />
                             <span>No results found</span>
                         </div>

@@ -1,21 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap';
 
-const FormAgrement = ({ cName, functionChange, hasTouched, hasError, Mandatory }) => {
+const FormAgrement = ({ agreement, cName, functionChange, hasTouched, hasError, Mandatory }) => {
+
     return (
-        <Form.Group className={`form-input-agreement ${cName}`} controlId="agree-term">
+        <Form.Group className={`form-input-agreement ${cName}`}>
             <div className="form-input-line">
                 <Form.Check
                     name="agreement"
+                    title='Agree-term'
                     type="checkbox"
-                    control="checkbox"
+                    control="input"
                     onChange={functionChange}
                     className="agree-term-box"
                     style={{ display: "inline-block" }}
-                    aria-label="option 1"
-                required />
+                    checked={agreement}
+                    required />
                 <Form.Label className="label-agree-term m-0">I agree all statements in <Link to="/terms-conditions" className="term-service text-decoration-underline">Terms and Conditions.</Link>{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {

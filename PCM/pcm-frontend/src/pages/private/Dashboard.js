@@ -18,7 +18,7 @@ import { FaUserCheck, FaSignInAlt, FaAddressBook, FaUserShield } from 'react-ico
 
 const Dashboard = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
-    const { name, connectedWithUS, lastLogin, totalContacts, authorities } = useSelector(state => state.currentUser);
+    const { name, connectedWithUS, lastLogin, totalContacts, authorities } = useSelector(state => state.currentUser.currentUser);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();

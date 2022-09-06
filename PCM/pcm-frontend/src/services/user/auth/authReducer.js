@@ -1,11 +1,12 @@
 import { LOGIN_REQUEST, LOGIN_CLEAR, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_ACTION } from './authTypes';
+import { verifyToken } from '../../../api/HomeAPI';
 
-const token = localStorage.jwtToken;
+// const token = localStorage.jwtToken;
+const token = verifyToken(localStorage?.jwtToken);
 
 const initialState = {
     loading: false,
-    isLoggedIn: token ? true : false,
-    // isLoggedIn: '',
+    isLoggedIn: token,
     logInError: ''
 };
 

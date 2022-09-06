@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import { FaUserTag } from 'react-icons/fa';
 import { Form } from 'react-bootstrap';
@@ -16,7 +16,7 @@ const FormTags = ({ tags, cName, functionAddTags, functionRemoveTags, functionKe
                     onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (tags?.length > 0 ? 'noError' : '')}
                     placeholder=""
-                required />
+                    required />
                 <Form.Label><FaUserTag className="me-2" />Tags{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             <ul id="tags">

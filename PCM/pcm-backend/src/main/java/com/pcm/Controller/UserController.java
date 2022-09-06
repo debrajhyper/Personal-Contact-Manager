@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pcm.Constant.AppConstant;
 import com.pcm.Model.Role;
 import com.pcm.Model.User;
 import com.pcm.Model.UserRole;
@@ -33,14 +34,14 @@ public class UserController {
 	
 	
 	@PostMapping("/register")
-	public ResponseEntity<User> registerUser(@Valid @RequestBody User user) throws Exception {
-		System.out.println("==============================================================================================================================");
+	public ResponseEntity<String> registerUser(@Valid @RequestBody User user) throws Exception {
+		System.out.println("======================================================   USER SIGNUP   =======================================================");
 		
 		Set<UserRole> roles = new HashSet<>();
 		
 			Role role = new Role();
-			role.setRoleId(101);
-			role.setRoleName("NORMAL");
+			role.setRoleId(AppConstant.ROLE_ID);
+			role.setRoleName(AppConstant.ROLE_NAME);
 			
 			UserRole userRole = new UserRole();
 			userRole.setUser(user);
@@ -48,8 +49,9 @@ public class UserController {
 		
 		roles.add(userRole);
 		
-		User createdUser =  this.userService.registerUser(user, roles);
-		return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
+		this.userService.registerUser(user, roles);
+		
+		return new ResponseEntity<String>("User successfully registered", HttpStatus.CREATED);
 	}
 	
 	
@@ -57,12 +59,12 @@ public class UserController {
 	
 	@GetMapping("/current-user")
 	public ResponseEntity<User> getCurrentUser(Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   CURRENT USER   =======================================================");
 		
 		String email = principal.getName();
-		User currentUser = this.userService.currentUser(email);
+		User sessionUser = this.userService.currentUser(email);
 		
-		return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+		return new ResponseEntity<User>(sessionUser, HttpStatus.OK);
 	}
 	
 	
@@ -70,12 +72,12 @@ public class UserController {
 	
 	@PostMapping("/update-user")
 	public ResponseEntity<String> updateUser(@Valid @ModelAttribute User user, @RequestParam(value = "profilePic", required = false) MultipartFile profilePic, Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   UPDATE USER   =======================================================");
 		
 		String email = principal.getName();
 		this.userService.updateUser(user, profilePic, email);
 		
-		return new ResponseEntity<String>("User updated successfully.", HttpStatus.OK);
+		return new ResponseEntity<String>("User updated successfully", HttpStatus.OK);
 	}
 	
 	
@@ -83,12 +85,12 @@ public class UserController {
 	
 	@GetMapping("/logout-user")
 	public ResponseEntity<String> logoutUser(Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   USER LOGGED OUT   =======================================================");
 
 		String email = principal.getName();
 		this.userService.logoutUser(email);
 		
-		return new ResponseEntity<String>("User logout successfully", HttpStatus.OK);
+		return new ResponseEntity<String>("User successfully logged out", HttpStatus.OK);
 	}
 
 }

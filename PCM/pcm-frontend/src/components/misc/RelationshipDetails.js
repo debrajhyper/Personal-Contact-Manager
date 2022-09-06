@@ -41,7 +41,7 @@ export const RelationshipDetails = [
     },
     {
         id: 11,
-        name: "Grandmother",    
+        name: "Grandmother",
     },
     {
         id: 12,

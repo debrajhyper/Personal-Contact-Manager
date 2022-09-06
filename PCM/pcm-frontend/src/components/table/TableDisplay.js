@@ -1,29 +1,23 @@
-import React from 'react'
+import React from 'react';
 
-import TableRow from './TableRow';
+import { useSelector, useDispatch } from 'react-redux';
+import { ContactsCheckedAll } from '../../services';
 
 import './table.scss';
-
-import { FaUserCircle } from 'react-icons/fa';
-import { Form, Table } from 'react-bootstrap';
-
-
 
 import UseAnimations from "react-useanimations";
 import alertTriangle from 'react-useanimations/lib/alertTriangle';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { ContactsCheckedAll } from '../../services';
+import TableRow from './TableRow';
+import { Form, Table } from 'react-bootstrap';
 
-
-const TableDisplay = ({ deleteIds, setDeleteIds, indexOfFirstItem, indexOfLastItem }) => {
-    const dispatch = useDispatch();
+const TableDisplay = ({ deleteIds, setDeleteIds }) => {
     const contacts = useSelector(state => state.viewContacts.contacts);
-    
+    const dispatch = useDispatch();
+
     const handleAllChecked = e => {
         const { checked } = e.target;
-        if(checked) {
+        if (checked) {
             setDeleteIds(contacts.map(contact => contact.cid));
         }
         else {
@@ -31,7 +25,7 @@ const TableDisplay = ({ deleteIds, setDeleteIds, indexOfFirstItem, indexOfLastIt
         }
         dispatch(ContactsCheckedAll(checked));
     };
-    
+
     return (
         <div className="display-table">
             <div className="overflow-auto">
@@ -49,7 +43,6 @@ const TableDisplay = ({ deleteIds, setDeleteIds, indexOfFirstItem, indexOfLastIt
                             </th>
                             <th scope="col" className="id text-center">Id</th>
                             <th scope="col" className="name text-left">Name</th>
-                            {/* <th scope="col" className="company text-left">Company</th> */}
                             <th scope="col" className="phone text-left">Mobile Number</th>
                             <th scope="col" className="email text-left">Email</th>
                             <th scope="col" className="action text-center">Action</th>
@@ -60,17 +53,17 @@ const TableDisplay = ({ deleteIds, setDeleteIds, indexOfFirstItem, indexOfLastIt
                             contacts && contacts.length > 0
                                 ? contacts.map((contact, index) => {
                                     return (
-                                        <TableRow key={index} contact={contact} deleteIds={deleteIds} setDeleteIds={setDeleteIds} />
+                                        <TableRow key={index} contact={contact} deleteIds={deleteIds} />
                                     )
                                 })
                                 : <tr className="no-user text-center w-full">
-                                        <td colSpan={6} className="p-5">
-                                            <div className='content'>
-                                                <UseAnimations size={45} animation={alertTriangle} />
-                                                <span className="p-2">No Users Found</span>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <td colSpan={6} className="p-5">
+                                        <div className='content'>
+                                            <UseAnimations size={45} animation={alertTriangle} />
+                                            <span className="p-2">No Users Found</span>
+                                        </div>
+                                    </td>
+                                </tr>
                         }
                     </tbody>
                 </Table>
@@ -78,75 +71,5 @@ const TableDisplay = ({ deleteIds, setDeleteIds, indexOfFirstItem, indexOfLastIt
         </div>
     )
 }
-
-
-
-
-
-
-
-
-
-// const TableDisplay = ({ users, filteredUsers, currentItems, setUsers, indexOfFirstItem, indexOfLastItem }) => {
-
-//     const handleAllChecked = e => {
-//         const { checked } = e.target;
-//         let newUsers = users.map(user => {
-//             if (currentItems.includes(user)) {
-//                 return { ...user, isChecked: checked };
-//             }
-//             return user;
-//         })
-//         setUsers(newUsers);
-//     };
-
-//     return (
-//         <div className="display-table">
-//             <div className="overflow-auto">
-//                 <Table responsive className='table-borderless'>
-//                     <thead>
-//                         <tr>
-//                             <th scope="col" className="form-input-line text-center">
-//                                 <Form.Check
-//                                     type="checkbox"
-//                                     value="checkedAll"
-//                                     className="form-checkbox"
-//                                     onChange={handleAllChecked}
-//                                     checked={users.slice(indexOfFirstItem, indexOfLastItem).filter(user => user?.isChecked !== true).length < 1}
-//                                 />
-//                             </th>
-//                             <th scope="col" className="id text-center">Id</th>
-//                             <th scope="col" className="name text-left">Name</th>
-//                             <th scope="col" className="phone text-left">Mobile Number</th>
-//                             <th scope="col" className="email text-left">Email</th>
-//                             <th scope="col" className="action text-center">Action</th>
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                         {
-//                             users && users.length > 0 && filteredUsers.length > 0
-//                                 ? currentItems.map((user, index) => {
-//                                     return (
-//                                         <TableRow
-//                                             key={index}
-//                                             user={user}
-//                                             users={users}
-//                                             setUsers={setUsers}
-//                                         />
-//                                     )
-//                                 })
-//                                 : <tr className="no-user text-center w-full">
-//                                         <td colSpan={6} className="p-5">
-//                                             <FaUserCircle />
-//                                             <span className="p-2">No Users Found</span>
-//                                         </td>
-//                                     </tr>
-//                         }
-//                     </tbody>
-//                 </Table>
-//             </div>
-//         </div>
-//     )
-// }
 
 export default TableDisplay

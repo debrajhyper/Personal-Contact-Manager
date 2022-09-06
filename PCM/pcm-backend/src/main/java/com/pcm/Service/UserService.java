@@ -10,10 +10,10 @@ import com.pcm.Model.UserRole;
 
 public interface UserService {
 	
-	//ADD USER
-	public User registerUser(User user, Set<UserRole> userRoles) throws Exception;
+	//CREATE USER
+	public void registerUser(User user, Set<UserRole> userRoles) throws Exception;
 	
-	//GET USER
+	//READ USER
 	public User currentUser(String email) throws Exception;
 	
 	//UPDATE USER

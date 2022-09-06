@@ -33,16 +33,14 @@ public class ContactController {
 	private ContactService contactService;
 	
 	
-	
-	
 	@PostMapping("/add-contact")
 	public ResponseEntity<String> addContact(@Valid @ModelAttribute Contact contact, @RequestParam(value = "profilePic", required = false) MultipartFile profilePic, Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   ADD CONTACT   =======================================================");
 		
 		String email = principal.getName();
 		this.contactService.addContact(contact, profilePic, email);
 		
-		return new ResponseEntity<String>("Contact Added Successfully", HttpStatus.CREATED);
+		return new ResponseEntity<String>("Contact added successfully", HttpStatus.CREATED);
 	}
 	
 	
@@ -50,7 +48,7 @@ public class ContactController {
 	
 	@GetMapping("/get-all-contact")
 	public ResponseEntity<List<Contact>> getAllContacts(Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   GET ALL CONTACTS   =======================================================");
 		
 		String email = principal.getName();
 		List<Contact> allContacts = this.contactService.getAllContacts(email);
@@ -63,12 +61,10 @@ public class ContactController {
 	
 	@GetMapping("/view-contacts/{page}")
 	public ResponseEntity<Map<String, Object>> viewContacts(@PathVariable("page") int page, Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   VIEW CONTACTS   =======================================================");
 		
 		String email = principal.getName();
 		Page<Contact> viewContacts = this.contactService.viewContacts(page, email);
-		
-		System.out.println("PAGE -> " + page);
 
 		Map<String, Object> viewContactsMap = new HashMap<>();
 		viewContactsMap.put("contacts", viewContacts);
@@ -84,7 +80,7 @@ public class ContactController {
 	
 	@GetMapping("/view-contact/{cId}")
 	public ResponseEntity<Contact> viewContact(@PathVariable("cId") int cId, Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   VIEW CONTACT   =======================================================");
 		
 		String email = principal.getName();
 		Contact contact = this.contactService.viewContact(cId, email);
@@ -97,12 +93,12 @@ public class ContactController {
 	
 	@DeleteMapping("/delete-selected-contacts/{deleteIds}")
 	public ResponseEntity<String> deleteSelectedContacts(@PathVariable("deleteIds") List<Integer> deleteIds, Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   DELETE SELECTED CONTACTS   =======================================================");
 		
 		String email = principal.getName();
 		this.contactService.deleteSelectedContacts(deleteIds, email);
 		
-		return new ResponseEntity<String>("Selected contacts deleted successfully", HttpStatus.OK);
+		return new ResponseEntity<String>("Selected contacts have been successfully deleted", HttpStatus.OK);
 	}
 	
 	
@@ -110,7 +106,7 @@ public class ContactController {
 	
 	@DeleteMapping("/delete-contact/{cId}")
 	public ResponseEntity<String> deleteContact(@PathVariable("cId") int cId, Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   DELETE CONTACT   =======================================================");
 		
 		String email = principal.getName();
 		this.contactService.deleteContact(cId, email);
@@ -123,7 +119,7 @@ public class ContactController {
 	
 	@PostMapping("/update-contact")
 	public ResponseEntity<String> updateContact(@Valid @ModelAttribute Contact contact, @RequestParam(value = "profilePic", required = false) MultipartFile profilePic, Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   UPDATE CONTACT   =======================================================");
 		
 		String email = principal.getName();
 		this.contactService.updateContact(contact, profilePic, email);

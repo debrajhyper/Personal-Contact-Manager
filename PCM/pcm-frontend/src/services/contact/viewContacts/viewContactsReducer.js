@@ -4,7 +4,7 @@ const initialState = {
     loading: false,
     contacts: [],
     totalContacts: 0,
-    currentPage: 0,
+    page: 0,
     totalPages: 0,
     error: '',
 }
@@ -15,32 +15,32 @@ const viewContactsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-            }
+            };
         case CONTACT_SUCCESS:
             return {
                 loading: false,
                 contacts: action.payload,
                 totalContacts: action.totalContacts,
-                currentPage: action.page,
+                page: action.page,
                 totalPages: action.totalPages,
                 error: action.error
-            }
+            };
         case CONTACT_FAILURE:
             return {
                 loading: false,
                 contacts: action.payload,
                 totalContacts: action.totalContacts,
-                currentPage: action.page,
+                page: action.page,
                 totalPages: action.totalPages,
                 error: action.error
-            }
+            };
         case CONTACT_CHECKED:
             return {
                 ...state,
                 contacts: state.contacts.map(
                         contact => contact.cid === action.payload ? { ...contact, isChecked: action.checked } : contact
                     )
-            }
+            };
         case CONTACT_CHECKED_ALL:
             return {
                 ...state,
@@ -49,7 +49,7 @@ const viewContactsReducer = (state = initialState, action) => {
                             return { ...contact, isChecked: action.checked }
                         }
                     )
-            }
+            };
         default:
             return state;
     }

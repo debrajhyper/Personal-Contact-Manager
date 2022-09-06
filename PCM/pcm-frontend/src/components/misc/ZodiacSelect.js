@@ -1,7 +1,7 @@
 import zodiac from "./ZodiacImg";
 
 export const ZodiacSign = (sign) => {
-    switch(sign) {
+    switch (sign) {
         case "CAPRICORN":
             return zodiac.CAPRICORN;
         case "AQUARIUS":

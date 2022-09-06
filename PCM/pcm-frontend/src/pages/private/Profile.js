@@ -21,7 +21,7 @@ import { FaAt, FaUserShield, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedin
 
 const Profile = () => {
     const { currentUser } = useSelector(state => state.currentUser);
-    const { success } = useSelector(state => state.updateUser);
+    const { updateUserSuccess } = useSelector(state => state.updateUser);
     const dispatch = useDispatch();
 
     const [modalEditProfile, setModalEditProfile] = useState(false);
@@ -31,11 +31,12 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        if (success) {
+        if (updateUserSuccess) {
             handleModalEditProfile();
             dispatch(getCurrentUser());
         }
-    }, [success, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [updateUserSuccess, dispatch]);
 
     const { id, email, image, enabled, name, authorities, country, dateOfBirth, mobileNumber, zodiacSign, socialLinks, description } = currentUser
     const cardDetails = [
@@ -45,7 +46,7 @@ const Profile = () => {
             image: cId,
             icon: <IoFingerPrint />,
             title: 'Id',
-            subtitle: `PCM22U${id}`
+            subtitle: id ? `PCM22U${id}` : '-'
         },
         {
             spaceLg: 3,

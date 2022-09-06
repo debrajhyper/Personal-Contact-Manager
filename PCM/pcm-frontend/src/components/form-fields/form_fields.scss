@@ -399,7 +399,7 @@
     .form-input-line {
         display: flex;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
 
         input[type=checkbox] {
             display: inline-block;

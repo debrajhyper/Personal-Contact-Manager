@@ -132,6 +132,7 @@ export const contactValidate = values => {
     const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const phoneNo_pattern = /^(\+\d{1,3}[- ]?)?\d{10}$/gm;
     const dateOfBirth_pattern = /^\d{4}-\d{2}-\d{2}$/;
+    // eslint-disable-next-line no-useless-escape
     const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)$/gm
     // console.log("-------------------> ",values)
 
@@ -278,6 +279,7 @@ export const userValidate = values => {
     const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const phoneNo_pattern = /^(\+\d{1,3}[- ]?)?\d{10}$/gm;
     const dateOfBirth_pattern = /^\d{4}-\d{2}-\d{2}$/;
+    // eslint-disable-next-line no-useless-escape
     const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)$/gm
     // console.log("-------------------> ",values)
 

@@ -35,18 +35,25 @@ export const axiosPrivate = axios.create({
 });
 
 // axiosPrivate.defaults.headers.common[TOKEN_HEADER] = `Bearer ${jwtToken}`;
-
 axiosPrivate.interceptors.request.use(config => {
-    let jwtToken = localStorage.getItem('jwtToken');
-    const expires_at = new Date(jwtDecode(jwtToken).exp * 1000);
-    if(new Date(expires_at) > new Date()) {
-        // localStorage.removeItem('jwtToken');
+    const jwtToken = localStorage.getItem('jwtToken');
+    
+    const verify = verifyToken(jwtToken);
+    if(verify) {
         config.headers[TOKEN_HEADER] = `Bearer ${jwtToken}`;
-    } 
+    }
     else {
         localStorage.removeItem('jwtToken');
     }
     
-    console.log(config);
+    // console.log(config);
     return config;
 });
+
+export const verifyToken = jwtToken => {
+    if(jwtToken === undefined || jwtToken === null) {
+        return false;
+    }
+    const expires_at = new Date(jwtDecode(jwtToken).exp * 1000);
+    return (new Date(expires_at) > new Date()) ? true : false;
+}

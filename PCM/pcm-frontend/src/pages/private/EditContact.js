@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { viewContact } from '../../services/index';
@@ -11,7 +11,7 @@ import { Header } from '../../components/index';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const EditContact = () => {
-    const { success } = useSelector(state => state.updateContact);
+    const { updateContactSuccess } = useSelector(state => state.updateContact);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -24,10 +24,10 @@ const EditContact = () => {
     }, [cid, dispatch]);
 
     useEffect(() => {
-        if (success) {
+        if (updateContactSuccess) {
             navigate(-1);
         }
-    }, [success, navigate]);
+    }, [updateContactSuccess, navigate]);
 
     return (
         <Container fluid className='add-contact'>

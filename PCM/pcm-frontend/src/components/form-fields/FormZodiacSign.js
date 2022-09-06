@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
+
+import { excluded } from '../../validation/validationMsg';
 
 import { zodiacDetails } from '../misc/ZodiacDetails';
-
-import { IoDisc } from 'react-icons/io5';
 import { Form, Image } from 'react-bootstrap';
+import { IoDisc } from 'react-icons/io5';
 
-const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
     const ref = useRef(null);
@@ -60,14 +61,14 @@ const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, funct
                         onKeyDown={functionKeyDown}
                         className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(zodiacSign) ? 'noError' : '')}
                         placeholder=""
-                    required />
+                        required />
                     <Form.Label><IoDisc className="me-2" />Zodiac Sign{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                     <div className={`arrow ${open ? 'open' : null}`} />
                 </div>
                 <div className={`OptionDetails ${open ? 'open' : null}`}>
                     {
                         filter(zodiacDetails).length > 0
-                        ?   filter(zodiacDetails).map((zodiacSignD, index) => {
+                            ? filter(zodiacDetails).map((zodiacSignD, index) => {
                                 const { id, name, image } = zodiacSignD;
                                 return (
                                     <div
@@ -77,13 +78,13 @@ const FormZodiacSign = ({ zodiacSign, cName, functionChange, functionBlur, funct
                                         onTouchEnd={e => selectOption(e.target.getAttribute('optionname'), name)}
                                         key={id}
                                         value={name}>
-                                            <Image src={image} width={25} className="mx-3" />
-                                            {name}
+                                        <Image src={image} width={25} className="mx-3" />
+                                        {name}
                                     </div>
                                 )
                             })
-                        :   <div className="option-null">
-                                <Form.Text>No Zodiac Name</Form.Text> 
+                            : <div className="option-null">
+                                <Form.Text>No Zodiac Name</Form.Text>
                                 <span>Consider Selecting Other</span>
                             </div>
                     }

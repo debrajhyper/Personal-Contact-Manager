@@ -8,7 +8,7 @@ import { authenticationUser, clearResetPassword, clearSendOTP, clearVerifyOTP } 
 import '../../sass/public/login.scss';
 import '../../components/form-fields/form_fields.scss';
 
-import { excluded, loginValidate } from '../../validation/validationMsg';
+import { loginValidate } from '../../validation/validationMsg';
 
 import { FormEmail, FormPassword, ButtonNormal } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
@@ -68,11 +68,11 @@ const Login = () => {
                             }
 
                             <Form className="register-form" onSubmit={formik.handleSubmit} method="post" noValidate>
-                                <FormEmail email={formik.values?.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
-                                <FormPassword password={formik.values?.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true} />
+                                <FormEmail email={formik.values?.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
+                                <FormPassword password={formik.values?.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true} />
 
                                 <Container className="forgot-pass-link">
-                                    <Form.Group className="form-input-agreement" controlId="agree-term" style={{ display: "inline-block" }}>
+                                    <Form.Group className="form-input-agreement" style={{ display: "inline-block" }}>
                                         <div className="form-input-line">
                                             <Form.Check name="agreement" type="checkbox" control="checkbox" className="agree-term-box" style={{ display: "inline-block" }} />
                                             <Form.Label className="label-agree-term m-0">Remember Me</Form.Label>

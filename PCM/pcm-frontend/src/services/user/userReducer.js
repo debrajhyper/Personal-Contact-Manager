@@ -4,7 +4,7 @@ const initialState = {
     loading: false,
     currentUser: {},
     error: '',
-}
+};
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {

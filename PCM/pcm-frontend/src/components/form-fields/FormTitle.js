@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import { FaUserTie } from 'react-icons/fa';
+import { excluded } from '../../validation/validationMsg';
+
 import { Form } from 'react-bootstrap';
+import { FaUserTie } from 'react-icons/fa';
 
-const FormTitle = ({ title, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+const FormTitle = ({ title, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="Title">
             <div className="field">
@@ -17,7 +19,7 @@ const FormTitle = ({ title, cName, functionChange, functionBlur, functionKeyDown
                     onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(title) ? 'noError' : '')}
                     placeholder=""
-                required />
+                    required />
                 <Form.Label><FaUserTie className="me-2" />Title{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {

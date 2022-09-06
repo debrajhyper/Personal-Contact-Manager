@@ -1,12 +1,11 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
 import { Form } from 'react-bootstrap';
 
 const FormNote = ({ description, cName, functionChange, hasTouched, hasError }) => {
-  const editorRef = useRef(null);
-
   const [text, setText] = useState('');
+  const editorRef = useRef(null);
 
   return (
     <Form.Group className={`form-input ${cName}`} controlId="description">
@@ -25,7 +24,6 @@ const FormNote = ({ description, cName, functionChange, hasTouched, hasError }) 
           functionChange(newValue);
           setText(editor.getContent({ format: 'html' }));
         }}
-        // initialValue="<p>This is the initial content of the editor.</p>"
         init={{
           height: 400,
           menubar: true,
@@ -41,7 +39,6 @@ const FormNote = ({ description, cName, functionChange, hasTouched, hasError }) 
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         }}
       />
-      {/* <pre>{text}</pre> */}
     </Form.Group>
   )
 }

@@ -22,9 +22,10 @@ public class SearchController {
 	@Autowired
 	private SearchService searchService;
 	
+	
 	@GetMapping("/search/{query}")
 	public ResponseEntity<List<Contact>> search(@PathVariable("query") String query, Principal principal) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   SEARCH CONTACTS   =======================================================");
 		
 		String email = principal.getName();
 		List<Contact> searchContact = this.searchService.searchContact(query, email);

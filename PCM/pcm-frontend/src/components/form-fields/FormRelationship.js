@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
+
+import { excluded } from '../../validation/validationMsg';
 
 import { RelationshipDetails } from '../misc/RelationshipDetails';
-
-import { FaHeart } from 'react-icons/fa';
 import { Form } from 'react-bootstrap';
+import { FaHeart } from 'react-icons/fa';
 
-const FormRelationship = ({ relationship, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+const FormRelationship = ({ relationship, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
     const ref = useRef(null);
@@ -60,14 +61,14 @@ const FormRelationship = ({ relationship, cName, functionChange, functionBlur, f
                         onKeyDown={functionKeyDown}
                         className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(relationship) ? 'noError' : '')}
                         placeholder=""
-                    required />
+                        required />
                     <Form.Label><FaHeart className="me-2" />Relationship{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                     <div className={`arrow ${open ? 'open' : null}`} />
                 </div>
                 <div className={`OptionDetails ${open ? 'open' : null}`}>
                     {
                         filter(RelationshipDetails).length > 0
-                        ?   filter(RelationshipDetails).map((relationshipD, index) => {
+                            ? filter(RelationshipDetails).map((relationshipD, index) => {
                                 const { id, name } = relationshipD;
                                 return (
                                     <div
@@ -77,12 +78,12 @@ const FormRelationship = ({ relationship, cName, functionChange, functionBlur, f
                                         onTouchEnd={e => selectOption(e.target.getAttribute('optionname'), name)}
                                         key={id}
                                         value={name}>
-                                            {name}
+                                        {name}
                                     </div>
                                 );
                             })
-                        :   <div className="option-null">
-                                <Form.Text>No Relationship Status</Form.Text> 
+                            : <div className="option-null">
+                                <Form.Text>No Relationship Status</Form.Text>
                                 <span>Consider Selecting Other</span>
                             </div>
                     }

@@ -1,32 +1,31 @@
-import React, { useState, useEffect } from 'react'
-
-import { FormName, FormEmail, RequiredStatement, FormCountry, FormDOB, FormMobileNo, FormProfilePic, ModalProfilePic, FormZodiacSign, FormWebsite, FormSocialLinks, FormNote, ButtonNormal } from '../../components/index';
-import { userValidate } from '../../validation/validationMsg';
-import useForm from '../../validation/useForm';
+import React, { useState, useEffect } from 'react';
 
 import './modal.scss';
 import '../../components/form-fields/form_fields.scss';
 
+import useForm from '../../validation/useForm';
+import { userValidate } from '../../validation/validationMsg';
+
+import { FormName, FormEmail, RequiredStatement, FormCountry, FormDOB, FormMobileNo, FormProfilePic, ModalProfilePic, FormZodiacSign, FormWebsite, FormSocialLinks, FormNote, ButtonNormal } from '../../components/index';
 import { Modal, Row, Col, Form } from 'react-bootstrap';
 
 const ModalEditProfile = ({ modalEditProfile, handleModalEditProfile }) => {
-    const { 
-        values, 
-        excluded, 
-        handleChange, 
-        handleChangeFile, handleChangeFileCancel, handleChangeFileUpload, 
-        handleChangeMobileNumber, 
-        handleChangeSelect, 
-        handleChangeSocial, 
-        handleChangeNote, 
+    const {
+        values,
+        handleChange,
+        handleChangeFile, handleChangeFileCancel, handleChangeFileUpload,
+        handleChangeMobileNumber,
+        handleChangeSelect,
+        handleChangeSocial,
+        handleChangeNote,
 
-        handleBlur, 
-        handleBlurMobileNumber, 
-        handleBlurSocial, 
+        handleBlur,
+        handleBlurMobileNumber,
+        handleBlurSocial,
 
-        handleReset, 
-        handleSubmit, 
-        uploadedFile, touched, errors,  
+        handleReset,
+        handleSubmit,
+        uploadedFile, touched, errors,
         profileEdit, setProfileEdit
     } = useForm(userValidate);
 
@@ -37,14 +36,12 @@ const ModalEditProfile = ({ modalEditProfile, handleModalEditProfile }) => {
     }, [values.profilePic, touched.profilePic]);
 
     useEffect(() => {
-        if(modalEditProfile) {
+        if (modalEditProfile) {
             setProfileEdit(true);
         } else {
             setProfileEdit(false);
         }
     }, [profileEdit, setProfileEdit, modalEditProfile]);
-
-
 
     return (
         <Modal className='edit-profile' dialogClassName='EditProfile' show={modalEditProfile} onHide={handleModalEditProfile} centered animation={true} autoFocus={true} id="modal">
@@ -56,31 +53,31 @@ const ModalEditProfile = ({ modalEditProfile, handleModalEditProfile }) => {
                         <Row className='d-flex justify-content-center'>
                             <Col className='col-xl-auto col-sm-6 col-12'>
                                 <Row className='d-flex flex-column align-items-center'>
-                                    <FormProfilePic profilePic={values?.profilePic} profilePicURL={values?.profilePicURL} uploadedFile={uploadedFile} cName="col-auto px-md-4" functionChange={handleChangeFile} excluded={excluded} hasTouched={touched?.profilePic} hasError={errors?.profilePic} />
+                                    <FormProfilePic profilePic={values?.profilePic} profilePicURL={values?.profilePicURL} uploadedFile={uploadedFile} cName="col-auto px-md-4" functionChange={handleChangeFile} hasTouched={touched?.profilePic} hasError={errors?.profilePic} />
                                 </Row>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
                                 <Row className='py-1'>
-                                    <FormName name={values?.name} cName="col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} excluded={excluded} hasTouched={touched?.name} hasError={errors?.name} Mandatory={true} />
-                                    <FormEmail email={values?.email} cName="col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} excluded={excluded} hasTouched={touched?.email} hasError={errors?.email} Mandatory={true} />
+                                    <FormName name={values?.name} cName="col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched?.name} hasError={errors?.name} Mandatory={true} />
+                                    <FormEmail email={values?.email} cName="col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched?.email} hasError={errors?.email} Mandatory={true} />
                                 </Row>
                                 <Row className='py-2'>
-                                    <FormMobileNo mobileNumber={values?.mobileNumber} countryCode={values?.country?.no} cName="col-sm-6 col-12 px-sm-4" functionChange={handleChangeMobileNumber} functionBlur={handleBlurMobileNumber} excluded={excluded} hasTouched={touched?.mobileNumber} hasError={errors?.mobileNumber} Mandatory={false} />
-                                    <FormCountry country={values?.country} cName="col-sm-6 col-12 px-sm-4" functionChange={(name, val) => handleChangeSelect(name, val)} functionBlur={handleBlur} excluded={excluded} hasTouched={touched?.country} hasError={errors?.country} Mandatory={false} />
+                                    <FormMobileNo mobileNumber={values?.mobileNumber} countryCode={values?.country?.no} cName="col-sm-6 col-12 px-sm-4" functionChange={handleChangeMobileNumber} functionBlur={handleBlurMobileNumber} hasTouched={touched?.mobileNumber} hasError={errors?.mobileNumber} Mandatory={false} />
+                                    <FormCountry country={values?.country} cName="col-sm-6 col-12 px-sm-4" functionChange={(name, val) => handleChangeSelect(name, val)} functionBlur={handleBlur} hasTouched={touched?.country} hasError={errors?.country} Mandatory={false} />
                                 </Row>
                                 <Row className='py-1'>
-                                    <FormDOB dob={values?.dateOfBirth} cName="col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} excluded={excluded} hasTouched={touched?.dateOfBirth} hasError={errors?.dateOfBirth} Mandatory={false} />
-                                    <FormZodiacSign zodiacSign={values?.zodiacSign} cName="col-sm-6 col-12 px-sm-4" functionChange={(name, val) => handleChangeSelect(name, val)} functionBlur={handleBlur} excluded={excluded} hasTouched={touched?.zodiacSign} hasError={errors?.zodiacSign} Mandatory={false} />
+                                    <FormDOB dob={values?.dateOfBirth} cName="col-sm-6 col-12 px-sm-4" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched?.dateOfBirth} hasError={errors?.dateOfBirth} Mandatory={false} />
+                                    <FormZodiacSign zodiacSign={values?.zodiacSign} cName="col-sm-6 col-12 px-sm-4" functionChange={(name, val) => handleChangeSelect(name, val)} functionBlur={handleBlur} hasTouched={touched?.zodiacSign} hasError={errors?.zodiacSign} Mandatory={false} />
                                 </Row>
                             </Col>
                             <Col className='social-links col-xl-5 col-12 p-sm-2 p-0'>
                                 <fieldset>
                                     <legend>Social Links</legend>
                                     <Row className='py-xl-0 py-md-2'>
-                                        <FormSocialLinks socialLinks={values?.socialLinks} cName="col-xl-6 col-md-4 col-6 px-3" functionChange={handleChangeSocial} functionBlur={handleBlurSocial} excluded={excluded} hasTouched={touched?.socialLinks} hasError={errors?.socialLinks} Mandatory={false} />
-                                        <FormWebsite website={values?.website} cName="col-xl-6 col-md-4 col-6 px-3" functionChange={handleChange} functionBlur={handleBlur} excluded={excluded} hasTouched={touched?.website} hasError={errors?.website} Mandatory={false} />
+                                        <FormSocialLinks socialLinks={values?.socialLinks} cName="col-xl-6 col-md-4 col-6 px-3" functionChange={handleChangeSocial} functionBlur={handleBlurSocial} hasTouched={touched?.socialLinks} hasError={errors?.socialLinks} Mandatory={false} />
+                                        <FormWebsite website={values?.website} cName="col-xl-6 col-md-4 col-6 px-3" functionChange={handleChange} functionBlur={handleBlur} hasTouched={touched?.website} hasError={errors?.website} Mandatory={false} />
                                     </Row>
                                 </fieldset>
                             </Col>

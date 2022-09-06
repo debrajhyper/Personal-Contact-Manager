@@ -1,62 +1,62 @@
 import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from "./registerTypes";
-import axios from "../../../api/HomeAPI";
-import { SIGNUP_URL } from "../../../api/HomeAPI";
+import axios, { SIGNUP_URL } from "../../../api/HomeAPI";
 import { toast } from "react-toastify";
 
-export const registerUser = (user) => {
+export const registerUser = user => {
     return dispatch => {
         dispatch(signupRequest());
-        const toastLoading = toast.loading("Uploading data to the server")
+        const toastLoading = toast.loading("Uploading data to the server");
+
         axios.post(SIGNUP_URL, user)
-        .then(response => {
-            dispatch(signupSuccess(true, response?.status));
-            toast.update(
-                toastLoading,
-                {
-                    render: "Successfully Registered",
-                    type: "success",
-                    position: "top-right",
-                    isLoading: false,
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    closeButton: null,
-                    delay: 1000,
-                }
-            );
-        })
-        .catch(error => {
-            dispatch(signupFailure(false, error?.response?.status, error?.response?.data?.message));
-            toast.update(
-                toastLoading,
-                {
-                    render: "Oops... Something went wrong",
-                    type: "error",
-                    position: "top-right",
-                    isLoading: false,
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    closeButton: null,
-                    delay: 1000,
-                }
-            );
-        });
+            .then(response => {
+                dispatch(signupSuccess(true, response?.status));
+                setTimeout(() => {
+                    dispatch(signupSuccess(false, response?.status));
+                }, 100);
+                toast.update(
+                    toastLoading,
+                    {
+                        render: response?.data,
+                        type: "success",
+                        position: "top-right",
+                        isLoading: false,
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        closeButton: null,
+                        delay: 1000,
+                    }
+                );
+            })
+            .catch(error => {
+                dispatch(signupFailure(error?.response?.status, error?.response?.data?.message));
+                toast.update(
+                    toastLoading,
+                    {
+                        render: error?.response?.data?.message,
+                        type: "error",
+                        position: "top-right",
+                        isLoading: false,
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        closeButton: null,
+                        delay: 1000,
+                    }
+                );
+            });
     };
 };
 
 const signupRequest = () => {
     return {
         type: SIGNUP_REQUEST,
-        payload: '',
-        status: null,
-        error: ''
     };
 };
 
@@ -69,10 +69,10 @@ const signupSuccess = (isRegistered, status) => {
     };
 };
 
-const signupFailure = (isRegistered, status, error) => {
+const signupFailure = (status, error) => {
     return {
         type: SIGNUP_FAILURE,
-        payload: isRegistered,
+        payload: false,
         status: status,
         error: error,
     };

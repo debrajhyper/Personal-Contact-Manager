@@ -37,19 +37,20 @@ public class AuthenticateController {
 	//GENERATE TOKEN
 	@PostMapping("/generate-token")
 	public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   USER LOGGED IN   =======================================================");
 		
 		try {
 			if(jwtRequest.getUsername() == "" || jwtRequest.getPassword() == "") {
-				throw new BadCredentialsException("Missing email address or passward");
+				throw new BadCredentialsException("Missing email address or password");
 			}
 			this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
 			authenticate(jwtRequest.getUsername(), jwtRequest.getPassword());
 		}
 		catch (UsernameNotFoundException e) {
 			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new UsernameNotFoundException("Sorry, we couldn't find an account with that email address");
+			throw new UsernameNotFoundException(e.getMessage());
 		}
 		
 		UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
@@ -59,23 +60,29 @@ public class AuthenticateController {
 	}
 	
 	
+	
+	
 	private void authenticate(String username, String password) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		}
 		catch (DisabledException e) {
 			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new DisabledException("User Disabled");
+			throw new DisabledException("Account associated with this user is disabled");
 		}
 		catch (BadCredentialsException e) {
 			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new BadCredentialsException("Sorry, that password isn't right");
+			throw new BadCredentialsException("Sorry, the password is incorrect");
 		}
 		catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("Oops... Something Went Wrong");
+			throw new Exception("oops... Something went wrong");
 		}
 	}
 	

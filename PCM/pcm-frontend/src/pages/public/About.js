@@ -14,7 +14,7 @@ const About = () => {
         if (isLoggedIn) {
             navigate(from, { replace: true });
         }
-    }, [isLoggedIn,  from]);
+    }, [isLoggedIn, navigate, from]);
     
     return (
         <>

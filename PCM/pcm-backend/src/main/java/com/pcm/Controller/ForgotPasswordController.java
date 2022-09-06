@@ -23,7 +23,7 @@ public class ForgotPasswordController {
 	
 	@PostMapping("/send-otp")
 	public ResponseEntity<Map<String, Object>> sendOTP(@RequestParam("email") String email) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   SEND OTP   =======================================================");
 		
 		System.out.println("EMAIL -> " + email);
 		Map<String,Object> emailSentMap = this.forgotPasswordService.sendOTP(email);
@@ -36,7 +36,7 @@ public class ForgotPasswordController {
 	
 	@PostMapping("/verify-otp")
 	public ResponseEntity<Boolean> verifyOTP(@RequestParam("email") String email, @RequestParam("otp") String userOTP, @RequestParam("generatedOTP") String generatedOTP) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   VERIFY OTP   =======================================================");
 		
 		System.out.println("EMAIL -> " + email);
 		System.out.println("USER OTP -> " + userOTP);
@@ -51,12 +51,12 @@ public class ForgotPasswordController {
 	
 	@PostMapping("/reset-password")
 	public ResponseEntity<String> resetPassword(@RequestParam("email") String email, @RequestParam("password") String password) throws Exception {
-		System.out.println("==============================================================================================================================");
+		System.out.println("======================================================   RESET PASSWORD   =======================================================");
 		
 		System.out.println("EMAIL -> " + email);
 		System.out.println("NEW PASSWORD -> " + password);
 		this.forgotPasswordService.resetPassword(email, password);
 		
-		return new ResponseEntity<String>("Password Changed Successfully", HttpStatus.OK);
+		return new ResponseEntity<String>("Password changed successfully", HttpStatus.OK);
 	}
 }

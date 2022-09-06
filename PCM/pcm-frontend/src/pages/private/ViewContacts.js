@@ -14,21 +14,18 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const ViewContacts = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
-    const { contacts, currentPage } = useSelector(state => state.viewContacts);
+    const { contacts, page } = useSelector(state => state.viewContacts);
     const { deleteContactSuccess, allDeleted } = useSelector(state => state.deleteContact);
-    const { itemPerPage, pageNumberLimit, minPageNumberLimit } = useSelector(state => state.pagination.itemPerPage);
+    const { pageNumberLimit, minPageNumberLimit } = useSelector(state => state.pagination);
     const dispatch = useDispatch();
 
     const [deleteIds, setDeleteIds] = useState([]);
 
-    const indexOfLastItem = currentPage + 1 * itemPerPage;  //  Calculate the index of the last item in the current page.
-    const indexOfFirstItem = indexOfLastItem - itemPerPage; //  Calculate the index of the first item in the current page.
-
     useEffect(() => {
         if (isLoggedIn) {
             if (deleteContactSuccess && allDeleted === contacts.length) {
-                dispatch(viewContacts(currentPage - 1));
-                if ((currentPage - 1) % pageNumberLimit === 0) {
+                dispatch(viewContacts(page - 1));
+                if ((page - 1) % pageNumberLimit === 0) {
                     dispatch(setMinMaxPageNumberLimit(minPageNumberLimit - pageNumberLimit, minPageNumberLimit));
                 }
                 else {
@@ -36,17 +33,18 @@ const ViewContacts = () => {
                 }
             }
             else if (deleteContactSuccess && allDeleted !== contacts.length) {
-                dispatch(viewContacts(currentPage));
+                dispatch(viewContacts(page));
             }
             else {
-                dispatch(viewContacts(currentPage));
+                dispatch(viewContacts(page));
             }
             setDeleteIds([]);
         }
         else {
             dispatch(logoutUser('/login'));
         }
-    }, [isLoggedIn, dispatch, currentPage, deleteContactSuccess, allDeleted, contacts.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoggedIn, dispatch, page, deleteContactSuccess, allDeleted, contacts.length]);
 
     const handleDeleteSelected = e => {
         e.preventDefault();
@@ -75,7 +73,7 @@ const ViewContacts = () => {
                         />
                         <SearchBar cName='display-table-search' />
                     </div>
-                    <DisplayTable deleteIds={deleteIds} setDeleteIds={setDeleteIds} indexOfFirstItem={indexOfFirstItem} indexOfLastItem={indexOfLastItem} />
+                    <DisplayTable deleteIds={deleteIds} setDeleteIds={setDeleteIds} />
                     <div className={`text-center ${contacts.length !== 0 ? 'd-flex justify-content-center' : 'd-none'}`}>
                         <Pagination />
                     </div>

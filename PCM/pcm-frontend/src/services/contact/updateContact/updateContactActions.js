@@ -1,9 +1,9 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./updateContactTypes";
+import { CONTACT_REQUEST, CONTACT_CLEAR, CONTACT_SUCCESS, CONTACT_FAILURE } from "./updateContactTypes";
 import { axiosPrivate, UPDATE_CONTACT_URL, config } from "../../../api/HomeAPI";
 import { toast } from "react-toastify";
 import { createFormData } from "../../../validation/FormData";
 
-export const updateContact = (contact) => {
+export const updateContact = contact => {
     return dispatch => {
         dispatch(updateContactRequest());
         const toastLoading = toast.loading("Uploading data to the server...")
@@ -57,13 +57,13 @@ export const updateContact = (contact) => {
                 }
             );
         })
-    }
+    };
 };
 
 const updateContactRequest = () => {
     return {
         type: CONTACT_REQUEST
-    }
+    };
 };
 
 const updateContactSuccess = (contact) => {
@@ -71,13 +71,13 @@ const updateContactSuccess = (contact) => {
         type: CONTACT_SUCCESS,
         payload: contact,
         error: ''
-    }
+    };
 };
 
-const updateContactFailure = (error) => {
+const updateContactFailure = error => {
     return {
         type: CONTACT_FAILURE,
         payload: {},
         error: error
-    }
-}
+    };
+};

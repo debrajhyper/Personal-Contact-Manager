@@ -1,7 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { excluded } from '../../validation/validationMsg';
+
 import { Form } from 'react-bootstrap';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const SocialWebsite = [
     {
@@ -31,7 +33,7 @@ const SocialWebsite = [
     },
 ];
 
-const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <>
             {
@@ -50,7 +52,7 @@ const FormSocialLinks = ({ socialLinks, cName, functionChange, functionBlur, fun
                                     onKeyDown={functionKeyDown}
                                     className={hasTouched?.[name] && hasError?.[name] ? 'hasError' : (!excluded?.includes(socialLinks) && !excluded?.includes(socialLinks?.[name]) ? 'noError' : '')}
                                     placeholder=" "
-                                required />
+                                    required />
                                 <Form.Label>{icon}{displayName}{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                             </div>
                             {

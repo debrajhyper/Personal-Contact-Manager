@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
 
 import ButtonNormal from '../buttons/ButtonNormal';
-
 import { Modal } from 'react-bootstrap';
 
 const ModalConfirmation = ({ modalProfilePicShow, setModalProfilePicShow }) => {
@@ -16,7 +15,6 @@ const ModalConfirmation = ({ modalProfilePicShow, setModalProfilePicShow }) => {
         <Modal className='profile-pic' show={modalProfilePicShow} onHide={handleClose} centered animation={true} autoFocus={true} id="modal">
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body className="flex-prop profilePic text-center">
-                {/* <ProfilePic image={profilePicURL} outline={true} /> */}
                 <h1>hi</h1>
             </Modal.Body>
             <Modal.Footer className="action_button justify-content-evenly pb-5 m-0">

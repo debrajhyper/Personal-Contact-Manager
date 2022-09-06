@@ -1,11 +1,11 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./updateContactTypes";
+import { CONTACT_REQUEST, CONTACT_CLEAR, CONTACT_SUCCESS, CONTACT_FAILURE } from "./updateContactTypes";
 
 const initialState = {
     loading: false,
-    success: false,
+    updateContactSuccess: false,
     contact: {},
     error: '',
-}
+};
 
 const updateContactReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -13,24 +13,31 @@ const updateContactReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-            }
+            };
+        case CONTACT_CLEAR:
+            return {
+                loading: false,
+                updateContactSuccess: false,
+                contact: {},
+                error: '',
+            };
         case CONTACT_SUCCESS:
             return {
                 loading: false,
-                success: true,
+                updateContactSuccess: true,
                 contact: action.payload,
                 error: action.error
-            }
+            };
         case CONTACT_FAILURE:
             return {
                 loading: false,
-                success: false,
+                updateContactSuccess: false,
                 contact: action.payload,
                 error: action.error
-            }
+            };
         default:
             return state;
-    }
-}
+    };
+};
 
 export default updateContactReducer;

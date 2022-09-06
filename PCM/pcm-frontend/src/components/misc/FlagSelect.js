@@ -1,7 +1,7 @@
 import flag from "./FlagImg";
 
 export const CountryFlag = (country) => {
-    switch(country) {
+    switch (country) {
         case 'AL':
             return flag.AL;
         case 'DZ':

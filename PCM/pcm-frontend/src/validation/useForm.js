@@ -104,6 +104,7 @@ const useForm = validate => {
         else {
             handleReset();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cid, contact]);
 
     useEffect(() => {
@@ -138,6 +139,7 @@ const useForm = validate => {
         else {
             handleReset();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [profileEdit, currentUser, location.pathname]);
 
     // console.log('values ->', values);

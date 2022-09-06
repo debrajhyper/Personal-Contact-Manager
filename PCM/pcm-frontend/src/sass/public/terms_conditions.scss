@@ -1,9 +1,19 @@
+@import '../responsive.scss';
+
 .term_cond {
     background: white;
 }
 
 .term_cond {
     padding: 5em 5em;
+
+    @media screen and (max-width: $tablet) {
+        padding: 4em 2em;
+    }
+
+    @media screen and (max-width: $mobile) {
+        padding: 2em 1em;
+    }
 }
 
 [data-custom-class='body'],

@@ -1,9 +1,11 @@
 import React from 'react'
 
-import { FaUsersCog } from 'react-icons/fa';
-import { Form } from 'react-bootstrap';
+import { excluded } from '../../validation/validationMsg';
 
-const FormNickName = ({ nickName, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+import { Form } from 'react-bootstrap';
+import { FaUsersCog } from 'react-icons/fa';
+
+const FormNickName = ({ nickName, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="NickName">
             <div className="field">
@@ -17,7 +19,7 @@ const FormNickName = ({ nickName, cName, functionChange, functionBlur, functionK
                     onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(nickName) ? 'noError' : '')}
                     placeholder=""
-                required />
+                    required />
                 <Form.Label><FaUsersCog className="me-2" />Nick Name{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {

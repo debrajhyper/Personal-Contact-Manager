@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.pcm.Constant.AppConstant;
 import com.pcm.Model.Contact;
 import com.pcm.Model.User;
 import com.pcm.Repository.ContactRepository;
@@ -14,15 +15,14 @@ import com.pcm.Service.SearchService;
 
 @Service
 public class SearchServiceImpl implements SearchService {
-	
-	private static final String uploadLocation = "/upload/";
-	
+
 	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
 	private ContactRepository contactRepository;
 
+	
 	@Override
 	public List<Contact> searchContact(String query, String email) throws Exception {
 		// TODO Auto-generated method stub
@@ -34,7 +34,7 @@ public class SearchServiceImpl implements SearchService {
 			
 			contacts.forEach(
 					contact -> contact.setImage(
-							ServletUriComponentsBuilder.fromCurrentContextPath().path(uploadLocation).path(contact.getImage()).toUriString()
+							ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstant.GET_UPLOAD_LOCATION).path(contact.getImage()).toUriString()
 							)
 					);
 			
@@ -44,7 +44,7 @@ public class SearchServiceImpl implements SearchService {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("Oops... Something went wrong.");
+			throw new Exception("oops... Something went wrong");
 		}
 	}
 

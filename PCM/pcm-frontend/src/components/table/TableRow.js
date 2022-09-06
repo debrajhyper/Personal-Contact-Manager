@@ -1,51 +1,31 @@
-import React, { useEffect } from 'react'
+import React from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
-import { FaUserEdit, FaTrash } from 'react-icons/fa';
-import { Form, Image } from 'react-bootstrap';
-
-
-
-
-
-
-
-import { useNavigate } from 'react-router-dom';
-import profilePic from '../../img/default.png';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ContactsChecked, deleteContact } from '../../services/index';
-
 
 import UseAnimations from "react-useanimations";
 import trash from 'react-useanimations/lib/trash';
 
-const TableRow = ({ contact, deleteIds, setDeleteIds }) => {
+import { Form, Image } from 'react-bootstrap';
+import { FaUserEdit } from 'react-icons/fa';
+
+const TableRow = ({ contact, deleteIds }) => {
+    const { cid, name, image, mobileNumber, email } = contact;
     const dispatch = useDispatch();
-    const contacts = useSelector(state => state.viewContacts.contacts);
     let navigate = useNavigate();
 
     const handleChecked = e => {
-        // e.preventDefault();
-        // e.stopPropagation();
-        const { id, value, checked } = e.target;
-
-        if(deleteIds.includes(parseInt(id))) {
+        const { id, checked } = e.target;
+        if (deleteIds.includes(parseInt(id))) {
             const index = deleteIds.indexOf(parseInt(id));
             deleteIds.splice(index, 1);
         }
         else {
             deleteIds.push(parseInt(id));
         }
-        // let newContacts = contacts.map(user => user.cid == id && user.name === value ? { ...user, isChecked: checked } : user);
-        // setUsers(newUsers);
         dispatch(ContactsChecked(parseInt(id), checked));
-        // console.log(deleteId);
     };
-
-    // const isChecked = () => {
-    //     console.log(deleteId.includes(contact.cid))
-    //     return deleteId.includes(contact.cid);
-    // }
 
     const handleDelete = (e, cId) => {
         e.preventDefault();
@@ -54,19 +34,13 @@ const TableRow = ({ contact, deleteIds, setDeleteIds }) => {
 
     const exclude = ['INPUT', 'BUTTON', 'SVG', 'PATH'];
     const handleLink = (e, cid) => {
-        if(!exclude.includes(e.target.tagName.toUpperCase())) {
+        if (!exclude.includes(e.target.tagName.toUpperCase())) {
             navigate(`/view_contact/${cid}`);
         }
     }
 
-    const { cid, name, image, mobileNumber, email } = contact
-
-    // console.log(contact?.isChecked || false);
-    
-
     return (
-        // <Link to={`/view_contact/${cid}`} id={cid} className={`data-row b ${contact?.isChecked ? 'selected' : null}`}>
-        <tr id={cid} className={`data-row b ${contact?.isChecked ? 'selected' : null}`} onClick={ e => handleLink(e, cid)}>
+        <tr id={cid} className={`data-row b ${contact?.isChecked ? 'selected' : null}`} onClick={e => handleLink(e, cid)}>
             <td className="text-center">
                 <Form.Check
                     type="checkbox"
@@ -80,7 +54,7 @@ const TableRow = ({ contact, deleteIds, setDeleteIds }) => {
             <td className="text-center" title={cid}>PCM22{cid}</td>
             <td className="text-left" title={name}>
                 <div className='img-border me-2'>
-                    <Image src={image} className="profile_pic" alt=""/>
+                    <Image src={image} className="profile_pic" alt="" />
                 </div>
                 <span>{name ?? '-'}</span>
             </td>
@@ -92,100 +66,20 @@ const TableRow = ({ contact, deleteIds, setDeleteIds }) => {
                         type="button"
                         title="Edit"
                         className="btn edit me-3"
-                        >
+                    >
                         <FaUserEdit size={20} />
                     </button>
                 </Link>
-                {/* <button
-                    type="button"
-                    title="Delete"
-                    className="btn delete"
-                    onClick={(e) => handleDelete(e, cid)}
-                > */}
-                    {/* <FaTrash /> */}
-                    <UseAnimations animation={trash} size={20} speed={.5} onClick={(e) => handleDelete(e, cid)}
-                        render={(eventProps, animationProps) => (
-                            <button type="button" title="Delete" className="btn delete" {...eventProps}>
-                                <div {...animationProps} />
-                            </button>
-                        )}
-                    />
-                {/* </button> */}
+                <UseAnimations animation={trash} size={20} speed={.5} onClick={(e) => handleDelete(e, cid)}
+                    render={(eventProps, animationProps) => (
+                        <button type="button" title="Delete" className="btn delete" {...eventProps}>
+                            <div {...animationProps} />
+                        </button>
+                    )}
+                />
             </td>
         </tr>
-        // </Link>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const TableRow = ({ user, users, setUsers }) => {
-    
-//     const handleChecked = e => {
-//         const { id, value, checked } = e.target;
-//         let newUsers = users.map(user => user.id == id && user.name === value ? { ...user, isChecked: checked } : user);
-//         setUsers(newUsers);
-//     };
-    
-//     const handleUserDelete = userId => {
-//         const newUsers = [ ...users ];
-//         const index = users.findIndex(user => user.id === userId);
-//         newUsers.splice(index, 1);
-//         setUsers(newUsers);
-//     };
-
-//     return (
-//         <tr id={user.id} className={`data-row b ${user?.isChecked ? 'selected' : null}`}>
-//             <td className="text-center">
-//                 <Form.Check
-//                     type="checkbox"
-//                     value={user.name}
-//                     className="form-checkbox"
-//                     id={user.id}
-//                     onChange={handleChecked}
-//                     checked={user?.isChecked || false}
-//                 />
-//             </td>
-//             <td className="text-center" title={user.id}>{user.id}</td>
-//             <td className="text-left" title={user.name}>
-//                 <div className='img-border me-2'>
-//                     <Image src={ user.image } className="profile_pic" alt="profile_pic"/>
-//                 </div>
-//                 <span>{user.name}</span>
-//             </td>
-//             <td className="text-left" title={user.mobileNo}>{user.mobileNo}</td>
-//             <td className="text-left" title={user.email}>{user.email}</td>
-//             <td className="text-center">
-//                 <button
-//                     type="button"
-//                     title="Edit"
-//                     className="btn edit me-3"
-//                     // onClick={(e) => handleUserEdit(e, user)}
-//                 >
-//                     <FaUserEdit />
-//                 </button>
-//                 <button
-//                     type="button"
-//                     title="Delete"
-//                     className="btn delete"
-//                     onClick={() => handleUserDelete(user.id)}
-//                 >
-//                     <FaTrash />
-//                 </button>
-//             </td>
-//         </tr>
-//     )
-// }
 
 export default TableRow

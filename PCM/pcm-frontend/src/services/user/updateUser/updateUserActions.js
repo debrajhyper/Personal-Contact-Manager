@@ -1,23 +1,22 @@
-import { UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAILURE } from './updateUserTypes';
+import { UPDATE_USER_REQUEST, UPDATE_USER_CLEAR, UPDATE_USER_SUCCESS, UPDATE_USER_FAILURE } from './updateUserTypes';
 import { axiosPrivate, UPDATE_USER_URL, config } from '../../../api/HomeAPI';
 import { toast } from "react-toastify";
 import { createFormData } from '../../../validation/FormData';
 
-export const updateUser = (user) => {
+export const updateUser = user => {
     return dispatch => {
         dispatch(updateUserRequest());
-        const toastLoading = toast.loading("Uploading data to the server...");
+        const toastLoading = toast.loading("Uploading data to the server");
 
         const data = createFormData(user);
-        let formObject = Object.fromEntries(data.entries());
-        console.log('SENDING CONTACT DATA -> ', formObject);
+        // let formObject = Object.fromEntries(data.entries());
+        // console.log('SENDING CONTACT DATA -> ', formObject);
 
         axiosPrivate.post(UPDATE_USER_URL, data, config)
         .then(response => {
-            console.log('RESPONSE DATA -> ', response?.data);
-            dispatch(updateUserSuccess(response?.data));
+            dispatch(updateUserSuccess(true, response?.data));
             setTimeout(() => {
-                dispatch(updateUserFailure(''));
+                dispatch(updateUserClear());
             }, 1000);
             toast.update(
                 toastLoading,
@@ -38,7 +37,6 @@ export const updateUser = (user) => {
             );
         })
         .catch(error => {
-            console.log('ERROR DATA -> ', error?.response?.data);
             dispatch(updateUserFailure(error?.response?.data?.message));
             const errorMessage = error?.response?.data?.errors ? error?.response?.data?.errors?.[0]?.defaultMessage : error?.response?.data?.message?.length > 100 ? 'Something went wrong' : error?.response?.data?.message;
             toast.update(
@@ -59,27 +57,35 @@ export const updateUser = (user) => {
                 }
             );
         })
-    }
-}
+    };
+};
 
 const updateUserRequest = () => {
     return {
         type: UPDATE_USER_REQUEST
-    }
+    };
 };
 
-const updateUserSuccess = (message) => {
+const updateUserClear = () => {
+    return {
+        type: UPDATE_USER_CLEAR
+    };
+};
+
+const updateUserSuccess = (updateUserSuccess, message) => {
     return {
         type: UPDATE_USER_SUCCESS,
+        success: updateUserSuccess,
         payload: message,
         error: ''
-    }
+    };
 };
 
-const updateUserFailure = (error) => {
+const updateUserFailure = error => {
     return {
         type: UPDATE_USER_FAILURE,
+        success: false,
         payload: '',
         error: error
-    }
-}
+    };
+};

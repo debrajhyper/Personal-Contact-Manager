@@ -1,23 +1,21 @@
-import React from 'react'
+import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 
 import favicon from '../../img/favicon.png';
 import profileImage from "../../img/default.png";
-
 import './navbar.scss';
-
-import { BsFillHouseFill, BsFillPersonLinesFill } from "react-icons/bs";
-import { FaAddressCard, FaSignInAlt, FaUserPlus } from "react-icons/fa";
-import { AiFillAppstore } from "react-icons/ai";
-import { Navbar, Container, Nav, Image } from 'react-bootstrap';
 
 import UseAnimations from 'react-useanimations';
 import maximizeMinimize from 'react-useanimations/lib/maximizeMinimize';
 
+import { Navbar, Container, Nav, Image } from 'react-bootstrap';
+import { BsFillHouseFill } from "react-icons/bs";
+import { FaAddressCard, FaSignInAlt, FaUserPlus } from "react-icons/fa";
+
 const PublicNavbar = ({ slidebar, handleSlidebar }) => {
-    const auth = useSelector(state => state.auth);
+    const { isLoggedIn } = useSelector(state => state.auth);
     const { currentUser } = useSelector(state => state.currentUser);
     const { image, name = '-', username = '-' } = currentUser;
 
@@ -46,21 +44,19 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
         </div>
     )
 
-
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" id="navbar" className={`bg-navbar pe-md-4 p-0 ${auth.isLoggedIn ? "ps-md-2 user-navbar" : "ps-md-4"}`} variant="dark" fixed="top">
+            <Navbar collapseOnSelect expand="lg" id="navbar" className={`bg-navbar pe-md-4 p-0 ${isLoggedIn ? "ps-md-2 user-navbar" : "ps-md-4"}`} variant="dark" fixed="top">
                 <Container fluid>
                     <Navbar.Brand className="navbar-header d-inline-flex justify-content-start align-items-center">
                         <img alt="logo" src={favicon} className="d-inline-block align-top me-1" />{' '}
-                        {auth.isLoggedIn
+                        {isLoggedIn
                             ? (
                                 <>
                                     <Link to="/dashboard" className="navbar-brand pcm">{authSlideBar}</Link>
                                     <UseAnimations animation={maximizeMinimize} size={28} speed={.9} reverse={true} className="ico" onClick={handleSlidebar}
                                         render={(eventProps, animationProps) => (
                                             <div className={`slidebar_ico ${authSlideBar}`} {...eventProps}>
-                                                {/* <AiFillAppstore size={24} /> */}
                                                 <div {...animationProps} />
                                             </div>
                                         )}
@@ -71,9 +67,9 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
                         }
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav" className={`justify-content-end ${auth.isLoggedIn ? "not-collapse d-inline-flex" : null}`}>
-                        <Nav className={`text-uppercase d-flex ${auth.isLoggedIn ? "justify-content-end" : ""}`}>
-                            { auth.isLoggedIn ? privateNav : publicNav }
+                    <Navbar.Collapse id="responsive-navbar-nav" className={`justify-content-end ${isLoggedIn ? "not-collapse d-inline-flex" : null}`}>
+                        <Nav className={`text-uppercase d-flex ${isLoggedIn ? "justify-content-end" : ""}`}>
+                            {isLoggedIn ? privateNav : publicNav}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

@@ -1,13 +1,12 @@
-import React from 'react'
-
-import ProfilePic from '../profile-pic/ProfilePic';
-import ButtonNormal from '../buttons/ButtonNormal';
+import React from 'react';
 
 import './modal.scss';
 
+import ProfilePic from '../profile-pic/ProfilePic';
+import ButtonNormal from '../buttons/ButtonNormal';
 import { Modal } from 'react-bootstrap';
 
-const ModalProfilePic = ({ modalProfilePicShow, setModalProfilePicShow, profilePic, profilePicURL, functionCancel, functionUpload, hasError }) => {
+const ModalProfilePic = ({ modalProfilePicShow, setModalProfilePicShow, profilePicURL, functionCancel, functionUpload, hasError }) => {
 
     const handleClose = () => {
         setModalProfilePicShow(false);

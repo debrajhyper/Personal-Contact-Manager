@@ -21,6 +21,8 @@ public class ImageController {
 	
 	@GetMapping(value = "/upload/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public void getImage(@PathVariable("imageName") String imageName, HttpServletResponse response) throws Exception {
+		System.out.println("======================================================   GET IMAGE FROM DB   =======================================================");
+		
 		try {			
 			InputStream image = new ImageUploader().getImageFromLocation(imageName);
 			
@@ -31,37 +33,14 @@ public class ImageController {
 			// TODO Auto-generated catch block
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new IOException("Failed to load Profile Picture from Server.");
+			throw new IOException("Could not load profile picture from server");
 		}
 		catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("Image failed to fetch from server.");
+			throw new Exception("Unable to retrieve image from server");
 		}
 	}
-	
-//	@GetMapping("/upload/{imageName}")
-//	public ResponseEntity<InputStream> getImageFromLocation(@PathVariable("imageName") String imageName) throws Exception {
-//		InputStream image;
-//		try {
-//			image = new ImageUploader().getImageFromLocation(imageName);
-//			byte[] bytes = StreamUtils.copyToByteArray(image);
-//			
-//			return ResponseEntity.ok().body(image);
-//		} 
-//		catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("ERROR -> " + e.getMessage());
-//			e.printStackTrace();
-//			throw new IOException("Failed to load Profile Picture from Server.");
-//		}
-//		catch (Exception e) {
-//			// TODO: handle exception
-//			System.out.println("ERROR -> " + e.getMessage());
-//			e.printStackTrace();
-//			throw new Exception("Image failed to fetch from server.");
-//		}
-//	}
 	
 }

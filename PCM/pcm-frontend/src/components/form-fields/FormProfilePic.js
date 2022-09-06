@@ -1,14 +1,15 @@
-import React from 'react'
-
-import ProfilePic from '../profile-pic/ProfilePic';
+import React from 'react';
 
 import defaultPic from '../../img/default.png';
 
-import { IoCamera } from 'react-icons/io5';
-import { Form } from 'react-bootstrap';
+import { excluded } from '../../validation/validationMsg';
 
-const FormProfilePic = ({ profilePic, profilePicURL, uploadedFile, cName, functionChange, functionBlur, excluded, hasTouched, hasError }) => {
-    
+import ProfilePic from '../profile-pic/ProfilePic';
+import { Form } from 'react-bootstrap';
+import { IoCamera } from 'react-icons/io5';
+
+const FormProfilePic = ({ profilePic, profilePicURL, uploadedFile, cName, functionChange, functionBlur, hasTouched, hasError }) => {
+
     return (
         <Form.Group className={`form-input ${cName}`} controlId="profilePic">
             <div className="field">
@@ -22,7 +23,7 @@ const FormProfilePic = ({ profilePic, profilePicURL, uploadedFile, cName, functi
                     onSelect={functionChange}
                     className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(profilePic) ? 'noError' : '')}
                     placeholder=""
-                required />
+                    required />
                 <div className='img-holder'>
                     <ProfilePic image={profilePicURL ? (uploadedFile && !hasError ? profilePicURL : defaultPic) : defaultPic} outline={true} />
                     <Form.Label title='upload'><IoCamera /></Form.Label>

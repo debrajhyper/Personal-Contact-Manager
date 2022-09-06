@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import { IoPhonePortraitOutline } from 'react-icons/io5';
+import { excluded } from '../../validation/validationMsg';
+
 import { Form } from 'react-bootstrap';
+import { IoPhonePortraitOutline } from 'react-icons/io5';
 
-const FormMobileNo = ({ mobileNumber, countryCode, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+const FormMobileNo = ({ mobileNumber, countryCode, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${countryCode ? 'd-flex align-items-center' : ''} ${cName}`} controlId="mobileNumber">
             {
@@ -24,7 +26,7 @@ const FormMobileNo = ({ mobileNumber, countryCode, cName, functionChange, functi
                         onKeyDown={functionKeyDown}
                         className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(mobileNumber) && !excluded?.includes(mobileNumber?.number) ? 'noError' : '')}
                         placeholder=""
-                    required />
+                        required />
                     <Form.Label><IoPhonePortraitOutline className="me-2" />Mobile Number{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                 </div>
                 {

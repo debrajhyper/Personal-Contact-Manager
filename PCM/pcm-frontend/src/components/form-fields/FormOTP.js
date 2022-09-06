@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import { MdPassword } from 'react-icons/md';
+import { excluded } from '../../validation/validationMsg';
+
 import { Form } from 'react-bootstrap';
+import { MdPassword } from 'react-icons/md';
 
-
-const FormOTP = ({ otp, cName, functionChange, functionBlur, excluded, hasTouched, hasError, Mandatory }) => {
+const FormOTP = ({ otp, cName, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="otp">
             <div className="field">

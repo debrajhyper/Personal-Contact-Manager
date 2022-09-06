@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import { FaPhoneAlt } from 'react-icons/fa';
+import { excluded } from '../../validation/validationMsg';
+
 import { Form } from 'react-bootstrap';
+import { FaPhoneAlt } from 'react-icons/fa';
 
-const FormTelephoneNo = ({ telephoneNumber, countryCode, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+const FormTelephoneNo = ({ telephoneNumber, countryCode, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${countryCode ? 'd-flex align-items-center' : ''} ${cName}`} controlId="TelephoneNo">
             {
@@ -24,7 +26,7 @@ const FormTelephoneNo = ({ telephoneNumber, countryCode, cName, functionChange, 
                         onKeyDown={functionKeyDown}
                         className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(telephoneNumber) && !excluded?.includes(telephoneNumber?.number) ? 'noError' : '')}
                         placeholder=""
-                    required />
+                        required />
                     <Form.Label><FaPhoneAlt className="me-2" />Telephone Number{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                 </div>
                 {

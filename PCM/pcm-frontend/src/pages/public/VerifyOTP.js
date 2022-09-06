@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { clearVerifyOTP, sendOTP, verifyOTP } from '../../services/index';
 
-import { excluded, OtpValidate } from '../../validation/validationMsg';
+import { OtpValidate } from '../../validation/validationMsg';
 
 import { FormOTP, ButtonNormal, Counter } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
 
 const VerifyOTP = () => {
+    const { isLoggedIn } = useSelector(state => state.auth);
     const { sendOTPMessage, generatedOTP, email, maxInActiveInterval } = useSelector(state => state.sendOTP);
     const { loading, verifiedOTP, verifyOTPError } = useSelector(state => state.verifyOTP);
     
     const validate = OtpValidate;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/dashboard";
     
     const [timeRemaining, setTimeRemaining] = useState(maxInActiveInterval);
 
@@ -31,11 +34,12 @@ const VerifyOTP = () => {
         },
     });
 
-    const resendOTP = (e) => {
-        e.preventDefault();
-        dispatch(sendOTP(email));
-    }
-
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate(from, { replace: true });
+        }
+    }, [isLoggedIn, navigate, from]);
+    
     useEffect(() => {
         if(email === "") {
             navigate("/forgot-password");
@@ -57,10 +61,15 @@ const VerifyOTP = () => {
             dispatch(clearVerifyOTP());
         }
     }, [timeRemaining, dispatch])
-
+    
     useEffect(() => {
         setTimeRemaining(maxInActiveInterval);
     }, [maxInActiveInterval])
+    
+    const resendOTP = (e) => {
+        e.preventDefault();
+        dispatch(sendOTP(email));
+    }
 
     return (
         <>
@@ -90,7 +99,7 @@ const VerifyOTP = () => {
                             </Container>
                             
                             <Form className="register-form" onSubmit={formik.handleSubmit} method="post" noValidate>
-                                <FormOTP otp={formik.values?.otp} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.otp} hasError={formik.errors.otp} Mandatory={true} />
+                                <FormOTP otp={formik.values?.otp} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.otp} hasError={formik.errors.otp} Mandatory={true} />
                                 
                                 <Form.Group className='resend-otp'>
                                     <h5 className={`${maxInActiveInterval !== 0 ? 'disabled' : ''}`} onClick={(e) => resendOTP(e)}>Resend OTP</h5>

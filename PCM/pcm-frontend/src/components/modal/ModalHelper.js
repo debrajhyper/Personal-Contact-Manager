@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
 import modalSuccess from '../../img/38213-success.gif';
 import modalError from '../../img/38213-error.gif';
-
 import './modal.scss';
 
 import { Modal, Image } from 'react-bootstrap';

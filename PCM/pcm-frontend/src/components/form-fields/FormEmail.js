@@ -1,29 +1,29 @@
-import React from 'react'
+import React from 'react';
 
-import '../../sass/variables.scss';
+import { excluded } from '../../validation/validationMsg';
 
-import { FaAt } from "react-icons/fa";
 import { Form } from 'react-bootstrap';
+import { FaAt } from "react-icons/fa";
 
-const FormEmail = ({ cName, email, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+const FormEmail = ({ cName, email, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="Email">
             <div className="field field-email">
-                <Form.Control 
+                <Form.Control
                     name="email"
                     title="Email"
                     type="email"
-                    value={email} 
-                    onChange={functionChange} 
+                    value={email}
+                    onChange={functionChange}
                     onBlur={functionBlur}
                     onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(email) ? 'noError' : '')}
                     placeholder=" "
-                required />
-                <Form.Label><FaAt className="me-2"/>Email{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
+                    required />
+                <Form.Label><FaAt className="me-2" />Email{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
-            {   
-                hasTouched && hasError && 
+            {
+                hasTouched && hasError &&
                 <Form.Text className="e_msg error_form" id="name_error_message">
                     {hasError}
                 </Form.Text>

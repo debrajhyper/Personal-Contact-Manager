@@ -1,16 +1,18 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react';
+
+import { excluded } from '../../validation/validationMsg';
 
 import UseAnimations from "react-useanimations";
-import { FaLock } from "react-icons/fa";
-import { Form } from 'react-bootstrap'
 import visibility2 from 'react-useanimations/lib/visibility2';
 
-const FormPassword = ({ cName, label, name, password, functionChange, functionBlur, excluded, hasTouched, hasError, Mandatory }) => {
+import { Form } from 'react-bootstrap'
+import { FaLock } from "react-icons/fa";
+
+const FormPassword = ({ cName, label, name, password, functionChange, functionBlur, hasTouched, hasError, Mandatory }) => {
     const ref = useRef();
 
     const handlePasswordShow = () => {
         ref.current.type = ref.current.type === 'password' ? 'text' : 'password';
-        // ref.current.focus();
     }
 
     return (
@@ -26,7 +28,7 @@ const FormPassword = ({ cName, label, name, password, functionChange, functionBl
                     onBlur={functionBlur}
                     className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(password) ? 'noError' : '')}
                     placeholder=" "
-                required />
+                    required />
                 <Form.Label><FaLock className="me-2" />{label ?? 'Password'}{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
                 <UseAnimations className='password-visibility' onClick={handlePasswordShow} animation={visibility2} reverse={true} />
             </div>

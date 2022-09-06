@@ -7,9 +7,10 @@ export const authenticationUser = (email, password) => {
     const credentials = {
         username: email,
         password: password
-    }
+    };
     return dispatch => {
         dispatch(loginRequest());
+
         axios.post(LOGIN_URL, credentials)
         .then(response => {
             dispatch(loginSuccess(true));
@@ -17,13 +18,16 @@ export const authenticationUser = (email, password) => {
         })
         .catch(error => {
             if(!error?.response) {
-                dispatch(loginFailure(false, 'A network error occurred. Please try again later.'));
-            } else if (error?.response?.status === 401) {
-                dispatch(loginFailure(false, 'Invalid Credentials'));
-            } else if (error?.response?.status === 500) {
-                dispatch(loginFailure(false, 'Internal Server Error'));
-            } else {
-                dispatch(loginFailure(false, error?.response?.data?.message || 'Oops... Something went wrong'));
+                dispatch(loginFailure('A network error occurred! Please try again later.'));
+            } 
+            else if (error?.response?.status === 401) {
+                dispatch(loginFailure('Invalid Credentials'));
+            } 
+            else if (error?.response?.status === 500) {
+                dispatch(loginFailure('Internal Server Error'));
+            } 
+            else {
+                dispatch(loginFailure(error?.response?.data?.message || 'Oops... Something went wrong'));
             }
         })
     };
@@ -35,21 +39,15 @@ export const logoutUser = to => {
         
         axiosPrivate.get(LOGOUT_URL)
         .then(response => {
-            console.log(response?.data)
-            dispatch(loginFailure(false, response?.data));
-            setTimeout(() => {
-                // dispatch(loginFailure(false, ''));
-                dispatch(clearLogin());
-            }, 4000);
+            dispatch(loginFailure(response?.data));
             removeToken();
             // window.location = to;
         })
         .catch(error => {
-            console.log(error?.response?.data)
             toast.error(error?.response?.data?.message);
         })
-    }
-}
+    };
+};
 
 export const clearLogin = () => {
     return dispatch => {
@@ -77,10 +75,10 @@ const loginSuccess = isLoggedIn => {
     };
 };
 
-const loginFailure = (isLoggedIn, error) => {
+const loginFailure = error => {
     return {
         type: LOGIN_FAILURE,
-        payload: isLoggedIn,
+        payload: false,
         error: error
     };
 };
@@ -92,19 +90,9 @@ const logoutAction = () => {
 };
 
 const setToken = token => {
-    // axiosPrivate.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return localStorage.setItem('jwtToken', token);
 };
 
 const removeToken = () => {
     return localStorage.removeItem('jwtToken');
 };
-
-
-// const logoutSuccess = (to) => {
-//     return {
-//         dispatch(loginSuccess(false));
-//         localStorage.removeItem('jwtToken');
-//         window.location = to;
-//     };
-// };

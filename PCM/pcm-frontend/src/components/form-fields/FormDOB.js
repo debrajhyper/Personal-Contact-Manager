@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
 
-import { IoCalendar } from 'react-icons/io5';
+import { excluded } from '../../validation/validationMsg';
+
 import { Form } from 'react-bootstrap';
+import { IoCalendar } from 'react-icons/io5';
 
-const FormDOB = ({ dob, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+const FormDOB = ({ dob, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
-    const { cid } = useParams();
 
     useEffect(() => {
         ['click', 'touchend'].forEach(e => {
@@ -38,7 +38,7 @@ const FormDOB = ({ dob, cName, functionChange, functionBlur, functionKeyDown, ex
                     onKeyDown={functionKeyDown}
                     className={`${open ? 'focused' : 'not-focused'} ${hasTouched && hasError ? 'hasError' : (!excluded?.includes(dob) ? 'noError' : '')}`}
                     placeholder=""
-                required />
+                    required />
                 <Form.Label><IoCalendar className="me-2" />Birth Date{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {

@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { sendOTP } from '../../services/index';
 
-import { excluded, ForgotPasswordValidate } from '../../validation/validationMsg';
+import { ForgotPasswordValidate } from '../../validation/validationMsg';
 
 import { FormEmail, ButtonNormal } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
 const ForgotPassword = () => {
+    const { isLoggedIn } = useSelector(state => state.auth);
     const { loading, emailSent, sendOTPError } = useSelector(state => state.sendOTP);
     
     const validate = ForgotPasswordValidate;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/dashboard";
 
     const formik = useFormik({
         initialValues: {
@@ -26,6 +29,12 @@ const ForgotPassword = () => {
             dispatch(sendOTP(values.email));
         },
     });
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate(from, { replace: true });
+        }
+    }, [isLoggedIn, navigate, from]);
 
     useEffect(() => {
         if(emailSent) {
@@ -56,7 +65,7 @@ const ForgotPassword = () => {
                             </Container>
 
                             <Form className="register-form" onSubmit={formik.handleSubmit} method="post" noValidate>
-                                <FormEmail email={formik.values?.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
+                                <FormEmail email={formik.values?.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
 
                                 <Form.Group className="action_button center">
                                     <ButtonNormal type="submit" name="otp" id="Otp" cName="form_submit fill px-5" value="Send OTP" loading={loading} />

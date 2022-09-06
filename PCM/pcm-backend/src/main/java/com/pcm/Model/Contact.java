@@ -38,6 +38,7 @@ public class Contact {
 	
 	private String image;
 	
+	@Column(columnDefinition = "boolean default false")
 	private boolean favorite;
 	
 	@Size(min = 2, max = 30, message = "Min 2 and max 30 characters are allowed in name field")

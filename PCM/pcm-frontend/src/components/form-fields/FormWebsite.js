@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import { FaLink } from 'react-icons/fa';
+import { excluded } from '../../validation/validationMsg';
+
 import { Form } from 'react-bootstrap';
+import { FaLink } from 'react-icons/fa';
 
-const FormWebsite = ({ website, cName, functionChange, functionBlur, functionKeyDown, excluded, hasTouched, hasError, Mandatory }) => {
+const FormWebsite = ({ website, cName, functionChange, functionBlur, functionKeyDown, hasTouched, hasError, Mandatory }) => {
     return (
         <Form.Group className={`form-input ${cName}`} controlId="Website">
             <div className="field field-url">
@@ -17,7 +19,7 @@ const FormWebsite = ({ website, cName, functionChange, functionBlur, functionKey
                     onKeyDown={functionKeyDown}
                     className={hasTouched && hasError ? 'hasError' : (!excluded?.includes(website) ? 'noError' : '')}
                     placeholder=" "
-                required />
+                    required />
                 <Form.Label><FaLink className="me-2" />Website{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {

@@ -11,7 +11,7 @@ import guest_signup_register_left from '../../img/guest_signup_register_left.png
 import '../../sass/public/signup.scss';
 import '../../components/form-fields/form_fields.scss';
 
-import { excluded, signupValidate } from '../../validation/validationMsg';
+import { signupValidate } from '../../validation/validationMsg';
 
 import { FormName, FormEmail, FormPassword, FormTextarea, FormAgrement, ButtonNormal, RequiredStatement } from '../../components/index';
 import { Container, Image, Form, Row, Col, Alert } from 'react-bootstrap';
@@ -41,13 +41,16 @@ const Signup = () => {
     });
 
     useEffect(() => {
-        if (isRegistered === true) {
-            formik.resetForm();
-        }
         if (isLoggedIn) {
             navigate(from, { replace: true });
         }
-    }, [isLoggedIn, isRegistered, formik, navigate, from]);
+    }, [isLoggedIn, navigate, from]);
+
+    useEffect(() => {
+        if (isRegistered === true) {
+            formik.resetForm();
+        }
+    }, [isRegistered, formik]);
 
     return (
         <>
@@ -65,10 +68,10 @@ const Signup = () => {
 
                             <Form className="register-form" onSubmit={formik.handleSubmit} method="post" noValidate>
                                 <RequiredStatement />
-                                <FormName name={formik.values.name} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={true} />
-                                <FormEmail email={formik.values.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
-                                <FormPassword password={formik.values.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} excluded={excluded} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true} />
-                                <FormTextarea about={formik.values.description} functionChange={formik.handleChange} />
+                                <FormName name={formik.values.name} functionChange={formik.handleChange} functionBlur={formik.handleBlur}  hasTouched={formik.touched.name} hasError={formik.errors.name} Mandatory={true} />
+                                <FormEmail email={formik.values.email} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.email} hasError={formik.errors.email} Mandatory={true} />
+                                <FormPassword password={formik.values.password} functionChange={formik.handleChange} functionBlur={formik.handleBlur} hasTouched={formik.touched.password} hasError={formik.errors.password} Mandatory={true} />
+                                <FormTextarea description={formik.values.description} functionChange={formik.handleChange} />
                                 <FormAgrement agreement={formik.values.agreement} functionChange={formik.handleChange} hasTouched={formik.touched.agreement} hasError={formik.errors.agreement} Mandatory={true} />
                                 <Form.Group className="action_button left">
                                     <ButtonNormal type="submit" name="signup" id="Signup" cName="form_submit fill me-5" value="Register" loading={loading} />

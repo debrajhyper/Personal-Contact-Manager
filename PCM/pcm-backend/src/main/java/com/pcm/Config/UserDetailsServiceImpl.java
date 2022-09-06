@@ -19,12 +19,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		System.out.println("User Details Service Impl - username -> " + username);
+		System.out.println("User Details Service Impl -> USER EMAIL : " + username);
 		User user = this.userRepository.findByUserName(username);
 		
 		if(user == null) {
-			System.out.println("User Not Found");
-			throw new UsernameNotFoundException("No User found");
+			System.out.println("Sorry, we couldn't find an account with that email address");
+			throw new UsernameNotFoundException("No account is associated with this user");
 		}
 		
 		return user;

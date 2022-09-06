@@ -1,39 +1,26 @@
-import React from 'react'
+import React from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { viewContacts, setMinMaxPageNumberLimit } from '../../services/index';
 
 import './pagination.scss';
 
 import { FaAngleDoubleLeft, FaAngleLeft, FaAngleRight, FaAngleDoubleRight, FaEllipsisH } from 'react-icons/fa';
 
-
-
-
-
-
-
-
-
-import { useDispatch, useSelector } from 'react-redux';
-import { viewContacts, setMinMaxPageNumberLimit } from '../../services/index';
-
 const Pagination = () => {
-    var pages = [];
+    const { itemPerPage, pageNumberLimit, minPageNumberLimit, maxPageNumberLimit } = useSelector(state => state.pagination);
+    const { totalContacts, page } = useSelector(state => state.viewContacts);
     const dispatch = useDispatch();
-    const totalContacts = useSelector(state => state.viewContacts.totalContacts);
-    const currentPageDb = useSelector(state => state.viewContacts.page);
-    const currentPage = currentPageDb + 1;
 
-    const itemPerPage = useSelector(state => state.pagination.itemPerPage);
-    const pageNumberLimit = useSelector(state => state.pagination.pageNumberLimit);
-    const minPageNumberLimit = useSelector(state => state.pagination.minPageNumberLimit);
-    const maxPageNumberLimit = useSelector(state => state.pagination.maxPageNumberLimit);
+    const currentPage = page + 1;
+    var pages = [];
 
-    
-    for(let i=1; i<=Math.ceil(totalContacts/itemPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(totalContacts / itemPerPage); i++) {
         pages.push(i);
     };
 
     const setCurrentPage = (page) => {
-        dispatch(viewContacts(page-1))
+        dispatch(viewContacts(page - 1))
     }
 
     const handleClick = e => {
@@ -47,7 +34,7 @@ const Pagination = () => {
     };
     const handlePrevBtn = () => {
         setCurrentPage(currentPage - 1);
-        if((currentPage - 1) % pageNumberLimit === 0) {
+        if ((currentPage - 1) % pageNumberLimit === 0) {
             // setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
             // setMaxPageNumberLimit(minPageNumberLimit);
             dispatch(setMinMaxPageNumberLimit(minPageNumberLimit - pageNumberLimit, minPageNumberLimit));
@@ -55,12 +42,7 @@ const Pagination = () => {
     };
     const renderPageNumbers = () => {
         return pages.map(number => {
-            if(number > minPageNumberLimit && number < maxPageNumberLimit + 1) {
-                // console.log(' CURRENT PAGE -> ', currentPage, 
-                //             ' PAGE NUMBER -> ', number, 
-                //             ' MIN PAGE -> ', minPageNumberLimit, 
-                //             ' MAX PAGE -> ', maxPageNumberLimit + 1
-                //             )
+            if (number > minPageNumberLimit && number < maxPageNumberLimit + 1) {
                 return (
                     <li key={number}>
                         <button
@@ -72,37 +54,33 @@ const Pagination = () => {
                         </button>
                     </li>
                 );
-            } else {
+            } 
+            else {
                 return null;
             }
         });
     }
     const handleNextBtn = () => {
         setCurrentPage(currentPage + 1);
-        if(currentPage+1 > maxPageNumberLimit) {
+        if (currentPage + 1 > maxPageNumberLimit) {
             // setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
             // setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
             dispatch(setMinMaxPageNumberLimit(minPageNumberLimit + pageNumberLimit, maxPageNumberLimit + pageNumberLimit));
         }
     };
     const handleLastBtn = () => {
-        // console.log('CURRENT PAGE -> ', Math.ceil(totalContacts/itemPerPage))
-        // console.log('MIN PAGE -> ', minPageNumberLimit + pageNumberLimit)
-        // console.log('MAX PAGE LIMIT BEFORE -> ', maxPageNumberLimit)
-        // console.log('MAX PAGE -> ', maxPageNumberLimit + pageNumberLimit)
-
-        setCurrentPage(Math.ceil(totalContacts/itemPerPage));
-
-        if(Math.ceil(totalContacts/itemPerPage) > maxPageNumberLimit) {
+        setCurrentPage(Math.ceil(totalContacts / itemPerPage));
+        if (Math.ceil(totalContacts / itemPerPage) > maxPageNumberLimit) {
             // setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
             // setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-            dispatch(setMinMaxPageNumberLimit(minPageNumberLimit + pageNumberLimit, maxPageNumberLimit + pageNumberLimit));
+            var minPageLimit = minPageNumberLimit;
+            var maxPageLimit = maxPageNumberLimit;
+            while(pages?.length > maxPageLimit) {
+                minPageLimit += pageNumberLimit;
+                maxPageLimit += pageNumberLimit;
+            }
+            dispatch(setMinMaxPageNumberLimit(minPageLimit, maxPageLimit));
         }
-
-        // setMinPageNumberLimit(Math.floor(currentPage/itemPerPage))
-        
-        // setMinPageNumberLimit((Math.ceil(totalContacts/itemPerPage)-Math.floor(Math.ceil(totalContacts/itemPerPage)/pageNumberLimit))+1);
-        // setMaxPageNumberLimit(Math.ceil(totalContacts/itemPerPage));
     };
 
     return (
@@ -132,19 +110,18 @@ const Pagination = () => {
                 </li>
                 <li>
                     <button
-                        className={` ${currentPage < pageNumberLimit+1 ? "disabled" : null}`} 
-                        onClick={handlePrevBtn} 
-                        disabled={currentPage < pageNumberLimit+1 ? true : false}
+                        className={` ${currentPage < pageNumberLimit + 1 ? "disabled" : null}`}
+                        onClick={handlePrevBtn}
+                        disabled={currentPage < pageNumberLimit + 1 ? true : false}
                     >
                         <FaEllipsisH />
                     </button>
                 </li>
-                { renderPageNumbers() }
+                {renderPageNumbers()}
                 <li>
-                    <button 
+                    <button
                         className={` ${maxPageNumberLimit >= pages.length ? "disabled" : null}`}
                         onClick={handleNextBtn}
-                        // disabled={currentPage > pages.length+1 - pageNumberLimit ? true : false}
                         disabled={maxPageNumberLimit >= pages.length ? true : false}
                     >
                         <FaEllipsisH />
