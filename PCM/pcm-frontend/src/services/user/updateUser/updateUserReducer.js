@@ -3,8 +3,8 @@ import { UPDATE_USER_REQUEST, UPDATE_USER_CLEAR, UPDATE_USER_SUCCESS, UPDATE_USE
 const initialState = {
     loading: false,
     updateUserSuccess: false,
-    message: '',
-    error: '',
+    updateUserMessage: '',
+    updateUserError: '',
 };
 
 const updateUserReducer = (state = initialState, action) => {
@@ -18,22 +18,22 @@ const updateUserReducer = (state = initialState, action) => {
             return {
                 loading: false,
                 updateUserSuccess: false,
-                message: '',
-                error: '',
+                updateUserMessage: '',
+                updateUserError: '',
             };
         case UPDATE_USER_SUCCESS:
             return {
                 loading: false,
                 updateUserSuccess: action.success,
-                message: action.payload,
-                error: action.error,
+                updateUserMessage: action.payload,
+                updateUserError: action.error,
             };
         case UPDATE_USER_FAILURE:
             return {
                 loading: false,
                 updateUserSuccess: action.success,
-                message: action.payload,
-                error: action.error,
+                updateUserMessage: action.payload,
+                updateUserError: action.error,
             };
         default:
             return state;

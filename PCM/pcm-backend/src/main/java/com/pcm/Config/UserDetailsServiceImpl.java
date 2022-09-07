@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.pcm.Constant.ExceptionConstant;
 import com.pcm.Model.User;
 import com.pcm.Repository.UserRepository;
 
@@ -24,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		if(user == null) {
 			System.out.println("Sorry, we couldn't find an account with that email address");
-			throw new UsernameNotFoundException("No account is associated with this user");
+			throw new UsernameNotFoundException(ExceptionConstant.USERNAME_NOT_FOUND);
 		}
 		
 		return user;

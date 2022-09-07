@@ -64,7 +64,7 @@ const Login = () => {
                             {
                                 resetPasswordMessage
                                 ? <Alert className="alert-user-already-exists" variant="success">{resetPasswordMessage}</Alert>
-                                : logInError && <Alert className="alert-user-already-exists" variant={`${logInError === 'User logout successfully' ? 'success' : 'danger'}`}>{logInError}</Alert>
+                                : logInError && <Alert className="alert-user-already-exists" variant={`${logInError === 'User successfully logged out' ? 'success' : 'danger'}`}>{logInError}</Alert>
                             }
 
                             <Form className="register-form" onSubmit={formik.handleSubmit} method="post" noValidate>

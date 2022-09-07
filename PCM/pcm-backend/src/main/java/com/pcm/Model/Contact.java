@@ -51,7 +51,7 @@ public class Contact {
 	
 	private String company;
 	
-	@Column(unique = true)
+//	@Column(unique = true)
 	@NotBlank(message = "Email address is required")
 	@Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
 	private String email;

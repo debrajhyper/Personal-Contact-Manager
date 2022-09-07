@@ -3,7 +3,7 @@ import { USER_REQUEST, USER_SUCCESS, USER_FAILURE } from "./userTypes";
 const initialState = {
     loading: false,
     currentUser: {},
-    error: '',
+    currentUserError: '',
 };
 
 const userReducer = (state = initialState, action) => {
@@ -11,19 +11,19 @@ const userReducer = (state = initialState, action) => {
         case USER_REQUEST:
             return {
                 ...state,
-                loading: true,
+                loading: true
             };
         case USER_SUCCESS:
             return {
                 loading: false,
                 currentUser: action.payload,
-                error: action.error
+                currentUserError: action.error
             };
         case USER_FAILURE:
             return {
                 loading: false,
                 currentUser: action.payload,
-                error: action.error
+                currentUserError: action.error
             };
         default:
             return state;

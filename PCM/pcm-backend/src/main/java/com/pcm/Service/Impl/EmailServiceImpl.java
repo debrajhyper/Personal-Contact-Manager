@@ -14,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Service;
 
-import com.pcm.Constant.AppConstant;
+import com.pcm.Constant.EmailConstant;
 import com.pcm.Service.EmailService;
 
 
@@ -90,7 +90,7 @@ public class EmailServiceImpl implements EmailService {
 		// TODO Auto-generated method stub
 		boolean emailSent = false;
 		
-		String sender = AppConstant.PCM_EMAIL_ID;
+		String sender = EmailConstant.EMAIL_ID;
 		String host = "smtp.gmail.com";
 		
 		Properties properties = System.getProperties();
@@ -103,7 +103,7 @@ public class EmailServiceImpl implements EmailService {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				// TODO Auto-generated method stub
-				return new PasswordAuthentication(AppConstant.PCM_EMAIL_ID, AppConstant.PCM_EMAIL_PASS);
+				return new PasswordAuthentication(EmailConstant.EMAIL_ID, EmailConstant.EMAIL_PASS);
 			}
 		});
 		

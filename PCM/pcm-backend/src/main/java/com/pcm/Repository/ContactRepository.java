@@ -1,7 +1,6 @@
 package com.pcm.Repository;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.pcm.Model.Contact;
-import com.pcm.Model.ContactMobileNumber;
 import com.pcm.Model.User;
 
 
@@ -24,9 +22,9 @@ public interface ContactRepository extends JpaRepository<Contact, Integer> {
 	@Query("from Contact as c where c.user.id = :userId")
 	public Page<Contact> findContactsByUser(@Param("userId") int userId, Pageable pageable);
 	
-	@Query("from ContactMobileNumber as cmn where cmn.contact.id = :contactId")
-	public Set<ContactMobileNumber> findMobileNumbersByContact(@Param("contactId") int contactId);
+//	@Query("from ContactMobileNumber as cmn where cmn.contact.id = :contactId")
+//	public Set<ContactMobileNumber> findMobileNumbersByContact(@Param("contactId") int contactId);
 	
-	//search
+	//SEARCH
 	public List<Contact> findByNameContainingAndUser(String keyword, User user);
 }

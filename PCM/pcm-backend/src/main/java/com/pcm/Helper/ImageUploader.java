@@ -38,7 +38,7 @@ public class ImageUploader {
 			contact.setImage(imageName);
 		} 
 		else if(!imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_JPEG) && !imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_PNG)) {
-			throw new ValidationException("Only JPEG/PNG content type are allowed.");
+			throw new ValidationException("Only JPEG/PNG content type are allowed");
 		} 
 		else {
 			imageName = setImageName();
@@ -55,7 +55,7 @@ public class ImageUploader {
 	public void updateImage(Contact oldContact, Contact contact) throws IOException {
 		if(imageFile != null && !imageFile.isEmpty()) {
 			if(!imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_JPEG) && !imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_PNG)) {
-				throw new ValidationException("Only JPEG/PNG content type are allowed.");
+				throw new ValidationException("Only JPEG/PNG content type are allowed");
 			}
 			else {				
 				//DELETE OLD IMAGE
@@ -82,7 +82,7 @@ public class ImageUploader {
 	public void updateImage(User oldUser, User user) throws IOException {
 		if(imageFile != null && !imageFile.isEmpty()) {
 			if(!imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_JPEG) && !imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_PNG)) {
-				throw new ValidationException("Only JPEG/PNG content type are allowed.");
+				throw new ValidationException("Only JPEG/PNG content type are allowed");
 			}
 			else {				
 				//DELETE OLD IMAGE
@@ -112,7 +112,8 @@ public class ImageUploader {
 		if(!contact.getImage().equals(imageName)) {
 			System.out.println("SO, DELETING CONTACT IMAGE FROM LOCATION");
 			deleteImageFromLocation(AppConstant.SET_UPLOAD_LOCATION, contact);
-		} else {			
+		} 
+		else {			
 			System.out.println("SO, NO NEED TO DELETE CONTACT IMAGE FROM LOCATION");
 		}
 		

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pcm.Constant.AppConstant;
+import com.pcm.Constant.ExceptionConstant;
 import com.pcm.Helper.DateValidator;
 import com.pcm.Helper.ImageUploader;
 import com.pcm.Model.User;
@@ -25,10 +26,14 @@ import com.pcm.Model.UserRole;
 import com.pcm.Repository.RoleRepository;
 import com.pcm.Repository.UserRepository;
 import com.pcm.Service.UserService;
+import com.pcm.Service.Repository.UserRepositoryService;
 
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private UserRepositoryService userRepositoryService;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -48,8 +53,8 @@ public class UserServiceImpl implements UserService {
 			else {
 				System.out.println("USER AGREEMENT -> " + user.isAgreement());
 
-				for (UserRole ur : userRoles) {
-					this.roleRepository.save(ur.getRole());
+				for (UserRole userRole : userRoles) {
+					this.roleRepository.save(userRole.getRole());
 				}
 
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -62,7 +67,7 @@ public class UserServiceImpl implements UserService {
 				user.getUserRoles().addAll(userRoles);
 
 				this.userRepository.save(user);
-				System.out.println("SUCCESS =================== > REGISTERED USER : " + user.getEmail());
+				System.out.println("SUCCESS =================== > REGISTERED USER -> EMAIL : " + user.getEmail());
 			}
 		} 
 		catch (EntityExistsException e) {
@@ -75,7 +80,7 @@ public class UserServiceImpl implements UserService {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("oops... Something went wrong");
+			throw new Exception(ExceptionConstant.DEFAULT);
 		}
 	}
 
@@ -86,18 +91,14 @@ public class UserServiceImpl implements UserService {
 	public User currentUser(String email) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			User sessionUser = this.userRepository.findByUserName(email);
+			User sessionUser = this.userRepositoryService.findByUserName(email);
+			System.out.println("DB USER -> ID : " + sessionUser.getId());
 			
-			if(sessionUser == null) {
-				throw new UsernameNotFoundException("No account is associated with this user");
-			}
-
 			String uriLocation = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstant.GET_UPLOAD_LOCATION).path(sessionUser.getImage()).toUriString();
 			sessionUser.setImage(uriLocation);
 			sessionUser.setPassword(null);
 			
-			System.out.println("SUCCESS =================== > CRRENT USER : " + sessionUser.getEmail());
-			
+			System.out.println("SUCCESS =================== > CRRENT USER -> EMAIL : " + sessionUser.getEmail());
 			return sessionUser;
 		} 
 		catch(UsernameNotFoundException e) {
@@ -110,13 +111,13 @@ public class UserServiceImpl implements UserService {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new NoSuchElementException("No such user was found");
+			throw new NoSuchElementException("The user does not exist");
 		} 
 		catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("oops... Something went wrong.");
+			throw new Exception(ExceptionConstant.DEFAULT);
 		}
 	}
 
@@ -129,8 +130,8 @@ public class UserServiceImpl implements UserService {
 		try {
 			System.out.println("UPDATING USER -> ID: " + user.getId() + " NAME: " + user.getName());
 
-			User sessionUser = this.userRepository.findByUserName(email);
-			System.out.println("DB USER ID -> " + sessionUser.getId());
+			User sessionUser = this.userRepositoryService.findByUserName(email);
+			System.out.println("DB USER -> ID : " + sessionUser.getId());
 
 			if ((Integer) sessionUser.getId() == (Integer) user.getId()) {
 				System.out.println("PROFILE PIC DATA -> " + profilePic);
@@ -166,10 +167,10 @@ public class UserServiceImpl implements UserService {
 				user.setTotalContacts(sessionUser.getTotalContacts());
 
 				this.userRepository.save(user);
-				System.out.println("SUCCESS =================== >  UPDATED USER ID " + user.getId() + " -> " + user.getEmail());
+				System.out.println("SUCCESS =================== >  UPDATED USER -> EMAIL : " + user.getEmail());
 			} 
 			else {
-				throw new UsernameNotFoundException("No account is associated with this user");
+				throw new UsernameNotFoundException(ExceptionConstant.USERNAME_NOT_FOUND);
 			}
 		} 
 		catch (UsernameNotFoundException e) {
@@ -188,13 +189,13 @@ public class UserServiceImpl implements UserService {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new IOException("Failed to upload image in specified location");
+			throw new IOException("Image failed to upload to the server");
 		} 
 		catch (DateTimeParseException e) {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new DateTimeException("Invalid date format");
+			throw new DateTimeException("An invalid date format has been entered");
 		} 
 		catch (DateTimeException e) {
 			// TODO: handle exception
@@ -212,7 +213,7 @@ public class UserServiceImpl implements UserService {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("oops... Something went wrong");
+			throw new Exception(ExceptionConstant.DEFAULT);
 		}
 	}
 
@@ -223,20 +224,14 @@ public class UserServiceImpl implements UserService {
 	public void logoutUser(String email) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			User sessionUser = this.userRepository.findByUserName(email);
+			User sessionUser = this.userRepositoryService.findByUserName(email);
+			System.out.println("DB USER -> ID : " + sessionUser.getId());
+
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			sessionUser.setLastLogin(timestamp);
 			
-			if (sessionUser != null) {
-				System.out.println("DB USER ID -> " + sessionUser.getId());
-
-				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-				sessionUser.setLastLogin(timestamp);
-				this.userRepository.save(sessionUser);
-
-				System.out.println("SUCCESS =================== > LOGOUT USER : " + sessionUser.getName());
-			} 
-			else {
-				throw new UsernameNotFoundException("No account is associated with this user");
-			}
+			this.userRepository.save(sessionUser);
+			System.out.println("SUCCESS =================== > LOGOUT USER -> EMAIL : " + sessionUser.getEmail());
 		} 
 		catch (UsernameNotFoundException e) {
 			// TODO: handle exception
@@ -248,7 +243,7 @@ public class UserServiceImpl implements UserService {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("oops... Something went wrong");
+			throw new Exception(ExceptionConstant.DEFAULT);
 		}
 	}
 

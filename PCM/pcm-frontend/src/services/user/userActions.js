@@ -11,8 +11,8 @@ export const getCurrentUser = () => {
             dispatch(userSuccess(response?.data));
         })
         .catch(error => {
-            dispatch(userFailure(error?.message));
-            toast.error(error?.message);
+            dispatch(userFailure(error?.response?.data?.message));
+            toast.error(error?.response?.data?.message);
         });
     };
 };

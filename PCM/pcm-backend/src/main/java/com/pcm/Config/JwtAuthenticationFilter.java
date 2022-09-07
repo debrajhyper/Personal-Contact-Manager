@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.pcm.Constant.AppConstant;
+import com.pcm.Constant.JwtConstant;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -34,13 +34,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		// TODO Auto-generated method stub
 		System.out.println("==========================================================================   FILTER JWT REQUEST   ==========================================================================");
 		
-		final String requestTokenHeader = request.getHeader(AppConstant.REQUEST_HEADER);
+		final String requestTokenHeader = request.getHeader(JwtConstant.REQUEST_HEADER);
 		System.out.println("JWT TOKEN -> " + requestTokenHeader);
 		
 		String username = null;
 		String jwtToken = null;
 		
-		if(requestTokenHeader != null && requestTokenHeader.startsWith(AppConstant.JWT_TOKEN_PREFIX)) {
+		if(requestTokenHeader != null && requestTokenHeader.startsWith(JwtConstant.TOKEN_PREFIX)) {
 			jwtToken = requestTokenHeader.substring(7);
 			
 			try {

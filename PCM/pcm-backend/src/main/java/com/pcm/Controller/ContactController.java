@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pcm.Constant.MessageConstant;
 import com.pcm.Model.Contact;
 import com.pcm.Service.ContactService;
 
@@ -40,7 +41,7 @@ public class ContactController {
 		String email = principal.getName();
 		this.contactService.addContact(contact, profilePic, email);
 		
-		return new ResponseEntity<String>("Contact added successfully", HttpStatus.CREATED);
+		return new ResponseEntity<String>(MessageConstant.ADD_CONTACT_SUCCESS, HttpStatus.CREATED);
 	}
 	
 	
@@ -98,7 +99,7 @@ public class ContactController {
 		String email = principal.getName();
 		this.contactService.deleteSelectedContacts(deleteIds, email);
 		
-		return new ResponseEntity<String>("Selected contacts have been successfully deleted", HttpStatus.OK);
+		return new ResponseEntity<String>(MessageConstant.DELETE_SELECTED_CONTACTS_SUCCESS, HttpStatus.OK);
 	}
 	
 	
@@ -111,7 +112,7 @@ public class ContactController {
 		String email = principal.getName();
 		this.contactService.deleteContact(cId, email);
 		
-		return new ResponseEntity<String>("Contact deleted successfully", HttpStatus.OK);
+		return new ResponseEntity<String>(MessageConstant.DELETE_CONTACT_SUCCESS, HttpStatus.OK);
 	}
 	
 	
@@ -124,7 +125,7 @@ public class ContactController {
 		String email = principal.getName();
 		this.contactService.updateContact(contact, profilePic, email);
 		
-		return new ResponseEntity<String>("Contact updated successfully", HttpStatus.OK);
+		return new ResponseEntity<String>(MessageConstant.UPDATE_CONTACT_SUCCESS, HttpStatus.OK);
 	}
 	
 

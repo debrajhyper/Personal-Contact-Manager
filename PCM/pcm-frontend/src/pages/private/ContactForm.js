@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 
 import { useSelector } from 'react-redux';
 
@@ -11,7 +12,8 @@ import { FormAddress, FormName, FormEmail, RequiredStatement, FormCompany, FormC
 import { Row, Col, Form } from 'react-bootstrap';
 
 const ContactForm = () => {
-    const { loading } = useSelector(state => state.addContact);
+    const { loading, addContactError } = useSelector(state => state.addContact);
+    const location = useLocation();
 
     const {
         values,
@@ -41,6 +43,13 @@ const ContactForm = () => {
     useEffect(() => {
         setModalProfilePicShow(true);
     }, [values.profilePic, touched.profilePic]);
+
+    useEffect(()=> {
+        if(location.pathname.includes("add") && addContactError === '') {
+            handleReset();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [addContactError, location.pathname]);
 
     return (
         <Form onSubmit={handleSubmit} onReset={handleReset} className="contact-form" id="contact-form" method="post" encType="multipart/form-data" noValidate>

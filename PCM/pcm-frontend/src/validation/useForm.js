@@ -10,10 +10,9 @@ import { toast } from "react-toastify";
 
 const useForm = validate => {
     const contact = useSelector(state => state.viewContact.contact);
-    const addContactError = useSelector(state => state.addContact.error);
     const updateContactError = useSelector(state => state.updateContact.error);
-    const currentUser = useSelector(state => state.currentUser.currentUser);
-    const updateUserError = useSelector(state => state.updateUser.error);
+    const { currentUser } = useSelector(state => state.currentUser);
+    const { updateUserError } = useSelector(state => state.updateUser);
     
     const dispatch = useDispatch();
     const location = useLocation();
@@ -443,9 +442,9 @@ const useForm = validate => {
         if (Object.keys(errors).length === 1 && Object.keys(errors.socialLinks).length === 0) {
             if (location.pathname.includes("add")) {
                 dispatch(addContact(values));
-                if (addContactError === '') {
-                    handleReset();
-                }
+                // if (addContactMessage !== '') {
+                //     handleReset();
+                // }
             }
             if (location.pathname.includes("edit")) {
                 dispatch(updateContact(values));

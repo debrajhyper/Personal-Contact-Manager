@@ -18,7 +18,7 @@ export const addContact = (contact) => {
                 toast.update(
                     toastLoading,
                     {
-                        render: "Contact saved successfully",
+                        render: response?.data,
                         type: "success",
                         position: "top-right",
                         isLoading: false,
@@ -54,27 +54,27 @@ export const addContact = (contact) => {
                     }
                 );
             })
-    }
+    };
 };
 
 const addContactRequest = () => {
     return {
         type: CONTACT_REQUEST
-    }
+    };
 };
 
-const addContactSuccess = (contact) => {
+const addContactSuccess = message => {
     return {
         type: CONTACT_SUCCESS,
-        payload: contact,
+        payload: message,
         error: ''
-    }
+    };
 };
 
-const addContactFailure = (error) => {
+const addContactFailure = error => {
     return {
         type: CONTACT_FAILURE,
-        payload: {},
+        payload: '',
         error: error
-    }
-}
+    };
+};

@@ -33,7 +33,7 @@ public class ImageController {
 			// TODO Auto-generated catch block
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new IOException("Could not load profile picture from server");
+			throw new IOException("Unable to retrieve profile picture from server");
 		}
 		catch (Exception e) {
 			// TODO: handle exception

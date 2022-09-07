@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pcm.Constant.AppConstant;
+import com.pcm.Constant.MessageConstant;
+import com.pcm.Constant.RoleConstant;
 import com.pcm.Model.Role;
 import com.pcm.Model.User;
 import com.pcm.Model.UserRole;
@@ -40,8 +41,8 @@ public class UserController {
 		Set<UserRole> roles = new HashSet<>();
 		
 			Role role = new Role();
-			role.setRoleId(AppConstant.ROLE_ID);
-			role.setRoleName(AppConstant.ROLE_NAME);
+			role.setRoleId(RoleConstant.ROLE_ID);
+			role.setRoleName(RoleConstant.ROLE_NAME);
 			
 			UserRole userRole = new UserRole();
 			userRole.setUser(user);
@@ -51,7 +52,7 @@ public class UserController {
 		
 		this.userService.registerUser(user, roles);
 		
-		return new ResponseEntity<String>("User successfully registered", HttpStatus.CREATED);
+		return new ResponseEntity<String>(MessageConstant.REGISTER_USER_SUCCESS, HttpStatus.CREATED);
 	}
 	
 	
@@ -77,7 +78,7 @@ public class UserController {
 		String email = principal.getName();
 		this.userService.updateUser(user, profilePic, email);
 		
-		return new ResponseEntity<String>("User updated successfully", HttpStatus.OK);
+		return new ResponseEntity<String>(MessageConstant.UPDATE_USER_SUCCESS, HttpStatus.OK);
 	}
 	
 	
@@ -90,7 +91,7 @@ public class UserController {
 		String email = principal.getName();
 		this.userService.logoutUser(email);
 		
-		return new ResponseEntity<String>("User successfully logged out", HttpStatus.OK);
+		return new ResponseEntity<String>(MessageConstant.LOGOUT_USER_SUCCESS, HttpStatus.OK);
 	}
 
 }

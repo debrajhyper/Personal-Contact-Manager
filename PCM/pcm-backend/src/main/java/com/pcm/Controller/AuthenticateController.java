@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pcm.Config.JwtUtils;
 import com.pcm.Config.UserDetailsServiceImpl;
+import com.pcm.Constant.ExceptionConstant;
 import com.pcm.Model.JwtRequest;
 import com.pcm.Model.JwtResponse;
 
@@ -82,7 +83,7 @@ public class AuthenticateController {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("oops... Something went wrong");
+			throw new Exception(ExceptionConstant.DEFAULT);
 		}
 	}
 	
