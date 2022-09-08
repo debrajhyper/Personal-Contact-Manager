@@ -1,8 +1,8 @@
 import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./searchContactTypes";
 import { axiosPrivate, SEARCH_CONTACT_URL } from "../../../api/HomeAPI";
 
-export const searchContact = (quarry) => {
-    return (dispatch) => {
+export const searchContact = quarry => {
+    return dispatch => {
         dispatch(searchContactRequest());
 
         axiosPrivate.get(SEARCH_CONTACT_URL + quarry)
@@ -12,27 +12,27 @@ export const searchContact = (quarry) => {
         .catch(error => {
             dispatch(searchContactFailure(error?.response?.data?.message));
         })
-    }
-}
+    };
+};
 
 const searchContactRequest = () => {
     return {
         type: CONTACT_REQUEST
-    }
-}
+    };
+};
 
-const searchContactSuccess = (contact) => {
+const searchContactSuccess = searchedContacts => {
     return {
         type: CONTACT_SUCCESS,
-        payload: contact,
+        payload: searchedContacts,
         error: ''
-    }
-}
+    };
+};
 
-const searchContactFailure = (error) => {
+const searchContactFailure = error => {
     return {
         type: CONTACT_FAILURE,
         payload: {},
         error: error
-    }
-}
+    };
+};

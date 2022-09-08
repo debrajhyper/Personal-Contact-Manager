@@ -1,9 +1,9 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./addContactTypes";
+import { ADD_CONTACT_REQUEST, ADD_CONTACT_SUCCESS, ADD_CONTACT_FAILURE } from "./addContactTypes";
 import { axiosPrivate, ADD_CONTACT_URL, config } from "../../../api/HomeAPI";
 import { createFormData } from "../../../validation/FormData";
 import { toast } from "react-toastify";
 
-export const addContact = (contact) => {
+export const addContact = contact => {
     return dispatch => {
         dispatch(addContactRequest());
         const toastLoading = toast.loading("Uploading data to the server");
@@ -59,13 +59,13 @@ export const addContact = (contact) => {
 
 const addContactRequest = () => {
     return {
-        type: CONTACT_REQUEST
+        type: ADD_CONTACT_REQUEST
     };
 };
 
 const addContactSuccess = message => {
     return {
-        type: CONTACT_SUCCESS,
+        type: ADD_CONTACT_SUCCESS,
         payload: message,
         error: ''
     };
@@ -73,7 +73,7 @@ const addContactSuccess = message => {
 
 const addContactFailure = error => {
     return {
-        type: CONTACT_FAILURE,
+        type: ADD_CONTACT_FAILURE,
         payload: '',
         error: error
     };

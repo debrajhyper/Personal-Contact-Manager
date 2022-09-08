@@ -7,7 +7,7 @@ const initialState = {
     pageNumberLimit: 3,
     minPageNumberLimit: 0,
     maxPageNumberLimit: 3
-}
+};
 
 const paginationReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -15,7 +15,7 @@ const paginationReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true
-            }
+            };
         case PAGINATION_SUCCESS:
             return {
                 ...state,
@@ -23,7 +23,7 @@ const paginationReducer = (state = initialState, action) => {
                 success: true,
                 minPageNumberLimit: action.minPageNumberLimit,
                 maxPageNumberLimit: action.maxPageNumberLimit
-            }
+            };
         case PAGINATION_FAILURE:
             return {
                 ...state,
@@ -31,10 +31,10 @@ const paginationReducer = (state = initialState, action) => {
                 success: false,
                 minPageNumberLimit: action.minPageNumberLimit,
                 maxPageNumberLimit: action.maxPageNumberLimit
-            }
+            };
         default:
             return state;
-    }
-}
+    };
+};
 
 export default paginationReducer;

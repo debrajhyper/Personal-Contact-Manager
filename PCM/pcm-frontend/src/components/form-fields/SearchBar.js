@@ -13,7 +13,7 @@ import { Form, Image } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 
 const SearchBar = ({ cName, hasTouched, hasError, Mandatory }) => {
-    const { contact } = useSelector(state => state.searchContact);
+    const { searchedContacts } = useSelector(state => state.searchContact);
     const dispatch = useDispatch();
 
     const [searchResult, setSearchResult] = useState('');
@@ -65,10 +65,10 @@ const SearchBar = ({ cName, hasTouched, hasError, Mandatory }) => {
                     {hasError}
                 </Form.Text>
             }
-            <div className={`search-result ${searchResult !== '' ? open ? 'open' : '' : ''} ${contact?.length > 0 ? 'hasData' : 'noData'}`}>
+            <div className={`search-result ${searchResult !== '' ? open ? 'open' : '' : ''} ${searchedContacts?.length > 0 ? 'hasData' : 'noData'}`}>
                 {
-                    contact && contact.length > 0
-                        ? contact.map((contact, index) => {
+                    searchedContacts && searchedContacts.length > 0
+                        ? searchedContacts.map((contact, index) => {
                             const { cid, name, image, mobileNumber } = contact;
                             return (
                                 <Link to={`/view_contact/${cid}`} id={cid} key={index} className="list-group-item">

@@ -16,7 +16,7 @@ const ViewContacts = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
     const { contacts, page } = useSelector(state => state.viewContacts);
     const { deleteContactSuccess, allDeleted } = useSelector(state => state.deleteContact);
-    const { pageNumberLimit, minPageNumberLimit } = useSelector(state => state.pagination);
+    const { pageNumberLimit, minPageNumberLimit, maxPageNumberLimit } = useSelector(state => state.pagination);
     const dispatch = useDispatch();
 
     const [deleteIds, setDeleteIds] = useState([]);
@@ -25,11 +25,11 @@ const ViewContacts = () => {
         if (isLoggedIn) {
             if (deleteContactSuccess && allDeleted === contacts.length) {
                 dispatch(viewContacts(page - 1));
-                if ((page - 1) % pageNumberLimit === 0) {
+                if (page > 0 && (page % pageNumberLimit) === 0) {
                     dispatch(setMinMaxPageNumberLimit(minPageNumberLimit - pageNumberLimit, minPageNumberLimit));
                 }
                 else {
-                    dispatch(setMinMaxPageNumberLimit(0, 3));
+                    dispatch(setMinMaxPageNumberLimit(minPageNumberLimit, maxPageNumberLimit));
                 }
             }
             else if (deleteContactSuccess && allDeleted !== contacts.length) {
@@ -44,7 +44,7 @@ const ViewContacts = () => {
             dispatch(logoutUser('/login'));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoggedIn, dispatch, page, deleteContactSuccess, allDeleted, contacts.length]);
+    }, [isLoggedIn, dispatch, deleteContactSuccess, allDeleted]);
 
     const handleDeleteSelected = e => {
         e.preventDefault();
@@ -52,7 +52,7 @@ const ViewContacts = () => {
             dispatch(deleteSelectedContacts(deleteIds));
         }
         else {
-            toast.info("Please select contacts to be deleted.")
+            toast.info("Please select contacts to be deleted");
         }
     };
 

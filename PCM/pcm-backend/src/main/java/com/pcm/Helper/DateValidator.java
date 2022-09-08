@@ -25,17 +25,21 @@ public class DateValidator {
         	String userDateStr = formatter.format(formatter.parse(dateStr));
         	boolean isDateFuture = isDateFuture(userDateStr, dateFormat);
         	if (isDateFuture) {
-    			throw new DateTimeException("The input date is a future date");
+    			throw new DateTimeException("Input date is in the future");
     		}
         	return true;
 		} 
         catch (DateTimeException e) {
 			// TODO: handle exception
+        	System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
         	throw new DateTimeException(e.getMessage());
 		}
         catch (Exception e) {
 			// TODO: handle exception
-			throw new DataFormatException("Invalid Date Format");
+        	System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new DataFormatException("An invalid date format has been entered");
 		}
     }
     

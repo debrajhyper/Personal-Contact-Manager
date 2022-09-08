@@ -1,4 +1,4 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./addContactTypes";
+import { ADD_CONTACT_REQUEST, ADD_CONTACT_SUCCESS, ADD_CONTACT_FAILURE } from "./addContactTypes";
 
 const initialState = {
     loading: false,
@@ -8,18 +8,18 @@ const initialState = {
 
 const addContactReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CONTACT_REQUEST:
+        case ADD_CONTACT_REQUEST:
             return {
                 ...state,
                 loading: true
             };
-        case CONTACT_SUCCESS:
+        case ADD_CONTACT_SUCCESS:
             return {
                 loading: false,
                 addContactMessage: action.payload,
                 addContactError: action.error
             };
-        case CONTACT_FAILURE:
+        case ADD_CONTACT_FAILURE:
             return {
                 loading: false,
                 addContactMessage: action.payload,
@@ -27,7 +27,7 @@ const addContactReducer = (state = initialState, action) => {
             };
         default:
             return state;
-    }
-}
+    };
+};
 
 export default addContactReducer;

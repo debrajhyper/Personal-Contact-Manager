@@ -28,6 +28,7 @@ import { FaUserEdit, FaAt, FaPhoneAlt, FaHeart, FaUserTag, FaGlobeAmericas, FaFa
 const ViewContact = () => {
     const { deleteContactSuccess } = useSelector(state => state.deleteContact);
     const { contact } = useSelector(state => state.viewContact);
+    const { contacts } = useSelector(state => state.viewContacts);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -53,7 +54,7 @@ const ViewContact = () => {
 
     const handleDelete = (e, cId) => {
         e.preventDefault();
-        dispatch(deleteContact(cId));
+        dispatch(deleteContact(cId, contacts.length));
     }
 
     const { image, favorite, name, nickName, title, company, email, mobileNumber, telephoneNumber, address, tags, dateOfBirth, description, relationship, zodiacSign, country, socialLinks, website } = contact;

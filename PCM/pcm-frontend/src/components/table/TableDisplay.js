@@ -12,7 +12,7 @@ import TableRow from './TableRow';
 import { Form, Table } from 'react-bootstrap';
 
 const TableDisplay = ({ deleteIds, setDeleteIds }) => {
-    const contacts = useSelector(state => state.viewContacts.contacts);
+    const { contacts } = useSelector(state => state.viewContacts);
     const dispatch = useDispatch();
 
     const handleAllChecked = e => {

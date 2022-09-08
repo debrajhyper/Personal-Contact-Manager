@@ -1,17 +1,16 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./deleteContactTypes";
+import { DELETE_CONTACT_REQUEST, DELETE_CONTACT_CLEAR, DELETE_CONTACT_SUCCESS, DELETE_CONTACT_FAILURE } from "./deleteContactTypes";
 import { axiosPrivate, DELETE_CONTACT_URL, DELETE_SELECTED_CONTACTS_URL } from "../../../api/HomeAPI";
 import { toast } from "react-toastify";
 
-
-export const deleteContact = (cId) => {
+export const deleteContact = (cId, contactsLength) => {
     return dispatch => {
         dispatch(deleteContactRequest());
 
         axiosPrivate.delete(DELETE_CONTACT_URL + cId)
         .then(response => {
-            dispatch(deleteContactSuccess(response?.data, 1));
+            dispatch(deleteContactSuccess(response?.data, contactsLength === 1 ? 1 : 0));
             setTimeout(() => {
-                dispatch(deleteContactFailure(''));
+                dispatch(deleteContactClear());
             }, 1000);
             toast.success(response?.data);
         })
@@ -19,50 +18,54 @@ export const deleteContact = (cId) => {
             dispatch(deleteContactFailure(error?.response?.data?.message));
             toast.error(error?.response?.data?.message);
         })
-    }
-}
+    };
+};
 
-export const deleteSelectedContacts = (deleteIds) => {
-    return (dispatch) => {
+export const deleteSelectedContacts = deleteIds => {
+    return dispatch => {
         dispatch(deleteContactRequest());
 
         axiosPrivate.delete(DELETE_SELECTED_CONTACTS_URL + deleteIds)
         .then(response => {
-            console.log('RESPONSE -> ', response.data, deleteIds.length);
             dispatch(deleteContactSuccess(response?.data, deleteIds.length));
             setTimeout(() => {
-                dispatch(deleteContactFailure(''));
+                dispatch(deleteContactClear());
             }, 1000);
             toast.success(response?.data);
         })
         .catch(error => {
-            console.log('ERROR -> ', error.response);
             dispatch(deleteContactFailure(error?.response?.data?.message));
             toast.error(error?.response?.data?.message);
         })
-    }
-}
+    };
+};
 
 const deleteContactRequest = () => {
     return {
-        type: CONTACT_REQUEST
-    }
-}
+        type: DELETE_CONTACT_REQUEST
+    };
+};
+
+const deleteContactClear = () => {
+    return {
+        type: DELETE_CONTACT_CLEAR
+    };
+};
 
 const deleteContactSuccess = (message, allDeleted) => {
     return {
-        type: CONTACT_SUCCESS,
+        type: DELETE_CONTACT_SUCCESS,
         allDeleted: allDeleted,
         payload: message,
         error: ''
-    }
-}
+    };
+};
 
-const deleteContactFailure = (error) => {
+const deleteContactFailure = error => {
     return {
-        type: CONTACT_FAILURE,
+        type: DELETE_CONTACT_FAILURE,
         allDeleted: 0,
         payload: '',
         error: error
-    }
-}
+    };
+};

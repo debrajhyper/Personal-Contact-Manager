@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ContactsChecked, deleteContact } from '../../services/index';
 
 import UseAnimations from "react-useanimations";
@@ -11,7 +11,9 @@ import { Form, Image } from 'react-bootstrap';
 import { FaUserEdit } from 'react-icons/fa';
 
 const TableRow = ({ contact, deleteIds }) => {
+    const { contacts } = useSelector(state => state.viewContacts);
     const { cid, name, image, mobileNumber, email } = contact;
+    
     const dispatch = useDispatch();
     let navigate = useNavigate();
 
@@ -29,7 +31,7 @@ const TableRow = ({ contact, deleteIds }) => {
 
     const handleDelete = (e, cId) => {
         e.preventDefault();
-        dispatch(deleteContact(cId));
+        dispatch(deleteContact(cId, contacts.length));
     }
 
     const exclude = ['INPUT', 'BUTTON', 'SVG', 'PATH'];
