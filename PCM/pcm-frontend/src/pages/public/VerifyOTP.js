@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 
+import { DASHBOARD_LINK } from '../../Route';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { clearVerifyOTP, sendOTP, verifyOTP } from '../../services/index';
 
@@ -9,7 +11,6 @@ import { OtpValidate } from '../../validation/validationMsg';
 
 import { FormOTP, ButtonNormal, Counter } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
-
 
 const VerifyOTP = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
@@ -20,7 +21,7 @@ const VerifyOTP = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/dashboard";
+    const from = location.state?.from?.pathname || DASHBOARD_LINK;
     
     const [timeRemaining, setTimeRemaining] = useState(maxInActiveInterval);
 

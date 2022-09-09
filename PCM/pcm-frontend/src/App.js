@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import { ABOUT_PATH, ADD_CONTACT_PATH, BASE_PATH, DASHBOARD_PATH, EDIT_CONTACT_CID_PATH, FORGOT_PASSWORD_PATH, LOGIN_PATH, NO_MATCH_PATH, PROFILE_PATH, RESET_PASSWORD_PATH, SETTINGS_PATH, SIGNUP_PATH, TERMS_CONDITIONS_PATH, VERIFY_OTP_PATH, VIEW_CONTACTS_PATH, VIEW_CONTACT_CID_PATH } from './Route';
+
 import { useSelector } from 'react-redux';
 
 import Layout from './pages/Layout';
@@ -59,27 +61,27 @@ const App = () => {
                             pauseOnHover
                         />
                         <Routes>
-                            <Route path="/" element={<Layout />} >
-                                <Route path="/" element={<Home />} />
-                                <Route path="about" element={<About />} />
-                                <Route path="login" element={<Login />} />
-                                <Route path="forgot-password" element={<ForgotPassword />} />
-                                <Route path="verify-otp" element={<VerifyOTP />} />
-                                <Route path="reset-password" element={<ResetPassword />} />
-                                <Route path="signup" element={<Signup />} />
-                                <Route path="terms-conditions" element={<TermsConditions />} />
+                            <Route path={BASE_PATH} element={<Layout />} >
+                                <Route path={BASE_PATH} element={<Home />} />
+                                <Route path={ABOUT_PATH} element={<About />} />
+                                <Route path={LOGIN_PATH} element={<Login />} />
+                                <Route path={FORGOT_PASSWORD_PATH} element={<ForgotPassword />} />
+                                <Route path={VERIFY_OTP_PATH} element={<VerifyOTP />} />
+                                <Route path={RESET_PASSWORD_PATH} element={<ResetPassword />} />
+                                <Route path={SIGNUP_PATH} element={<Signup />} />
+                                <Route path={TERMS_CONDITIONS_PATH} element={<TermsConditions />} />
 
                                 <Route element={<RequireAuth />} >
-                                    <Route path="dashboard" element={<Dashboard />} />
-                                    <Route path="view_contacts" element={<ViewContacts />} />
-                                    <Route path="view_contact/:cid" element={<ViewContact />} />
-                                    <Route path="edit_contact/:cid" element={<EditContact />} />
-                                    <Route path="add_contact" element={<AddContact />} />
-                                    <Route path="profile" element={<Profile />} />
-                                    <Route path="settings" element={<Settings />} />
+                                    <Route path={DASHBOARD_PATH} element={<Dashboard />} />
+                                    <Route path={VIEW_CONTACTS_PATH} element={<ViewContacts />} />
+                                    <Route path={VIEW_CONTACT_CID_PATH} element={<ViewContact />} />
+                                    <Route path={EDIT_CONTACT_CID_PATH} element={<EditContact />} />
+                                    <Route path={ADD_CONTACT_PATH} element={<AddContact />} />
+                                    <Route path={PROFILE_PATH} element={<Profile />} />
+                                    <Route path={SETTINGS_PATH} element={<Settings />} />
                                 </Route>
 
-                                <Route path="*" element={<NoMatchFound />} />
+                                <Route path={NO_MATCH_PATH} element={<NoMatchFound />} />
                             </Route>
                         </Routes>
                     </div>

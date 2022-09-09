@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
+import { EDIT_CONTACT_LINK, VIEW_CONTACT_LINK } from '../../Route';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { ContactsChecked, deleteContact } from '../../services/index';
 
@@ -37,7 +39,7 @@ const TableRow = ({ contact, deleteIds }) => {
     const exclude = ['INPUT', 'BUTTON', 'SVG', 'PATH'];
     const handleLink = (e, cid) => {
         if (!exclude.includes(e.target.tagName.toUpperCase())) {
-            navigate(`/view_contact/${cid}`);
+            navigate(VIEW_CONTACT_LINK + cid);
         }
     }
 
@@ -63,7 +65,7 @@ const TableRow = ({ contact, deleteIds }) => {
             <td className="text-left" title={mobileNumber?.number}>{mobileNumber?.number ?? '-'}</td>
             <td className="text-left" title={email}>{email ?? '-'}</td>
             <td className="text-center">
-                <Link to={`/edit_contact/${cid}`}>
+                <Link to={EDIT_CONTACT_LINK + cid}>
                     <button
                         type="button"
                         title="Edit"

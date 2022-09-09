@@ -15,9 +15,9 @@ const ButtonNormal = ({ type, name, id, cName, value, icon, hasError, action, lo
                     loading
                         ? <UseAnimations animation={loadingIco} strokeColor='white' />
                         : <>
-                            {icon && <div>{icon}</div>}
+                            {   icon && <div>{icon}</div>   }
                             <span>{value}</span>
-                        </>
+                            </>
                 }
             </Button>
         </div>

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 
+import { DASHBOARD_LINK, VERIFY_OTP_LINK } from '../../Route';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { sendOTP } from '../../services/index';
 
@@ -18,7 +20,7 @@ const ForgotPassword = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/dashboard";
+    const from = location.state?.from?.pathname || DASHBOARD_LINK;
 
     const formik = useFormik({
         initialValues: {
@@ -38,7 +40,7 @@ const ForgotPassword = () => {
 
     useEffect(() => {
         if(emailSent) {
-            navigate("/verify-otp")
+            navigate(VERIFY_OTP_LINK)
         }
     }, [emailSent, navigate])
 

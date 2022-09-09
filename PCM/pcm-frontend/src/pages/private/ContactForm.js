@@ -12,9 +12,12 @@ import { FormAddress, FormName, FormEmail, RequiredStatement, FormCompany, FormC
 import { Row, Col, Form } from 'react-bootstrap';
 
 const ContactForm = () => {
-    const { loading, addContactError } = useSelector(state => state.addContact);
+    const { addContactMessage } = useSelector(state => state.addContact);
+    const { updateContactMessage } = useSelector(state => state.updateContact);
+    const addContactLoading = useSelector(state => state.addContact.loading);
+    const updateContactLoading = useSelector(state => state.updateContact.loading);
     const location = useLocation();
-
+    
     const {
         values,
         handleClick,
@@ -37,6 +40,7 @@ const ContactForm = () => {
         handleSubmit,
         uploadedFile, touched, errors
     } = useForm(contactValidate);
+    const [loading, setLoading] = useState(false);
     const [modalProfilePicShow, setModalProfilePicShow] = useState(true);
 
 
@@ -44,12 +48,25 @@ const ContactForm = () => {
         setModalProfilePicShow(true);
     }, [values.profilePic, touched.profilePic]);
 
+    useEffect(() => {
+        if(location.pathname.includes("add")) {
+            setLoading(addContactLoading);
+        }
+        if(location.pathname.includes("edit")) {
+            setLoading(updateContactLoading);
+        }
+    }, [addContactLoading, updateContactLoading, location.pathname])
+    
+
     useEffect(()=> {
-        if(location.pathname.includes("add") && addContactError === '') {
+        if(location.pathname.includes("add") && addContactMessage !== '') {
+            handleReset();
+        }
+        if(location.pathname.includes("edit") && updateContactMessage !== '') {
             handleReset();
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [addContactError, location.pathname]);
+    }, [addContactMessage, updateContactMessage, location.pathname]);
 
     return (
         <Form onSubmit={handleSubmit} onReset={handleReset} className="contact-form" id="contact-form" method="post" encType="multipart/form-data" noValidate>

@@ -4,7 +4,7 @@ import './social_icon.scss';
 
 const SocialIcon = ({ icon, title, link }) => {
     return (
-        <a href={link} className='social-icon'>
+        <a href={link} target="blank" className='social-icon'>
             <div id={title} className='icon b'>
                 {icon}
             </div>

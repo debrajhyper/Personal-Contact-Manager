@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
+import { ABOUT_LINK, BASE_PATH, DASHBOARD_LINK, LOGIN_LINK, PROFILE_LINK, SIGNUP_LINK } from '../../Route';
+
 import { useSelector } from 'react-redux';
 
 import favicon from '../../img/favicon.png';
@@ -23,7 +25,7 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
 
     const privateNav = (
         <div className="auth-nav">
-            <Nav.Link as={Link} to={"/profile"}>
+            <Nav.Link as={Link} to={PROFILE_LINK}>
                 <div className='img_container'>
                     <Image src={image ?? profileImage} className="profile_pic" alt="" />
                 </div>
@@ -37,10 +39,10 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
 
     const publicNav = (
         <div className="public-nav">
-            <Nav.Link as={NavLink} to={"/"}><BsFillHouseFill className="ico" size={18} /><span>Home</span></Nav.Link>
-            <Nav.Link as={NavLink} to={"/about"}><FaAddressCard className="ico" size={18} /><span>About</span></Nav.Link>
-            <Nav.Link as={NavLink} to={"/login"}><FaSignInAlt className="ico" size={18} /><span>Login</span></Nav.Link>
-            <Nav.Link as={NavLink} to={"/signup"}><FaUserPlus className="ico" size={18} /><span>Signup</span></Nav.Link>
+            <Nav.Link as={NavLink} to={BASE_PATH}><BsFillHouseFill className="ico" size={18} /><span>Home</span></Nav.Link>
+            <Nav.Link as={NavLink} to={ABOUT_LINK}><FaAddressCard className="ico" size={18} /><span>About</span></Nav.Link>
+            <Nav.Link as={NavLink} to={LOGIN_LINK}><FaSignInAlt className="ico" size={18} /><span>Login</span></Nav.Link>
+            <Nav.Link as={NavLink} to={SIGNUP_LINK}><FaUserPlus className="ico" size={18} /><span>Signup</span></Nav.Link>
         </div>
     )
 
@@ -53,7 +55,7 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
                         {isLoggedIn
                             ? (
                                 <>
-                                    <Link to="/dashboard" className="navbar-brand pcm">{authSlideBar}</Link>
+                                    <Link to={DASHBOARD_LINK} className="navbar-brand pcm">{authSlideBar}</Link>
                                     <UseAnimations animation={maximizeMinimize} size={28} speed={.9} reverse={true} className="ico" onClick={handleSlidebar}
                                         render={(eventProps, animationProps) => (
                                             <div className={`slidebar_ico ${authSlideBar}`} {...eventProps}>
@@ -63,7 +65,7 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
                                     />
                                 </>
                             )
-                            : <Link to="/" className="navbar-brand">Personal Contact Manager</Link>
+                            : <Link to={BASE_PATH} className="navbar-brand">Personal Contact Manager</Link>
                         }
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />

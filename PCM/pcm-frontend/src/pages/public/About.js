@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import { DASHBOARD_LINK } from "../../Route";
+
 import { useSelector } from 'react-redux';
 
 const About = () => {
@@ -8,7 +10,7 @@ const About = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/dashboard";
+    const from = location.state?.from?.pathname || DASHBOARD_LINK;
 
     useEffect(() => {
         if (isLoggedIn) {

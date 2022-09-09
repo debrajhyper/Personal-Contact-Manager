@@ -1,4 +1,4 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE, CONTACT_CHECKED, CONTACT_CHECKED_ALL } from "./viewContactsTypes";
+import { VIEW_CONTACTS_REQUEST, VIEW_CONTACTS_SUCCESS, VIEW_CONTACTS_FAILURE, VIEW_CONTACTS_CHECKED, VIEW_CONTACTS_CHECKED_ALL } from "./viewContactsTypes";
 import { axiosPrivate, VIEW_CONTACTS_URL } from "../../../api/HomeAPI";
 import { toast } from "react-toastify";
 
@@ -31,13 +31,13 @@ export const ContactsCheckedAll = checked => {
 
 const viewContactsRequest = () => {
     return {
-        type: CONTACT_REQUEST
+        type: VIEW_CONTACTS_REQUEST
     };
 };
 
 const viewContactsSuccess = (contacts, totalContacts, page, totalPages) => {
     return {
-        type: CONTACT_SUCCESS,
+        type: VIEW_CONTACTS_SUCCESS,
         payload: contacts,
         totalContacts: totalContacts,
         page: page,
@@ -48,7 +48,7 @@ const viewContactsSuccess = (contacts, totalContacts, page, totalPages) => {
 
 const viewContactsFailure = error => {
     return {
-        type: CONTACT_FAILURE,
+        type: VIEW_CONTACTS_FAILURE,
         payload: [],
         totalContacts: 0,
         page: 0,
@@ -59,7 +59,7 @@ const viewContactsFailure = error => {
 
 const viewContactsChecked = (id, checked) => {
     return {
-        type: CONTACT_CHECKED,
+        type: VIEW_CONTACTS_CHECKED,
         payload: id,
         checked: checked
     };
@@ -67,7 +67,7 @@ const viewContactsChecked = (id, checked) => {
 
 const viewContactsCheckedAll = checked => {
     return {
-        type: CONTACT_CHECKED_ALL,
+        type: VIEW_CONTACTS_CHECKED_ALL,
         checked: checked
     };
 };

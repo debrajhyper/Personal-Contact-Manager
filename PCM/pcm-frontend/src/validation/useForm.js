@@ -9,10 +9,8 @@ import { submitErrorFields } from "./validationMsg";
 import { toast } from "react-toastify";
 
 const useForm = validate => {
-    const contact = useSelector(state => state.viewContact.contact);
-    const updateContactError = useSelector(state => state.updateContact.error);
     const { currentUser } = useSelector(state => state.currentUser);
-    const { updateUserError } = useSelector(state => state.updateUser);
+    const { contact } = useSelector(state => state.viewContact);
     
     const dispatch = useDispatch();
     const location = useLocation();
@@ -107,7 +105,7 @@ const useForm = validate => {
     }, [cid, contact]);
 
     useEffect(() => {
-        if (profileEdit && currentUser && location.pathname === "/profile") {
+        if (profileEdit && currentUser && location.pathname.includes("profile")) {
             setValues({
                 id: currentUser?.id,
                 agreement: currentUser?.agreement ?? true,
@@ -159,7 +157,7 @@ const useForm = validate => {
         })
     };
 
-    const handleEnter = (event) => {
+    const handleEnter = event => {
         if (event.key.toLowerCase() === "enter") {
             const form = event.target.form;
             const index = [...form].indexOf(event.target);
@@ -439,36 +437,27 @@ const useForm = validate => {
 
         const PLEASE = "please";
         // console.log(Object.keys(errors))
-        if (Object.keys(errors).length === 1 && Object.keys(errors.socialLinks).length === 0) {
+        if (Object.keys(errors).length === 1 && Object.keys(errors?.socialLinks).length === 0) {
             if (location.pathname.includes("add")) {
                 dispatch(addContact(values));
-                // if (addContactMessage !== '') {
-                //     handleReset();
-                // }
             }
             if (location.pathname.includes("edit")) {
                 dispatch(updateContact(values));
-                if (updateContactError === '') {
-                    handleReset();
-                }
             }
-            if (location.pathname === "/profile") {
+            if (location.pathname.includes("profile")) {
                 dispatch(updateUser(values));
-                if (updateUserError === '') {
-                    handleReset();
-                }
             }
         }
         else if (errors?.name?.split(' ')?.[0].toLowerCase() === PLEASE
             || errors?.email?.split(' ')?.[0].toLowerCase() === PLEASE
             || errors?.mobileNumber?.split(' ')?.[0].toLowerCase() === PLEASE) {
-            toast.warning("Please fill all the required fields.");
+            toast.warning("Please fill all the required fields");
         }
         else if (Object.keys(errors).length > 1) {
-            toast.warning(`${submitErrorFields(Object.keys(errors)[1])} field has error.`);
+            toast.warning(`A problem exists with the ${submitErrorFields(Object.keys(errors)[1])} field`);
         }
         else {
-            toast.warning("Some fields have errors.");
+            toast.warning("There are errors in some fields");
         }
     };
 

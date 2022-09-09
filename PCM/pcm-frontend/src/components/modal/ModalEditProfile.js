@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 
-import './modal.scss';
-import '../../components/form-fields/form_fields.scss';
+import { useSelector } from 'react-redux';
 
 import useForm from '../../validation/useForm';
 import { userValidate } from '../../validation/validationMsg';
 
-import { FormName, FormEmail, RequiredStatement, FormCountry, FormDOB, FormMobileNo, FormProfilePic, ModalProfilePic, FormZodiacSign, FormWebsite, FormSocialLinks, FormNote, ButtonNormal } from '../../components/index';
+import './modal.scss';
+import '../../components/form-fields/form_fields.scss';
+
 import { Modal, Row, Col, Form } from 'react-bootstrap';
+import { FormName, FormEmail, RequiredStatement, FormCountry, FormDOB, FormMobileNo, FormProfilePic, ModalProfilePic, FormZodiacSign, FormWebsite, FormSocialLinks, FormNote, ButtonNormal } from '../../components/index';
 
 const ModalEditProfile = ({ modalEditProfile, handleModalEditProfile }) => {
+    const { loading, updateUserError } = useSelector(state => state.updateUser);
+    const location = useLocation();
+
     const {
         values,
         handleChange,
@@ -38,10 +44,18 @@ const ModalEditProfile = ({ modalEditProfile, handleModalEditProfile }) => {
     useEffect(() => {
         if (modalEditProfile) {
             setProfileEdit(true);
-        } else {
+        } 
+        else {
             setProfileEdit(false);
         }
     }, [profileEdit, setProfileEdit, modalEditProfile]);
+
+    useEffect(()=> {
+        if(location.pathname.includes("profile") && updateUserError === '') {
+            handleReset();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [updateUserError, location.pathname]);
 
     return (
         <Modal className='edit-profile' dialogClassName='EditProfile' show={modalEditProfile} onHide={handleModalEditProfile} centered animation={true} autoFocus={true} id="modal">
@@ -89,7 +103,7 @@ const ModalEditProfile = ({ modalEditProfile, handleModalEditProfile }) => {
                 </Modal.Body>
                 <Modal.Footer className="action_button center pb-5 m-0">
                     <div className='three d-flex justify-content-evenly'>
-                        <ButtonNormal type="submit" name="add-contact" id="ADD-Contact" cName="form_submit fill px-5" value="Save" action={handleSubmit} />
+                        <ButtonNormal type="submit" name="add-contact" id="ADD-Contact" cName="form_submit fill px-5" value="Save" action={handleSubmit} loading={loading} />
                         <ButtonNormal type="reset" name="reset" id="reset" cName="form_reset px-4" value="Reset" action={handleReset} />
                         <ButtonNormal type='reset' name='cancelBtn' id='CancelBtn' cName='form_cancel danger' value='Cancel' action={handleModalEditProfile} />
                     </div>

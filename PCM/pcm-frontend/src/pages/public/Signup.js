@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 
+import { DASHBOARD_LINK, LOGIN_LINK } from '../../Route';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { registerUser } from '../../services/index';
 
@@ -24,7 +26,7 @@ const Signup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/dashboard";
+    const from = location.state?.from?.pathname || DASHBOARD_LINK;
 
     const formik = useFormik({
         initialValues: {
@@ -82,7 +84,7 @@ const Signup = () => {
                         </Col>
                         <Col className="signup_image text-center">
                             <Image className="reg_left" src={guest_signup_register_left} alt="sing up" />
-                            <Link to="/login" className="signup-image-link underline">I am already a member</Link>
+                            <Link to={LOGIN_LINK} className="signup-image-link underline">I am already a member</Link>
                         </Col>
                     </Row>
                 </Container>

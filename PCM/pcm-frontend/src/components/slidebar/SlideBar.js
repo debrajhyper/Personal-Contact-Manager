@@ -1,5 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+
+import { ADD_CONTACT_LINK, DASHBOARD_LINK, LOGIN_LINK, PROFILE_LINK, VIEW_CONTACTS_LINK } from '../../Route';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../services/index';
@@ -19,18 +21,18 @@ const SlideBar = ({ slidebar }) => {
     const icoSize = (slidebar ? icoMin : icoMax);
 
     const logoutHandler = () => {
-        dispatch(logoutUser('/login'));
+        dispatch(logoutUser(LOGIN_LINK));
     }
 
     return (
         <div className="content-wrapper">
             <div className={`sidebar ${slidebar ? "show" : ""}`}>
                 <Nav>
-                    <Nav.Link as={NavLink} to={"/dashboard"}><FaUserCircle size={icoSize} /><span>Dashboard</span></Nav.Link>
-                    <Nav.Link as={NavLink} to={"/view_contacts"}><FaAddressBook size={icoSize} /><span>View Contacts</span></Nav.Link>
-                    <Nav.Link as={NavLink} to={"/add_contact"}><FaIdBadge size={icoSize} /><span>Add Contact</span></Nav.Link>
-                    <Nav.Link as={NavLink} to={"/profile"}><FaAddressCard size={icoSize} /><span>Profile</span></Nav.Link>
-                    {/* <Nav.Link as={NavLink} to={"/settings"}><FaUserCog size={icoSize}/><span>Settings</span></Nav.Link> */}
+                    <Nav.Link as={NavLink} to={DASHBOARD_LINK}><FaUserCircle size={icoSize} /><span>Dashboard</span></Nav.Link>
+                    <Nav.Link as={NavLink} to={VIEW_CONTACTS_LINK}><FaAddressBook size={icoSize} /><span>View Contacts</span></Nav.Link>
+                    <Nav.Link as={NavLink} to={ADD_CONTACT_LINK}><FaIdBadge size={icoSize} /><span>Add Contact</span></Nav.Link>
+                    <Nav.Link as={NavLink} to={PROFILE_LINK}><FaAddressCard size={icoSize} /><span>Profile</span></Nav.Link>
+                    {/* <Nav.Link as={NavLink} to={SETTINGS_LINK}><FaUserCog size={icoSize}/><span>Settings</span></Nav.Link> */}
                 </Nav>
                 <footer>
                     <div className='img_container'>

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 
+import { DASHBOARD_LINK, FORGOT_PASSWORD_LINK, SIGNUP_LINK } from '../../Route';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { authenticationUser, clearResetPassword, clearSendOTP, clearVerifyOTP } from '../../services/index';
 
@@ -21,7 +23,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/dashboard";
+    const from = location.state?.from?.pathname || DASHBOARD_LINK;
 
     const formik = useFormik({
         initialValues: {
@@ -78,7 +80,7 @@ const Login = () => {
                                             <Form.Label className="label-agree-term m-0">Remember Me</Form.Label>
                                         </div>
                                     </Form.Group>
-                                    <Link to="/forgot-password" className="underline">Forgot Password?</Link>
+                                    <Link to={FORGOT_PASSWORD_LINK} className="underline">Forgot Password?</Link>
                                 </Container>
 
                                 <Form.Group className="action_button center">
@@ -86,7 +88,7 @@ const Login = () => {
                                 </Form.Group>
 
                                 <Container className="signup-link text-center mt-5 mb-3">
-                                    <Link to="/signup" className="underline">Signup for PCM</Link>
+                                    <Link to={SIGNUP_LINK} className="underline">Signup for PCM</Link>
                                 </Container>
                             </Form>
                         </Col>

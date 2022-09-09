@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import moment from 'moment';
 
+import { LOGIN_LINK } from '../../Route';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUser, logoutUser } from '../../services/index';
 
@@ -29,12 +31,11 @@ const Dashboard = () => {
             dispatch(getCurrentUser());
         }
         else {
-            dispatch(logoutUser('/login'));
+            dispatch(logoutUser(LOGIN_LINK));
         }
-
     }, [isLoggedIn, dispatch, navigate, location]);
 
-    const dateFormater = (APIDate) => {
+    const dateFormater = APIDate => {
         const dateString = moment(APIDate).format('Do MMMM YYYY, dddd hh:mm:ss a');
         return dateString;
     };

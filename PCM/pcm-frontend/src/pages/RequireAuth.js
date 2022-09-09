@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useLocation, Outlet, Navigate } from 'react-router-dom';
 
+import { LOGIN_LINK } from '../Route';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUser } from '../services/index';
 
@@ -17,7 +19,7 @@ const RequireAuth = () => {
     }, [isLoggedIn, dispatch]);
 
     return (
-        isLoggedIn ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />
+        isLoggedIn ? <Outlet /> : <Navigate to={LOGIN_LINK} state={{ from: location }} replace />
     )
 }
 

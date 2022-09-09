@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
 				user.setConnectedWithUS(sessionUser.getConnectedWithUS());
 				user.setLastLogin(sessionUser.getLastLogin());
 				user.setTotalContacts(sessionUser.getTotalContacts());
-
+				
 				this.userRepository.save(user);
 				System.out.println("SUCCESS =================== >  UPDATED USER -> EMAIL : " + user.getEmail());
 			} 

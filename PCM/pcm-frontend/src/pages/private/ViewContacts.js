@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser, viewContacts, deleteSelectedContacts, setMinMaxPageNumberLimit } from '../../services/index';
+import { viewContacts, deleteSelectedContacts, setMinMaxPageNumberLimit } from '../../services/index';
 
 import HeaderImg from '../../img/pcm_view_contacts.png';
 
@@ -13,7 +13,6 @@ import { Header, SearchBar, DisplayTable, Pagination } from '../../components/in
 import { Container, Row, Col } from 'react-bootstrap';
 
 const ViewContacts = () => {
-    const { isLoggedIn } = useSelector(state => state.auth);
     const { contacts, page } = useSelector(state => state.viewContacts);
     const { deleteContactSuccess, allDeleted } = useSelector(state => state.deleteContact);
     const { pageNumberLimit, minPageNumberLimit, maxPageNumberLimit } = useSelector(state => state.pagination);
@@ -22,29 +21,24 @@ const ViewContacts = () => {
     const [deleteIds, setDeleteIds] = useState([]);
 
     useEffect(() => {
-        if (isLoggedIn) {
-            if (deleteContactSuccess && allDeleted === contacts.length) {
-                dispatch(viewContacts(page - 1));
-                if (page > 0 && (page % pageNumberLimit) === 0) {
-                    dispatch(setMinMaxPageNumberLimit(minPageNumberLimit - pageNumberLimit, minPageNumberLimit));
-                }
-                else {
-                    dispatch(setMinMaxPageNumberLimit(minPageNumberLimit, maxPageNumberLimit));
-                }
-            }
-            else if (deleteContactSuccess && allDeleted !== contacts.length) {
-                dispatch(viewContacts(page));
+        if (deleteContactSuccess && allDeleted === contacts.length) {
+            dispatch(viewContacts(page - 1));
+            if (page > 0 && (page % pageNumberLimit) === 0) {
+                dispatch(setMinMaxPageNumberLimit(minPageNumberLimit - pageNumberLimit, minPageNumberLimit));
             }
             else {
-                dispatch(viewContacts(page));
+                dispatch(setMinMaxPageNumberLimit(minPageNumberLimit, maxPageNumberLimit));
             }
-            setDeleteIds([]);
+        }
+        else if (deleteContactSuccess && allDeleted !== contacts.length) {
+            dispatch(viewContacts(page));
         }
         else {
-            dispatch(logoutUser('/login'));
+            dispatch(viewContacts(page));
         }
+        setDeleteIds([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoggedIn, dispatch, deleteContactSuccess, allDeleted]);
+    }, [deleteContactSuccess, allDeleted, dispatch]);
 
     const handleDeleteSelected = e => {
         e.preventDefault();

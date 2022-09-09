@@ -1,4 +1,4 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./viewContactTypes";
+import { VIEW_CONTACT_REQUEST, VIEW_CONTACT_SUCCESS, VIEW_CONTACT_FAILURE } from "./viewContactTypes";
 import { axiosPrivate, VIEW_CONTACT_URL } from "../../../api/HomeAPI";
 import { toast } from "react-toastify";
 
@@ -19,13 +19,13 @@ export const viewContact = cId => {
 
 const viewContactRequest = () => {
     return {
-        type: CONTACT_REQUEST
+        type: VIEW_CONTACT_REQUEST
     };
 };
 
 const viewContactSuccess = contact => {
     return {
-        type: CONTACT_SUCCESS,
+        type: VIEW_CONTACT_SUCCESS,
         payload: contact,
         error: ''
     };
@@ -33,7 +33,7 @@ const viewContactSuccess = contact => {
 
 const viewContactFailure = error => {
     return {
-        type: CONTACT_FAILURE,
+        type: VIEW_CONTACT_FAILURE,
         payload: {},
         error: error
     };

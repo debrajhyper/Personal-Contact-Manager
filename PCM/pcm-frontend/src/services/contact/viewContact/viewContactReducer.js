@@ -1,4 +1,4 @@
-import { CONTACT_REQUEST, CONTACT_SUCCESS, CONTACT_FAILURE } from "./viewContactTypes";
+import { VIEW_CONTACT_REQUEST, VIEW_CONTACT_SUCCESS, VIEW_CONTACT_FAILURE } from "./viewContactTypes";
 
 const initialState = {
     loading: false,
@@ -8,18 +8,18 @@ const initialState = {
 
 const viewContactReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CONTACT_REQUEST:
+        case VIEW_CONTACT_REQUEST:
             return {
                 ...state,
                 loading: true
-            }
-        case CONTACT_SUCCESS:
+            };
+        case VIEW_CONTACT_SUCCESS:
             return {
                 loading: false,
                 contact: action.payload,
                 error: action.error
             };
-        case CONTACT_FAILURE:
+        case VIEW_CONTACT_FAILURE:
             return {
                 loading: false,
                 contact: action.payload,
@@ -27,7 +27,7 @@ const viewContactReducer = (state = initialState, action) => {
             };
         default:
             return state;
-    }
-}
+    };
+};
 
 export default viewContactReducer;

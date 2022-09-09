@@ -1,4 +1,4 @@
-import { CONTACT_REQUEST, CONTACT_CLEAR, CONTACT_SUCCESS, CONTACT_FAILURE } from "./updateContactTypes";
+import { UPDATE_CONTACT_REQUEST, UPDATE_CONTACT_CLEAR, UPDATE_CONTACT_SUCCESS, UPDATE_CONTACT_FAILURE } from "./updateContactTypes";
 import { axiosPrivate, UPDATE_CONTACT_URL, config } from "../../../api/HomeAPI";
 import { toast } from "react-toastify";
 import { createFormData } from "../../../validation/FormData";
@@ -6,17 +6,17 @@ import { createFormData } from "../../../validation/FormData";
 export const updateContact = contact => {
     return dispatch => {
         dispatch(updateContactRequest());
-        const toastLoading = toast.loading("Uploading data to the server...")
+        const toastLoading = toast.loading("Uploading data to the server");
 
         const data = createFormData(contact);
-        let formObject = Object.fromEntries(data.entries());
-        console.log('SENDING CONTACT DATA -> ', formObject);
+        // let formObject = Object.fromEntries(data.entries());
+        // console.log('SENDING CONTACT DATA -> ', formObject);
 
         axiosPrivate.post(UPDATE_CONTACT_URL, data, config)
         .then(response => {
             dispatch(updateContactSuccess(response?.data));
             setTimeout(() => {
-                dispatch(updateContactFailure(''));
+                dispatch(updateContactClear());
             }, 1000);
             toast.update(
                 toastLoading,
@@ -62,22 +62,28 @@ export const updateContact = contact => {
 
 const updateContactRequest = () => {
     return {
-        type: CONTACT_REQUEST
+        type: UPDATE_CONTACT_REQUEST
     };
 };
 
-const updateContactSuccess = (contact) => {
+const updateContactClear = () => {
     return {
-        type: CONTACT_SUCCESS,
-        payload: contact,
+        type: UPDATE_CONTACT_CLEAR
+    };
+};
+
+const updateContactSuccess = message => {
+    return {
+        type: UPDATE_CONTACT_SUCCESS,
+        payload: message,
         error: ''
     };
 };
 
 const updateContactFailure = error => {
     return {
-        type: CONTACT_FAILURE,
-        payload: {},
+        type: UPDATE_CONTACT_FAILURE,
+        payload: '',
         error: error
     };
 };

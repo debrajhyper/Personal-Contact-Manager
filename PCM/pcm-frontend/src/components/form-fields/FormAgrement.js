@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { TERMS_CONDITIONS_LINK } from '../../Route';
+
 import { Form } from 'react-bootstrap';
 
 const FormAgrement = ({ agreement, cName, functionChange, hasTouched, hasError, Mandatory }) => {
@@ -18,7 +20,7 @@ const FormAgrement = ({ agreement, cName, functionChange, hasTouched, hasError, 
                     style={{ display: "inline-block" }}
                     checked={agreement}
                     required />
-                <Form.Label className="label-agree-term m-0">I agree all statements in <Link to="/terms-conditions" className="term-service text-decoration-underline">Terms and Conditions.</Link>{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
+                <Form.Label className="label-agree-term m-0">I agree all statements in <Link to={TERMS_CONDITIONS_LINK} className="term-service text-decoration-underline">Terms and Conditions.</Link>{Mandatory && <span className='mandatory'>*</span>}</Form.Label>
             </div>
             {
                 hasTouched && hasError &&

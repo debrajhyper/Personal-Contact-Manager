@@ -24,6 +24,7 @@ import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon }
 import { Container, Row, Col } from 'react-bootstrap';
 import { IoCalendar, IoDisc, IoPhonePortraitOutline, IoLocationSharp } from 'react-icons/io5';
 import { FaUserEdit, FaAt, FaPhoneAlt, FaHeart, FaUserTag, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaLink } from 'react-icons/fa';
+import { EDIT_CONTACT_LINK } from '../../Route';
 
 const ViewContact = () => {
     const { deleteContactSuccess } = useSelector(state => state.deleteContact);
@@ -216,7 +217,7 @@ const ViewContact = () => {
             </div>
 
             <div className='action_button center pb-5'>
-                <Link to={`/edit_contact/${cid}`}>
+                <Link to={EDIT_CONTACT_LINK + cid} className="text-decoration-none">
                     <ButtonNormal name='edit_contact' id='EditContact' cName='fill p-3 px-4 me-4' value='Edit Contact' icon={<FaUserEdit size={20} className="me-2" />} />
                 </Link>
                 <UseAnimations animation={trash} size={25} speed={.5} className="ico" onClick={(e) => handleDelete(e, cid)}

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 
+import { DASHBOARD_LINK, FORGOT_PASSWORD_LINK, LOGIN_LINK } from '../../Route';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { resetPassword } from '../../services/index';
 
@@ -20,7 +22,7 @@ const ResetPassword = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || "/dashboard";
+    const from = location.state?.from?.pathname || DASHBOARD_LINK;
 
     const formik = useFormik({
         initialValues: {
@@ -41,13 +43,13 @@ const ResetPassword = () => {
 
     useEffect(() => {
         if (passwordReset) {
-            navigate("/login")
+            navigate(LOGIN_LINK)
         }
     }, [passwordReset, navigate])
 
     useEffect(() => {
         if (email === "" || verifiedOTP === false) {
-            navigate("/forgot-password");
+            navigate(FORGOT_PASSWORD_LINK);
         }
     }, [email, verifiedOTP, navigate]);
 
