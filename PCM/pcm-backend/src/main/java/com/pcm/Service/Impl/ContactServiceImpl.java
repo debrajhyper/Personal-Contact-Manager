@@ -70,7 +70,7 @@ public class ContactServiceImpl implements ContactService {
 			System.out.println("PROFILE PIC DATA -> " + profilePic);
 			new ImageUploader(profilePic).uploadImage(contact);
 			
-			if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isBlank()) {
+			if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isEmpty()) {
 				DateValidator validator = new DateValidator(AppConstant.DATE_FORMATER);
 				boolean isvalidDate = validator.isValid(contact.getDateOfBirth());
 				System.out.println("IS BIRTH DATE VALID -> " + isvalidDate);
@@ -435,7 +435,7 @@ public class ContactServiceImpl implements ContactService {
 			System.out.println("PROFILE PIC DATA -> " + profilePic);
 			new ImageUploader(profilePic).updateImage(oldContact, contact);
 			
-			if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isBlank()) {
+			if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isEmpty()) {
 				DateValidator validator = new DateValidator(AppConstant.DATE_FORMATER);
 				boolean isvalidDate = validator.isValid(contact.getDateOfBirth());
 				System.out.println("IS BIRTH DATE VALID -> " + isvalidDate);

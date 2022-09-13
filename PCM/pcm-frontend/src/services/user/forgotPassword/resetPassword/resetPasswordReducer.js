@@ -5,7 +5,7 @@ const initialState = {
     passwordReset: false,
     resetPasswordMessage: '',
     resetPasswordError: ''
-}
+};
 
 const resetPasswordReducer = (state = initialState, action) => {
     switch (action.type) {

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.zip.DataFormatException;
@@ -21,11 +22,13 @@ import com.pcm.Constant.AppConstant;
 import com.pcm.Constant.ExceptionConstant;
 import com.pcm.Helper.DateValidator;
 import com.pcm.Helper.ImageUploader;
+import com.pcm.Model.Contact;
 import com.pcm.Model.User;
 import com.pcm.Model.UserRole;
 import com.pcm.Repository.RoleRepository;
 import com.pcm.Repository.UserRepository;
 import com.pcm.Service.UserService;
+import com.pcm.Service.Repository.ContactRepositoryService;
 import com.pcm.Service.Repository.UserRepositoryService;
 
 
@@ -40,6 +43,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private ContactRepositoryService contactRepositoryService;
 
 	
 	@Override
@@ -94,9 +100,13 @@ public class UserServiceImpl implements UserService {
 			User sessionUser = this.userRepositoryService.findByUserName(email);
 			System.out.println("DB USER -> ID : " + sessionUser.getId());
 			
+			List<Contact> contacts = this.contactRepositoryService.findContactsByUser(sessionUser.getId());
+			System.out.println("TOTAL CONTACTS -> " + contacts.size());
+
 			String uriLocation = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstant.GET_UPLOAD_LOCATION).path(sessionUser.getImage()).toUriString();
 			sessionUser.setImage(uriLocation);
 			sessionUser.setPassword(null);
+			sessionUser.setTotalContacts(contacts.size());
 			
 			System.out.println("SUCCESS =================== > CRRENT USER -> EMAIL : " + sessionUser.getEmail());
 			return sessionUser;
@@ -137,7 +147,7 @@ public class UserServiceImpl implements UserService {
 				System.out.println("PROFILE PIC DATA -> " + profilePic);
 				new ImageUploader(profilePic).updateImage(sessionUser, user);
 
-				if (user.getDateOfBirth() != null && !user.getDateOfBirth().isBlank()) {
+				if (user.getDateOfBirth() != null && !user.getDateOfBirth().isEmpty()) {
 					DateValidator validator = new DateValidator(AppConstant.DATE_FORMATER);
 					boolean isvalidDate = validator.isValid(user.getDateOfBirth());
 					System.out.println("IS BIRTH DATE VALID -> " + isvalidDate);

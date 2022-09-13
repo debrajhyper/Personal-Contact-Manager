@@ -94,7 +94,7 @@ const VerifyOTP = () => {
                                 <br/>
                                 <p className='m-0'> 
                                     Please enter the OTP below to verify your Email Address. If you 
-                                    cannot see the email from "projectnotification2021@gmail.com" in your inbox,
+                                    cannot see the email from "projectnotification2021" in your inbox,
                                     make sure to check your SPAM folder.
                                 </p>
                             </Container>

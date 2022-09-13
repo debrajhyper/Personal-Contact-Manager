@@ -4,8 +4,8 @@ public class GenerateOTP {
 	private String otp;
 
 	public GenerateOTP() {
-		super();
 		// TODO Auto-generated constructor stub
+		super();
 		this.otp = String.valueOf((int)((Math.random()*900000)+100000));
 	}
 	

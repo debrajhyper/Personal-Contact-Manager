@@ -4,7 +4,7 @@ const initialState = {
     loading: false,
     verifiedOTP: false,
     verifyOTPError: '',
-}
+};
 
 const verifyOTPReducer = (state = initialState, action) => {
     switch (action.type) {

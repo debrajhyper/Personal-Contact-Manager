@@ -15,6 +15,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.stereotype.Service;
 
 import com.pcm.Constant.EmailConstant;
+import com.pcm.Constant.ExceptionConstant;
 import com.pcm.Service.EmailService;
 
 
@@ -117,13 +118,13 @@ public class EmailServiceImpl implements EmailService {
 			Transport.send(mail);
 			emailSent = true;
 			
-			System.out.println("SUCCESS =================== > EMAIL SENT SUCCESSFULLY TO -> " + email);
+			System.out.println("SUCCESS =================== > EMAIL SENT SUCCESSFULLY TO : " + email);
 		} 
 		catch (AddressException e) {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new AddressException("incorect email address");
+			throw new AddressException("Incorect email address");
 		}
 		catch(MessagingException e) {
 			// TODO: handle exception
@@ -135,7 +136,7 @@ public class EmailServiceImpl implements EmailService {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("Oops... Something went wrong.");
+			throw new Exception(ExceptionConstant.DEFAULT);
 		}
 				
 		return emailSent;

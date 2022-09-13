@@ -12,24 +12,22 @@ export const resetPassword = (userEmail, newPassword) => {
             }
         })
         .then(response => {
-            console.log(response.data)
             dispatch(resetPasswordSuccess(true, response?.data));
             setTimeout(() => {
                 dispatch(resetPasswordSuccess(false, response?.data));
             }, 1000);
         })
         .catch(error => {
-            console.log(error.response.data)
             dispatch(resetPasswordFailure(error?.response?.data?.message));
         })
-    }
-}
+    };
+};
 
 export const clearResetPassword = () => {
     return dispatch => {
         dispatch(resetPasswordClear());
-    }
-}
+    };
+};
 
 const resetPasswordRequest = () => {
     return {

@@ -11,30 +11,31 @@ export const sendOTP = userEmail => {
             }
         })
         .then(response => {
-            console.log(response.data)
             dispatch(sendOTPSuccess(true, response?.data?.message, response?.data?.generatedOTP, response?.data?.maxInActiveInterval, response?.data?.email));
+            
             setTimeout(() => {
                 dispatch(sendOTPSuccess(false, response?.data?.message, response?.data?.generatedOTP, response?.data?.maxInActiveInterval, response?.data?.email));
             }, 1000);
+            
             setTimeout(() => {
                 dispatch(sendOTPFailure(response?.data?.email, ''));
             }, response?.data?.maxInActiveInterval);
+            
             setTimeout(() => {
                 dispatch(sendOTPClear())
             }, 300000);
         })
         .catch(error => {
-            console.log(error.response.data)
             dispatch(sendOTPFailure('', error?.response?.data?.message));
         })
-    }
-}
+    };
+};
 
 export const clearSendOTP = () => {
     return dispatch => {
         dispatch(sendOTPClear());
-    }
-}
+    };
+};
 
 const sendOTPRequest = () => {
     return {

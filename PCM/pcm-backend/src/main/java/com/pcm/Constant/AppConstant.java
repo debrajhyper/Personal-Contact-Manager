@@ -15,4 +15,6 @@ public class AppConstant {
 	
 	public static final String IMAGE_TYPE_PNG = "image/png";
 	
+	public static final Integer OTP_VALIDATION_TIME = 119 * 1000;		//1 MINUTES 59 SECONDS
+	
 }

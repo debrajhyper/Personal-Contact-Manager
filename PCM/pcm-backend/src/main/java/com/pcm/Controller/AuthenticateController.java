@@ -1,7 +1,7 @@
 package com.pcm.Controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -37,15 +37,22 @@ public class AuthenticateController {
 	
 	//GENERATE TOKEN
 	@PostMapping("/generate-token")
-	public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
-		System.out.println("======================================================   USER LOGGED IN   =======================================================");
-		
+	public ResponseEntity<JwtResponse> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {		
 		try {
+			System.out.println("======================================================   USER LOGGED IN   =======================================================");
+			
 			if(jwtRequest.getUsername() == "" || jwtRequest.getPassword() == "") {
 				throw new BadCredentialsException("Missing email address or password");
 			}
-			this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
+			
+//			this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
+			UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
 			authenticate(jwtRequest.getUsername(), jwtRequest.getPassword());
+			
+			String token = this.jwtUtils.generateToken(userDetails);
+			
+//			return ResponseEntity.ok(new JwtResponse(token));
+			return new ResponseEntity<JwtResponse>(new JwtResponse(token), HttpStatus.OK);
 		}
 		catch (UsernameNotFoundException e) {
 			// TODO: handle exception
@@ -53,11 +60,6 @@ public class AuthenticateController {
 			e.printStackTrace();
 			throw new UsernameNotFoundException(e.getMessage());
 		}
-		
-		UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
-		String token = this.jwtUtils.generateToken(userDetails);
-		
-		return ResponseEntity.ok(new JwtResponse(token));
 	}
 	
 	

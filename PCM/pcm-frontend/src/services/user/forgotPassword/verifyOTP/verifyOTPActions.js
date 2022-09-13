@@ -5,8 +5,6 @@ export const verifyOTP = (userEmail, userOTP, serviceOTP) => {
     return dispatch => {
         dispatch(verifyOTPRequest());
 
-        console.log(userEmail, userOTP, serviceOTP)
-
         axios.post(VERIFY_OTP_URL , null, {
             params: {
                 email: userEmail,
@@ -15,21 +13,19 @@ export const verifyOTP = (userEmail, userOTP, serviceOTP) => {
             }
         })
         .then(response => {
-            console.log(response.data)
             dispatch(verifyOTPSuccess(response?.data));
         })
         .catch(error => {
-            console.log(error.response.data);
             dispatch(verifyOTPFailure(error?.response?.data?.message));
         })
-    }
-}
+    };
+};
 
 export const clearVerifyOTP = () => {
     return dispatch => {
         dispatch(verifyOTPClear());
-    }
-}
+    };
+};
 
 const verifyOTPRequest = () => {
     return {

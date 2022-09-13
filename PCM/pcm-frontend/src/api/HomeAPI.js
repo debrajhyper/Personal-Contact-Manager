@@ -1,7 +1,8 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-const BASE_URL = "http://localhost:1010";
+// const BASE_URL = "http://localhost:1010";
+const BASE_URL = "https://personal-contact-manager-app.herokuapp.com";
 export const LOGIN_URL = "/generate-token";
 export const SEND_OTP_URL = "/send-otp";
 export const VERIFY_OTP_URL = "/verify-otp";
@@ -19,6 +20,7 @@ export const ADD_CONTACT_URL = "/add-contact";
 export const UPDATE_USER_URL = "/update-user";
 
 const TOKEN_HEADER = 'Authorization';
+export const JWT_TOKEN = 'jwtToken';
 
 export const config = {
     headers: {
@@ -36,17 +38,16 @@ export const axiosPrivate = axios.create({
 
 // axiosPrivate.defaults.headers.common[TOKEN_HEADER] = `Bearer ${jwtToken}`;
 axiosPrivate.interceptors.request.use(config => {
-    const jwtToken = localStorage.getItem('jwtToken');
+    const jwtToken = localStorage.getItem(JWT_TOKEN);
     
     const verify = verifyToken(jwtToken);
     if(verify) {
         config.headers[TOKEN_HEADER] = `Bearer ${jwtToken}`;
     }
     else {
-        localStorage.removeItem('jwtToken');
+        localStorage.removeItem(JWT_TOKEN);
     }
     
-    // console.log(config);
     return config;
 });
 

@@ -8,7 +8,7 @@ const initialState = {
     maxInActiveInterval: 0,
     email: '',
     sendOTPError: ''
-}
+};
 
 const sendOTPReducer = (state = initialState, action) => {
     switch (action.type) {

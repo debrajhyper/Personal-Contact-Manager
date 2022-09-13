@@ -9,17 +9,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.pcm.Constant.AppConstant;
+import com.pcm.Constant.ExceptionConstant;
 import com.pcm.Helper.GenerateOTP;
 import com.pcm.Model.User;
 import com.pcm.Repository.UserRepository;
 import com.pcm.Service.EmailService;
 import com.pcm.Service.ForgotPasswordService;
+import com.pcm.Service.Repository.UserRepositoryService;
 
 import javassist.NotFoundException;
+
 
 @Service
 public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
+	@Autowired
+	private UserRepositoryService userRepositoryService;
+	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -31,31 +38,27 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 	public Map<String, Object> sendOTP(String email) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			User user = this.userRepository.findByUserName(email);
+			System.out.println("EMAIL -> " + email);
 			
-			if(user == null) {
-				throw new UsernameNotFoundException("Sorry, we couldn't find an account with that email address");
+			User sessionUser = this.userRepositoryService.findByUserName(email);
+			System.out.println("DB USER -> ID : " + sessionUser.getId());
+			
+			String generatedOTP = new GenerateOTP().getOTP();
+			
+			this.emailService.setDetails(sessionUser.getName(), email, generatedOTP);
+			boolean sendEmailSuccess = this.emailService.sendEmail();
+			
+			if(sendEmailSuccess) {
+				Map<String, Object> emailSentMap = new HashMap<>();
+				emailSentMap.put("message", "OTP sent Successfully! Please check your email");
+				emailSentMap.put("generatedOTP", generatedOTP);
+				emailSentMap.put("maxInActiveInterval", AppConstant.OTP_VALIDATION_TIME);
+				emailSentMap.put("email", email);
+				
+				return emailSentMap;
 			}
 			else {
-				System.out.println("DB USER EMAIL -> " + user.getEmail());
-				
-				String generatedOTP = new GenerateOTP().getOTP();
-				
-				this.emailService.setDetails(user.getName(), email, generatedOTP);
-				boolean sendEmailSuccess = this.emailService.sendEmail();
-				
-				Map<String, Object> emailSentMap = new HashMap<>();
-				if(sendEmailSuccess) {
-					emailSentMap.put("message", "OTP sent Successfully! Please check your email");
-					emailSentMap.put("generatedOTP", generatedOTP);
-					emailSentMap.put("maxInActiveInterval", ((119*1000)));
-					emailSentMap.put("email", email);
-					
-					return emailSentMap;
-				}
-				else {
-					throw new SendFailedException("Problem while sending OTP! Please Try again");
-				}
+				throw new SendFailedException("Problem while sending OTP! Please Try again");
 			}
 		} 
 		catch (UsernameNotFoundException e) {
@@ -85,21 +88,21 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 	public boolean verifyOTP(String email, String userOTP, String generatedOTP) throws Exception {
 		// TODO Auto-generated method stub
 		try {
+			System.out.println("EMAIL -> " + email);
+			System.out.println("USER OTP -> " + userOTP);
+			System.out.println("GENERATED OTP -> " + generatedOTP);
+			
 			boolean verifiedOTP = false;
 			
 			if(generatedOTP != null && generatedOTP != "") {
 				System.out.println("USER OTP EQUALS GENERATED OTP -> " + userOTP.equals(generatedOTP));
 				
 				if(userOTP.equals(generatedOTP)) {
-					User user = this.userRepository.findByUserName(email);
+					User sessionUser = this.userRepositoryService.findByUserName(email);
+					System.out.println("DB USER -> ID : " + sessionUser.getId());
 					
-					if(user == null) {
-						throw new UsernameNotFoundException("User does not exist with this email!");
-					}
-					else {
-						verifiedOTP = true;
-						System.out.println("SUCCESS =================== > OTP VERIFIED SUCCESSFULLY");
-					}
+					verifiedOTP = true;
+					System.out.println("SUCCESS =================== > OTP VERIFIED SUCCESSFULLY");
 				}
 				else {
 					throw new IllegalArgumentException("You have entered wrong OTP");
@@ -132,7 +135,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("Oops... Something went wrong.");
+			throw new Exception(ExceptionConstant.DEFAULT);
 		}
 	}
 
@@ -143,18 +146,16 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 	public void resetPassword(String email, String password) throws Exception {
 		// TODO Auto-generated method stub
 		try {
-			User user = this.userRepository.findByUserName(email);
+			System.out.println("EMAIL -> " + email);
+			System.out.println("NEW PASSWORD -> " + password);
 			
-			if(user == null) {
-				throw new UsernameNotFoundException("User does not exist with this email!");
-			}
-			else {
-				user.setPassword(password);
-				
-				this.userRepository.save(user);
-				
-				System.out.println("SUCCESS =================== > PASSWORD RESET SUCCESSFULLY");
-			}
+			User sessionUser = this.userRepositoryService.findByUserName(email);
+			System.out.println("DB USER -> ID : " + sessionUser.getId());
+
+			sessionUser.setPassword(password);
+			this.userRepository.save(sessionUser);
+			
+			System.out.println("SUCCESS =================== > PASSWORD RESET SUCCESSFULLY");
 		} 
 		catch (UsernameNotFoundException e) {
 			// TODO: handle exception
@@ -166,7 +167,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 			// TODO: handle exception
 			System.out.println("ERROR -> " + e.getMessage());
 			e.printStackTrace();
-			throw new Exception("Oops... Something went wrong.");
+			throw new Exception(ExceptionConstant.DEFAULT);
 		}
 	}
 

@@ -16,4 +16,6 @@ public class MessageConstant {
 	
 	public static final String UPDATE_CONTACT_SUCCESS = "Contact updated successfully";
 	
+	public static final String RESET_PASSWORD_SUCCESS = "Password changed successfully";
+	
 }
