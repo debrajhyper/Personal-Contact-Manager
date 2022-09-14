@@ -1,7 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-console.log(process.env)
 const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 export const LOGIN_URL = "/generate-token";
 export const SEND_OTP_URL = "/send-otp";
