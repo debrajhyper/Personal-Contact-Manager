@@ -1,7 +1,8 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-const BASE_URL = process.env.BACKEND_BASE_URL;
+// const BASE_URL = "http://localhost:1010";
+const BASE_URL = "https://personal-contact-manager-app.herokuapp.com";
 export const LOGIN_URL = "/generate-token";
 export const SEND_OTP_URL = "/send-otp";
 export const VERIFY_OTP_URL = "/verify-otp";
