@@ -21,7 +21,7 @@ const ViewContacts = () => {
     const [deleteIds, setDeleteIds] = useState([]);
 
     useEffect(() => {
-        if (deleteContactSuccess && allDeleted === contacts.length) {
+        if (deleteContactSuccess && allDeleted === contacts?.length) {
             dispatch(viewContacts(page - 1));
             if (page > 0 && (page % pageNumberLimit) === 0) {
                 dispatch(setMinMaxPageNumberLimit(minPageNumberLimit - pageNumberLimit, minPageNumberLimit));
@@ -30,7 +30,7 @@ const ViewContacts = () => {
                 dispatch(setMinMaxPageNumberLimit(minPageNumberLimit, maxPageNumberLimit));
             }
         }
-        else if (deleteContactSuccess && allDeleted !== contacts.length) {
+        else if (deleteContactSuccess && allDeleted !== contacts?.length) {
             dispatch(viewContacts(page));
         }
         else {
@@ -42,7 +42,7 @@ const ViewContacts = () => {
 
     const handleDeleteSelected = e => {
         e.preventDefault();
-        if (deleteIds.length > 0) {
+        if (deleteIds?.length > 0) {
             dispatch(deleteSelectedContacts(deleteIds));
         }
         else {
@@ -68,7 +68,7 @@ const ViewContacts = () => {
                         <SearchBar cName='display-table-search' />
                     </div>
                     <DisplayTable deleteIds={deleteIds} setDeleteIds={setDeleteIds} />
-                    <div className={`text-center ${contacts.length !== 0 ? 'd-flex justify-content-center' : 'd-none'}`}>
+                    <div className={`text-center ${contacts?.length !== 0 ? 'd-flex justify-content-center' : 'd-none'}`}>
                         <Pagination />
                     </div>
                 </Col>
