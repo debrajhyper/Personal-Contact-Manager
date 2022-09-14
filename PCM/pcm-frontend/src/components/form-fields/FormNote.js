@@ -11,7 +11,7 @@ const FormNote = ({ description, cName, functionChange, hasTouched, hasError }) 
     <Form.Group className={`form-input ${cName}`} controlId="description">
       <Editor
         name="description"
-        apiKey="gdhpvh2ls6uy0c61y0hzy3sxpf1bzg5mpzexdely1mx6a5ag"
+        apiKey={process.env.REACT_APP_TINYMCE_EDITOR_API_KEY}
         id="Note"
         type={text}
         value={description}
