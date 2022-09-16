@@ -2,6 +2,14 @@ import { CountryDetails } from "../components/misc/CountryDetails";
 import { RelationshipDetails } from "../components/misc/RelationshipDetails";
 import { zodiacDetails } from "../components/misc/ZodiacDetails";
 
+const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+const phoneNo_pattern = /^(\+\d{1,3}[- ]?)?\d{10}$/gm;
+const dateOfBirth_pattern = /^\d{4}-\d{2}-\d{2}$/;
+const profile_pic_max_size = 1048576;   //1MB = 1048576 Bytes
+const profile_pic_type = /\.(jpg|jpeg|png|gif)$/;
+// eslint-disable-next-line no-useless-escape
+const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)$/gm
+
 export const excluded = [null, undefined, "null", "undefined", "", " "];
 
 
@@ -31,7 +39,6 @@ export const loginValidate = values => {
 
 export const ForgotPasswordValidate = values => {
     const errors = {};
-    const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
     if (!values.email) {
         errors.email = "Please Provide your Email Address";
@@ -92,7 +99,6 @@ export const passwordValidation = values => {
 
 export const signupValidate = values => {
     const errors = {};
-    const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
     if (!values.name) {
         errors.name = "Please Provide Your Name";
@@ -129,12 +135,6 @@ export const contactValidate = values => {
     const errors = {
         socialLinks: {},
     };
-    const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    const phoneNo_pattern = /^(\+\d{1,3}[- ]?)?\d{10}$/gm;
-    const dateOfBirth_pattern = /^\d{4}-\d{2}-\d{2}$/;
-    // eslint-disable-next-line no-useless-escape
-    const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)$/gm
-    // console.log("-------------------> ",values)
 
     if (!values.name) {
         errors.name = "Please Provide Name";
@@ -189,10 +189,10 @@ export const contactValidate = values => {
     }
 
     if (!excluded.includes(values?.profilePic)) {
-        if (values.profilePic?.size > 5242880) {
+        if (values.profilePic?.size > profile_pic_max_size) {
             errors.profilePic = "File size must be less than 5MB";
         } 
-        else if (!values.profilePic?.name?.match(/\.(jpg|jpeg|png|gif)$/)) {
+        else if (!values.profilePic?.name?.match(profile_pic_type)) {
             errors.profilePic = "Invalid File Format";
         }
     }
@@ -276,12 +276,6 @@ export const userValidate = values => {
     const errors = {
         socialLinks: {},
     };
-    const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    const phoneNo_pattern = /^(\+\d{1,3}[- ]?)?\d{10}$/gm;
-    const dateOfBirth_pattern = /^\d{4}-\d{2}-\d{2}$/;
-    // eslint-disable-next-line no-useless-escape
-    const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)$/gm
-    // console.log("-------------------> ",values)
 
     if (!values.name) {
         errors.name = "Please Provide Name";
@@ -329,10 +323,10 @@ export const userValidate = values => {
     }
 
     if (!excluded.includes(values?.profilePic)) {
-        if (values.profilePic?.size > 5242880) {
-            errors.profilePic = "File size must be less than 5MB";
+        if (values.profilePic?.size > profile_pic_max_size) {
+            errors.profilePic = "File size must be less than 1MB";
         } 
-        else if (!values.profilePic?.name?.match(/\.(jpg|jpeg|png|gif)$/)) {
+        else if (!values.profilePic?.name?.match(profile_pic_type)) {
             errors.profilePic = "Invalid File Format";
         }
     }

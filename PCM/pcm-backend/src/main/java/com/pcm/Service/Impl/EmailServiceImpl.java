@@ -12,6 +12,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.pcm.Constant.EmailConstant;
@@ -25,11 +26,36 @@ public class EmailServiceImpl implements EmailService {
 	private String email;
 	private String userName;
 	private String generatedOTP;
-	private static final String EMAIL_SUBJECT = "Verify your email on PCM";
+	
 	private String EMAIL_BODY;
 	
+	@Value("${spring.mail.username}")
+	private String EMAIL_ID;
 	
+	@Value("${spring.mail.password}")
+	private String EMAIL_PASS;
 	
+	@Value("${spring.mail.host}")
+	private String host;
+	
+	@Value("${spring.mail.port}")
+	private String port;
+	
+	@Value("${spring.mail.properties.mail.smtp.ssl.enable}")
+	private String ssl;
+	
+	@Value("${spring.mail.properties.mail.smtp.auth}")
+	private String auth;
+	
+	@Value("${spring.mail.properties.mail.smtp.connectiontimeout}")
+	private String connectionTimeout;
+	
+	@Value("${spring.mail.properties.mail.smtp.timeout}")
+	private String timeout;
+	
+	@Value("${spring.mail.properties.mail.smtp.writetimeout}")
+	private String writetimeout;
+
 	
 	@Override
 	public void setDetails(String userName, String email, String generatedOTP) {
@@ -38,6 +64,65 @@ public class EmailServiceImpl implements EmailService {
 		this.userName = userName;
 		this.generatedOTP = generatedOTP;
 		this.EMAIL_BODY = setEmailBody(userName, generatedOTP);
+	}
+	
+	
+	
+	
+	@Override
+	public boolean sendEmail() throws Exception {
+		// TODO Auto-generated method stub
+		boolean emailSent = false;
+		
+		Properties properties = System.getProperties();
+		properties.put(EmailConstant.EMAIL_HOST, host);
+		properties.put(EmailConstant.EMAIL_PORT, port);
+		properties.put(EmailConstant.EMAIL_SSL, ssl);
+		properties.put(EmailConstant.EMAIL_AUTH, auth);
+		properties.put(EmailConstant.EMAIL_CONNECTION_TIMEOUT, connectionTimeout);
+		properties.put(EmailConstant.EMAIL_TIMEOUT, timeout);
+		properties.put(EmailConstant.EMAIL_WRITR_TIMEOUT, writetimeout);
+		
+		Session session = Session.getInstance(properties, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				// TODO Auto-generated method stub
+				return new PasswordAuthentication(EMAIL_ID, EMAIL_PASS);
+			}
+		});
+		
+		MimeMessage mail = new MimeMessage(session);
+		try {
+			mail.setFrom(EMAIL_ID);
+			mail.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			mail.setSubject(EmailConstant.EMAIL_SUBJECT);
+			mail.setContent(EMAIL_BODY, "text/html");
+			
+			Transport.send(mail);
+			emailSent = true;
+			
+			System.out.println("SUCCESS =================== > EMAIL SENT SUCCESSFULLY TO : " + email);
+		} 
+		catch (AddressException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new AddressException("Incorect email address");
+		}
+		catch(MessagingException e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new MessagingException("Unable to send email");
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("ERROR -> " + e.getMessage());
+			e.printStackTrace();
+			throw new Exception(ExceptionConstant.DEFAULT);
+		}
+				
+		return emailSent;
 	}
 	
 	
@@ -81,65 +166,6 @@ public class EmailServiceImpl implements EmailService {
 				+"</div>";
 		
 		return EMAIL_BODY;
-	}
-	
-	
-	
-	
-	@Override
-	public boolean sendEmail() throws Exception {
-		// TODO Auto-generated method stub
-		boolean emailSent = false;
-		
-		String sender = EmailConstant.EMAIL_ID;
-		String host = "smtp.gmail.com";
-		
-		Properties properties = System.getProperties();
-		properties.put("mail.smtp.host", host);
-		properties.put("mail.smtp.post", "465");	//GOOGLE GMAIL PORT
-		properties.put("mail.smtp.ssl.enable", "true");		//SSL ENABLE
-		properties.put("mail.smtp.auth", "true");	//AUTH TRUE
-		
-		Session session = Session.getInstance(properties, new Authenticator() {
-			@Override
-			protected PasswordAuthentication getPasswordAuthentication() {
-				// TODO Auto-generated method stub
-				return new PasswordAuthentication(EmailConstant.EMAIL_ID, EmailConstant.EMAIL_PASS);
-			}
-		});
-		
-		MimeMessage mail = new MimeMessage(session);
-		try {
-			mail.setFrom(sender);
-			mail.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-			mail.setSubject(EMAIL_SUBJECT);
-			mail.setContent(EMAIL_BODY, "text/html");
-			
-			Transport.send(mail);
-			emailSent = true;
-			
-			System.out.println("SUCCESS =================== > EMAIL SENT SUCCESSFULLY TO : " + email);
-		} 
-		catch (AddressException e) {
-			// TODO: handle exception
-			System.out.println("ERROR -> " + e.getMessage());
-			e.printStackTrace();
-			throw new AddressException("Incorect email address");
-		}
-		catch(MessagingException e) {
-			// TODO: handle exception
-			System.out.println("ERROR -> " + e.getMessage());
-			e.printStackTrace();
-			throw new MessagingException("Unable to send email");
-		}
-		catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("ERROR -> " + e.getMessage());
-			e.printStackTrace();
-			throw new Exception(ExceptionConstant.DEFAULT);
-		}
-				
-		return emailSent;
 	}
 
 }

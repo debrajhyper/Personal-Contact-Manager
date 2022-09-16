@@ -150,8 +150,9 @@ public class ImageUploader {
 	}
 	
 	public InputStream getImageFromLocation(String imageName) throws IOException {
-		File saveFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
-		String fullPath = Paths.get(saveFileLocation.getAbsolutePath() + File.separator + imageName).toString();
+//		File saveFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
+//		String fullPath = Paths.get(saveFileLocation.getAbsolutePath() + File.separator + imageName).toString();
+		String fullPath = Paths.get("upload" + File.separator + imageName).toString();
 		
 		InputStream image = new FileInputStream(fullPath);
 		return image;

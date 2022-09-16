@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 			
 			List<Contact> contacts = this.contactRepositoryService.findContactsByUser(sessionUser.getId());
 			System.out.println("TOTAL CONTACTS -> " + contacts.size());
-
+			
 			String uriLocation = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstant.GET_UPLOAD_LOCATION).path(sessionUser.getImage()).toUriString();
 			sessionUser.setImage(uriLocation);
 			sessionUser.setPassword(null);
