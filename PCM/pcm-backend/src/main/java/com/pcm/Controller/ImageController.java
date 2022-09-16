@@ -1,30 +1,18 @@
 package com.pcm.Controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pcm.Constant.AppConstant;
 import com.pcm.Helper.ImageUploader;
-
-import lombok.experimental.var;
 
 
 @CrossOrigin("*")
@@ -57,29 +45,29 @@ public class ImageController {
 	
 	
 	
-	@PostMapping("/upload")
-	public ResponseEntity<?> imgUploader(@PathVariable("image") MultipartFile image) throws IOException {
-		System.out.println("======================================================   IMAGE UPLOADING   =======================================================");
-		String location = "upload";
-		System.out.println(image);
-		
-		Path path = Paths.get(location);
-		System.out.println("path -> " + path);
-		System.out.println(Files.exists(path));
-		
-		if(!Files.exists(path)) {
-			Files.createDirectories(path);
-		}
-		
-		Path destPath = Paths.get(location + File.separator + image.getOriginalFilename());
-		System.out.println(destPath);
-		
-		Files.copy(image.getInputStream(), destPath, StandardCopyOption.REPLACE_EXISTING);
-		
-		String uriLocation = ServletUriComponentsBuilder.fromCurrentContextPath().path(location + "/").path(image.getOriginalFilename()).toUriString();
-		System.out.println(uriLocation);
-		
-		
-		return ResponseEntity.ok(uriLocation);
-	}
+//	@PostMapping("/upload")
+//	public ResponseEntity<?> imgUploader(@PathVariable("image") MultipartFile image) throws IOException {
+//		System.out.println("======================================================   IMAGE UPLOADING   =======================================================");
+//		String location = "upload";
+//		System.out.println(image);
+//		
+//		Path path = Paths.get(location);
+//		System.out.println("path -> " + path);
+//		System.out.println(Files.exists(path));
+//		
+//		if(!Files.exists(path)) {
+//			Files.createDirectories(path);
+//		}
+//		
+//		Path destPath = Paths.get(location + File.separator + image.getOriginalFilename());
+//		System.out.println(destPath);
+//		
+//		Files.copy(image.getInputStream(), destPath, StandardCopyOption.REPLACE_EXISTING);
+//		
+//		String uriLocation = ServletUriComponentsBuilder.fromCurrentContextPath().path(location + "/").path(image.getOriginalFilename()).toUriString();
+//		System.out.println(uriLocation);
+//		
+//		
+//		return ResponseEntity.ok(uriLocation);
+//	}
 }

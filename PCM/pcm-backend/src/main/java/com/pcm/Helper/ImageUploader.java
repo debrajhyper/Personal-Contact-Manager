@@ -19,6 +19,7 @@ import com.pcm.Constant.AppConstant;
 import com.pcm.Model.Contact;
 import com.pcm.Model.User;
 
+
 public class ImageUploader {
 	private MultipartFile imageFile;
 	private String imageName = AppConstant.DEFAULT_IMAGE;
@@ -46,7 +47,7 @@ public class ImageUploader {
 			System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
 			contact.setImage(imageName);
 			
-			uploadImageToLocation(AppConstant.SET_UPLOAD_LOCATION);
+			uploadImageToLocation();
 			
 			System.out.println("IMAGE FILE SUCCESSFULLY UPLOADED");
 		}
@@ -60,7 +61,7 @@ public class ImageUploader {
 			else {				
 				//DELETE OLD IMAGE
 				if(oldContact.getImage() != AppConstant.DEFAULT_IMAGE) {
-					deleteImageFromLocation(AppConstant.SET_UPLOAD_LOCATION, oldContact);
+					deleteImageFromLocation(oldContact);
 				}
 				
 				//UPDATE NEW IMAGE
@@ -69,7 +70,7 @@ public class ImageUploader {
 				System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
 				contact.setImage(imageName);
 				
-				uploadImageToLocation(AppConstant.SET_UPLOAD_LOCATION);
+				uploadImageToLocation();
 				
 				System.out.println("IMAGE FILE SUCCESSFULLY UPLOADED");
 			}
@@ -87,7 +88,7 @@ public class ImageUploader {
 			else {				
 				//DELETE OLD IMAGE
 				if(oldUser.getImage() != AppConstant.DEFAULT_IMAGE) {
-					deleteImageFromLocation(AppConstant.SET_UPLOAD_LOCATION, oldUser);
+					deleteImageFromLocation(oldUser);
 				}
 				
 				//UPDATE NEW IMAGE
@@ -96,7 +97,7 @@ public class ImageUploader {
 				System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
 				user.setImage(imageName);
 				
-				uploadImageToLocation(AppConstant.SET_UPLOAD_LOCATION);
+				uploadImageToLocation();
 				
 				System.out.println("IMAGE FILE SUCCESSFULLY UPLOADED");
 			}
@@ -111,7 +112,7 @@ public class ImageUploader {
 		
 		if(!contact.getImage().equals(imageName)) {
 			System.out.println("SO, DELETING CONTACT IMAGE FROM LOCATION");
-			deleteImageFromLocation(AppConstant.SET_UPLOAD_LOCATION, contact);
+			deleteImageFromLocation(contact);
 		} 
 		else {			
 			System.out.println("SO, NO NEED TO DELETE CONTACT IMAGE FROM LOCATION");
@@ -127,32 +128,39 @@ public class ImageUploader {
 		return savedFileName;
 	}
 	
-	public void uploadImageToLocation(String location) throws IOException {
-		File saveFileLocation = new ClassPathResource(location).getFile();
+	public void checkLocation() throws IOException {
+		Path uploadFolder = Paths.get(AppConstant.SET_UPLOAD_LOCATION);
+		
+		if(!uploadFolder.toFile().exists()) {
+			Files.createDirectories(uploadFolder);
+		}
+	}
+	
+	public void uploadImageToLocation() throws IOException {
+		File saveFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
 		Path path = Paths.get(saveFileLocation.getAbsolutePath() + File.separator + imageName);
 		System.out.println("IMAGE UPLOAD PATH LOCATION -> " + path);
 		
 		Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 	}
 	
-	public void deleteImageFromLocation(String location, Contact oldContact) throws IOException {
-		File deleteFileLocation = new ClassPathResource(location).getFile();
+	public void deleteImageFromLocation(Contact oldContact) throws IOException {
+		File deleteFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
 		File delleteFile = new File(deleteFileLocation, oldContact.getImage());
 		
 		delleteFile.delete();
 	}
 	
-	public void deleteImageFromLocation(String location, User oldUser) throws IOException {
-		File deleteFileLocation = new ClassPathResource(location).getFile();
+	public void deleteImageFromLocation(User oldUser) throws IOException {
+		File deleteFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
 		File delleteFile = new File(deleteFileLocation, oldUser.getImage());
 		
 		delleteFile.delete();
 	}
 	
 	public InputStream getImageFromLocation(String imageName) throws IOException {
-//		File saveFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
-//		String fullPath = Paths.get(saveFileLocation.getAbsolutePath() + File.separator + imageName).toString();
-		String fullPath = Paths.get("upload" + File.separator + imageName).toString();
+		File saveFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
+		String fullPath = Paths.get(saveFileLocation.getAbsolutePath() + File.separator + imageName).toString();
 		
 		InputStream image = new FileInputStream(fullPath);
 		return image;
