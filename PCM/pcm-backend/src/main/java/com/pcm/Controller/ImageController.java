@@ -19,12 +19,14 @@ import com.pcm.Helper.ImageUploader;
 @RestController
 public class ImageController {
 	
+	private InputStream image;
+	
 	@GetMapping(value = "/upload/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
 	public void getImage(@PathVariable("imageName") String imageName, HttpServletResponse response) throws Exception {
 		System.out.println("======================================================   GET IMAGE FROM DB   =======================================================");
 		
 		try {			
-			InputStream image = new ImageUploader().getImageFromLocation(imageName);
+			image = new ImageUploader().getImageFromLocation(imageName);
 			
 			response.setContentType(MediaType.IMAGE_JPEG_VALUE);
 			StreamUtils.copy(image, response.getOutputStream());
@@ -41,33 +43,8 @@ public class ImageController {
 			e.printStackTrace();
 			throw new Exception("Unable to retrieve image from server");
 		}
+		finally {
+			image.close();
+		}
 	}
-	
-	
-	
-//	@PostMapping("/upload")
-//	public ResponseEntity<?> imgUploader(@PathVariable("image") MultipartFile image) throws IOException {
-//		System.out.println("======================================================   IMAGE UPLOADING   =======================================================");
-//		String location = "upload";
-//		System.out.println(image);
-//		
-//		Path path = Paths.get(location);
-//		System.out.println("path -> " + path);
-//		System.out.println(Files.exists(path));
-//		
-//		if(!Files.exists(path)) {
-//			Files.createDirectories(path);
-//		}
-//		
-//		Path destPath = Paths.get(location + File.separator + image.getOriginalFilename());
-//		System.out.println(destPath);
-//		
-//		Files.copy(image.getInputStream(), destPath, StandardCopyOption.REPLACE_EXISTING);
-//		
-//		String uriLocation = ServletUriComponentsBuilder.fromCurrentContextPath().path(location + "/").path(image.getOriginalFilename()).toUriString();
-//		System.out.println(uriLocation);
-//		
-//		
-//		return ResponseEntity.ok(uriLocation);
-//	}
 }

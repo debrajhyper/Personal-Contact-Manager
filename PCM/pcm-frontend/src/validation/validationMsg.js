@@ -190,7 +190,7 @@ export const contactValidate = values => {
 
     if (!excluded.includes(values?.profilePic)) {
         if (values.profilePic?.size > profile_pic_max_size) {
-            errors.profilePic = "File size must be less than 5MB";
+            errors.profilePic = "File size must be less than 1MB";
         } 
         else if (!values.profilePic?.name?.match(profile_pic_type)) {
             errors.profilePic = "Invalid File Format";

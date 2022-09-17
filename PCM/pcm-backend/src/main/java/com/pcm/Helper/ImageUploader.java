@@ -12,7 +12,6 @@ import java.util.UUID;
 
 import javax.validation.ValidationException;
 
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pcm.Constant.AppConstant;
@@ -137,30 +136,31 @@ public class ImageUploader {
 	}
 	
 	public void uploadImageToLocation() throws IOException {
-		File saveFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
-		Path path = Paths.get(saveFileLocation.getAbsolutePath() + File.separator + imageName);
-		System.out.println("IMAGE UPLOAD PATH LOCATION -> " + path);
+		checkLocation();
+		String uploadFolderPath = Paths.get(AppConstant.SET_UPLOAD_LOCATION).toFile().getAbsolutePath();
+		Path fullPath = Paths.get(uploadFolderPath + File.separator + imageName);
+		System.out.println("IMAGE UPLOAD PATH LOCATION -> " + fullPath);
 		
-		Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+		Files.copy(imageFile.getInputStream(), fullPath, StandardCopyOption.REPLACE_EXISTING);
 	}
 	
 	public void deleteImageFromLocation(Contact oldContact) throws IOException {
-		File deleteFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
-		File delleteFile = new File(deleteFileLocation, oldContact.getImage());
+		String uploadFolderPath = Paths.get(AppConstant.SET_UPLOAD_LOCATION).toFile().getAbsolutePath();
+		Path deleteFile = Paths.get(uploadFolderPath + File.separator + oldContact.getImage());
 		
-		delleteFile.delete();
+		Files.deleteIfExists(deleteFile);
 	}
 	
 	public void deleteImageFromLocation(User oldUser) throws IOException {
-		File deleteFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
-		File delleteFile = new File(deleteFileLocation, oldUser.getImage());
+		String uploadFolderPath = Paths.get(AppConstant.SET_UPLOAD_LOCATION).toFile().getAbsolutePath();
+		Path deleteFile = Paths.get(uploadFolderPath + File.separator + oldUser.getImage());
 		
-		delleteFile.delete();
+		Files.deleteIfExists(deleteFile);
 	}
 	
 	public InputStream getImageFromLocation(String imageName) throws IOException {
-		File saveFileLocation = new ClassPathResource(AppConstant.SET_UPLOAD_LOCATION).getFile();
-		String fullPath = Paths.get(saveFileLocation.getAbsolutePath() + File.separator + imageName).toString();
+		String uploadFolderPath = Paths.get(AppConstant.SET_UPLOAD_LOCATION).toFile().getAbsolutePath();
+		String fullPath = Paths.get(uploadFolderPath + File.separator + imageName).toString();
 		
 		InputStream image = new FileInputStream(fullPath);
 		return image;

@@ -424,14 +424,6 @@ public class ContactServiceImpl implements ContactService {
 			Contact oldContact = this.contactRepository.findById(contact.getCId()).get();
 			System.out.println("DB CONTACT -> ID : " + oldContact.getCId());
 			
-			List<Contact> contactsByUser = this.contactRepositoryService.findContactsByUser(sessionUser.getId());
-			ListIterator<Contact> iterateContactList = contactsByUser.listIterator();
-			while(iterateContactList.hasNext()) {
-				if(iterateContactList.next().getEmail().equals(contact.getEmail())) {
-					throw new DuplicateKeyException("Email address already belongs to a contact");
-				}
-			}
-			
 			System.out.println("PROFILE PIC DATA -> " + profilePic);
 			new ImageUploader(profilePic).updateImage(oldContact, contact);
 			
