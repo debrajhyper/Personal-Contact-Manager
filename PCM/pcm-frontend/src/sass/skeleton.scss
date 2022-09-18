@@ -1,0 +1,19 @@
+@import'./variables.scss';
+
+.card {
+    .card-body {
+            span.skeleton_icon {
+                padding-left: 3em;
+            }
+            span.skeleton_text {
+                width: 100%;
+                padding-left: 5px;
+            }
+    }
+}
+
+.header {
+    span.skeleton_text {
+        width: 40em;
+    }
+}

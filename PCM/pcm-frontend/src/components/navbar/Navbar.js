@@ -12,26 +12,31 @@ import './navbar.scss';
 import UseAnimations from 'react-useanimations';
 import maximizeMinimize from 'react-useanimations/lib/maximizeMinimize';
 
+import Skeleton from 'react-loading-skeleton';
 import { Navbar, Container, Nav, Image } from 'react-bootstrap';
 import { BsFillHouseFill } from "react-icons/bs";
 import { FaAddressCard, FaSignInAlt, FaUserPlus } from "react-icons/fa";
 
 const PublicNavbar = ({ slidebar, handleSlidebar }) => {
     const { isLoggedIn } = useSelector(state => state.auth);
-    const { currentUser } = useSelector(state => state.currentUser);
-    const { image, name = '-', username = '-' } = currentUser;
+    const { loading, currentUser } = useSelector(state => state.currentUser);
+    const { image, name, username } = currentUser;
 
     const authSlideBar = (slidebar ? "PCM" : "");
-
+    
     const privateNav = (
         <div className="auth-nav">
             <Nav.Link as={Link} to={PROFILE_LINK}>
                 <div className='img_container'>
-                    <Image src={image ?? profileImage} className="profile_pic" alt="" />
+                    {
+                        loading
+                        ? <Skeleton circle height="100%"/>
+                        : <Image src={image ?? profileImage} className="profile_pic" alt="" />
+                    }
                 </div>
                 <div className='details'>
-                    <span>{name}</span>
-                    <p>{username}</p>
+                    <span className='user_name'>{ loading ? <Skeleton width={140} /> : name }</span>
+                    <p className='user_email'>{ loading ? <Skeleton width={190} /> : username }</p>
                 </div>
             </Nav.Link>
         </div>
@@ -71,7 +76,7 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav" className={`justify-content-end ${isLoggedIn ? "not-collapse d-inline-flex" : null}`}>
                         <Nav className={`text-uppercase d-flex ${isLoggedIn ? "justify-content-end" : ""}`}>
-                            {isLoggedIn ? privateNav : publicNav}
+                            { isLoggedIn ? privateNav : publicNav }
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

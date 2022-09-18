@@ -104,13 +104,13 @@
 							text-transform: capitalize;
 							display: inline-block;
 
-							span {
+							span.user_name {
 								letter-spacing: 0px;
 								font-weight: 600;
 								font-size: 1.5rem;
 								cursor: pointer;
 							}
-							p {
+							p.user_email {
 								margin: 0;
 								text-transform: lowercase;
 							}

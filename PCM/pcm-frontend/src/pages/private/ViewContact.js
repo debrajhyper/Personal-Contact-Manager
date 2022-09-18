@@ -18,6 +18,7 @@ import trash from 'react-useanimations/lib/trash';
 
 import { excluded } from '../../validation/validationMsg';
 
+import Skeleton from 'react-loading-skeleton';
 import { CountryFlag } from '../../components/misc/FlagSelect';
 import { ZodiacSign } from '../../components/misc/ZodiacSelect';
 import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon } from '../../components/index';
@@ -28,7 +29,7 @@ import { EDIT_CONTACT_LINK } from '../../Route';
 
 const ViewContact = () => {
     const { deleteContactSuccess } = useSelector(state => state.deleteContact);
-    const { contact } = useSelector(state => state.viewContact);
+    const { loading, contact } = useSelector(state => state.viewContact);
     const { contacts } = useSelector(state => state.viewContacts);
 
     const dispatch = useDispatch();
@@ -177,11 +178,13 @@ const ViewContact = () => {
     return (
         <Container fluid className="profile text-center">
             <div className='header d-inline-block'>
-                <ProfilePic image={image} outline={true} active={false} favorite={favorite} isViewContact={true} />
-                <h4 className="text pt-2">{name}</h4>
-                {!excluded.includes(nickName) && <h3 className='nickname'>{nickName}</h3>}
+                <ProfilePic image={image} outline={true} active={false} favorite={favorite} isViewContact={true} loading={loading} />
+                <h4 className="text pt-2">{ loading ? <Skeleton width={300} /> : name }</h4>
+                <h3 className='nickname'>{ loading ? <Skeleton width={350} /> : !excluded.includes(nickName) && nickName }</h3>
                 {
-                    !excluded.includes(title) && !excluded.includes(company)
+                    loading 
+                    ? <Skeleton />
+                    : !excluded.includes(title) && !excluded.includes(company)
                         ? <h5 className='title'>{title}, <span className='company'>{company}</span></h5>
                         : !excluded.includes(title)
                             ? <h5 className='title'>{title}</h5>
@@ -194,7 +197,9 @@ const ViewContact = () => {
                     {
                         SocialDetails.map((social, index) => {
                             return (
-                                !excluded?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
+                                loading 
+                                ? <Skeleton key={index} circle height={40} width={40}/>
+                                : !excluded?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
                             )
                         })
                     }
@@ -208,7 +213,7 @@ const ViewContact = () => {
                             const { spaceLg, spaceMd, image, icon, title, pretitle, subtitle } = card;
                             return (
                                 <Col key={title} xl={spaceLg} md={spaceMd} className={title}>
-                                    <DashboardCard key={index} image={image} icon={icon} title={title} pretitle={pretitle} subtitle={subtitle} />
+                                    <DashboardCard key={index} image={image} icon={icon} title={title} pretitle={pretitle} subtitle={subtitle} loading={loading} />
                                 </Col>
                             )
                         })
@@ -218,13 +223,13 @@ const ViewContact = () => {
 
             <div className='action_button center pb-5'>
                 <Link to={EDIT_CONTACT_LINK + cid} className="text-decoration-none">
-                    <ButtonNormal name='edit_contact' id='EditContact' cName='fill p-3 px-4 me-4' value='Edit Contact' icon={<FaUserEdit size={20} className="me-2" />} />
+                    <ButtonNormal name='edit_contact' id='EditContact' cName='fill p-3 px-4 me-4' value={window.innerWidth > 550 ? 'Edit Contact' : 'Edit'} icon={<FaUserEdit size={20} className="me-2" />} />
                 </Link>
                 <UseAnimations animation={trash} size={25} speed={.5} className="ico" onClick={(e) => handleDelete(e, cid)}
                     render={(eventProps, animationProps) => (
                         <button type="button" title="Delete Contact" className="btn danger ms-4 p-3" {...eventProps}>
                             <div {...animationProps} />
-                            <span>Delete Contact</span>
+                            <span>{ window.innerWidth > 550 ? 'Delete Contact' : 'Delete'}</span>
                         </button>
                     )}
                 />

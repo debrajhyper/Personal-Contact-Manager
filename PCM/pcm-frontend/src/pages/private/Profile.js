@@ -12,6 +12,7 @@ import '../../sass/private/Profile.scss';
 
 import { excluded } from '../../validation/validationMsg';
 
+import Skeleton from 'react-loading-skeleton';
 import { CountryFlag } from '../../components/misc/FlagSelect';
 import { ZodiacSign } from '../../components/misc/ZodiacSelect';
 import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon } from '../../components/index';
@@ -20,7 +21,7 @@ import { IoFingerPrint, IoCalendar, IoDisc, IoPhonePortraitOutline } from 'react
 import { FaAt, FaUserShield, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const Profile = () => {
-    const { currentUser } = useSelector(state => state.currentUser);
+    const { loading, currentUser } = useSelector(state => state.currentUser);
     const { updateUserSuccess } = useSelector(state => state.updateUser);
     const dispatch = useDispatch();
 
@@ -135,16 +136,18 @@ const Profile = () => {
     return (
         <Container fluid className="profile text-center">
             <div className='header d-inline-block'>
-                <ProfilePic image={image} outline={true} active={enabled} isUserProfile={true} />
-                <h4 className="text pt-2">{name}</h4>
+                <ProfilePic image={image} outline={true} active={enabled} isUserProfile={true} loading={loading} />
+                <h4 className="text pt-2">{ loading ? <Skeleton width={300} /> : name }</h4>
             </div>
 
             <Row className='social-link-row'>
                 <div className='content'>
                     {
                         SocialDetails.map((social, index) => {
-                            return (
-                                !excluded?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} />
+                            return ( 
+                                loading 
+                                ? <Skeleton circle height={40} width={40}/>
+                                : !excluded?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} loading={loading} />
                             )
                         })
                     }
@@ -158,7 +161,7 @@ const Profile = () => {
                             const { spaceLg, spaceMd, image, icon, title, subtitle } = card;
                             return (
                                 <Col key={title} xl={spaceLg} md={spaceMd} className={title}>
-                                    <DashboardCard key={index} image={image} icon={icon} title={title} subtitle={subtitle} />
+                                    <DashboardCard key={index} image={image} icon={icon} title={title} subtitle={subtitle} loading={loading} />
                                 </Col>
                             )
                         })

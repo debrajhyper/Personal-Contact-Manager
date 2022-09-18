@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 export const deleteContact = (cId, contactsLength) => {
     return dispatch => {
         dispatch(deleteContactRequest());
+        const toastLoading = toast.loading("Deleting a contact");
 
         axiosPrivate.delete(DELETE_CONTACT_URL + cId)
         .then(response => {
@@ -12,11 +13,43 @@ export const deleteContact = (cId, contactsLength) => {
             setTimeout(() => {
                 dispatch(deleteContactClear());
             }, 1000);
-            toast.success(response?.data);
+            toast.update(
+                toastLoading,
+                {
+                    render: response?.data,
+                    type: "success",
+                    position: "top-right",
+                    isLoading: false,
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    closeButton: null,
+                    delay: 1000,
+                }
+            );
         })
         .catch(error => {
             dispatch(deleteContactFailure(error?.response?.data?.message));
-            toast.error(error?.response?.data?.message);
+            toast.update(
+                toastLoading,
+                {
+                    render: error?.response?.data?.message,
+                    type: "error",
+                    position: "top-right",
+                    isLoading: false,
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    closeButton: null,
+                    delay: 1000,
+                }
+            );
         })
     };
 };
@@ -24,6 +57,7 @@ export const deleteContact = (cId, contactsLength) => {
 export const deleteSelectedContacts = deleteIds => {
     return dispatch => {
         dispatch(deleteContactRequest());
+        const toastLoading = toast.loading("Deleting selected contacts");
 
         axiosPrivate.delete(DELETE_SELECTED_CONTACTS_URL + deleteIds)
         .then(response => {
@@ -31,11 +65,43 @@ export const deleteSelectedContacts = deleteIds => {
             setTimeout(() => {
                 dispatch(deleteContactClear());
             }, 1000);
-            toast.success(response?.data);
+            toast.update(
+                toastLoading,
+                {
+                    render: response?.data,
+                    type: "success",
+                    position: "top-right",
+                    isLoading: false,
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    closeButton: null,
+                    delay: 1000,
+                }
+            );
         })
         .catch(error => {
             dispatch(deleteContactFailure(error?.response?.data?.message));
-            toast.error(error?.response?.data?.message);
+            toast.update(
+                toastLoading,
+                {
+                    render: error?.response?.data?.message,
+                    type: "error",
+                    position: "top-right",
+                    isLoading: false,
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    closeButton: null,
+                    delay: 1000,
+                }
+            );
         })
     };
 };

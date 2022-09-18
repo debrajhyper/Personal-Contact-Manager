@@ -20,7 +20,8 @@ import { FaUserCheck, FaSignInAlt, FaAddressBook, FaUserShield } from 'react-ico
 
 const Dashboard = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
-    const { name, connectedWithUS, lastLogin, totalContacts, authorities } = useSelector(state => state.currentUser.currentUser);
+    const { loading, currentUser } = useSelector(state => state.currentUser);
+    const { name, connectedWithUS, lastLogin, totalContacts, authorities } = currentUser;
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Dashboard = () => {
     }, [isLoggedIn, dispatch, navigate, location]);
 
     const dateFormater = APIDate => {
-        const dateString = moment(APIDate).format('Do MMMM YYYY, dddd hh:mm:ss a');
+        const dateString = moment(APIDate).format('Do MMMM YYYY, hh:mm a');
         return dateString;
     };
 
@@ -45,7 +46,7 @@ const Dashboard = () => {
             space: 10,
             image: cTimestamp,
             icon: <FaUserCheck />,
-            title: 'Connected with us',
+            title: 'Joined us on',
             subtitle: connectedWithUS ? dateFormater(connectedWithUS) ?? '-' : '-'
 
         },
@@ -79,17 +80,17 @@ const Dashboard = () => {
             </div>
 
             <Container>
-                <Header text={name ? `Welcome ${name}` : 'Welcome'} />
+                <Header text={name ? `Welcome ${name}` : 'Welcome'} loading={loading} />
 
-                <Row className="container-fluid m-0 position-relative d-flex justify-content-end">
-                    <Col xl={6} lg={10} md={9} className="container-left col-12">
+                <Row className="container-fluid m-0 px-md-4 px-0 position-relative d-flex justify-content-end">
+                    <Col xl={6} lg={10} md={12} className="container-left col-12">
                         <Row className="d-flex flex-column justify-content-end align-items-end">
                             {
                                 CardDetails.map((card, index) => {
                                     const { space, image, icon, title, subtitle } = card;
                                     return (
-                                        <Col key={title} md={space} className={`col-${space + 2} p-3`}>
-                                            <DashboardCard key={index} image={image} icon={icon} title={title} subtitle={subtitle} />
+                                        <Col key={title} md={space} className={`col-${space + 2} col-12 p-3 px-md-3 px-0`}>
+                                            <DashboardCard key={index} image={image} icon={icon} title={title} subtitle={subtitle} loading={loading} />
                                         </Col>
                                     )
                                 })
