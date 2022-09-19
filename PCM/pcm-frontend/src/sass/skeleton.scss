@@ -17,3 +17,37 @@
         width: 40em;
     }
 }
+
+
+.data-row.skeleton {
+    span {
+        line-height: 1.4;
+        vertical-align: middle;
+    }
+    span.checkbox {
+        width: 18px;
+        height: 18px;
+    }
+    span.contact_name {
+        width: 70%;
+    }
+    td.actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 3.8em;
+
+        span.button {
+            height: 100%;
+            display: contents;
+            
+            .btn {
+                height: 30px;
+                width: 30px;
+            }
+        }
+    }
+    &:hover {
+        background-color: $white!important;
+    }
+}

@@ -22,8 +22,14 @@
                     padding: .1em .6em;
                     vertical-align: middle;
                 }
+                th.id {
+                    padding: 0 1.1em;
+                }
                 th.name {
-                    padding-right: 8em;
+                    padding-right: 7em;
+                }
+                th.email {
+                    padding-right: 9em;
                 }
             }
         }
@@ -58,6 +64,15 @@
                             background-color: $white;
                             border: 2px solid $text;
                             border-radius: 50%;
+                            object-fit: cover;
+                        }
+
+                        .country_flag {
+                            display: inline;
+                            height: 100%;
+                            width: 100%;
+                            background-color: $white;
+                            border-radius: 25%;
                             object-fit: cover;
                         }
                     }

@@ -11,10 +11,11 @@ import trash from 'react-useanimations/lib/trash';
 
 import { Form, Image } from 'react-bootstrap';
 import { FaUserEdit } from 'react-icons/fa';
+import { CountryFlag } from '../misc/FlagSelect';
 
 const TableRow = ({ contact, deleteIds }) => {
     const { contacts } = useSelector(state => state.viewContacts);
-    const { cid, name, image, mobileNumber, email } = contact;
+    const { cid, name, image, mobileNumber, email, country } = contact;
     
     const dispatch = useDispatch();
     let navigate = useNavigate();
@@ -44,7 +45,7 @@ const TableRow = ({ contact, deleteIds }) => {
     }
 
     return (
-        <tr id={cid} className={`data-row b ${contact?.isChecked ? 'selected' : null}`} onClick={e => handleLink(e, cid)}>
+        <tr id={cid} className={`data-row ${contact?.isChecked ? 'selected' : null}`} onClick={e => handleLink(e, cid)}>
             <td className="text-center">
                 <Form.Check
                     type="checkbox"
@@ -55,7 +56,7 @@ const TableRow = ({ contact, deleteIds }) => {
                     checked={contact?.isChecked || false}
                 />
             </td>
-            <td className="text-center" title={cid}>PCM22{cid}</td>
+            <td className="text-center" title={`PCM22${cid}`}>PCM22{cid}</td>
             <td className="text-left" title={name}>
                 <div className='img-border me-2'>
                     <Image src={image} className="profile_pic" alt="" />
@@ -64,6 +65,11 @@ const TableRow = ({ contact, deleteIds }) => {
             </td>
             <td className="text-left" title={mobileNumber?.number}>{mobileNumber?.number ?? '-'}</td>
             <td className="text-left" title={email}>{email ?? '-'}</td>
+            <td className="text-center" title={country?.name}>
+                <div className='img-border'>
+                    <Image src={CountryFlag(country?.code?.toUpperCase())} className="country_flag" alt="" />
+                </div>
+            </td>
             <td className="text-center">
                 <Link to={EDIT_CONTACT_LINK + cid}>
                     <button
