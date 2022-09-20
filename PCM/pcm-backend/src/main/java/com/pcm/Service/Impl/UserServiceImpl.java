@@ -16,15 +16,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pcm.Constant.AppConstant;
 import com.pcm.Constant.ExceptionConstant;
 import com.pcm.Helper.DateValidator;
 import com.pcm.Helper.ImageUploader;
+import com.pcm.Helper.UriLocation;
 import com.pcm.Model.Contact;
 import com.pcm.Model.User;
 import com.pcm.Model.UserRole;
+import com.pcm.Properties.UploadcareProperties;
 import com.pcm.Repository.RoleRepository;
 import com.pcm.Repository.UserRepository;
 import com.pcm.Service.UserService;
@@ -46,7 +47,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private ContactRepositoryService contactRepositoryService;
-
+	
+	@Autowired
+	private UriLocation uriLocation;
+	
+	@Autowired
+	private UploadcareProperties uploadcareProperties;
 	
 	@Override
 	public void registerUser(User user, Set<UserRole> userRoles) throws Exception {
@@ -70,6 +76,7 @@ public class UserServiceImpl implements UserService {
 				user.setLastLogin(timestamp);
 				user.setTotalContacts(0);
 				user.setImage(AppConstant.DEFAULT_IMAGE);
+				user.setImageUUID(this.uploadcareProperties.getDefaultuuid());
 				user.getUserRoles().addAll(userRoles);
 
 				this.userRepository.save(user);
@@ -103,7 +110,7 @@ public class UserServiceImpl implements UserService {
 			List<Contact> contacts = this.contactRepositoryService.findContactsByUser(sessionUser.getId());
 			System.out.println("TOTAL CONTACTS -> " + contacts.size());
 			
-			String uriLocation = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstant.GET_UPLOAD_LOCATION).path(sessionUser.getImage()).toUriString();
+			String uriLocation = this.uriLocation.getUploadcareLocation(sessionUser);
 			sessionUser.setImage(uriLocation);
 			sessionUser.setPassword(null);
 			sessionUser.setTotalContacts(contacts.size());

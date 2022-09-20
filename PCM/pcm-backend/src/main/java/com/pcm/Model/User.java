@@ -67,6 +67,9 @@ public class User implements UserDetails {
 	
 	private String image;
 	
+	@Column(name="image_UUID")
+	private String imageUUID;
+	
 	@Valid
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private UserMobileNumber mobileNumber;

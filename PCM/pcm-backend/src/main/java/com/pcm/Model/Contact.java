@@ -38,6 +38,9 @@ public class Contact {
 	
 	private String image;
 	
+	@Column(name="image_UUID")
+	private String imageUUID;
+	
 	@Column(columnDefinition = "boolean default false")
 	private boolean favorite;
 	

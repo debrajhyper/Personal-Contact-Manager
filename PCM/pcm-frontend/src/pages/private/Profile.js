@@ -146,7 +146,7 @@ const Profile = () => {
                         SocialDetails.map((social, index) => {
                             return ( 
                                 loading 
-                                ? <Skeleton circle height={40} width={40}/>
+                                ? <Skeleton circle height={40} width={40} key={index}/>
                                 : !excluded?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} loading={loading} />
                             )
                         })

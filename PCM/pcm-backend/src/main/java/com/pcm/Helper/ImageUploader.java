@@ -12,16 +12,23 @@ import java.util.UUID;
 
 import javax.validation.ValidationException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pcm.Constant.AppConstant;
 import com.pcm.Model.Contact;
 import com.pcm.Model.User;
+import com.uploadcare.upload.UploadFailureException;
 
 
+@Service
 public class ImageUploader {
 	private MultipartFile imageFile;
 	private String imageName = AppConstant.DEFAULT_IMAGE;
+	
+	@Autowired
+	private ImageUploaderUploadcare imageUploaderUploadcare;
 
 	public ImageUploader() {
 		// TODO Auto-generated constructor stub
@@ -32,7 +39,8 @@ public class ImageUploader {
 		this.imageFile = imageFile;
 	}
 	
-	public void uploadImage(Contact contact) throws IOException {
+	
+	public void uploadImage(Contact contact) throws IOException, UploadFailureException {
 		if(imageFile == null || imageFile.isEmpty()) {
 			System.out.println("IMAGE FILE EMPTY");
 			contact.setImage(imageName);
@@ -46,13 +54,19 @@ public class ImageUploader {
 			System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
 			contact.setImage(imageName);
 			
+			//LOCAL FILE SYSTEM
 			uploadImageToLocation();
+			
+			//FILE SERVER
+			String imageUUID = this.imageUploaderUploadcare.uploadImageToUploadcare(imageFile, imageName);
+			contact.setImageUUID(imageUUID);
 			
 			System.out.println("IMAGE FILE SUCCESSFULLY UPLOADED");
 		}
 	}
 	
-	public void updateImage(Contact oldContact, Contact contact) throws IOException {
+	
+	public void updateImage(Contact oldContact, Contact contact) throws IOException, UploadFailureException {
 		if(imageFile != null && !imageFile.isEmpty()) {
 			if(!imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_JPEG) && !imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_PNG)) {
 				throw new ValidationException("Only JPEG/PNG content type are allowed");
@@ -69,7 +83,12 @@ public class ImageUploader {
 				System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
 				contact.setImage(imageName);
 				
+				//LOCAL FILE SYSTEM
 				uploadImageToLocation();
+				
+				//FILE SERVER
+				String imageUUID = this.imageUploaderUploadcare.uploadImageToUploadcare(imageFile, imageName);
+				contact.setImageUUID(imageUUID);
 				
 				System.out.println("IMAGE FILE SUCCESSFULLY UPLOADED");
 			}
@@ -79,7 +98,8 @@ public class ImageUploader {
 		}
 	}
 	
-	public void updateImage(User oldUser, User user) throws IOException {
+	
+	public void updateImage(User oldUser, User user) throws IOException, UploadFailureException {
 		if(imageFile != null && !imageFile.isEmpty()) {
 			if(!imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_JPEG) && !imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_PNG)) {
 				throw new ValidationException("Only JPEG/PNG content type are allowed");
@@ -87,7 +107,11 @@ public class ImageUploader {
 			else {				
 				//DELETE OLD IMAGE
 				if(oldUser.getImage() != AppConstant.DEFAULT_IMAGE) {
+					//LOCAL FILE SYSTEM
 					deleteImageFromLocation(oldUser);
+					
+					//FILE SERVER
+					this.imageUploaderUploadcare.deleteImageFromFileServer(oldUser);
 				}
 				
 				//UPDATE NEW IMAGE
@@ -96,7 +120,12 @@ public class ImageUploader {
 				System.out.println("PROFILE PIC IMAGE NAME -> " + imageName);
 				user.setImage(imageName);
 				
+				//LOCAL FILE SYSTEM
 				uploadImageToLocation();
+				
+				//FILE SERVER
+				String imageUUID = this.imageUploaderUploadcare.uploadImageToUploadcare(imageFile, imageName);
+				user.setImageUUID(imageUUID);
 				
 				System.out.println("IMAGE FILE SUCCESSFULLY UPLOADED");
 			}
@@ -105,6 +134,7 @@ public class ImageUploader {
 			user.setImage(oldUser.getImage());
 		}
 	}
+	
 	
 	public void deleteImage(Contact contact) throws IOException {
 		System.out.println("CONTACT IMAGE IS -> " + contact.getImage() + " : DEFAULT IMAGE IS -> " + imageName);
@@ -119,6 +149,7 @@ public class ImageUploader {
 		
 	}
 	
+	
 	public String setImageName() {
 		String name = imageFile.getOriginalFilename();
 		String randomId = UUID.randomUUID().toString();
@@ -126,6 +157,7 @@ public class ImageUploader {
 		
 		return savedFileName;
 	}
+	
 	
 	public void checkLocation() throws IOException {
 		Path uploadFolder = Paths.get(AppConstant.SET_UPLOAD_LOCATION);
@@ -135,14 +167,16 @@ public class ImageUploader {
 		}
 	}
 	
+	
 	public void uploadImageToLocation() throws IOException {
 		checkLocation();
 		String uploadFolderPath = Paths.get(AppConstant.SET_UPLOAD_LOCATION).toFile().getAbsolutePath();
 		Path fullPath = Paths.get(uploadFolderPath + File.separator + imageName);
-		System.out.println("IMAGE UPLOAD PATH LOCATION -> " + fullPath);
+		System.out.println("IMAGE UPLOAD LOCAL PATH LOCATION -> " + fullPath);
 		
 		Files.copy(imageFile.getInputStream(), fullPath, StandardCopyOption.REPLACE_EXISTING);
 	}
+	
 	
 	public void deleteImageFromLocation(Contact oldContact) throws IOException {
 		String uploadFolderPath = Paths.get(AppConstant.SET_UPLOAD_LOCATION).toFile().getAbsolutePath();
@@ -151,12 +185,14 @@ public class ImageUploader {
 		Files.deleteIfExists(deleteFile);
 	}
 	
+	
 	public void deleteImageFromLocation(User oldUser) throws IOException {
 		String uploadFolderPath = Paths.get(AppConstant.SET_UPLOAD_LOCATION).toFile().getAbsolutePath();
 		Path deleteFile = Paths.get(uploadFolderPath + File.separator + oldUser.getImage());
 		
 		Files.deleteIfExists(deleteFile);
 	}
+	
 	
 	public InputStream getImageFromLocation(String imageName) throws IOException {
 		String uploadFolderPath = Paths.get(AppConstant.SET_UPLOAD_LOCATION).toFile().getAbsolutePath();

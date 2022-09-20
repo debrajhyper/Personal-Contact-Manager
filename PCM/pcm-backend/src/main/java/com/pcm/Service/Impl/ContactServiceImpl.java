@@ -20,13 +20,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pcm.Constant.AppConstant;
 import com.pcm.Constant.ExceptionConstant;
 import com.pcm.Exception.ResourceNotFoundException;
 import com.pcm.Helper.DateValidator;
 import com.pcm.Helper.ImageUploader;
+import com.pcm.Helper.UriLocation;
 import com.pcm.Model.Contact;
 import com.pcm.Model.User;
 import com.pcm.Repository.ContactRepository;
@@ -50,6 +50,9 @@ public class ContactServiceImpl implements ContactService {
 	
 	@Autowired
 	private ContactRepository contactRepository;
+	
+	@Autowired
+	private UriLocation uriLocation;
 	
 	
 	@Override
@@ -187,7 +190,7 @@ public class ContactServiceImpl implements ContactService {
 			
 			contacts.forEach(
 					contact -> contact.setImage(
-									ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstant.GET_UPLOAD_LOCATION).path(contact.getImage()).toUriString()
+									this.uriLocation.getUploadcareLocation(contact)
 								)
 						);
 			
@@ -228,7 +231,7 @@ public class ContactServiceImpl implements ContactService {
 			System.out.println("DB CONTACT -> ID : " + contact.getCId());
 			
 			if(sessionUser.getId() == contact.getUser().getId()) {
-				String uriLocation = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstant.GET_UPLOAD_LOCATION).path(contact.getImage()).toUriString();
+				String uriLocation = this.uriLocation.getUploadcareLocation(contact);
 				contact.setImage(uriLocation);
 				
 				System.out.println("SUCCESS =================== > VIEW CONTACT PROFILE DETAILS SEND SUCCESSFULLY");

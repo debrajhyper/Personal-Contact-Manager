@@ -29,12 +29,14 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (isLoggedIn) {
-            dispatch(getCurrentUser());
+            if(Object.keys(currentUser).length === 0) {
+                dispatch(getCurrentUser());
+            }
         }
         else {
             dispatch(logoutUser(LOGIN_LINK));
         }
-    }, [isLoggedIn, dispatch, navigate, location]);
+    }, [isLoggedIn, currentUser, dispatch, navigate, location]);
 
     const dateFormater = APIDate => {
         const dateString = moment(APIDate).format('Do MMMM YYYY, hh:mm a');
