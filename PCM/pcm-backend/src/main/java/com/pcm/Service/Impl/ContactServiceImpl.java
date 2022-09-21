@@ -54,6 +54,9 @@ public class ContactServiceImpl implements ContactService {
 	@Autowired
 	private UriLocation uriLocation;
 	
+	@Autowired
+	private ImageUploader imageUploader;
+	
 	
 	@Override
 	public void addContact(Contact contact, MultipartFile profilePic, String email) throws Exception {
@@ -71,7 +74,8 @@ public class ContactServiceImpl implements ContactService {
 			}
 			
 			System.out.println("PROFILE PIC DATA -> " + profilePic);
-			new ImageUploader(profilePic).uploadImage(contact);
+			this.imageUploader.ImageUploaderProfilePic(profilePic);
+			this.imageUploader.uploadImage(contact);
 			
 			if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isEmpty()) {
 				DateValidator validator = new DateValidator(AppConstant.DATE_FORMATER);
@@ -190,7 +194,7 @@ public class ContactServiceImpl implements ContactService {
 			
 			contacts.forEach(
 					contact -> contact.setImage(
-									this.uriLocation.getUploadcareLocation(contact)
+									this.uriLocation.getFileServerLocation(contact)
 								)
 						);
 			
@@ -231,7 +235,7 @@ public class ContactServiceImpl implements ContactService {
 			System.out.println("DB CONTACT -> ID : " + contact.getCId());
 			
 			if(sessionUser.getId() == contact.getUser().getId()) {
-				String uriLocation = this.uriLocation.getUploadcareLocation(contact);
+				String uriLocation = this.uriLocation.getFileServerLocation(contact);
 				contact.setImage(uriLocation);
 				
 				System.out.println("SUCCESS =================== > VIEW CONTACT PROFILE DETAILS SEND SUCCESSFULLY");
@@ -428,7 +432,8 @@ public class ContactServiceImpl implements ContactService {
 			System.out.println("DB CONTACT -> ID : " + oldContact.getCId());
 			
 			System.out.println("PROFILE PIC DATA -> " + profilePic);
-			new ImageUploader(profilePic).updateImage(oldContact, contact);
+			this.imageUploader.ImageUploaderProfilePic(profilePic);
+			this.imageUploader.updateImage(oldContact, contact);
 			
 			if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isEmpty()) {
 				DateValidator validator = new DateValidator(AppConstant.DATE_FORMATER);
@@ -447,6 +452,7 @@ public class ContactServiceImpl implements ContactService {
 				}
 				contact.getTelephoneNumber().setContact(oldContact);
 			}
+			System.out.println(contact.getCountry());
 			if(contact.getCountry() != null) {
 				if(oldContact.getCountry() != null) {					
 					contact.getCountry().setId(oldContact.getCountry().getId());

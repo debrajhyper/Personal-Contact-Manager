@@ -31,7 +31,7 @@ const FormCountry = ({ country, cName, functionChange, functionBlur, functionKey
 
     function displayValue() {
         if (query.length > 0) return query;
-        if (country) return country.name;
+        if (!excluded?.includes(country?.name)) return country.name;
         return '';
     }
 

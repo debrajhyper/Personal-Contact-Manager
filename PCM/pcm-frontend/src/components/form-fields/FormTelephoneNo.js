@@ -9,7 +9,7 @@ const FormTelephoneNo = ({ telephoneNumber, countryCode, cName, functionChange, 
     return (
         <Form.Group className={`form-input ${countryCode ? 'd-flex align-items-center' : ''} ${cName}`} controlId="TelephoneNo">
             {
-                countryCode &&
+                !excluded?.includes(countryCode) &&
                 <span className='pt-1 pe-2 d-inline-flex justify-content-start align-items-center'>
                     <pre className='m-0' style={{ fontSize: '14px' }}>{`+${countryCode}`}</pre>
                 </span>

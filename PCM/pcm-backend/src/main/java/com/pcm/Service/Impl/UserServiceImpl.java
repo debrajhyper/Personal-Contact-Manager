@@ -25,7 +25,7 @@ import com.pcm.Helper.UriLocation;
 import com.pcm.Model.Contact;
 import com.pcm.Model.User;
 import com.pcm.Model.UserRole;
-import com.pcm.Properties.UploadcareProperties;
+import com.pcm.Properties.FileServerProperties;
 import com.pcm.Repository.RoleRepository;
 import com.pcm.Repository.UserRepository;
 import com.pcm.Service.UserService;
@@ -52,7 +52,11 @@ public class UserServiceImpl implements UserService {
 	private UriLocation uriLocation;
 	
 	@Autowired
-	private UploadcareProperties uploadcareProperties;
+	private FileServerProperties fileServerProperties;
+	
+	@Autowired
+	private ImageUploader imageUploader;
+	
 	
 	@Override
 	public void registerUser(User user, Set<UserRole> userRoles) throws Exception {
@@ -76,7 +80,7 @@ public class UserServiceImpl implements UserService {
 				user.setLastLogin(timestamp);
 				user.setTotalContacts(0);
 				user.setImage(AppConstant.DEFAULT_IMAGE);
-				user.setImageUUID(this.uploadcareProperties.getDefaultuuid());
+				user.setImageUUID(this.fileServerProperties.getDefaultUuid());
 				user.getUserRoles().addAll(userRoles);
 
 				this.userRepository.save(user);
@@ -110,7 +114,7 @@ public class UserServiceImpl implements UserService {
 			List<Contact> contacts = this.contactRepositoryService.findContactsByUser(sessionUser.getId());
 			System.out.println("TOTAL CONTACTS -> " + contacts.size());
 			
-			String uriLocation = this.uriLocation.getUploadcareLocation(sessionUser);
+			String uriLocation = this.uriLocation.getFileServerLocation(sessionUser);
 			sessionUser.setImage(uriLocation);
 			sessionUser.setPassword(null);
 			sessionUser.setTotalContacts(contacts.size());
@@ -152,7 +156,8 @@ public class UserServiceImpl implements UserService {
 
 			if ((Integer) sessionUser.getId() == (Integer) user.getId()) {
 				System.out.println("PROFILE PIC DATA -> " + profilePic);
-				new ImageUploader(profilePic).updateImage(sessionUser, user);
+				this.imageUploader.ImageUploaderProfilePic(profilePic);
+				this.imageUploader.updateImage(sessionUser, user);
 
 				if (user.getDateOfBirth() != null && !user.getDateOfBirth().isEmpty()) {
 					DateValidator validator = new DateValidator(AppConstant.DATE_FORMATER);

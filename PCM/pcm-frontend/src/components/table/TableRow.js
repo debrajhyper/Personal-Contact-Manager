@@ -65,7 +65,7 @@ const TableRow = ({ contact, deleteIds }) => {
             </td>
             <td className="text-left" title={mobileNumber?.number}>{mobileNumber?.number ?? '-'}</td>
             <td className="text-left" title={email}>{email ?? '-'}</td>
-            <td className="text-center" title={country?.name}>
+            <td className="text-center" title={country?.name || 'No Country'}>
                 <div className='img-border'>
                     <Image src={CountryFlag(country?.code?.toUpperCase())} className="country_flag" alt="" />
                 </div>

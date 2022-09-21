@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import lombok.Data;
 
 @Data
-@ConfigurationProperties(prefix="spring.uploadcare")
+@ConfigurationProperties(prefix="file.server")
 @Configuration
-public class UploadcareProperties {
+public class FileServerProperties {
 	
-	private String defaultuuid;
+	private String defaultUuid;
 	
 	private String publickey;
 	

@@ -34,7 +34,11 @@ const useForm = validate => {
             code: "",
             number: ""
         },
-        country: "",
+        country: {
+            code: "",
+            name: "",
+            no: "",
+        },
         dateOfBirth: "",
         address: "",
         relationship: "",
@@ -80,7 +84,12 @@ const useForm = validate => {
                     code: contact?.telephoneNumber?.code ?? '',
                     number: contact?.telephoneNumber?.number ?? ''
                 },
-                country: contact?.country ?? '',
+                country: {
+                    code: contact?.country?.code ?? '',
+                    name: contact?.country?.name ?? '',
+                    no: contact?.country?.no ?? ''
+                },
+                // country: contact?.country ?? '',
                 dateOfBirth: contact?.dateOfBirth ?? '',
                 address: contact?.address ?? '',
                 relationship: contact?.relationship ?? '',
@@ -92,7 +101,7 @@ const useForm = validate => {
                     twitter: contact?.socialLinks?.twitter ?? '',
                     linkedIn: contact?.socialLinks?.linkedIn ?? '',
                     instagram: contact?.socialLinks?.instagram ?? '',
-                    youtube: contact?.socialLinks?.youtube ?? '',
+                    youtube: contact?.socialLinks?.youtube ?? ''
                 },
                 description: contact?.description ?? '',
             });
@@ -118,7 +127,12 @@ const useForm = validate => {
                     code: currentUser?.mobileNumber?.code ?? '',
                     number: currentUser?.mobileNumber?.number ?? ''
                 },
-                country: currentUser?.country ?? '',
+                country: {
+                    code: currentUser?.country?.code ?? '',
+                    name: currentUser?.country?.name ?? '',
+                    no: currentUser?.country?.no ?? ''
+                },
+                // country: currentUser?.country ?? '',
                 dateOfBirth: currentUser?.dateOfBirth ?? '',
                 zodiacSign: currentUser?.zodiacSign ?? '',
                 website: currentUser?.website ?? '',
@@ -127,7 +141,7 @@ const useForm = validate => {
                     twitter: currentUser?.socialLinks?.twitter ?? '',
                     linkedIn: currentUser?.socialLinks?.linkedIn ?? '',
                     instagram: currentUser?.socialLinks?.instagram ?? '',
-                    youtube: currentUser?.socialLinks?.youtube ?? '',
+                    youtube: currentUser?.socialLinks?.youtube ?? ''
                 },
                 description: currentUser?.description ?? '',
             })
@@ -139,7 +153,7 @@ const useForm = validate => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [profileEdit, currentUser, location.pathname]);
 
-    // console.log('values ->', values);
+    console.log('values ->', values);
     // console.log('touched ->', touched);
 
 
@@ -186,8 +200,8 @@ const useForm = validate => {
         } else {
             setValues({
                 ...values,
-                [name]: "",
-                profilePicURL: ""
+                [name]: '',
+                profilePicURL: ''
             });
         }
     };
@@ -203,7 +217,7 @@ const useForm = validate => {
             setValues({
                 ...values,
                 profilePic: "",
-                profilePicURL: contact?.image ?? ""
+                profilePicURL: contact?.image ?? ''
             });
         }
     };
@@ -237,14 +251,20 @@ const useForm = validate => {
         if (name === 'country') {
             setValues({
                 ...values,
-                [name]: value,
+                // [name]: value,
+                country: {
+                    ...values.country,
+                    code: value.code ?? '',
+                    name: value.name ?? '',
+                    no: value.no ?? ''
+                },
                 mobileNumber: {
                     ...values.mobileNumber,
-                    code: value.no,
+                    code: value.no ?? '',
                 },
                 telephoneNumber: {
                     ...values.telephoneNumber,
-                    code: value.no,
+                    code: value.no ?? '',
                 },
             })
         }
@@ -360,7 +380,12 @@ const useForm = validate => {
                     code: '',
                     number: ''
                 },
-                country: '',
+                country: {
+                    code: '',
+                    name: '',
+                    no: ''
+                },
+                // country: '',
                 dateOfBirth: '',
                 zodiacSign: '',
                 website: '',
@@ -369,7 +394,7 @@ const useForm = validate => {
                     twitter: '',
                     linkedIn: '',
                     instagram: '',
-                    youtube: '',
+                    youtube: ''
                 },
                 description: '',
             })
@@ -393,7 +418,12 @@ const useForm = validate => {
                     code: "",
                     number: ""
                 },
-                country: "",
+                country: {
+                    code: '',
+                    name: '',
+                    no: ''
+                },
+                // country: "",
                 dateOfBirth: "",
                 address: "",
                 relationship: "",
@@ -405,7 +435,7 @@ const useForm = validate => {
                     twitter: "",
                     linkedIn: "",
                     instagram: "",
-                    youtube: "",
+                    youtube: ""
                 },
                 description: "",
             });

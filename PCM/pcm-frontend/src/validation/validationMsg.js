@@ -157,7 +157,7 @@ export const contactValidate = values => {
         errors.mobileNumber = "Invalid Mobile Number";
     }
 
-    if (!excluded.includes(values?.country)) {
+    if (!excluded.includes(values?.country?.name)) {
         if (!CountryDetails.filter(country => country.name.toLocaleLowerCase() === values.country?.name?.toLocaleLowerCase()).length > 0) {
             errors.country = "Country Not Found";
         }
@@ -297,7 +297,7 @@ export const userValidate = values => {
         }
     }
 
-    if (!excluded.includes(values?.country)) {
+    if (!excluded.includes(values?.country?.name)) {
         if (!CountryDetails.filter(country => country.name.toLocaleLowerCase() === values.country?.name?.toLocaleLowerCase()).length > 0) {
             errors.country = "Country Not Found";
         }

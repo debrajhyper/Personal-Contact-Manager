@@ -10,8 +10,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.pcm.Constant.AppConstant;
 import com.pcm.Model.Contact;
 import com.pcm.Model.User;
-import com.pcm.Properties.UploadcareProperties;
+import com.pcm.Properties.FileServerProperties;
 import com.uploadcare.api.Client;
+import com.uploadcare.api.File;
 import com.uploadcare.urls.CdnPathBuilder;
 import com.uploadcare.urls.Urls;
 
@@ -20,7 +21,7 @@ import com.uploadcare.urls.Urls;
 public class UriLocation {
 	
 	@Autowired
-	private UploadcareProperties uploadcareProperties;
+	private FileServerProperties fileServerProperties;
 	
 	
 	public String getDefaultLocation(User sessionUser) {
@@ -39,32 +40,32 @@ public class UriLocation {
 	}
 	
 	
-	public String getUploadcareLocation(User sessionUser) {
-		Client client = new Client(this.uploadcareProperties.getPublickey(), this.uploadcareProperties.getSecretkey());
+	public String getFileServerLocation(User sessionUser) {
+		Client client = new Client(this.fileServerProperties.getPublickey(), this.fileServerProperties.getSecretkey());
 		
-		com.uploadcare.api.File file = client.getFile(sessionUser.getImageUUID());
+		File file = client.getFile(sessionUser.getImageUUID() != null ? sessionUser.getImageUUID() : this.fileServerProperties.getDefaultUuid());
 		
 		CdnPathBuilder builder = file.cdnPath();
 		URI url = Urls.cdn(builder);
 		String finalUri = url + sessionUser.getImage();
 		
-		System.out.println("UPLOADCARE IMAGE URI -> " + finalUri);
+		System.out.println("FILE SERVER IMAGE URI -> " + finalUri);
 		
 		client.close();
 		return finalUri.toString();
 	}
 	
 	
-	public String getUploadcareLocation(Contact contact) {
-		Client client = new Client(this.uploadcareProperties.getPublickey(), this.uploadcareProperties.getSecretkey());
+	public String getFileServerLocation(Contact contact) {
+		Client client = new Client(this.fileServerProperties.getPublickey(), this.fileServerProperties.getSecretkey());
 		
-		com.uploadcare.api.File file = client.getFile(contact.getImageUUID());
+		File file = client.getFile(contact.getImageUUID() != null ? contact.getImageUUID() : this.fileServerProperties.getDefaultUuid());
 		
 		CdnPathBuilder builder = file.cdnPath();
 		URI url = Urls.cdn(builder);
 		String finalUri = url + contact.getImage();
 		
-		System.out.println("UPLOADCARE IMAGE URI -> " + finalUri);
+		System.out.println("FILE SERVER IMAGE URI -> " + finalUri);
 		
 		client.close();
 		return finalUri.toString();
