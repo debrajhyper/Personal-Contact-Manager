@@ -19,7 +19,7 @@ const DashboardCard = ({ image, icon, title, pretitle, subtitle, loading }) => {
                 {
                     title !== 'text-area' &&
                     <Card.Title>
-                        { loading ? <Skeleton containerClassName="skeleton_icon" width={25} /> : icon } 
+                        { loading ? <Skeleton containerClassName="skeleton_icon" width={25} /> : icon }
                         { loading ? <Skeleton containerClassName="skeleton_text" /> : <span className='ps-1'>{title}</span> }
                     </Card.Title>
                 }

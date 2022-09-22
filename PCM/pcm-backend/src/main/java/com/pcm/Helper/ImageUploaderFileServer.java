@@ -39,6 +39,7 @@ public class ImageUploaderFileServer {
 		System.out.println("DELETING IMAGE TFROM FILE SERVER...");
 		Client client = new Client(this.fileServerProperties.getPublickey(), this.fileServerProperties.getSecretkey());
 		
+		
 		client.deleteFile(imageUUID);
 		System.out.println("IMAGE DELETED FROM FILE SERVER...");
 		client.close();
