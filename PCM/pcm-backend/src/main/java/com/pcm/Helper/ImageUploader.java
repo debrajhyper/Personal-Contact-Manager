@@ -58,7 +58,7 @@ public class ImageUploader {
 		if(imageFile == null || imageFile.isEmpty()) {
 			System.out.println("IMAGE FILE EMPTY");
 			contact.setImage(imageName);
-			contact.setImageUUID(this.fileServerProperties.getDefaultUuid());
+			contact.setImageUUID(this.fileServerProperties.getDefaultuuid());
 		} 
 		else if(!imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_JPEG) && !imageFile.getContentType().equals(AppConstant.IMAGE_TYPE_PNG)) {
 			throw new ValidationException("Only JPEG/PNG content type are allowed");

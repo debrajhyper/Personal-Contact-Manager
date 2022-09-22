@@ -12,11 +12,12 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pcm.Constant.EmailConstant;
 import com.pcm.Constant.ExceptionConstant;
+import com.pcm.Properties.MailProperties;
 import com.pcm.Service.EmailService;
 
 
@@ -28,33 +29,9 @@ public class EmailServiceImpl implements EmailService {
 	private String generatedOTP;
 	
 	private String EMAIL_BODY;
-	
-	@Value("${spring.mail.username}")
-	private String EMAIL_ID;
-	
-	@Value("${spring.mail.password}")
-	private String EMAIL_PASS;
-	
-	@Value("${spring.mail.host}")
-	private String host;
-	
-	@Value("${spring.mail.port}")
-	private String port;
-	
-	@Value("${spring.mail.properties.mail.smtp.ssl.enable}")
-	private String ssl;
-	
-	@Value("${spring.mail.properties.mail.smtp.auth}")
-	private String auth;
-	
-	@Value("${spring.mail.properties.mail.smtp.connectiontimeout}")
-	private String connectionTimeout;
-	
-	@Value("${spring.mail.properties.mail.smtp.timeout}")
-	private String timeout;
-	
-	@Value("${spring.mail.properties.mail.smtp.writetimeout}")
-	private String writetimeout;
+
+	@Autowired
+	private MailProperties mailProperties;
 
 	
 	@Override
@@ -68,32 +45,31 @@ public class EmailServiceImpl implements EmailService {
 	
 	
 	
-	
 	@Override
 	public boolean sendEmail() throws Exception {
 		// TODO Auto-generated method stub
 		boolean emailSent = false;
 		
 		Properties properties = System.getProperties();
-		properties.put(EmailConstant.EMAIL_HOST, host);
-		properties.put(EmailConstant.EMAIL_PORT, port);
-		properties.put(EmailConstant.EMAIL_SSL, ssl);
-		properties.put(EmailConstant.EMAIL_AUTH, auth);
-		properties.put(EmailConstant.EMAIL_CONNECTION_TIMEOUT, connectionTimeout);
-		properties.put(EmailConstant.EMAIL_TIMEOUT, timeout);
-		properties.put(EmailConstant.EMAIL_WRITR_TIMEOUT, writetimeout);
+		properties.put(EmailConstant.EMAIL_HOST, mailProperties.getHost());
+		properties.put(EmailConstant.EMAIL_PORT, mailProperties.getPort());
+		properties.put(EmailConstant.EMAIL_SSL, mailProperties.getMailAditionalProperties().isSsl());
+		properties.put(EmailConstant.EMAIL_AUTH, mailProperties.getMailAditionalProperties().isAuth());
+		properties.put(EmailConstant.EMAIL_CONNECTION_TIMEOUT, mailProperties.getMailAditionalProperties().getConnectiontimeout());
+		properties.put(EmailConstant.EMAIL_TIMEOUT, mailProperties.getMailAditionalProperties().getTimeout());
+		properties.put(EmailConstant.EMAIL_WRITR_TIMEOUT, mailProperties.getMailAditionalProperties().getWritetimeout());
 		
 		Session session = Session.getInstance(properties, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				// TODO Auto-generated method stub
-				return new PasswordAuthentication(EMAIL_ID, EMAIL_PASS);
+				return new PasswordAuthentication(mailProperties.getUsername(), mailProperties.getPassword());
 			}
 		});
 		
 		MimeMessage mail = new MimeMessage(session);
 		try {
-			mail.setFrom(EMAIL_ID);
+			mail.setFrom(mailProperties.getUsername());
 			mail.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 			mail.setSubject(EmailConstant.EMAIL_SUBJECT);
 			mail.setContent(EMAIL_BODY, "text/html");

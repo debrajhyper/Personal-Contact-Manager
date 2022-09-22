@@ -43,7 +43,7 @@ public class UriLocation {
 	public String getFileServerLocation(User sessionUser) {
 		Client client = new Client(this.fileServerProperties.getPublickey(), this.fileServerProperties.getSecretkey());
 		
-		File file = client.getFile(sessionUser.getImageUUID() != null ? sessionUser.getImageUUID() : this.fileServerProperties.getDefaultUuid());
+		File file = client.getFile(sessionUser.getImageUUID() != null ? sessionUser.getImageUUID() : this.fileServerProperties.getDefaultuuid());
 		
 		CdnPathBuilder builder = file.cdnPath();
 		URI url = Urls.cdn(builder);
@@ -59,7 +59,7 @@ public class UriLocation {
 	public String getFileServerLocation(Contact contact) {
 		Client client = new Client(this.fileServerProperties.getPublickey(), this.fileServerProperties.getSecretkey());
 		
-		File file = client.getFile(contact.getImageUUID() != null ? contact.getImageUUID() : this.fileServerProperties.getDefaultUuid());
+		File file = client.getFile(contact.getImageUUID() != null ? contact.getImageUUID() : this.fileServerProperties.getDefaultuuid());
 		
 		CdnPathBuilder builder = file.cdnPath();
 		URI url = Urls.cdn(builder);

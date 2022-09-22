@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Configuration;
 import lombok.Data;
 
 @Data
-@ConfigurationProperties(prefix="file.server")
 @Configuration
+@ConfigurationProperties(prefix="file.server")
 public class FileServerProperties {
 	
-	private String defaultUuid;
+	private String defaultuuid;
 	
 	private String publickey;
 	

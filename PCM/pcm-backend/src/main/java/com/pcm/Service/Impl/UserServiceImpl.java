@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
 				user.setLastLogin(timestamp);
 				user.setTotalContacts(0);
 				user.setImage(AppConstant.DEFAULT_IMAGE);
-				user.setImageUUID(this.fileServerProperties.getDefaultUuid());
+				user.setImageUUID(this.fileServerProperties.getDefaultuuid());
 				user.getUserRoles().addAll(userRoles);
 
 				this.userRepository.save(user);
