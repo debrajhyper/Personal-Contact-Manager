@@ -1,9 +1,11 @@
 export { default as ButtonLink } from './buttons/ButtonLink';
 export { default as ButtonNormal } from './buttons/ButtonNormal';
 
+export { default as Counter } from './counter/Counter';
+
 export { default as DashboardCard } from './dashboardCard/DashboardCard';
 
-export { default as Counter } from './counter/Counter';
+export { default as FeatureSection } from './feature/FeatureSection';
 
 export { default as FormAddress } from './form-fields/FormAddress';
 export { default as FormAgrement } from './form-fields/FormAgrement';
@@ -31,6 +33,8 @@ export { default as RequiredStatement } from './form-fields/RequiredStatement';
 export { default as SearchBar } from './form-fields/SearchBar';
 
 export { default as Header } from './header/Header';
+
+export { default as HeroSection } from './hero/HeroSection';
 
 export { default as ModalConfirmation } from './modal/ModalConfirmation';
 export { default as ModalEditProfile } from './modal/ModalEditProfile';
