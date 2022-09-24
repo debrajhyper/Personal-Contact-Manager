@@ -2,12 +2,12 @@
 @import '../../sass/variables.scss';
 
 .hero {
-    padding: 5em;
+    padding: 5cqi;
     position: relative;
     background-color: $base;
-    @media screen and (max-width: $laptop) {
-        padding: 2em;
-    }
+    // @media screen and (max-width: $laptop) {
+    //     padding: 2em;
+    // }
 
     .text {
         padding: 5em 2em 0em;
@@ -21,35 +21,33 @@
             align-items: center;
             text-align: center;
         }
-        @media screen and (max-width: $mobile) {
-            padding: 1em;
-        }
+        // @media screen and (max-width: $mobile) {
+        //     padding: 1em;
+        // }
 
         h1 {
-            font-size: 4rem;
+            font-size: clamp(2.4rem, 3cqi, 4rem);
             font-weight: 600;
-            margin-bottom: .2em;
             color: $white;
-            @media screen and (max-width: $laptop) {
-                font-size: 3rem;
-            }
-            @media screen and (max-width: $mobile) {
-                font-size: 2.5rem;
-            }
+            // @media screen and (max-width: $laptop) {
+            //     font-size: 3rem;
+            // }
+            // @media screen and (max-width: $mobile) {
+            //     font-size: 2.5rem;
+            // }
         }
 
         p {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 1.2cqi, 2rem);
             font-weight: 450;
-            padding-right: 4em;
+            padding-right: 8cqi;
             padding-bottom: 1em;
-            @media screen and (max-width: $laptop) {
-                font-size: 1.2rem;
+            @media screen and (max-width: $tablet) {
                 padding-right: 0;
             }
-            @media screen and (max-width: $mobile) {
-                font-size: 1rem;
-            }
+            // @media screen and (max-width: $mobile) {
+            //     font-size: 1rem;
+            // }
         }
 
         .btn.btn-primary,
@@ -61,14 +59,14 @@
             padding: .6em 1em;
             border-radius: 5px;
             outline: none;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 1cqi, 1.5rem);
             font-weight: 600;
             letter-spacing: 1px;
             cursor: pointer;
             box-shadow: none;
-            @media screen and (max-width: $mobile) {
-                font-size: 1.2rem;
-            }
+            // @media screen and (max-width: $mobile) {
+            //     font-size: 1.2rem;
+            // }
         }
 
         .btn.btn-primary:hover {
@@ -77,17 +75,19 @@
         }
     }
 
+
     .hero_contacts {
         display: inline-block;
         position: absolute;
-        top: 8%;
+        top: 11%;
         height: auto;
         width: 100%;
         max-width: 70em;
+        user-select: none;
         box-shadow: 0 20px 16.83px .17px rgba(0, 0, 0, .08);
-        @media screen and (max-width: $laptop) {
-            top: 20%;
-        }
+        // @media screen and (max-width: $laptop) {
+        //     top: 20%;
+        // }
 
         img {
             border-radius: 5px;
@@ -101,45 +101,59 @@
     .hero_dashboard {
         // display: inline-block;
         position: absolute;
-        top: 48%;
-        left: -14%;
+        width: 15cqh;
+        top: 50%;
+        left: 2%;
         display: inline-flex;
+        gap: .8em;
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;
-        @media screen and (max-width: $laptop) {
-            top: 65%;
-            left: -8%;
-        }
-        @media screen and (max-width: $tablet) {
-            display: none;
+        user-select: none;
+        @media screen and (max-width: $tablet ) {
+            display: none!important;
         }
 
         .hero_card {
             display: inline-flex;
-            // position: absolute;
-            // width: 22em;
-            height: 3.5em;
+            // width: 8cqi;
+            width: auto;
             box-shadow: 0 20px 16.83px .17px rgba(0, 0, 0, .1);
-            margin: 8px 0;
-            border-radius: 10px;
+            // margin: 5px 0;
+            border-radius: 8px;
+            padding: .5em;
             cursor: pointer;
             transition: 0.6s ease all;
             opacity: 0.5;
             filter: blur(1px);
             transform:
                 perspective(800px) rotateY(20deg) scale(0.9) rotateX(10deg);
-            @media screen and (max-width: $laptop) {
-                height: 2em;
-                margin: 4px 0;
+                
+            .card-img {
+                height: clamp(1em, 5em, 2em);
+                width: auto;
+                object-fit: cover;
+                padding-right: 10px;
             }
 
-            img {
-                border-radius: 6px;
-                display: inline;
-                object-fit: cover;
-                height: 100%;
-                width: 100%;
+            .card-body {
+                text-align: end;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                .card-title {
+                    font-size: clamp(.8rem, 4em, 1rem);
+                    font-weight: 800;
+                    margin-bottom: 0;
+                    white-space: nowrap;
+                }
+                .card-subtitle {
+                    font-size: clamp(.1rem, 2cqi, .9rem);
+                    font-weight: 600;
+                    padding-top: 5px;
+                    margin-bottom: 0;
+                    white-space: nowrap;
+                }
             }
 
             &:hover {
@@ -152,6 +166,10 @@
         }
 
         .hero_card:nth-child(1) {
+            // width: 15cqi;
+            img {
+                padding-right: 5em;
+            }
             &:hover {
                 box-shadow: 0 24px 20px .26px rgba(0, 0, 0, .2);
                 transform:
@@ -160,6 +178,10 @@
         }
 
         .hero_card:nth-child(2) {
+            // width: 13cqi;
+            img {
+                padding-right: 3em;
+            }
             &:hover {
                 box-shadow: 0 21px 15px .23px rgba(0, 0, 0, .2);
                 transform:
@@ -168,6 +190,7 @@
         }
 
         .hero_card:nth-child(3) {
+            // width: 11.1cqi;
             &:hover {
                 box-shadow: 0 18px 12px .20px rgba(0, 0, 0, .2);
                 transform:

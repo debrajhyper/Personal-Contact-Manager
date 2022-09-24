@@ -7,9 +7,9 @@ import { excluded } from '../../validation/validationMsg';
 import Skeleton from 'react-loading-skeleton';
 import { Card } from 'react-bootstrap';
 
-const DashboardCard = ({ image, icon, title, pretitle, subtitle, loading }) => {
+const DashboardCard = ({ image, cName, icon, title, pretitle, subtitle, loading }) => {
     return (
-        <Card className={`${title === 'text-area' && excluded.includes(subtitle) && 'hide-card'}`}>
+        <Card className={`${cName} ${title === 'text-area' && excluded.includes(subtitle) && 'hide-card'}`}>
             {
                 loading
                 ? <Skeleton borderRadius={5} width={60} height={60}/>
@@ -45,7 +45,7 @@ const DashboardCard = ({ image, icon, title, pretitle, subtitle, loading }) => {
                             ? <Card.Subtitle className='mb-2 text-muted'>
                                 { loading ? <Skeleton /> : subtitle && <div dangerouslySetInnerHTML={{ __html: subtitle }} />}
                             </Card.Subtitle>
-                            : <Card.Subtitle className='mb-2 text-muted'>
+                            : <Card.Subtitle className='text-muted'>
                                 {
                                     loading
                                     ? <Skeleton />

@@ -2,7 +2,7 @@
 @import '../../sass/variables.scss';
 
 .features {
-    padding: 12em;
+    // padding: 12em;
     position: relative;
     text-align: center;
     height: 100%;
@@ -33,8 +33,11 @@
         justify-content: center;
 
         .ring {
+            position: relative;
             border: 2px solid rgba(23, 163, 149, 0.5);
             border-radius: 50%;
+            user-select: none;
+            padding: clamp(4em, 10cqi, 6em)
         }
 
         .ring_img {
@@ -42,33 +45,51 @@
             display: inline-block;
             height: auto;
             width: 100%;
-            max-width: 4em;
+            // max-width: 4em;
+            max-width: clamp(3.5em, 8cqi, 4.5em);
             cursor: pointer;
+            isolation: isolate;
 
-            img {
-                display: inline;
-                height: 100%;
-                width: 100%;
-                // border-radius: 50%;
-                object-fit: cover;
+            .img_wrapper {
+                position: relative;
+                img {
+                    display: inline;
+                    height: 100%;
+                    width: 100%;
+                    // border-radius: 50%;
+                    object-fit: cover;
+                }
+                h5 {
+                    position: absolute;
+                    top: 0;
+                    padding: 5px 20px;
+                    margin: 0;
+                    font-size: 1rem;
+                    color: $text;
+                    background-color: $white;
+                    border-radius: 5px;
+                    box-shadow: 0 10px 15px .20px rgba(0, 0, 0, .1);
+                    // z-index: -1;
+                    // opacity: 0;
+                    transition: .4s ease all;
+                    filter: blur(5px);
+                    transform:
+                        translateY(0px) rotateY(30deg) rotateX(10deg) scale(.2)
+                }
+                h5.t-start {
+                    text-align: start;
+                }
+                h5.t-end {
+                    text-align: end;
+                }
+                h5.wide {
+                    min-width: 12em;
+                }
+                h5.wide-lg {
+                    min-width: 12.5em;
+                }
             }
-
-            h5 {
-                position: absolute;
-                background-color: $white;
-                padding: 5px 20px;
-                box-shadow: 0 10px 15px .20px rgba(0, 0, 0, .1);
-                border-radius: 5px;
-                color: $text;
-                font-size: 1rem;
-                top: 0;
-                transition: .4s ease all;
-                // opacity: 0;
-                filter: blur(5px);
-                transform:
-                    translateY(0px) rotateY(30deg) rotateX(10deg) scale(.2)
-            }
-
+            
             &:hover {
                 h5 {
                     opacity: 1;
@@ -78,16 +99,12 @@
         }
 
         .ring_1 {
-            position: absolute;
-            padding: 5em;
-
             .ring_img.one {
-                top: 34%;
-                right: 93%;
+                // top: 34%;
+                // right: 93%;
 
                 h5 {
                     right: -80%;
-                    text-align: end;
                 }
 
                 &:hover {
@@ -99,12 +116,11 @@
             }
 
             .ring_img.two {
-                bottom: 0%;
-                left: 65%;
+                // bottom: 0%;
+                // left: 65%;
 
                 h5 {
                     right: -60%;
-                    text-align: start;
                 }
 
                 &:hover {
@@ -116,34 +132,38 @@
             }
 
             .ring_2 {
-                padding: 5em;
-
-                .ring_img.one {
-                    top: 12%;
-                    right: 60%;
-
+                .ring_img.one.dob {
+                    top: -6%;
+                    right: 30%;
                     h5 {
                         right: -70%;
-                        text-align: end;
                     }
-
                     &:hover {
                         h5 {
                             transform:
-                                translateY(-60px) translateX(-50px) rotateY(-15deg) rotateX(10deg) scale(1);
+                            translateY(-52px) translateX(40px) rotateY(12deg) rotateX(12deg) scale(1);
                         }
                     }
                 }
-
-                .ring_img.two {
-                    bottom: 30%;
-                    left: 79%;
-
+                .ring_img.two.world {
+                    top: 3%;
+                    right: 0%;
                     h5 {
                         right: -30%;
-                        text-align: start;
                     }
-
+                    &:hover {
+                        h5 {
+                            transform:
+                            translateY(-52px) translateX(40px) rotateY(12deg) rotateX(12deg) scale(1);
+                        }
+                    }
+                }
+                .ring_img.three.tags {
+                    top: 3%;
+                    right: 0%;
+                    h5 {
+                        right: -30%;
+                    }
                     &:hover {
                         h5 {
                             transform:
@@ -151,21 +171,54 @@
                         }
                     }
                 }
-
-                .ring_img.three {
-                    bottom: 13%;
-                    left: 30%;
+                .ring_img.four.zodiac {
+                    top: 3%;
+                    right: 0%;
+                    h5 {
+                        right: -30%;
+                    }
+                    &:hover {
+                        h5 {
+                            transform:
+                            translateY(-50px) translateX(-50px) rotateY(-10deg) rotateX(10deg) scale(1)
+                        }
+                    }
+                }
+                .ring_img.five.address {
+                    top: 3%;
+                    right: 0%;
+                    h5 {
+                        right: -30%;
+                    }
+                    &:hover {
+                        h5 {
+                            transform:
+                            translateY(-50px) translateX(-50px) rotateY(-10deg) rotateX(10deg) scale(1)
+                        }
+                    }
+                }
+                .ring_img.six.relation {
+                    top: 3%;
+                    right: 0%;
+                    h5 {
+                        right: -30%;
+                    }
+                    &:hover {
+                        h5 {
+                            transform:
+                            translateY(-50px) translateX(-50px) rotateY(-10deg) rotateX(10deg) scale(1)
+                        }
+                    }
                 }
 
                 .ring_3 {
-                    padding: 5em;
-
                     .center_img {
                         position: relative;
                         display: inline-block;
                         height: auto;
                         width: 100%;
                         max-width: 7em;
+                        z-index: -2;
 
                         img {
                             display: inline;
@@ -176,14 +229,61 @@
                         }
                     }
 
-                    .ring_img.one {
-                        top: 30%;
-                        right: 27%;
+                    .ring_img.one.addC {
+                        top: 3%;
+                        right: 0%;
+                        h5 {
+                            right: -36%;
+                        }
+                        &:hover {
+                            h5 {
+                                transform:
+                                    translateY(-50px) 
+                                    translateX(40px) 
+                                    rotateY(10deg) 
+                                    rotateX(10deg) 
+                                    scale(1);
+                            }
+                        }
                     }
-
-                    .ring_img.two {
-                        bottom: 34%;
-                        left: 26%;
+                    .ring_img.two.searchC {
+                        top: 72%;
+                        right: 1%;
+                        h5 {
+                            right: -100%;
+                        }
+                        &:hover {
+                            h5 {
+                                transform:
+                                    translateY(-52px) translateX(40px) rotateY(12deg) rotateX(12deg) scale(1);
+                            }
+                        }
+                    }
+                    .ring_img.three.editC {
+                        top: 66%;
+                        right: 78%;
+                        h5 {
+                            right: -60%;
+                        }
+                        &:hover {
+                            h5 {
+                                transform:
+                                    translateY(-50px) translateX(-40px) rotateY(-10deg) rotateX(10deg) scale(1)
+                            }
+                        }
+                    }
+                    .ring_img.four.deleteC {
+                        top: 7%;
+                        right: 74%;
+                        h5 {
+                            right: -100%;
+                        }
+                        &:hover {
+                            h5 {
+                                transform:
+                                translateY(-50px) translateX(-50px) rotateY(-10deg) rotateX(10deg) scale(1)
+                            }
+                        }
                     }
                 }
             }
