@@ -49,26 +49,26 @@ const App = () => {
                     )
                     : (<PublicNavbar />)
                 }
-                <div className={isLoggedIn ? 'private_pages' : 'public_pages'}>
-                    <div className={isLoggedIn ? 'content position-relative' : 'position-relative'}>
-                        <ToastContainer
-                            theme='colored'
-                            position="top-right"
-                            autoClose={5000}
-                            hideProgressBar={false}
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                        />
-                        <Suspense fallback={<Loading />}>
+                <Suspense fallback={<Loading />}>
+                    <div className={isLoggedIn ? 'private_pages' : 'public_pages'}>
+                        <div className={isLoggedIn ? 'content position-relative' : 'position-relative'}>
+                            <ToastContainer
+                                theme='colored'
+                                position="top-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                            />
                             <Routes>
                                 <Route path={BASE_PATH} element={<Layout />} >
-                                        <Route path={BASE_PATH} element={<Home />} />
-                                        <Route path={ABOUT_PATH} element={<About />} />
-                                        <Route path={LOGIN_PATH} element={<Login />} />
+                                    <Route path={BASE_PATH} element={<Home />} />
+                                    <Route path={ABOUT_PATH} element={<About />} />
+                                    <Route path={LOGIN_PATH} element={<Login />} />
                                     <Route path={FORGOT_PASSWORD_PATH} element={<ForgotPassword />} />
                                     <Route path={VERIFY_OTP_PATH} element={<VerifyOTP />} />
                                     <Route path={RESET_PASSWORD_PATH} element={<ResetPassword />} />
@@ -88,9 +88,9 @@ const App = () => {
                                     <Route path={NO_MATCH_PATH} element={<NoMatchFound />} />
                                 </Route>
                             </Routes>
-                        </Suspense>
+                        </div>
                     </div>
-                </div>
+                </Suspense>
             </div>
             <div className={`slidebar-overlay ${show ? "open" : ""}`} onClick={handleSlidebar}></div>
         </>

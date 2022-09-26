@@ -35,8 +35,8 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
                     }
                 </div>
                 <div className='details'>
-                    <span className='user_name'>{ loading ? <Skeleton width={140} /> : name }</span>
-                    <p className='user_email'>{ loading ? <Skeleton width={190} /> : username }</p>
+                    <span className='user_name'>{ loading ? <Skeleton width={140} /> : name ?? '-' }</span>
+                    <p className='user_email'>{ loading ? <Skeleton width={190} /> : username ?? '-' }</p>
                 </div>
             </Nav.Link>
         </div>
@@ -52,36 +52,35 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
     )
 
     return (
-        <>
-            <Navbar collapseOnSelect expand="lg" id="navbar" className={`bg-navbar pe-md-4 p-0 ${isLoggedIn ? "ps-md-2 user-navbar" : "ps-md-4"}`} variant="dark" fixed="top">
-                <Container fluid>
-                    <Navbar.Brand className="navbar-header d-inline-flex justify-content-start align-items-center">
-                        <img alt="logo" src={favicon} className="d-inline-block align-top me-1" />{' '}
-                        {isLoggedIn
-                            ? (
-                                <>
-                                    <Link to={DASHBOARD_LINK} className="navbar-brand pcm">{authSlideBar}</Link>
-                                    <UseAnimations animation={maximizeMinimize} size={28} speed={.9} reverse={true} className="ico" onClick={handleSlidebar}
-                                        render={(eventProps, animationProps) => (
-                                            <div className={`slidebar_ico ${authSlideBar}`} {...eventProps}>
-                                                <div {...animationProps} />
-                                            </div>
-                                        )}
-                                    />
-                                </>
-                            )
-                            : <Link to={BASE_PATH} className="navbar-brand">Personal Contact Manager</Link>
-                        }
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav" className={`justify-content-end ${isLoggedIn ? "not-collapse d-inline-flex" : null}`}>
-                        <Nav className={`text-uppercase d-flex ${isLoggedIn ? "justify-content-end" : ""}`}>
-                            { isLoggedIn ? privateNav : publicNav }
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        </>
+        <Navbar collapseOnSelect expand="lg" id="navbar" className={`bg-navbar pe-md-4 p-0 ${isLoggedIn ? "ps-md-2 user-navbar" : "ps-md-4"}`} variant="dark" fixed="top">
+            <Container fluid>
+                <Navbar.Brand className="navbar-header d-inline-flex justify-content-start align-items-center">
+                    <img alt="logo" src={favicon} className="d-inline-block align-top me-1" />{' '}
+                    {
+                        isLoggedIn
+                        ? (
+                            <>
+                                <Link to={DASHBOARD_LINK} className="navbar-brand pcm">{authSlideBar}</Link>
+                                <UseAnimations animation={maximizeMinimize} size={28} speed={.9} reverse={true} className="ico" onClick={handleSlidebar}
+                                    render={(eventProps, animationProps) => (
+                                        <div className={`slidebar_ico ${authSlideBar}`} {...eventProps}>
+                                            <div {...animationProps} />
+                                        </div>
+                                    )}
+                                />
+                            </>
+                        )
+                        : <Link to={BASE_PATH} className="navbar-brand">Personal Contact Manager</Link>
+                    }
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav" className={`justify-content-end ${isLoggedIn ? "not-collapse d-inline-flex" : null}`}>
+                    <Nav className={`text-uppercase d-flex ${isLoggedIn ? "justify-content-end" : ""}`}>
+                        { isLoggedIn ? privateNav : publicNav }
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     )
 }
 
