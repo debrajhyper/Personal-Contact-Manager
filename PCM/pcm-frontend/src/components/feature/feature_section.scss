@@ -7,37 +7,59 @@
     text-align: center;
     height: 100%;
     width: 100%;
+    margin-top: 10em;
+    @media (max-width: calc(#{$laptop-l} - 300px)) {
+        margin-top: 5em;
+    }
+    @media screen and (max-width: $laptop) {
+        margin-top: 4em;
+    }
+    @media screen and (max-width: $tablet) {
+        margin-top: 35em;
+    }
+    @media screen and (max-width: calc(#{$tablet} - 200px)) {
+        margin-top: 30em;
+    }
+    @media screen and (max-width: $mobile) {
+        margin-top: 22em;
+    }
 
     .text {
         text-align: center;
-        padding: 0 15em;
+        color: $text;
+        padding: 0 clamp(2em, 8cqi, 10em);
         h1 {
-            font-size: 4rem;
+            font-size: clamp(3rem, 6cqi, 4rem);
             font-weight: 600;
-            margin-bottom: .2em;
-            color: $text;
+            margin-bottom: .4em;
         }
         p {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 2cqi, 1.5rem);
             font-weight: 450;
+            text-align: justify;
         }
     }
 
     .manage_ring {
         position: relative;
-        height: 80vh;
+        padding-top: 2em;
+        height: 100vh;
         // padding: 20em;
         /* text-align: center; */
         display: flex;
         align-items: center;
         justify-content: center;
+        @media screen and (max-width: $mobile) {
+            padding-top: 0;
+            height: 80vh;
+        }
 
         .ring {
             position: relative;
             border: 2px solid rgba(23, 163, 149, 0.5);
             border-radius: 50%;
             user-select: none;
-            padding: clamp(4em, 10cqi, 6em)
+            padding: clamp(4em, 10cqi, 6em);
         }
 
         .ring_img {
@@ -48,20 +70,24 @@
             // max-width: 4em;
             max-width: clamp(3.5em, 8cqi, 4.5em);
             cursor: pointer;
-            isolation: isolate;
 
             .img_wrapper {
                 position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                // isolation: isolate;
+
                 img {
                     display: inline;
                     height: 100%;
                     width: 100%;
-                    // border-radius: 50%;
                     object-fit: cover;
+                    z-index: 2;
                 }
                 h5 {
                     position: absolute;
-                    top: 0;
+                    top: 0%;
                     padding: 5px 20px;
                     margin: 0;
                     font-size: 1rem;
@@ -69,12 +95,11 @@
                     background-color: $white;
                     border-radius: 5px;
                     box-shadow: 0 10px 15px .20px rgba(0, 0, 0, .1);
-                    // z-index: -1;
-                    // opacity: 0;
+                    z-index: 1;
+                    opacity: 0;
                     transition: .4s ease all;
                     filter: blur(5px);
-                    transform:
-                        translateY(0px) rotateY(30deg) rotateX(10deg) scale(.2)
+                    transform: translateY(0px) rotateY(30deg) rotateX(10deg) scale(.2)
                 }
                 h5.t-start {
                     text-align: start;
@@ -94,39 +119,57 @@
                 h5 {
                     opacity: 1;
                     filter: blur(0);
+                    z-index: 3;
                 }
             }
         }
 
         .ring_1 {
-            .ring_img.one {
-                // top: 34%;
-                // right: 93%;
-
-                h5 {
-                    right: -80%;
-                }
-
+            .ring_img.one.easy2use {
+                top: 2%;
+                right: 16%;
                 &:hover {
                     h5 {
                         transform:
-                            translateY(-50px) translateX(-40px) rotateY(-15deg) rotateX(10deg) scale(1);
+                            translateY(-52px) translateX(40px) rotateY(12deg) rotateX(12deg) scale(1);
                     }
                 }
             }
-
-            .ring_img.two {
-                // bottom: 0%;
-                // left: 65%;
-
-                h5 {
-                    right: -60%;
-                }
-
+            .ring_img.two.customization {
+                top: 85%;
+                right: 16%;
                 &:hover {
                     h5 {
                         transform:
-                            translateY(-60px) translateX(50px) rotateY(10deg) rotateX(10deg) scale(1);
+                            translateY(-52px) translateX(50px) rotateY(12deg) rotateX(12deg) scale(1);
+                    }
+                }
+                @media screen and (max-width: $mobile) {
+                    &:hover {
+                        h5 {
+                            transform:
+                                translateY(-52px) translateX(20px) rotateY(12deg) rotateX(12deg) scale(1);
+                        }
+                    }
+                }
+            }
+            .ring_img.three.profile {
+                top: 84%;
+                right: 75%;
+                &:hover {
+                    h5 {
+                        transform:
+                        translateY(-50px) translateX(-30px) rotateY(-20deg) rotateX(10deg) scale(1)
+                    }
+                }
+            }
+            .ring_img.four.auth {
+                top: 0%;
+                right: 68%;
+                &:hover {
+                    h5 {
+                        transform:
+                            translateY(-50px) translateX(-40px) rotateY(-20deg) rotateX(10deg) scale(1);
                     }
                 }
             }
@@ -135,78 +178,76 @@
                 .ring_img.one.dob {
                     top: -6%;
                     right: 30%;
-                    h5 {
-                        right: -70%;
-                    }
                     &:hover {
                         h5 {
                             transform:
-                            translateY(-52px) translateX(40px) rotateY(12deg) rotateX(12deg) scale(1);
+                                translateY(-52px) translateX(50px) rotateY(12deg) rotateX(12deg) scale(1);
                         }
                     }
                 }
                 .ring_img.two.world {
-                    top: 3%;
-                    right: 0%;
-                    h5 {
-                        right: -30%;
-                    }
+                    top: 25%;
+                    right: -6%;
                     &:hover {
                         h5 {
                             transform:
-                            translateY(-52px) translateX(40px) rotateY(12deg) rotateX(12deg) scale(1);
+                                translateY(-52px) translateX(50px) rotateY(12deg) rotateX(12deg) scale(1);
+                        }
+                    }
+                    @media screen and (max-width: $mobile) {
+                        &:hover {
+                            h5 {
+                                transform:
+                                    translateY(-52px) translateX(-10px) rotateY(12deg) rotateX(12deg) scale(1);
+                            }
                         }
                     }
                 }
                 .ring_img.three.tags {
-                    top: 3%;
+                    top: 68%;
                     right: 0%;
-                    h5 {
-                        right: -30%;
-                    }
                     &:hover {
                         h5 {
                             transform:
-                                translateY(-75px) translateX(40px) rotateY(10deg) rotateX(10deg) scale(1);
+                                translateY(-45px) translateX(50px) rotateY(10deg) rotateX(10deg) scale(1);
+                        }
+                    }
+                    @media screen and (max-width: $mobile) {
+                        &:hover {
+                            h5 {
+                                transform:
+                                    translateY(-45px) translateX(10px) rotateY(10deg) rotateX(10deg) scale(1);
+                            }
                         }
                     }
                 }
                 .ring_img.four.zodiac {
-                    top: 3%;
-                    right: 0%;
-                    h5 {
-                        right: -30%;
-                    }
+                    top: 92%;
+                    right: 45%;
                     &:hover {
                         h5 {
                             transform:
-                            translateY(-50px) translateX(-50px) rotateY(-10deg) rotateX(10deg) scale(1)
+                            translateY(-50px) translateX(-50px) rotateY(-20deg) rotateX(10deg) scale(1)
                         }
                     }
                 }
                 .ring_img.five.address {
-                    top: 3%;
-                    right: 0%;
-                    h5 {
-                        right: -30%;
-                    }
+                    top: 60%;
+                    right: 88%;
                     &:hover {
                         h5 {
                             transform:
-                            translateY(-50px) translateX(-50px) rotateY(-10deg) rotateX(10deg) scale(1)
+                            translateY(-50px) translateX(-20px) rotateY(-20deg) rotateX(10deg) scale(1)
                         }
                     }
                 }
                 .ring_img.six.relation {
-                    top: 3%;
-                    right: 0%;
-                    h5 {
-                        right: -30%;
-                    }
+                    top: 15%;
+                    right: 84%;
                     &:hover {
                         h5 {
                             transform:
-                            translateY(-50px) translateX(-50px) rotateY(-10deg) rotateX(10deg) scale(1)
+                            translateY(-50px) translateX(-30px) rotateY(-20deg) rotateX(10deg) scale(1)
                         }
                     }
                 }
@@ -232,9 +273,6 @@
                     .ring_img.one.addC {
                         top: 3%;
                         right: 0%;
-                        h5 {
-                            right: -36%;
-                        }
                         &:hover {
                             h5 {
                                 transform:
@@ -249,9 +287,6 @@
                     .ring_img.two.searchC {
                         top: 72%;
                         right: 1%;
-                        h5 {
-                            right: -100%;
-                        }
                         &:hover {
                             h5 {
                                 transform:
@@ -262,26 +297,20 @@
                     .ring_img.three.editC {
                         top: 66%;
                         right: 78%;
-                        h5 {
-                            right: -60%;
-                        }
                         &:hover {
                             h5 {
                                 transform:
-                                    translateY(-50px) translateX(-40px) rotateY(-10deg) rotateX(10deg) scale(1)
+                                    translateY(-50px) translateX(-40px) rotateY(-20deg) rotateX(10deg) scale(1)
                             }
                         }
                     }
                     .ring_img.four.deleteC {
                         top: 7%;
                         right: 74%;
-                        h5 {
-                            right: -100%;
-                        }
                         &:hover {
                             h5 {
                                 transform:
-                                translateY(-50px) translateX(-50px) rotateY(-10deg) rotateX(10deg) scale(1)
+                                translateY(-50px) translateX(-50px) rotateY(-20deg) rotateX(10deg) scale(1)
                             }
                         }
                     }

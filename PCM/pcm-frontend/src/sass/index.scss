@@ -31,8 +31,13 @@ code {
     monospace;
 }
 
+.o {
+  outline: 1px solid $red;
+}
+
 .b {
-  border: 1px solid $red;
+  // background: rgba(106, 222, 106, 44%) !important;
+  background: rgba(222, 106, 106, .26) !important;
 }
 
 a {
@@ -41,6 +46,23 @@ a {
 
 a.underline:hover {
   text-decoration: underline;
+}
+
+.Toastify {
+  .Toastify__toast-container {
+    top: 5em;
+  }
+}
+
+.loader {
+  position: absolute;
+  height: 92.5vh;
+  width: 100vw;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)) ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
 }
 
 

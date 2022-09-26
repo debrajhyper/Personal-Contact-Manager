@@ -19,11 +19,9 @@ const About = () => {
     }, [isLoggedIn, navigate, from]);
     
     return (
-        <>
-            <section className="public_pages">
-                <h1>this is about page</h1>
-            </section>
-        </>
+        <div className="about">
+            <h1>this is about page</h1>
+        </div>
     )
 }
 

@@ -49,14 +49,16 @@ const HeroSection = () => {
     ]
 
     return (
-        <div className='hero'>
+        <section className='hero'>
             <Row>
                 <Col className='text'>
-                    <h1 className="font-weight-bold">Your Next Contact Management Platform</h1>
-                    <p>PCM is a web portal for collecting contacts in a very smart way. Contact management with us is very efficient and smarter.</p>
-                    <Button as={Link} to={LOGIN_LINK} className="bg-navbar" size="lg">Get Started</Button>
+                    <article>
+                        <h1 className="font-weight-bold">Your Next Contact Management Platform</h1>
+                        <p>PCM is a web portal for collecting contacts in a very smart way. Contact management with PCM is very efficient and smarter.</p>
+                        <Button as={Link} to={LOGIN_LINK} className="bg-navbar" size="lg">Get Started</Button>
+                    </article>
                 </Col>
-                <Col className='hero_container col-lg-7 col-12 py-0 position-relative'>
+                <Col className='hero_container col-lg-7 col-12 p-0 position-relative'>
                     <div className='hero_contacts'>
                         <Image src={heroContacts} alt="" />
                     </div>
@@ -72,7 +74,7 @@ const HeroSection = () => {
                     </div>
                 </Col>
             </Row>
-        </div>
+        </section>
     )
 }
 

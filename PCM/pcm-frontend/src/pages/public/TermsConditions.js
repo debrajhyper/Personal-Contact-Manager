@@ -21,7 +21,7 @@ const TermsConditions = () => {
     }, [isLoggedIn, navigate, from]);
 
     return (
-    <div className="term_cond public_pages">
+    <div className="term_cond">
         <div data-custom-class="body">
             <div align="center" style={{ textAlign: "left", lineHeight: "1" }}>
                 <div align="center" className="MsoNormal" style={{ textAlign: "left", lineHeight: "150%" }}>

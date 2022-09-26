@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { lazy } from 'react';
+import { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
@@ -8,23 +10,24 @@ import { useSelector } from 'react-redux';
 
 import Layout from './pages/Layout';
 import RequireAuth from './pages/RequireAuth';
-import Home from './pages/public/Home';
-import About from './pages/public/About';
-import Login from './pages/public/Login';
-import ForgotPassword from './pages/public/ForgotPassword';
-import VerifyOTP from './pages/public/VerifyOTP';
-import ResetPassword from './pages/public/ResetPassword';
-import Signup from './pages/public/Signup';
-import TermsConditions from './pages/public/TermsConditions';
-import NoMatchFound from './pages/NoMatchFound';
-import Dashboard from './pages/private/Dashboard';
-import ViewContacts from './pages/private/ViewContacts';
-import ViewContact from './pages/private/ViewContact';
-import EditContact from './pages/private/EditContact';
-import AddContact from './pages/private/AddContact';
-import Profile from './pages/private/Profile';
-import Settings from './pages/private/Settings';
-import { Navbar as PublicNavbar, Navbar as PrivateNavbar, SlideBar } from './components/index';
+import { Navbar as PublicNavbar, Navbar as PrivateNavbar, SlideBar, Loading } from './components/index';
+
+const Home = lazy(() => import('./pages/public/Home'));
+const About = lazy(() => import('./pages/public/About'));
+const Login = lazy(() => import('./pages/public/Login'));
+const ForgotPassword = lazy(() => import('./pages/public/ForgotPassword'));
+const VerifyOTP = lazy(() => import('./pages/public/VerifyOTP'));
+const ResetPassword = lazy(() => import('./pages/public/ResetPassword'));
+const Signup = lazy(() => import('./pages/public/Signup'));
+const TermsConditions = lazy(() => import('./pages/public/TermsConditions'));
+const NoMatchFound = lazy(() => import('./pages/NoMatchFound'));
+const Dashboard = lazy(() => import('./pages/private/Dashboard'));
+const ViewContacts = lazy(() => import('./pages/private/ViewContacts'));
+const ViewContact = lazy(() => import('./pages/private/ViewContact'));
+const EditContact = lazy(() => import('./pages/private/EditContact'));
+const AddContact = lazy(() => import('./pages/private/AddContact'));
+const Profile = lazy(() => import('./pages/private/Profile'));
+const Settings = lazy(() => import('./pages/private/Settings'));
 
 const App = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
@@ -46,8 +49,8 @@ const App = () => {
                     )
                     : (<PublicNavbar />)
                 }
-                <div className={isLoggedIn ? 'private_pages' : 'public_pages12'}>
-                    <div className={isLoggedIn ? 'content position-relative' : null}>
+                <div className={isLoggedIn ? 'private_pages' : 'public_pages'}>
+                    <div className={isLoggedIn ? 'content position-relative' : 'position-relative'}>
                         <ToastContainer
                             theme='colored'
                             position="top-right"
@@ -60,30 +63,32 @@ const App = () => {
                             draggable
                             pauseOnHover
                         />
-                        <Routes>
-                            <Route path={BASE_PATH} element={<Layout />} >
-                                <Route path={BASE_PATH} element={<Home />} />
-                                <Route path={ABOUT_PATH} element={<About />} />
-                                <Route path={LOGIN_PATH} element={<Login />} />
-                                <Route path={FORGOT_PASSWORD_PATH} element={<ForgotPassword />} />
-                                <Route path={VERIFY_OTP_PATH} element={<VerifyOTP />} />
-                                <Route path={RESET_PASSWORD_PATH} element={<ResetPassword />} />
-                                <Route path={SIGNUP_PATH} element={<Signup />} />
-                                <Route path={TERMS_CONDITIONS_PATH} element={<TermsConditions />} />
+                        <Suspense fallback={<Loading />}>
+                            <Routes>
+                                <Route path={BASE_PATH} element={<Layout />} >
+                                        <Route path={BASE_PATH} element={<Home />} />
+                                        <Route path={ABOUT_PATH} element={<About />} />
+                                        <Route path={LOGIN_PATH} element={<Login />} />
+                                    <Route path={FORGOT_PASSWORD_PATH} element={<ForgotPassword />} />
+                                    <Route path={VERIFY_OTP_PATH} element={<VerifyOTP />} />
+                                    <Route path={RESET_PASSWORD_PATH} element={<ResetPassword />} />
+                                    <Route path={SIGNUP_PATH} element={<Signup />} />
+                                    <Route path={TERMS_CONDITIONS_PATH} element={<TermsConditions />} />
 
-                                <Route element={<RequireAuth />} >
-                                    <Route path={DASHBOARD_PATH} element={<Dashboard />} />
-                                    <Route path={VIEW_CONTACTS_PATH} element={<ViewContacts />} />
-                                    <Route path={VIEW_CONTACT_CID_PATH} element={<ViewContact />} />
-                                    <Route path={EDIT_CONTACT_CID_PATH} element={<EditContact />} />
-                                    <Route path={ADD_CONTACT_PATH} element={<AddContact />} />
-                                    <Route path={PROFILE_PATH} element={<Profile />} />
-                                    <Route path={SETTINGS_PATH} element={<Settings />} />
+                                    <Route element={<RequireAuth />} >
+                                        <Route path={DASHBOARD_PATH} element={<Dashboard />} />
+                                        <Route path={VIEW_CONTACTS_PATH} element={<ViewContacts />} />
+                                        <Route path={VIEW_CONTACT_CID_PATH} element={<ViewContact />} />
+                                        <Route path={EDIT_CONTACT_CID_PATH} element={<EditContact />} />
+                                        <Route path={ADD_CONTACT_PATH} element={<AddContact />} />
+                                        <Route path={PROFILE_PATH} element={<Profile />} />
+                                        <Route path={SETTINGS_PATH} element={<Settings />} />
+                                    </Route>
+
+                                    <Route path={NO_MATCH_PATH} element={<NoMatchFound />} />
                                 </Route>
-
-                                <Route path={NO_MATCH_PATH} element={<NoMatchFound />} />
-                            </Route>
-                        </Routes>
+                            </Routes>
+                        </Suspense>
                     </div>
                 </div>
             </div>

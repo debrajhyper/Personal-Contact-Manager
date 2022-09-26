@@ -52,3 +52,5 @@ export { default as SlideBar } from './slidebar/SlideBar';
 export { default as SocialIcon } from './social-icon/SocialIcon';
 
 export { default as DisplayTable } from './table/TableDisplay';
+
+export { default as Loading } from './SuspenseLoading';
