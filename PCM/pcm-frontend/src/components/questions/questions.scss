@@ -1,0 +1,43 @@
+.questions {
+    padding: 10em;
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .accordion {
+            max-width: fit-content;
+            
+
+            .accordion-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                border-radius: 5px;
+                overflow: hidden;
+                background: rgba(0, 0, 0, .05);
+                border-left: 15px solid gray;
+                
+                .accordion-header {
+                    button {
+                        font-size: 1rem;
+                        font-weight: 800;
+                        padding: 15px;
+                    }
+                }
+                .accordion-body {
+                    position:relative;
+                    display:flex;
+                    flex-direction:row;
+                    align-content: center;
+                    justify-content: flex-start;
+                    font-weight: normal;
+                    font-size: 18px;
+                    padding: 20px;
+                    cursor:pointer;
+                }
+            }
+        }
+    }
+}

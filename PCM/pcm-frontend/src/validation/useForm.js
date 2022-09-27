@@ -153,7 +153,7 @@ const useForm = validate => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [profileEdit, currentUser, location.pathname]);
 
-    console.log('values ->', values);
+    // console.log('values ->', values);
     // console.log('touched ->', touched);
 
 

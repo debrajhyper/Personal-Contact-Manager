@@ -57,11 +57,12 @@ a.underline:hover {
 .loader {
   position: absolute;
   backdrop-filter: blur(2px);
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9;
+  transition: all .2s ease-in-out;
 
   .spinner {
     animation: rotate 2s linear infinite;
@@ -104,22 +105,37 @@ a.underline:hover {
     top: 0px;
     left: 0px;
     height: 100vh;
-    width: 99.5vw;
+    width: 100vw;
   }
 }
 
 .private_base {
   .loader {
     top: 0px;
-    left: 19.2em;
     height: 100vh;
-    width: 84.5vw;
+    width: 100vw;
     border-radius: 10px 0 0;
+    @media screen and (max-width: $tablet) {
+      left: 0px!important;
+      width: 100vw!important;
+    }
+  }
+}
+.private_base.slideBar_open  {
+  .loader {
+    left: 19.2em;
+    width: 85vw;
+  }
+}
+.private_base.slideBar_close {
+  .loader {
+    left: 4.8em;
+    width: 97vw;
   }
 }
 
 
-//////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @media (min-width: 1200px) {
   ::-webkit-scrollbar {
@@ -184,13 +200,13 @@ a.underline:hover {
 .slidebar-overlay {
   @media screen and (max-width: $tablet) {
     display: none;
-  position: fixed;
-  left: 0;
-  top: 4em;
-  z-index: 8;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    left: 0;
+    top: 4em;
+    z-index: 8;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
   }
 }
 

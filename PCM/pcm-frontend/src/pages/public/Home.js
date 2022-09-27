@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 import '../../sass/public/home.scss';
 
-import { HeroSection, FeatureSection } from '../../components/index';
+import { HeroSection, FeatureSection, Questions } from '../../components/index';
 
 const Home = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
@@ -26,6 +26,7 @@ const Home = () => {
         <div className="home">
             <HeroSection />
             <FeatureSection />
+            {/* <Questions /> */}
         </div>
     )
 }
