@@ -7,22 +7,35 @@ import { Accordion, Container } from 'react-bootstrap';
 const Questions = () => {
 
     const tabs = [
-        { id: 1, label: "UX/UI DESIGN", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum." },
-        { id: 2, label: "Tab 2", description: "Content of Tab 2" },
-        { id: 3, label: "Tab 3", description: "Content of Tab 3" }
+        { id: 1, color: "orange", label: "What is Personal Contact Manager?", description: "Personal Contact Manager is a web portal for collecting contacts in a very smart way. Contact management with PCM is very efficient and smarter. The Contact Management System has all the basic features of any management system."},
+        { id: 2, color: "green", label: "What is Personal Contact Manager", description: "Personal Contact Manager is a web portal for collecting contacts in a very smart way. Contact management with PCM is very efficient and smarter. The Contact Management System has all the basic features of any management system."},
+        { id: 3, color: "pink", label: "What is Personal Contact Manager", description: "Personal Contact Manager is a web portal for collecting contacts in a very smart way. Contact management with PCM is very efficient and smarter. The Contact Management System has all the basic features of any management system."},
+        { id: 4, color: "blue", label: "What is Personal Contact Manager", description: "Personal Contact Manager is a web portal for collecting contacts in a very smart way. Contact management with PCM is very efficient and smarter. The Contact Management System has all the basic features of any management system."},
+        { id: 5, color: "violet", label: "What is Personal Contact Manager", description: "Personal Contact Manager is a web portal for collecting contacts in a very smart way. Contact management with PCM is very efficient and smarter. The Contact Management System has all the basic features of any management system."},
+        { id: 6, color: "cyan", label: "What is Personal Contact Manager", description: "Personal Contact Manager is a web portal for collecting contacts in a very smart way. Contact management with PCM is very efficient and smarter. The Contact Management System has all the basic features of any management system."},
     ];
 
     return (
-        <section className='questions b o'>
-            <Container className='b o'>
-                <Accordion className='b o'>
+        <section className='questions'>
+            <Container>
+                <div className='text'>
+                    <h1>Frequently Asked Questions</h1>
+                    <p>Can't able to find answers you're looking for? Reach out to me.</p>
+                </div>
+                <Accordion>
                     {
-                        tabs.map(tab => (
-                            <Accordion.Item key={tab.id} eventKey={tab.id}>
-                                <Accordion.Header>{tab.label}</Accordion.Header>
-                                <Accordion.Body>{tab.description}</Accordion.Body>
-                            </Accordion.Item>
-                        ))
+                        tabs.map(tab => {
+                            const { id, color, label, description } = tab;
+                            return (
+                                <Accordion.Item key={id} eventKey={id} className={color}>
+                                    <Accordion.Header>
+                                        {label}
+                                        <span className='close'></span>
+                                    </Accordion.Header>
+                                    <Accordion.Body>{description}</Accordion.Body>
+                                </Accordion.Item>
+                            )
+                        })
                     }
                 </Accordion>
             </Container>

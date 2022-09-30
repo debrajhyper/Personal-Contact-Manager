@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ReactComponent as CurverHoverMeArrow } from '../../icons/curved_hover_me.svg';
 import centerImg from '../../img/feature-ring.png';
 import addContact from '../../img/pcm_add_contact.png';
 import editContact from '../../img/pcm_edit_profile.png';
@@ -29,6 +30,12 @@ const FeatureSection = () => {
                     <br/>
                     Furthermore, it comes with a cool pagination system, multiple select, multiple delete for contacts, and a search for your stored contacts. As you update or delete any contacts, you will be notified in each step. It is the ultimate CMS and it is still growing.
                 </p>
+            </Container>
+            <Container className='hover_me'>
+                <div className='arrow_with_text'>
+                    <h3>Hover over any Icon to see its feature.</h3>
+                    <CurverHoverMeArrow />
+                </div>
             </Container>
             <Container className='manage_ring'>
                 <div className='ring ring_1'>

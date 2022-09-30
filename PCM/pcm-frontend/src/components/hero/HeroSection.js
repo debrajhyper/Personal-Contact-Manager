@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { LOGIN_LINK } from '../../Route';
 
+import { ReactComponent as CurverHoverMeArrow } from '../../icons/curved_hover_me.svg';
 import heroContacts from '../../img/hero-contacts.png';
 import cLogin from '../../img/cLogin1.png';
 import cTimestamp from '../../img/cTimestamp.png';
@@ -55,7 +56,13 @@ const HeroSection = () => {
                     <article>
                         <h1 className="font-weight-bold">Your Next Contact Management Platform</h1>
                         <p>PCM is a web portal for collecting contacts in a very smart way. Contact management with PCM is very efficient and smarter.</p>
-                        <Button as={Link} to={LOGIN_LINK} className="bg-navbar" size="lg">Get Started</Button>
+                        <div className='hover_me'>
+                            <Button as={Link} to={LOGIN_LINK} className="bg-navbar" size="lg">Get Started</Button>
+                            <div className='arrow_with_text'>
+                                <h3>Hover me</h3>
+                                <CurverHoverMeArrow />
+                            </div>
+                        </div>
                     </article>
                 </Col>
                 <Col className='hero_container col-lg-7 col-12 p-0 position-relative'>
