@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import contactMeReducer from './contactMe/contactMeReducer';
 import authReducer from './user/auth/authReducer';
 import sendOTPReducer from './user/forgotPassword/sendOTP/sendOTPReducer';
 import verifyOTPReducer from './user/forgotPassword/verifyOTP/verifyOTPReducer';
@@ -15,6 +16,7 @@ import addContactReducer from './contact/addContact/addContactReducer';
 import updateUserReducer from './user/updateUser/updateUserReducer';
 
 const rootReducer = combineReducers({
+    contactMe: contactMeReducer,
     auth: authReducer,
     sendOTP: sendOTPReducer,
     verifyOTP: verifyOTPReducer,

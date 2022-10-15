@@ -1,11 +1,17 @@
 export { default as ButtonLink } from './buttons/ButtonLink';
 export { default as ButtonNormal } from './buttons/ButtonNormal';
 
+export { default as ContactMeSection } from './contact-me/ContactMeSection';
+
 export { default as Counter } from './counter/Counter';
 
 export { default as DashboardCard } from './dashboardCard/DashboardCard';
 
 export { default as FeatureSection } from './feature/FeatureSection';
+
+export { default as FooterMainSection } from './footer/FooterMainSection';
+export { default as FooterSocialSection } from './footer/FooterSocialSection';
+export { default as FooterSubSection } from './footer/FooterSubSection';
 
 export { default as FormAddress } from './form-fields/FormAddress';
 export { default as FormAgrement } from './form-fields/FormAgrement';
@@ -47,7 +53,7 @@ export { default as Pagination } from './pagination/Pagination';
 
 export { default as ProfilePic } from './profile-pic/ProfilePic';
 
-export { default as Questions } from './questions/Questions';
+export { default as QuestionSection } from './questions/QuestionSection';
 
 export { default as SlideBar } from './slidebar/SlideBar';
 

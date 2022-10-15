@@ -19,7 +19,7 @@
         background: rgba(59,89,152,.15);
         &:hover {
             color: #3b5998;
-        background: rgba(59,89,152,.4);
+            background: rgba(59,89,152,.4);
         }
     }
 
@@ -28,7 +28,7 @@
         background: rgba(29,161,242,.15);
         &:hover {
             color: #1da1f2;
-        background: rgba(29,161,242,.4);
+            background: rgba(29,161,242,.4);
         }
     }
 
@@ -46,7 +46,7 @@
         background: rgba(225,48,108,.15);
         &:hover {
             color: #e1306c;
-        background: rgba(225,48,108,.4);
+            background: rgba(225,48,108,.4);
         }
     }
 
@@ -55,7 +55,16 @@
         background: rgba(255,0,0,.15);
         &:hover {
             color: #ff0000;
-        background: rgba(255,0,0,.4);
+            background: rgba(255,0,0,.4);
+        }
+    }
+
+    #GitHub {
+        color: #ffffff;
+        background: rgba(22, 27, 34, .4);
+        &:hover {
+            color: #ffffff;
+            background: rgba(22, 27, 34, .8);
         }
     }
 

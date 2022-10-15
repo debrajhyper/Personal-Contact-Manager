@@ -13,5 +13,31 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+  
+    <!-- Ybug code (https://ybug.io) -->
+    <script type='text/javascript'>
+      (function() {
+          window.ybug_settings = { "id": '%REACT_APP_YBUG_ID%' };
+          var ybug = document.createElement('script'); 
+          ybug.type = 'text/javascript'; 
+          ybug.async = true;
+          ybug.src = 'https://widget.ybug.io/button/'+ window.ybug_settings.id + '.js';
+          var s = document.getElementsByTagName('script')[0]; 
+          s.parentNode.insertBefore(ybug, s);
+      })();
+    </script>
+
+    <!-- crisp code (https://crisp.chat/en) -->
+    <script type="text/javascript">
+      window.$crisp=[];
+      window.CRISP_WEBSITE_ID = '%REACT_APP_CRISP_WEBSITE_ID%';
+      (function() {
+        d=document;
+        s=d.createElement("script");
+        s.src="https://client.crisp.chat/l.js";
+        s.async=1;
+        d.getElementsByTagName("head")[0].appendChild(s);
+      })();
+    </script>
   </body>
 </html>

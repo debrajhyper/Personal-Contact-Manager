@@ -2,17 +2,17 @@ import React from 'react';
 
 import { Form, FloatingLabel } from 'react-bootstrap';
 
-const FormTextarea = ({ description, cName, functionChange }) => {
+const FormTextarea = ({ description, name, height, label, cName, functionChange }) => {
     return (
         <>
             <Form.Group className={`form-input-textarea ${cName}`} controlId="Textarea">
-                <FloatingLabel controlId="floatingTextarea2" label="Enter Additional Information">
+                <FloatingLabel controlId="floatingTextarea2" label={ label ?? "Enter Additional Information"}>
                     <Form.Control
-                        name="description"
+                        name={name ?? "description"}
                         value={description}
                         onChange={functionChange}
                         as="textarea"
-                        style={{ height: '120px' }}
+                        style={{ height: height ?? "100px" }}
                         placeholder="" />
                 </FloatingLabel>
             </Form.Group>

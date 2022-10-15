@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 
+import { EDIT_CONTACT_LINK } from '../../Route';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { viewContact, deleteContact } from '../../services/index';
 
@@ -25,7 +27,6 @@ import { DashboardCard, ProfilePic, ButtonNormal, ModalEditProfile, SocialIcon }
 import { Container, Row, Col } from 'react-bootstrap';
 import { IoCalendar, IoDisc, IoPhonePortraitOutline, IoLocationSharp } from 'react-icons/io5';
 import { FaUserEdit, FaAt, FaPhoneAlt, FaHeart, FaUserTag, FaGlobeAmericas, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaLink } from 'react-icons/fa';
-import { EDIT_CONTACT_LINK } from '../../Route';
 
 const ViewContact = () => {
     const { deleteContactSuccess } = useSelector(state => state.deleteContact);

@@ -1,4 +1,4 @@
-import { PAGINATION_REQUEST, PAGINATION_SUCCESS, PAGINATION_FAILURE } from "./paginationTypes";
+import { PAGINATION_REQUEST, PAGINATION_SUCCESS } from "./paginationTypes";
 
 export const setMinMaxPageNumberLimit = (minPageNumberLimit, maxPageNumberLimit) => {
     return dispatch => {
@@ -21,10 +21,10 @@ const paginationSuccess = (minPageNumberLimit, maxPageNumberLimit) => {
     };
 };
 
-const paginationFailure = (minPageNumberLimit, maxPageNumberLimit) => {
-    return {
-        type: PAGINATION_FAILURE,
-        minPageNumberLimit: minPageNumberLimit,
-        maxPageNumberLimit: maxPageNumberLimit
-    };
-};
+// const paginationFailure = (minPageNumberLimit, maxPageNumberLimit) => {
+//     return {
+//         type: PAGINATION_FAILURE,
+//         minPageNumberLimit: minPageNumberLimit,
+//         maxPageNumberLimit: maxPageNumberLimit
+//     };
+// };

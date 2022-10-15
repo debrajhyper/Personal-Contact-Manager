@@ -7,9 +7,6 @@
         padding: 2em;
     }
     .container {
-        // display: flex;
-        // justify-content: center;
-        // align-items: center;
         text-align: center;
         .text {
             color: $text;
@@ -22,6 +19,11 @@
             p {
                 font-size: clamp(1.2rem, 2cqi, 1.5rem);
                 font-weight: 450;
+                span {
+                    color: $base;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
             }
         }
 

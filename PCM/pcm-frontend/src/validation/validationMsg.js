@@ -13,6 +13,27 @@ const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z
 export const excluded = [null, undefined, "null", "undefined", "", " "];
 
 
+
+export const contactMeValidation = values => {
+    const errors = {};
+
+    if (!values.name) {
+        errors.name = "Please Provide Name";
+    }
+
+    if (!values.email) {
+        errors.email = "Please Provide Email Address";
+    } 
+    else if (!email_pattern.test(values.email)) {
+        errors.email = "Email Address Is Invalid";
+    }
+
+    return errors;
+};
+
+
+
+
 export const loginValidate = values => {
     const errors = {};
     const email_pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;

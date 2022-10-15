@@ -1,10 +1,10 @@
 import React from 'react';
 
-import './questions.scss';
+import './question_section.scss';
 
 import { Accordion, Container } from 'react-bootstrap';
 
-const Questions = () => {
+const QuestionSection = ({ scrollToContactSection }) => {
 
     const tabs = [
         { id: 1, color: "orange", label: "What is Personal Contact Manager?", description: "Personal Contact Manager is a web portal for collecting contacts in a very smart way. Contact management with PCM is very efficient and smarter. The Contact Management System has all the basic features of any management system."},
@@ -16,11 +16,11 @@ const Questions = () => {
     ];
 
     return (
-        <section className='questions'>
+        <section className='questions' id='Question'>
             <Container>
                 <div className='text'>
                     <h1>Frequently Asked Questions</h1>
-                    <p>Can't able to find answers you're looking for? Reach out to me.</p>
+                    <p>Can't able to find answers you're looking for? Reach out to <span onClick={scrollToContactSection}><strong>me.</strong></span></p>
                 </div>
                 <Accordion>
                     {
@@ -43,4 +43,4 @@ const Questions = () => {
     )
 }
 
-export default Questions
+export default QuestionSection

@@ -1,0 +1,35 @@
+@import '../variables.scss';
+
+.about {
+    .article {
+        margin: 4rem 0;
+        color: $text;
+        .container {
+            max-width: 60rem;
+            margin: 0 auto;
+            padding: 5em 0.5rem 5em 0.5rem;
+            display: flex;
+            align-items: center;
+            height: 100%;
+
+            .post-wrapper {
+                width: 100%;
+                h1 {
+                    font-weight: 700;
+                }
+                p {
+                    font-size: clamp(1.1rem, 2cqi, 1.2rem);
+                    font-weight: 500;
+                }
+                code {
+                    position: relative;
+                    display: block;
+                    padding: 1.4em;
+                    background: rgba(255, 255, 255, 0.8);
+                    border-radius: 10px;
+                }
+            }
+
+        }
+    }
+}

@@ -1,3 +1,4 @@
+export * from './contactMe/contactMeActions';
 export * from './user/auth/authActions';
 export * from './user/forgotPassword/sendOTP/sendOTPActions';
 export * from './user/forgotPassword/verifyOTP/verifyOTPActions';

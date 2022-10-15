@@ -1,0 +1,83 @@
+@import '../../sass/variables.scss';
+@import '../../sass/responsive.scss';
+
+.contact {
+    padding: 6em 0;
+    @media screen and (max-width: $mobile) {
+        padding: 2em 0;
+    }
+    .container {
+        padding: 0 clamp(2em, 8cqi, 10em);
+    }
+    .text {
+        span {
+            text-transform: uppercase;
+            color: $base;
+            font-size: clamp(1.2rem, 2cqi, 1.5rem);
+            font-weight: 450;
+        }
+        h1 {
+            color: $text;
+            font-size: clamp(2rem, 5cqi, 4rem);
+            font-weight: 600;
+        }
+    }
+    .row {
+        @media screen and (max-width: $tablet) {
+            padding: 0 4em;
+        }
+        @media screen and (max-width: $mobile) {
+            padding: 0;
+        }
+    }
+    .left {
+        align-self: center;
+        @media screen and (max-width: $mobile) {
+            padding: 0 6em;
+        }
+        .img_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            img {
+                height: auto;
+                max-width: 100%;
+            }
+        }
+    }
+    .right {
+        padding: 2em 0;
+        align-self: flex-end;
+        @media screen and (max-width: $tablet) {
+            padding: 0;
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 2em;
+            padding: 3em 4em;
+            background: $white;
+            box-shadow: 0 15px 16.83px 0.17px rgba(0, 0, 0, .05);
+            border-radius: 10px;
+            @media screen and (max-width: $mobile) {
+                padding: 2em;
+            }
+            .form-input {
+                @media screen and (max-width: $mobile) {
+                    grid-column-start: span 2;
+                }
+            }
+            .form-input-textarea {
+                grid-column-start: span 2;
+                textarea {
+                    border-radius: 5px;
+                }
+            }
+            .action_button {
+                grid-column-start: span 2;
+                justify-self: end;
+            }
+        }
+    }
+}
