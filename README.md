@@ -1,104 +1,87 @@
-# Personal-Contact-Manager
+# Personal Contact Manager
+
+PCM is a web portal for collecting contacts in a very smart way. Contact management with PCM is very efficient and smarter.
+
+🌐 Website : [PCM](https://pcm.vercel.app/)
 
 <br/>
 
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-<br/>
+## 📑 About the project
+We understand how important your contacts are, and we want to make it easier than ever to organize and manage them all in one place. That's why we built Personal Contact Manager, with a clean, simple design and powerful features that'll take you less than 10 seconds to get up and running.
 <br/>
 
+**Find contacts in seconds, not hours :**
+Personal Contact Manager has the most accurate search engine in the industry. You can find a contact in seconds with our built-in search engine that searches through all your contacts' information instantly.
+<br/>
 
-# Getting Started with Spring Boot
+**The most user-friendly address book :**
+We've designed Personal Contact Manager to be as intuitive as possible so you can spend less time figuring out how to use it and more time managing your contacts. All of the features are laid out in a simple manner that makes it easy for you to manage your contacts from anywhere on any device.
+<br/>
 
-### Reference Documentation
-For further reference, please consider the following sections:
+**Your data is safe with us :** 
+Your information is yours - not ours! We will never sell or share any of your private data with third parties because we respect your privacy. We believe that your personal information should be protected and kept safe at all times - because it's valuable!
+<br/>
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.4/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.4/maven-plugin/reference/html/#build-image)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#using-boot-devtools)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#boot-features-jpa-and-spring-data)
-* [Spring Security](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#boot-features-security)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.4/reference/htmlsingle/#boot-features-developing-web-applications)
+**It's all in one place :**
+Personal Contact Manager brings together all the information you need about your contacts into one easy-to-use dashboard, so you can find what you need with a single search. It also includes an address book for storing names, addresses and phone numbers of important people.
 
-### Guides
-The following guides illustrate how to use some features concretely:
+<br/>
 
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Securing a Web Application](https://spring.io/guides/gs/securing-web/)
-* [Spring Boot and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
-* [Authenticating a User with LDAP](https://spring.io/guides/gs/authenticating-ldap/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+## 👨🏻‍💻 Developer's Talk
+Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
+<span style="display:inline-flex; justify-content:space-evenly; width:20%;">
+<a href="https://twitter.com/debraj_010">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twitter/twitter-original.svg" width="20px"/>
+</a>
+<a href="https://linkedin.com/in/debraj-karmakar-275570199">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="20px"/>
+</a>
+<a href="https://fb.com/debraj.karmakar.923">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" width="20px"/>
+</a>
+<a href="https://www.behance.net/debrajkarmakar">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/behance/behance-original.svg" width="20px">
+</a>
+</span>
 
+><a href="https://pcm.vercel.app/">This</a> is a small effort from my side to build a medium scale project using React and Spring Boot technologies. The experience taught me so many things, as well as the challenges involved in overcoming problems encountered during the development phase. I consider this project very relevant to me as a full-stack developer. The people who helped me during the development phase are to be commended.
+
+<br/>
+
+## 🚀 Tech Stack
+
+**💻 Client:** HTML, Axios, Formik, React, React Toastify, React Redux, Redux, Redux Thunk, Redux Logger
+
+**✨ Styles:** SCSS, React Bootstrap, React Icons, React Useanimations, React Loading Skeleton
+
+**🔌 Service:** EmailJs, Tinymce, Ybug, crisp, Uploadcare
+
+**🔥 Server:** Java, Spring Boot, Spring Security, JWT, Hibernate, Lombok, Mail
+
+**📂 Database:** MySql
+
+<br/>
+
+## 🏃🏻‍♂️ Run Locally
+
+Clone the project
+```
+  $git clone https://github.com/debrajhyper/Personal-Contact-Manager
+```
+
+Go to the project directory
+```
+  cd PCM
+```
+
+Install dependencies
+```
+  $npm install
+```
+
+Start the server
+```
+  $npm start
+```
+
+<br/>

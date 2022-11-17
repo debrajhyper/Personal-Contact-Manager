@@ -14,7 +14,7 @@
     "jwt-decode": "^3.1.2",
     "markdown-to-jsx": "^7.1.7",
     "moment": "^2.29.3",
-    "node-sass": "^7.0.1",
+    "node-sass": "^8.0.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",
     "react-dom": "^17.0.2",
