@@ -7,6 +7,7 @@ import javax.mail.SendFailedException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pcm.Constant.AppConstant;
@@ -32,6 +33,9 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	
 	@Override
@@ -152,7 +156,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 			User sessionUser = this.userRepositoryService.findByUserName(email);
 			System.out.println("DB USER -> ID : " + sessionUser.getId());
 
-			sessionUser.setPassword(password);
+			sessionUser.setPassword(this.bCryptPasswordEncoder.encode(password));
 			this.userRepository.save(sessionUser);
 			
 			System.out.println("SUCCESS =================== > PASSWORD RESET SUCCESSFULLY");
