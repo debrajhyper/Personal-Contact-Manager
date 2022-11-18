@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useFormik } from 'formik';
 
 import { DASHBOARD_LINK, FORGOT_PASSWORD_LINK, SIGNUP_LINK } from '../../Route';
@@ -16,6 +17,7 @@ import { FormEmail, FormPassword, ButtonNormal } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
 const Login = () => {
+    useDocumentTitle('Login');
     const { loading, isLoggedIn, logInError } = useSelector(state => state.auth);
     const { resetPasswordMessage } = useSelector(state => state.resetPassword);
     

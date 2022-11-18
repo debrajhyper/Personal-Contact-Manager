@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useFormik } from 'formik';
 
 import { DASHBOARD_LINK, LOGIN_LINK } from '../../Route';
@@ -19,6 +20,7 @@ import { FormName, FormEmail, FormPassword, FormTextarea, FormAgrement, ButtonNo
 import { Container, Image, Form, Row, Col, Alert } from 'react-bootstrap';
 
 const Signup = () => {
+    useDocumentTitle('Signup');
     const { isLoggedIn } = useSelector(state => state.auth);
     const { loading, isRegistered, registerError } = useSelector(state => state.register);
 

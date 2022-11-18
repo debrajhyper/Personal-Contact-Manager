@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { toast } from 'react-toastify';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +14,7 @@ import { Header, SearchBar, DisplayTable, Pagination } from '../../components/in
 import { Container, Row, Col } from 'react-bootstrap';
 
 const ViewContacts = () => {
+    useDocumentTitle('Contacts');
     const { contacts, page } = useSelector(state => state.viewContacts);
     const { deleteContactSuccess, allDeleted } = useSelector(state => state.deleteContact);
     const { pageNumberLimit, minPageNumberLimit, maxPageNumberLimit } = useSelector(state => state.pagination);

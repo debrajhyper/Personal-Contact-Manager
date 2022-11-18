@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useFormik } from 'formik';
 
 import { DASHBOARD_LINK } from '../../Route';
@@ -13,6 +14,7 @@ import { FormOTP, ButtonNormal, Counter } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
 const VerifyOTP = () => {
+    useDocumentTitle('Verify OTP');
     const { isLoggedIn } = useSelector(state => state.auth);
     const { sendOTPMessage, generatedOTP, email, maxInActiveInterval } = useSelector(state => state.sendOTP);
     const { loading, verifiedOTP, verifyOTPError } = useSelector(state => state.verifyOTP);

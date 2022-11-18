@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 import AddContactImg from '../../img/pcm_add_contact.png';
 
@@ -7,6 +8,7 @@ import { Header } from '../../components/index';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const AddContact = () => {
+    useDocumentTitle('Add Contact');
     return (
         <Container fluid className='add-contact'>
             <Header image={AddContactImg} text={'Add Contact'} />

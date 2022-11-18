@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import moment from 'moment';
 
 import { LOGIN_LINK } from '../../Route';
@@ -19,6 +20,7 @@ import { Container, Image, Row, Col } from 'react-bootstrap';
 import { FaUserCheck, FaSignInAlt, FaAddressBook, FaUserShield } from 'react-icons/fa';
 
 const Dashboard = () => {
+    useDocumentTitle('Dashboard');
     const { isLoggedIn } = useSelector(state => state.auth);
     const { loading, currentUser } = useSelector(state => state.currentUser);
     const { name, connectedWithUS, lastLogin, totalContacts, authorities } = currentUser;

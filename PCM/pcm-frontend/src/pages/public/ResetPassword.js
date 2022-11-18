@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useFormik } from 'formik';
 
 import { DASHBOARD_LINK, FORGOT_PASSWORD_LINK, LOGIN_LINK } from '../../Route';
@@ -13,6 +14,7 @@ import { ButtonNormal, FormPassword } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
 const ResetPassword = () => {
+    useDocumentTitle('Reset Password');
     const { isLoggedIn } = useSelector(state => state.auth);
     const { email } = useSelector(state => state.sendOTP);
     const { verifiedOTP } = useSelector(state => state.verifyOTP);

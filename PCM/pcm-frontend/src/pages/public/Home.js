@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 import { DASHBOARD_LINK } from '../../Route';
 
@@ -10,6 +11,7 @@ import '../../sass/public/home.scss';
 import { HeroSection, FeatureSection, QuestionSection, ContactMeSection, FooterMainSection, FooterSubSection, FooterSocialSection } from '../../components/index';
 
 const Home = () => {
+    useDocumentTitle('', 'Your Next Contact Management Platform');
     const { isLoggedIn } = useSelector(state => state.auth);
 
     const navigate = useNavigate();

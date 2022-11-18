@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 import { EDIT_CONTACT_LINK } from '../../Route';
 
@@ -176,6 +177,7 @@ const ViewContact = () => {
         }
     ]
 
+    useDocumentTitle(`${name ?? 'Contact'}`);
     return (
         <Container fluid className="profile text-center">
             <div className='header d-inline-block'>

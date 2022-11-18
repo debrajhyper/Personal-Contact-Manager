@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUser } from '../../services/index';
@@ -133,6 +134,7 @@ const Profile = () => {
         },
     ]
 
+    useDocumentTitle(`${name ?? 'Profile'}`);
     return (
         <Container fluid className="profile text-center">
             <div className='header d-inline-block'>

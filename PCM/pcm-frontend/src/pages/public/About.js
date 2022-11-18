@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import Markdown from 'markdown-to-jsx';
 
 import { DASHBOARD_LINK } from "../../Route";
@@ -9,6 +10,7 @@ import { useSelector } from 'react-redux';
 import '../../sass/public/about.scss';
 
 const About = () => {
+    useDocumentTitle('About');
     const { isLoggedIn } = useSelector(state => state.auth);
     const [markdown, setMarkdown] = useState('');
 

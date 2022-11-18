@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { viewContact } from '../../services/index';
@@ -11,6 +12,7 @@ import { Header } from '../../components/index';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const EditContact = () => {
+    useDocumentTitle('Edit Contact');
     const { updateContactSuccess } = useSelector(state => state.updateContact);
 
     const dispatch = useDispatch();
