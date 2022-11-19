@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { lazy } from 'react';
 import { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { inject } from '@vercel/analytics';
 
 import { ABOUT_PATH, ADD_CONTACT_PATH, BASE_PATH, DASHBOARD_PATH, EDIT_CONTACT_CID_PATH, FORGOT_PASSWORD_PATH, LOGIN_PATH, NO_MATCH_PATH, PROFILE_PATH, RESET_PASSWORD_PATH, SETTINGS_PATH, SIGNUP_PATH, TERMS_CONDITIONS_PATH, VERIFY_OTP_PATH, VIEW_CONTACTS_PATH, VIEW_CONTACT_CID_PATH } from './Route';
 
@@ -36,6 +37,13 @@ const App = () => {
     const handleSlidebar = () => {
         setShow(!show);
     };
+
+    useEffect(() => {
+        inject();
+        
+        return () => inject();
+    }, []);
+    
 
     return (
         <>
