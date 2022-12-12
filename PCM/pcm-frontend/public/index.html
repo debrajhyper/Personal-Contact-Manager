@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Web site created using create-react-app"/>
-
+    
     <!-- Primary Meta Tags -->
     <meta name="title" content="Personal Contact Manager">
     <meta name="meta-title" content="PCM">
-    <meta name="description" content="Your Next Contact Management Platform.">
+    <meta name="description" content="Your Next Contact Management Platform for collecting contacts in a very smart way.">
     <meta name="keywords" content="pcm, contact, google dialer, address book, contact book, phone number, UI, UX, template, react, JavaScript, es6, api, json, pagination, searching, sorting, filtering, delete, edit, select, checkbox">
     <meta name="language" content="English">
     <meta name="robots" content= "index, follow">
@@ -20,14 +19,14 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pcm.vercel.app/">
     <meta property="og:title" content="Personal Contact Manager">
-    <meta property="og:description" content="Your Next Contact Management Platform.">
+    <meta property="og:description" content="Your Next Contact Management Platform for collecting contacts in a very smart way.">
     <meta property="og:image" content="https://pcm.vercel.app/template.png">
-    <meta property="og:site_name" content="pcm">
+    <meta property="og:site_name" content="Personal Contact Manager">
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://pcm.vercel.app/">
     <meta property="twitter:title" content="Personal Contact Manager">
-    <meta property="twitter:description" content="Your Next Contact Management Platform.">
+    <meta property="twitter:description" content="Your Next Contact Management Platform for collecting contacts in a very smart way.">
     <meta property="twitter:image" content="https://pcm.vercel.app/template.png">
     <meta name="twitter:site" content="@debraj_010">
     <meta name="twitter:creator" content="@debraj_010">
@@ -42,19 +41,28 @@
     <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> -->
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>PCM</title>
+    <title>Personal Contact Manager</title>
+
     <!-- Hotjar Tracking Code for Personal Contact Manager -->
     <script>
       (function(h,o,t,j,a,r) {
           h.hj=h.hj || function() {
             (h.hj.q=h.hj.q||[]).push(arguments)
           };
-          h._hjSettings={ hjid:3204394, hjsv:6 };
+          h._hjSettings={ hjid:'%REACT_APP_HOTJAR_ID%', hjsv:6 };
           a=o.getElementsByTagName('head')[0];
           r=o.createElement('script');r.async=1;
           r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
           a.appendChild(r);
       })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GOOGLE_TAG_MEASUREMENT_ID%"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '%REACT_APP_GOOGLE_TAG_MEASUREMENT_ID%');
     </script>
   </head>
   <body>
@@ -73,7 +81,6 @@
           s.parentNode.insertBefore(ybug, s);
       })();
     </script>
-
     <!-- crisp code (https://crisp.chat/en) -->
     <script type="text/javascript">
       window.$crisp=[];
@@ -85,16 +92,6 @@
         s.async=1;
         d.getElementsByTagName("head")[0].appendChild(s);
       })();
-    </script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GOOGLE_TAG_MEASUREMENT_ID%"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', '%REACT_APP_GOOGLE_TAG_MEASUREMENT_ID%');
     </script>
   </body>
 </html>
