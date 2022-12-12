@@ -48,6 +48,9 @@ Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
 
 <br/>
 
+    Upcming Features
+      - Oauth 2 login with social accounts 
+
 ## 🚀 Tech Stack
 
 **💻 Client:** HTML, Axios, Formik, React, React Toastify, React Redux, Redux, Redux Thunk, Redux Logger
@@ -56,7 +59,11 @@ Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
 
 **🔌 Service:** EmailJs, Tinymce, Ybug, crisp, Uploadcare
 
-**🔥 Server:** Java, Spring Boot, Spring Security, JWT, Hibernate, Lombok, Mail
+**🔐 Security:** Spring Boot Security, Password Encoder, JSON Web Tokens
+
+**🔥 Server:** Java, Spring Boot, Hibernate, Lombok, Mail, JavaX, JPA
+
+**🧲 Validation:** Hibernate Validator Engine, Bean Validation API
 
 **📂 Database:** MySql
 
