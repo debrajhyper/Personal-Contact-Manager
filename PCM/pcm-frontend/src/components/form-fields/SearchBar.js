@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import { VIEW_CONTACTS_LINK } from '../../Route';
+import { VIEW_CONTACT_LINK } from '../../Route';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { searchContact } from '../../services/index';
@@ -73,7 +73,7 @@ const SearchBar = ({ cName, hasTouched, hasError, Mandatory }) => {
                         ? searchedContacts.map((contact, index) => {
                             const { cid, name, image, mobileNumber } = contact;
                             return (
-                                <Link to={VIEW_CONTACTS_LINK + cid} id={cid} key={index} className="list-group-item">
+                                <Link to={VIEW_CONTACT_LINK + cid} id={cid} key={index} className="list-group-item">
                                     <div className="item">
                                         <div className='img-border me-3'>
                                             <Image src={image} className="profile_pic" alt="" />
