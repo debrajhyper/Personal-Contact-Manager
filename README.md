@@ -68,6 +68,21 @@ Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
 
 **📂 Database:** MySql
 
+
+## ⌛ Hosting
+
+**💻 Client:** [vercel](https://vercel.com/debrajhyper/pcm-client)
+
+**👏🏻 Feedback:** [ybug feedback](https://ybug.io/dashboard/projects/2x6n422zws7k9k2rvttq/reports)
+
+**🙂 Chat:** [crisp chat](https://app.crisp.chat/website/edbf0bc6-2c54-4ca8-82d7-5dc4eb967c09/inbox)
+
+**🔥 Server:** [render](https://dashboard.render.com/web/srv-ch4gobm4dad97s327np0)
+
+**🔍 Files Server:** [uploadcare](https://app.uploadcare.com/projects/42f221173ddffa4c7a53/files/fa2bc038-fd07-4096-adfc-02c2c54ac46b?limit=100&ordering=-datetime_uploaded)
+
+**📂 Database:** [planetscale](https://app.planetscale.com/debrajkarmakar010/pcm)
+
 <br/>
 
 ## 🏃🏻‍♂️ Run Locally
