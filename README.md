@@ -29,6 +29,52 @@ Personal Contact Manager brings together all the information you need about your
 
 <br/>
 
+## Key Features of Personal Contact Manager:
+
+### 1. Secure JWT Authentication:
+    Implements secure login with JWT authentication for enhanced user data protection.
+### 2. Robust Password Encryption:
+    Utilizes bcrypt for password encryption, ensuring the secure storage of user credentials.
+### 3. Role-Based Authentications:
+    Introduces role-based authentications for users and admins, providing tailored access and permissions.
+### 4. Efficient Contact Management:
+    Displays all contacts in a simple yet effective tabular format for easy navigation.
+### 5. Quick Search Functionality:
+    Offers one-click searching for contacts, enhancing accessibility and user convenience.
+### 6. Flexible Contact Deletion:
+    Enables users to delete single, multiple, or all listed contacts as per their requirements.
+### 7. Pagination for Improved Accessibility:
+    Implements pagination for faster load times and enhanced contact accessibility.
+### 8. Isolated Contact Association:
+    Ensures proper isolation of contacts, associating each contact with its respective user.
+### 9. Country Flag Identification:
+    Enhances user experience with country flags and images for quick identification.
+### 10. Loading Animation:
+    Features a visually appealing skeleton loading animation to enhance the user experience during data loading.
+### 11. Comprehensive Contact Form:
+    Incorporates a complex form with support for various data types, including images, texts, numbers, dates, arrays, 
+    and a rich text editor for detailed contact information.
+### 12. Independent Image Storage Servers:
+    Utilizes storage servers to independently store all contact images for optimized performance.
+### 13. Forgot Password Section:
+    Includes a secure forgot password section with email verification and OTP for account recovery.
+### 14. Seamless Log Out:
+    Facilitates a seamless log-out process with the addition of last logout details for enhanced security.
+
+
+## Key Advantages
+
+### - Quick Search Capability:
+    Find contacts in seconds using the industry's most accurate search engine.
+### - User-Friendly Design:
+    Intuitively designed for easy navigation and management of contacts on any device.
+### - Privacy Assurance:
+    Your data is secure, and we prioritize your privacy by never selling or sharing your information with third parties.
+### - All-in-One Dashboard:
+    Brings together comprehensive contact information in one easy-to-use dashboard for a seamless user experience.
+
+<br/>
+
 ## 👨🏻‍💻 Developer's Talk
 Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
 <span style="display:inline-flex; justify-content:space-evenly; width:20%;">
