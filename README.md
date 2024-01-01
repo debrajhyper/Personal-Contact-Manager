@@ -36,7 +36,7 @@ Personal Contact Manager brings together all the information you need about your
 ### 2. Robust Password Encryption:
     Utilizes bcrypt for password encryption, ensuring the secure storage of user credentials.
 ### 3. Role-Based Authentications:
-    Introduces role-based authentications for users and admins, providing tailored access and permissions.
+    Introduces role-based authentications for users & admins, providing tailored access and permissions.
 ### 4. Efficient Contact Management:
     Displays all contacts in a simple yet effective tabular format for easy navigation.
 ### 5. Quick Search Functionality:
@@ -50,10 +50,12 @@ Personal Contact Manager brings together all the information you need about your
 ### 9. Country Flag Identification:
     Enhances user experience with country flags and images for quick identification.
 ### 10. Loading Animation:
-    Features a visually appealing skeleton loading animation to enhance the user experience during data loading.
+    Features a visually appealing skeleton loading animation to enhance the user experience 
+    during data loading.
 ### 11. Comprehensive Contact Form:
-    Incorporates a complex form with support for various data types, including images, texts, numbers, dates, arrays, 
-    and a rich text editor for detailed contact information.
+    Incorporates a complex form with support for various data types, 
+    including images, texts, numbers, dates, arrays, and a rich text editor 
+    for detailed contact information.
 ### 12. Independent Image Storage Servers:
     Utilizes storage servers to independently store all contact images for optimized performance.
 ### 13. Forgot Password Section:
@@ -69,9 +71,11 @@ Personal Contact Manager brings together all the information you need about your
 ### - User-Friendly Design:
     Intuitively designed for easy navigation and management of contacts on any device.
 ### - Privacy Assurance:
-    Your data is secure, and we prioritize your privacy by never selling or sharing your information with third parties.
+    Your data is secure, and we prioritize your privacy by never selling or 
+    sharing your information with third parties.
 ### - All-in-One Dashboard:
-    Brings together comprehensive contact information in one easy-to-use dashboard for a seamless user experience.
+    Brings together comprehensive contact information in one easy-to-use dashboard 
+    for a seamless user experience.
 
 <br/>
 
