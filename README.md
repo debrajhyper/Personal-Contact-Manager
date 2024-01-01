@@ -61,7 +61,7 @@ Personal Contact Manager brings together all the information you need about your
 ### 13. Forgot Password Section:
     Includes a secure forgot password section with email verification and OTP for account recovery.
 ### 14. Seamless Log Out:
-    Facilitates a seamless log-out process with the addition of last logout details for enhanced security.
+    Facilitates a log-out process with the addition of last logout details for enhanced security.
 
 
 ## Key Advantages
