@@ -39,7 +39,7 @@ Personal Contact Manager brings together all the information you need about your
     Introduces role-based authentications for users & admins, providing tailored access and permissions.
 ### 4. Efficient Contact Management:
     Displays all contacts in a simple yet effective tabular format for easy navigation.
-### 5. Quick Search Functionality:
+### 5. Debounce Quick Search Functionality:
     Offers one-click searching for contacts, enhancing accessibility and user convenience.
 ### 6. Flexible Contact Deletion:
     Enables users to delete single, multiple, or all listed contacts as per their requirements.
@@ -124,6 +124,8 @@ Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
 
 **💻 Client:** [vercel](https://vercel.com/debrajhyper/pcm-client)
 
+**📧 Email Service:** [emailjs](https://dashboard.emailjs.com/admin/statistics)
+
 **👏🏻 Feedback:** [ybug feedback](https://ybug.io/dashboard/projects/2x6n422zws7k9k2rvttq/reports)
 
 **🙂 Chat:** [crisp chat](https://app.crisp.chat/website/edbf0bc6-2c54-4ca8-82d7-5dc4eb967c09/inbox)
@@ -133,6 +135,10 @@ Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
 **🔍 Files Server:** [uploadcare](https://app.uploadcare.com/projects/42f221173ddffa4c7a53/files/fa2bc038-fd07-4096-adfc-02c2c54ac46b?limit=100&ordering=-datetime_uploaded)
 
 **📂 Database:** [planetscale](https://app.planetscale.com/debrajkarmakar010/pcm)
+
+**📈 Monitoring:** [Monitoring Services](https://rp60xbp0.status.cron-job.org/)
+
+**➰ Corn Jobs:** [corn jobs](https://console.cron-job.org/dashboard)
 
 <br/>
 
