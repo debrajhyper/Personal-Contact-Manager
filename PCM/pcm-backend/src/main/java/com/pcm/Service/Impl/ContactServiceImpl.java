@@ -75,7 +75,7 @@ public class ContactServiceImpl implements ContactService {
 			
 			System.out.println("PROFILE PIC DATA -> " + profilePic);
 			this.imageUploader.ImageUploaderProfilePic(profilePic);
-			this.imageUploader.uploadImage(contact);
+			this.imageUploader.uploadImage(contact);				
 			
 			if(contact.getDateOfBirth() != null && !contact.getDateOfBirth().isEmpty()) {
 				DateValidator validator = new DateValidator(AppConstant.DATE_FORMATER);

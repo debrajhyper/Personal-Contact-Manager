@@ -12,7 +12,7 @@ export const updateContact = contact => {
         // let formObject = Object.fromEntries(data.entries());
         // console.log('SENDING CONTACT DATA -> ', formObject);
 
-        axiosPrivate.post(UPDATE_CONTACT_URL, data, config)
+        axiosPrivate.put(UPDATE_CONTACT_URL, data, config)
         .then(response => {
             dispatch(updateContactSuccess(response?.data));
             setTimeout(() => {

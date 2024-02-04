@@ -3,6 +3,7 @@ package com.pcm.Controller;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.validation.Valid;
 
@@ -13,16 +14,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pcm.Constant.DemoUserConstant;
 import com.pcm.Constant.MessageConstant;
 import com.pcm.Constant.RoleConstant;
 import com.pcm.Model.Role;
 import com.pcm.Model.User;
 import com.pcm.Model.UserRole;
+import com.pcm.Service.DemoUserService;
 import com.pcm.Service.UserService;
 
 
@@ -32,6 +36,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private DemoUserService demoUserService;
 	
 	
 	@PostMapping("/register")
@@ -71,7 +78,7 @@ public class UserController {
 	
 	
 	
-	@PostMapping("/update-user")
+	@PutMapping("/update-user")
 	public ResponseEntity<String> updateUser(@Valid @ModelAttribute User user, @RequestParam(value = "profilePic", required = false) MultipartFile profilePic, Principal principal) throws Exception {
 		System.out.println("======================================================   UPDATE USER   =======================================================");
 		
@@ -88,8 +95,14 @@ public class UserController {
 	public ResponseEntity<String> logoutUser(Principal principal) throws Exception {
 		System.out.println("======================================================   USER LOGGED OUT   =======================================================");
 
-		String email = principal.getName();
-		this.userService.logoutUser(email);
+		String userEmail = principal.getName();
+		
+		Pattern pattern = Pattern.compile(DemoUserConstant.DEMO_USER_EMAIL_REGEX);
+		if(pattern.matcher(userEmail).matches()) {
+			this.demoUserService.removeDemotUserWithSession(userEmail);
+		} else {
+			this.userService.logoutUser(userEmail);			
+		}
 		
 		return new ResponseEntity<String>(MessageConstant.LOGOUT_USER_SUCCESS, HttpStatus.OK);
 	}

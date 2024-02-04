@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pcm.Config.JwtUtils;
 import com.pcm.Config.UserDetailsServiceImpl;
+import com.pcm.Constant.DemoUserConstant;
 import com.pcm.Constant.ExceptionConstant;
 import com.pcm.Model.JwtRequest;
 import com.pcm.Model.JwtResponse;
+import com.pcm.Model.User;
+import com.pcm.Service.DemoUserService;
 
 
 @CrossOrigin("*")
@@ -34,24 +37,31 @@ public class AuthenticateController {
 	@Autowired
 	private JwtUtils jwtUtils;
 	
+	@Autowired
+	private DemoUserService demoUserService;
+	
 	
 	//GENERATE TOKEN
 	@PostMapping("/generate-token")
 	public ResponseEntity<JwtResponse> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {		
 		try {
 			System.out.println("======================================================   USER LOGGED IN   =======================================================");
+			String userEmail = jwtRequest.getUsername();
+			String userPassword = jwtRequest.getPassword();
 			
 			if(jwtRequest.getUsername() == "" || jwtRequest.getPassword() == "") {
 				throw new BadCredentialsException("Missing email address or password");
 			}
 			
-//			this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
-			UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
-			authenticate(jwtRequest.getUsername(), jwtRequest.getPassword());
+			if(userEmail.equals(DemoUserConstant.DEMO_USER_EMAIL) && userPassword.equals(DemoUserConstant.DEMO_USER_PASSWORD)) {
+				User demoUser = demoUserService.createDemoUser();
+				userEmail = demoUser.getEmail();
+			}
+			
+			UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(userEmail);
+			authenticate(userEmail, userPassword);
 			
 			String token = this.jwtUtils.generateToken(userDetails);
-			
-//			return ResponseEntity.ok(new JwtResponse(token));
 			return new ResponseEntity<JwtResponse>(new JwtResponse(token), HttpStatus.OK);
 		}
 		catch (UsernameNotFoundException e) {

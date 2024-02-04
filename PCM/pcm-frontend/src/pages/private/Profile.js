@@ -11,7 +11,7 @@ import cDob from '../../img/cDob.png';
 import cMobileNo from '../../img/cMobileNo.png';
 import '../../sass/private/Profile.scss';
 
-import { excluded } from '../../validation/validationMsg';
+import { demoRegEx, excluded } from '../../validation/validationMsg';
 
 import Skeleton from 'react-loading-skeleton';
 import { CountryFlag } from '../../components/misc/FlagSelect';
@@ -37,7 +37,7 @@ const Profile = () => {
             handleModalEditProfile();
             dispatch(getCurrentUser());
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [updateUserSuccess, dispatch]);
 
     const { id, email, image, enabled, name, authorities, country, dateOfBirth, mobileNumber, zodiacSign, socialLinks, description } = currentUser
@@ -89,7 +89,7 @@ const Profile = () => {
             image: cEmail,
             icon: <FaAt />,
             title: 'Email',
-            subtitle: email
+            subtitle: demoRegEx.test(email) ? email.split("_")[0] + email.split("_")[2] : email
         },
         {
             spaceLg: 4,
@@ -139,17 +139,17 @@ const Profile = () => {
         <Container fluid className="profile text-center">
             <div className='header d-inline-block'>
                 <ProfilePic image={image} outline={true} active={enabled} isUserProfile={true} loading={loading} />
-                <h4 className="text pt-2">{ loading ? <Skeleton width={300} /> : name }</h4>
+                <h4 className="text pt-2">{loading ? <Skeleton width={300} /> : name}</h4>
             </div>
 
             <Row className='social-link-row'>
                 <div className='content'>
                     {
                         SocialDetails.map((social, index) => {
-                            return ( 
-                                loading 
-                                ? <Skeleton circle height={40} width={40} key={index}/>
-                                : !excluded?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} loading={loading} />
+                            return (
+                                loading
+                                    ? <Skeleton circle height={40} width={40} key={index} />
+                                    : !excluded?.includes(social.link) && <SocialIcon key={index} icon={social.icon} title={social.title} link={social.link} loading={loading} />
                             )
                         })
                     }
@@ -172,7 +172,11 @@ const Profile = () => {
             </div>
 
             <div className='action_button center pb-5'>
-                <ButtonNormal name='edit_profile' id='EditProfile' cName='fill mt-sm-4 mt-2 px-4' value='Edit profile' action={handleModalEditProfile} />
+                {
+                    demoRegEx.test(email)
+                        ? null
+                        : <ButtonNormal name='edit_profile' id='EditProfile' cName='fill mt-sm-4 mt-2 px-4' value='Edit profile' action={handleModalEditProfile} />
+                }
             </div>
 
             <ModalEditProfile modalEditProfile={modalEditProfile} handleModalEditProfile={handleModalEditProfile} />

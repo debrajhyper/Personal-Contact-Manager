@@ -11,7 +11,7 @@ const profile_pic_type = /\.(jpg|jpeg|png|gif)$/;
 const url_pattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)$/gm
 
 export const excluded = [null, undefined, "null", "undefined", "", " "];
-
+export const demoRegEx = /^demo_.*_@pcm\.com$/;
 
 
 export const contactMeValidation = values => {

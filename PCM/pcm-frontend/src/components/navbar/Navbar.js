@@ -13,6 +13,7 @@ import UseAnimations from 'react-useanimations';
 import maximizeMinimize from 'react-useanimations/lib/maximizeMinimize';
 
 import Skeleton from 'react-loading-skeleton';
+import { demoRegEx } from '../../validation/validationMsg';
 import { Navbar, Container, Nav, Image } from 'react-bootstrap';
 import { BsFillHouseFill } from "react-icons/bs";
 import { FaAddressCard, FaSignInAlt, FaUserPlus } from "react-icons/fa";
@@ -23,6 +24,7 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
     const { image, name, username } = currentUser;
 
     const authSlideBar = (slidebar ? "PCM" : "");
+    const userEmail = demoRegEx.test(username) ? username.split("_")[0] + username.split("_")[2] : username
     
     const privateNav = (
         <div className="auth-nav">
@@ -36,7 +38,7 @@ const PublicNavbar = ({ slidebar, handleSlidebar }) => {
                 </div>
                 <div className='details'>
                     <span className='user_name'>{ loading ? <Skeleton width={140} /> : name ?? '-' }</span>
-                    <p className='user_email'>{ loading ? <Skeleton width={190} /> : username ?? '-' }</p>
+                    <p className='user_email'>{ loading ? <Skeleton width={190} /> : userEmail ?? '-' }</p>
                 </div>
             </Nav.Link>
         </div>

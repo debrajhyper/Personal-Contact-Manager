@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -118,7 +119,7 @@ public class ContactController {
 	
 	
 	
-	@PostMapping("/update-contact")
+	@PutMapping("/update-contact")
 	public ResponseEntity<String> updateContact(@Valid @ModelAttribute Contact contact, @RequestParam(value = "profilePic", required = false) MultipartFile profilePic, Principal principal) throws Exception {
 		System.out.println("======================================================   UPDATE CONTACT   =======================================================");
 		
