@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useFormik } from 'formik';
@@ -11,7 +11,7 @@ import { authenticationUser, clearResetPassword, clearSendOTP, clearVerifyOTP } 
 import '../../sass/public/login.scss';
 import '../../components/form-fields/form_fields.scss';
 
-import { loginValidate } from '../../validation/validationMsg';
+import { loginValidate, excluded } from '../../validation/validationMsg';
 
 import { FormEmail, FormPassword, ButtonNormal } from '../../components/index';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
@@ -20,6 +20,7 @@ const Login = () => {
     useDocumentTitle('Login');
     const { loading, isLoggedIn, logInError } = useSelector(state => state.auth);
     const { resetPasswordMessage } = useSelector(state => state.resetPassword);
+    const [loadingType, setLoadingType] = useState("");
     
     const validate = loginValidate;
     const dispatch = useDispatch();
@@ -34,9 +35,19 @@ const Login = () => {
         },
         validate,
         onSubmit: values => {
+            setLoadingType("NOT_DEMO")
             dispatch(authenticationUser(values.email, values.password));
         },
     });
+
+    function handleSubmitDemoLogin() {
+        let values = {
+            email: process.env.REACT_APP_DEMO_USER_EMAIL,
+            password: process.env.REACT_APP_DEMO_USER_PASSWORD
+        }
+        setLoadingType("DEMO")
+        dispatch(authenticationUser(values.email, values.password))
+    }
     
     useEffect(() => {
         if (isLoggedIn) {
@@ -85,13 +96,14 @@ const Login = () => {
                             </Container>
 
                             <Form.Group className="action_button center">
-                                <ButtonNormal type="submit" name="login" id="Login" cName="form_submit fill px-5" value="Login" loading={loading} />
+                                <ButtonNormal type="submit" name="login" id="Login" cName="form_submit fill px-5" value="Login" loading={loadingType === "NOT_DEMO" && loading} />
+                                <ButtonNormal type="button" name="login-demo" id="Login-demo" cName="form_submit mx-3" value="Try demo" loading={loadingType === "DEMO" && loading} action={handleSubmitDemoLogin} />
                             </Form.Group>
-
-                            <Container className="signup-link text-center mt-5 mb-3">
-                                <Link to={SIGNUP_LINK} className="underline">Signup for PCM</Link>
-                            </Container>
                         </Form>
+
+                        <Container className="signup-link text-center mt-5 mb-3">
+                            <Link to={SIGNUP_LINK} className="underline">Signup for PCM</Link>
+                        </Container>
                     </Col>
                 </Row>
             </Container>
