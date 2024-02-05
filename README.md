@@ -116,6 +116,26 @@ Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
 
 <br/>
 
+
+## 📊 UML Diagram
+
+![PCM Class Diagram](./documents/pcm-class-diagram.png)
+
+<br/>
+
+## 🔥 Redux State Tree
+
+![PCM Redux State Diagram](./documents/Redux_DevTools_state.jpg)
+
+<br/>
+
+
+```
+if (_.isAwesome(thisRepo)) {
+  thisRepo.star(); // thanks in advance :p
+}
+```
+
 ## 🏃🏻‍♂️ Run Locally
 
 Clone the project
