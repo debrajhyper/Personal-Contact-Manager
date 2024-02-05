@@ -27,27 +27,26 @@ Personal Contact Manager brings together all the information you need about your
 <br/>
 
 ## 🔐 Key Features
-
-### 1. Simple and unique ``UI`` & user friendly ``design``
-### 2. Implemented ``lazy loading`` for better optimization
-### 3. ``Dual login`` feature (``User`` account and ``Demo`` account)
-### 4. Secure ``JWT Authentication``
-### 5. Robust ``Password Encryption`` with [BCryptPasswordEncoder](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.html)
-### 6. Implemented ``Role-Based Authorization``
-### 7. Simple Informative ``dynamic dashboard`` for every user
-### 8. Implemented ``skeleton loading`` animation for better visualization
-### 9. Enhanced ``abort controller quick search`` functionality implemented with axios
-### 10. Added ``pagination`` for improved accessibility
-### 11. Flexible Contact Deletion with ``single contact delete`` & ``multiple contact delete`` (batch delete)
-### 12. Custom ``in-house components`` with styling & features
-### 13. Comprehensive ``complex contact`` form implementation with different data types and files.
-### 14. Implemented [formik](https://formik.org/) with custom form ``validation``
-### 15. Implemented [TinyMCE](https://www.tiny.cloud/) ``rich text editor``
-### 16. Added country field with ``country flag`` identification
-### 17. Independent external ``image storage servers`` for better efficiency
-### 18. Full implementation of ``CRUD`` functionality
-### 19. Implemented ``forgot password`` module for better useability
-### 20. Seamlessly ``user logout`` module
+  1. Simple and unique ``UI`` & user friendly ``design``
+  2. Implemented ``lazy loading`` for better optimization
+  3. ``Dual login`` feature (``User`` account and ``Demo`` account)
+  4. Secure ``JWT Authentication``
+  5. Robust ``Password Encryption`` with [BCryptPasswordEncoder](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.html)
+  6. Implemented ``Role-Based Authorization``
+  7. Simple Informative ``dynamic dashboard`` for every user
+  8. Implemented ``skeleton loading`` animation for better visualization
+  9. Enhanced ``abort controller quick search`` functionality implemented with axios
+  10. Added ``pagination`` for improved accessibility
+  11. Flexible Contact Deletion with ``single contact delete`` & ``multiple contact delete`` (batch delete)
+  12. Custom ``in-house components`` with styling & features
+  13. Comprehensive ``complex contact`` form implementation with different data types and files.
+  14. Implemented [formik](https://formik.org/) with custom form ``validation``
+  15. Implemented [TinyMCE](https://www.tiny.cloud/) ``rich text editor``
+  16. Added country field with ``country flag`` identification
+  17. Independent external ``image storage servers`` for better efficiency
+  18. Full implementation of ``CRUD`` functionality
+  19. Implemented ``forgot password`` module for better useability
+  20. Seamlessly ``user logout`` module
 
 
 <br/>
