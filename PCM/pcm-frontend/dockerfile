@@ -2,7 +2,7 @@ FROM node:alpine3.19 as build
 WORKDIR /pcm
 
 COPY package*.json ./
-RUN npm install --force
+RUN npm install
 COPY . .
 EXPOSE 3000
 
