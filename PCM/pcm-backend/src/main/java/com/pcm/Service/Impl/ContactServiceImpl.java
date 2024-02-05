@@ -371,7 +371,8 @@ public class ContactServiceImpl implements ContactService {
 			if(sessionUser.getId() == contact.getUser().getId()) {
 				System.out.println("BEFORE DELETE -> TOTAL USER CONTACTS -: " + sessionUser.getTotalContacts());
 				
-				new ImageUploader().deleteImage(contact);
+//				new ImageUploader().deleteImage(contact);
+				this.imageUploader.deleteImage(contact);
 				this.contactRepository.delete(contact);
 				
 				sessionUser.setTotalContacts(sessionUser.getTotalContacts() - 1);
