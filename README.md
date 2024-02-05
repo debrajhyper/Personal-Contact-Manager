@@ -4,6 +4,11 @@ PCM is a web portal for collecting contacts in a very smart way. Contact managem
 
 🌐 Website : [PCM](https://pcm.vercel.app/)
 
+Now you can access the ``demo`` account feel free to explore :)
+
+Must try The demo login. Go [visit now](https://pcm.vercel.app/login)
+
+
 ![1clock thumbnail](./PCM/pcm-frontend/public/template.png)
 
 <br/>
@@ -12,16 +17,8 @@ PCM is a web portal for collecting contacts in a very smart way. Contact managem
 We understand how important your contacts are, and we want to make it easier than ever to organize and manage them all in one place. That's why we built Personal Contact Manager, with a clean, simple design and powerful features that'll take you less than 10 seconds to get up and running.
 <br/>
 
-**Find contacts in seconds, not hours :**
-Personal Contact Manager has the most accurate search engine in the industry. You can find a contact in seconds with our built-in search engine that searches through all your contacts' information instantly.
-<br/>
-
 **The most user-friendly address book :**
-We've designed Personal Contact Manager to be as intuitive as possible so you can spend less time figuring out how to use it and more time managing your contacts. All of the features are laid out in a simple manner that makes it easy for you to manage your contacts from anywhere on any device.
-<br/>
-
-**Your data is safe with us :** 
-Your information is yours - not ours! We will never sell or share any of your private data with third parties because we respect your privacy. We believe that your personal information should be protected and kept safe at all times - because it's valuable!
+I designed Personal Contact Manager to be as intuitive as possible so you can spend less time figuring out how to use it and more time managing your contacts. All of the features are laid out in a simple manner that makes it easy for you to manage your contacts from anywhere on any device.
 <br/>
 
 **It's all in one place :**
@@ -29,53 +26,29 @@ Personal Contact Manager brings together all the information you need about your
 
 <br/>
 
-## Key Features of Personal Contact Manager:
+## 🔐 Key Features
 
-### 1. Secure JWT Authentication:
-    Implements secure login with JWT authentication for enhanced user data protection.
-### 2. Robust Password Encryption:
-    Utilizes bcrypt for password encryption, ensuring the secure storage of user credentials.
-### 3. Role-Based Authentications:
-    Introduces role-based authentications for users & admins, providing tailored access and permissions.
-### 4. Efficient Contact Management:
-    Displays all contacts in a simple yet effective tabular format for easy navigation.
-### 5. Debounce Quick Search Functionality:
-    Offers one-click searching for contacts, enhancing accessibility and user convenience.
-### 6. Flexible Contact Deletion:
-    Enables users to delete single, multiple, or all listed contacts as per their requirements.
-### 7. Pagination for Improved Accessibility:
-    Implements pagination for faster load times and enhanced contact accessibility.
-### 8. Isolated Contact Association:
-    Ensures proper isolation of contacts, associating each contact with its respective user.
-### 9. Country Flag Identification:
-    Enhances user experience with country flags and images for quick identification.
-### 10. Loading Animation:
-    Features a visually appealing skeleton loading animation to enhance the user experience 
-    during data loading.
-### 11. Comprehensive Contact Form:
-    Incorporates a complex form with support for various data types, 
-    including images, texts, numbers, dates, arrays, and a rich text editor 
-    for detailed contact information.
-### 12. Independent Image Storage Servers:
-    Utilizes storage servers to independently store all contact images for optimized performance.
-### 13. Forgot Password Section:
-    Includes a secure forgot password section with email verification and OTP for account recovery.
-### 14. Seamless Log Out:
-    Facilitates a log-out process with the addition of last logout details for enhanced security.
+### 1. Simple and unique ``UI`` & user friendly ``design``
+### 2. Implemented ``lazy loading`` for better optimization
+### 3. ``Dual login`` feature (``User`` account and ``Demo`` account)
+### 4. Secure ``JWT Authentication``
+### 5. Robust ``Password Encryption`` with [BCryptPasswordEncoder](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.html)
+### 6. Implemented ``Role-Based Authorization``
+### 7. Simple Informative ``dynamic dashboard`` for every user
+### 8. Implemented ``skeleton loading`` animation for better visualization
+### 9. Enhanced ``abort controller quick search`` functionality implemented with axios
+### 10. Added ``pagination`` for improved accessibility
+### 11. Flexible Contact Deletion with ``single contact delete`` & ``multiple contact delete`` (batch delete)
+### 12. Custom ``in-house components`` with styling & features
+### 13. Comprehensive ``complex contact`` form implementation with different data types and files.
+### 14. Implemented [formik](https://formik.org/) with custom form ``validation``
+### 15. Implemented [TinyMCE](https://www.tiny.cloud/) ``rich text editor``
+### 16. Added country field with ``country flag`` identification
+### 17. Independent external ``image storage servers`` for better efficiency
+### 18. Full implementation of ``CRUD`` functionality
+### 19. Implemented ``forgot password`` module for better useability
+### 20. Seamlessly ``user logout`` module
 
-
-## Key Advantages
-
-### - Quick Search Capability:
-    Find contacts in seconds using the industry's most accurate search engine.
-### - User-Friendly Design:
-    Intuitively designed for easy navigation and management of contacts on any device.
-### - Privacy Assurance:
-    Your data is secure, and we prioritize your privacy by never selling or 
-    sharing your information with third parties.
-### - All-in-One Dashboard:
-    Brings together comprehensive contact information in one easy-to-use dashboard 
-    for a seamless user experience.
 
 <br/>
 
@@ -119,6 +92,7 @@ Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
 
 **📂 Database:** MySql
 
+<br/>
 
 ## ⌛ Hosting
 

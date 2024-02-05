@@ -10,12 +10,13 @@ import { excluded } from '../../validation/validationMsg';
 
 import UseAnimations from "react-useanimations";
 import alertTriangle from 'react-useanimations/lib/alertTriangle';
+import loadingIcon from 'react-useanimations/lib/loading';
 
 import { Form, Image } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 
 const SearchBar = ({ cName, hasTouched, hasError, Mandatory }) => {
-    const { searchedContacts } = useSelector(state => state.searchContact);
+    const { loading, searchedContacts } = useSelector(state => state.searchContact);
     const dispatch = useDispatch();
 
     const [searchResult, setSearchResult] = useState('');
@@ -94,8 +95,10 @@ const SearchBar = ({ cName, hasTouched, hasError, Mandatory }) => {
                             )
                         })
                         : <div className="option-null">
-                            <UseAnimations className='me-2' animation={alertTriangle} />
-                            <span>No results found</span>
+                            <UseAnimations className='me-2' animation={loading ? loadingIcon : alertTriangle} />
+                            {
+                                loading ? <span>Loading contacts...</span> : <span>No results found</span>
+                            }
                         </div>
                 }
             </div>
