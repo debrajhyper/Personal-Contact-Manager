@@ -107,7 +107,7 @@ Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
 
 **🔍 Files Server:** [uploadcare](https://app.uploadcare.com/projects/42f221173ddffa4c7a53/files/fa2bc038-fd07-4096-adfc-02c2c54ac46b?limit=100&ordering=-datetime_uploaded)
 
-**📂 Database:** [planetscale](https://app.planetscale.com/debrajkarmakar010/pcm)
+**📂 Database:** [aiven](https://console.aiven.io/account/a49e67a78f05/project/debrajkarmakar010-26f0/services/pcm/overview)
 
 **📈 Monitoring:** [Monitoring Services](https://rp60xbp0.status.cron-job.org/)
 
