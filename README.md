@@ -9,7 +9,7 @@ Now you can access the ``demo`` account feel free to explore :)
 Must try The demo login. Go [visit now](https://pcm.vercel.app/login)
 
 
-![PCM thumbnail](./PCM/pcm-frontend/public/template.png)
+![PCM thumbnail](https://raw.githubusercontent.com/debrajhyper/Personal-Contact-Manager/main/PCM/pcm-frontend/public/template.png)
 
 <br/>
 
