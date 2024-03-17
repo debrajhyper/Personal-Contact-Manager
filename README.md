@@ -118,13 +118,13 @@ Developed by <a href="https://github.com/debrajhyper">Debraj Karmakar</a>
 
 ## 📊 UML Diagram
 
-![PCM Class Diagram](./documents/pcm-class-diagram.png)
+![PCM Class Diagram](https://raw.githubusercontent.com/debrajhyper/Personal-Contact-Manager/main/documents/pcm-class-diagram.png)
 
 <br/>
 
 ## 🔥 Redux State Tree
 
-![PCM Redux State Diagram](./documents/Redux_DevTools_state.jpg)
+![PCM Redux State Diagram](https://raw.githubusercontent.com/debrajhyper/Personal-Contact-Manager/main/documents/Redux_DevTools_state.jpg)
 
 <br/>
 
