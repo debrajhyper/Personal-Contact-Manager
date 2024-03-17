@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import Markdown from 'markdown-to-jsx';
 
@@ -14,7 +15,6 @@ const About = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
     const [markdown, setMarkdown] = useState('');
 
-    const fileName = 'README.md';
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || DASHBOARD_LINK;
@@ -26,15 +26,13 @@ const About = () => {
     }, [isLoggedIn, navigate, from]);
 
     useEffect(() => {
-        import(`../../markdown/${fileName}`)
-            .then(res => {
-                fetch(res.default)
-                    .then(res => res.text())
-                    .then(res => setMarkdown(res))
-                    .catch(error => console.log(error))
-            })
-            .catch(error => console.log(error))
-    })
+        async function getReadme() {
+            const response = await axios.get(process.env.REACT_APP_ABOUT_README_URL);
+            const data = await response.data;
+            setMarkdown(data);
+        }
+        getReadme();
+    }, [])
 
     return (
         <div className="about">
